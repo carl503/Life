@@ -1,2 +1,2 @@
-# gruppe01-ncpl-life
+# Life Simulation
 Life - eine Simulation der natürlichen Selektion
