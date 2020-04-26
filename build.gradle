@@ -38,7 +38,7 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClassName = 'ch.zhaw.pm.life.controller.App'
+    mainClassName = 'ch.zhaw.pm2.life.view.App'
 }
 
 test {
