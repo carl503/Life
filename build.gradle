@@ -9,9 +9,14 @@
 plugins {
     // Apply the java plugin to add support for Java
     id 'java'
-
+    id 'org.openjfx.javafxplugin' version '0.0.8'
     // Apply the application plugin to add support for building a CLI application.
     id 'application'
+}
+
+javafx {
+    version = "11"
+    modules = [ 'javafx.controls', 'javafx.fxml' ]
 }
 
 repositories {
@@ -33,7 +38,7 @@ dependencies {
 
 application {
     // Define the main class for the application.
-    mainClassName = 'ch.zhaw.pm.life.App'
+    mainClassName = 'ch.zhaw.pm.life.controller.App'
 }
 
 test {
