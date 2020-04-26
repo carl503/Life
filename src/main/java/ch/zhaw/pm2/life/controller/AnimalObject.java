@@ -7,8 +7,8 @@ package ch.zhaw.pm2.life.controller;
  */
 public abstract class AnimalObject extends GameObject {
 
-    private boolean eatsPlants;
-    private boolean eatsMeat;
+    protected boolean eatsPlants;
+    protected boolean eatsMeat;
 
     public AnimalObject() {
         super();

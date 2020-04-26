@@ -2,19 +2,21 @@ package ch.zhaw.pm2.life.controller;
 
 import ch.zhaw.pm2.life.model.Position;
 
+import java.util.HashMap;
+import java.util.Map;
+
 
 /**
  * GameObject is an abstract superclass of AnimalObjects and PlantObjects
  * GameObjects handles the features and methods that PlantObjects and AnimalObjects have in common
  */
 public abstract class GameObject {
-    private static final int PLANT_ENERGY = 5;
-    private static final int PLANT_ANIMAL_ENERGY = 5;
-    private static final int INIT_ENERGY_ANIMALS = 5;
-    private boolean isAlive;
-    private int currentEnergy;
-    private Position position;
-
+    protected static final int PLANT_ENERGY = 5;
+    protected static final int PLANT_ANIMAL_ENERGY = 5;
+    protected static final int INIT_ENERGY_ANIMALS = 5;
+    protected boolean isAlive;
+    protected int currentEnergy;
+    protected Position position;
 
 
 
