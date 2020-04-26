@@ -60,6 +60,31 @@ public abstract class GameObject {
         return position;
     }
 
+    /**
+     * Chooses 1 of the 8 or less fields around the AnimalObject
+     * Is called when a plant reproduces itself next to its current Position
+     * Is called before a move is made by an animal
+     */
+    public void chooseRandomNeighbourPosition() {
+
+    }
+
+    /**
+     * Increases energy by a certain amount. Gets called when an animal eats a plant or another animal
+     * (Is called after a certain amount of turns - after X Energy the plants reproduces itself)
+     */
+    public void increaseEnergy() {
+
+    }
+
+    /**
+     * decreases energy by a certain amount. Gets called when an animal makes a move
+     * (or a plant is not fully eaten - phase - 2/3)
+     */
+    public void decreaseEnergy() {
+
+    }
+
     /*
     public boolean setInitialPosition(int xValue, int yValue){
         boolean result = false;
