@@ -1,25 +1,24 @@
 package ch.zhaw.pm2.life.controller;
 
+import ch.zhaw.pm2.life.model.Board;
+import ch.zhaw.pm2.life.view.BoardUI;
 import javafx.fxml.FXML;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.Color;
 
 public class LifeWindowController {
 
-    private Canvas canvas;
+    private final int width = 800;
+    private final int height = 800;
+    private final int rows = 16;
+    private final int columns = 16;
+
+    private BoardUI ui;
     @FXML VBox board;
 
     @FXML public void initialize() {
-        canvas = new Canvas(200, 200);
-        draw();
-        board.getChildren().add(canvas);
-    }
-
-    private void draw() {
-        GraphicsContext gc = canvas.getGraphicsContext2D();
-        gc.setFill(Color.RED);
-        gc.fillRect(0, 0, 400, 400);
+        Board board = new Board(rows, columns);
+        ui = new BoardUI(width, height, board);
+        this.board.getChildren().add(ui.getCanvas());
+        ui.draw();
     }
 }
