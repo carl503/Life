@@ -15,7 +15,7 @@ public abstract class AnimalObject extends GameObject {
     }
 
     public void makeAMove(){
-        chooseRandomNeighbourField();
+        chooseRandomNeighbourPosition();
         move();
     }
 
@@ -23,20 +23,15 @@ public abstract class AnimalObject extends GameObject {
      * Is called when the animal moves
      */
     public void move() {
-
+        decreaseEnergy();
     }
 
     /**
      * Is called when the animal eats something
      */
     public void eat() {
-
+        increaseEnergy();
     }
 
-    /**
-     * Chooses 1 of the 8 or less fields around the AnimalObject
-     */
-    public void chooseRandomNeighbourField() {
-
-    }
+    
 }
