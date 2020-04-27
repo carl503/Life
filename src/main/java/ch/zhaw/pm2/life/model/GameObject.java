@@ -105,8 +105,16 @@ public abstract class GameObject {
 
 
     private List<Position> getNeighbourFields() {
-        
-        return new ArrayList<>();
+        List<Position> neighbours = new ArrayList<>();
+        for(Direction direction : Direction.values()) {
+            int neighbourX = position.getX() + direction.position.getX();
+            int neighbourY = position.getY() + direction.position.getY();
+            if(neighbourX >= 0 && neighbourX < LifeWindowController.COLUMNS
+                    && neighbourY >= 0 && neighbourY < LifeWindowController.ROWS) {
+                neighbours.add(new Position(neighbourX, neighbourY));
+            }
+        }
+        return neighbours;
     }
 
     /**
