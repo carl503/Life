@@ -12,4 +12,12 @@ public class Position {
         this.xValue = xValue;
         this.yValue = yValue;
     }
+
+    public int getX() {
+        return xValue;
+    }
+
+    public int getY() {
+        return yValue;
+    }
 }
