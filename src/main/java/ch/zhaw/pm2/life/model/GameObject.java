@@ -34,6 +34,23 @@ public abstract class GameObject {
         calculateRandomPointOnField();
     }
 
+    private enum Direction {
+        DOWN_LEFT(new Position(-1, 1)),
+        DOWN(new Position(0, 1)),
+        DOWN_RIGHT(new Position(1, 1)),
+        LEFT(new Position(-1, 0)),
+        NONE(new Position(0, 0)),
+        RIGHT(new Position(1, 0)),
+        UP_LEFT(new Position(-1, -1)),
+        UP(new Position(0, -1)),
+        UP_RIGHT(new Position(1, -1));
+
+        public final Position position;
+        Direction(final Position p) {
+            position = p;
+        }
+    }
+
     /**
      * Calculates a random Point in the field
      */
