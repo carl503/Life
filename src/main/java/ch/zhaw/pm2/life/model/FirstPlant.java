@@ -1,4 +1,4 @@
-package ch.zhaw.pm2.life.controller;
+package ch.zhaw.pm2.life.model;
 
 /**
  * Implementation of the first kind of plant

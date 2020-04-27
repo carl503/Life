@@ -1,4 +1,4 @@
-package ch.zhaw.pm2.life.controller;
+package ch.zhaw.pm2.life.model;
 
 /**
  * PlantObject extends GameObject

@@ -1,7 +1,5 @@
 package ch.zhaw.pm2.life.model;
 
-import ch.zhaw.pm2.life.controller.GameObject;
-
 import java.util.HashSet;
 import java.util.Set;
 

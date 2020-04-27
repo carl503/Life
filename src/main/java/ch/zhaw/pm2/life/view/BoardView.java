@@ -1,6 +1,6 @@
 package ch.zhaw.pm2.life.view;
 
-import ch.zhaw.pm2.life.controller.GameObject;
+import ch.zhaw.pm2.life.model.GameObject;
 import ch.zhaw.pm2.life.model.Board;
 import ch.zhaw.pm2.life.model.Position;
 import javafx.geometry.Dimension2D;
