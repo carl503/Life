@@ -1,7 +1,9 @@
 package ch.zhaw.pm2.life.model;
 
-import java.util.ArrayList;
-import java.util.List;
+import ch.zhaw.pm2.life.controller.GameObject;
+
+import java.util.HashSet;
+import java.util.Set;
 
 /**
  * This model class represents the board containing all the game objects.
@@ -10,7 +12,7 @@ import java.util.List;
 public class Board {
     private final int rows;
     private final int columns;
-//    List<LifeForm> lifeForms = new ArrayList<>();
+    private final Set<GameObject> gameObjects = new HashSet<>();
 
     /**
      * Default constructor.
@@ -22,9 +24,21 @@ public class Board {
         this.columns = columns;
     }
 
-//    public void addLifeForm(LifeForm lifeForm) {
-//        lifeForms.add(lifeForm);
-//    }
+    /**
+     * Adds a game object to the set.
+     * @param gameObject {@link GameObject}
+     */
+    public void addGameObject(GameObject gameObject) {
+        gameObjects.add(gameObject);
+    }
+
+    /**
+     * Removes a game object from the set.
+     * @param gameObject
+     */
+    public void removeGameObject(GameObject gameObject) {
+        gameObjects.remove(gameObject);
+    }
 
     /**
      * Returns the number of rows.
@@ -42,7 +56,11 @@ public class Board {
         return columns;
     }
 
-//    public List<LifeForm> getLifeForms() {
-//        return lifeForms;
-//    }
+    /**
+     * Returns a set of game objects
+     * @return set of game objects.
+     */
+    public Set<GameObject> getGameObjects() {
+        return gameObjects;
+    }
 }
