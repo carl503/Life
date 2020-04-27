@@ -5,6 +5,10 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
 
+/**
+ * This class displays the board.
+ * @author lubojcar, meletlea
+ */
 public class BoardUI {
     private final Board board;
     private final Canvas canvas;
@@ -14,6 +18,12 @@ public class BoardUI {
     private final int rows;
     private final int columns;
 
+    /**
+     * Default constructor.
+     * @param width The width in pixel.
+     * @param height The height in pixel.
+     * @param board The board containing the game objects {@see Board}.
+     */
     public BoardUI(int width, int height, Board board) {
         canvas = new Canvas(width, height);
         this.width = width;
@@ -24,10 +34,17 @@ public class BoardUI {
         gc = canvas.getGraphicsContext2D();
     }
 
+    /**
+     * Returns the canvas component.
+     * @return canvas
+     */
     public Canvas getCanvas() {
         return canvas;
     }
 
+    /**
+     * Draw the board on the canvas.
+     */
     public void draw() {
         drawLines();
         drawLifeForms();
