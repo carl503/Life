@@ -51,8 +51,8 @@ public class BoardUI {
 //
 //            gc.setFill(lifeForm.getColor());
             gc.setFill(Color.BLUE);
-            double maxWidth = width / columns;
-            double maxHeight = height / rows;
+            double maxWidth = width / (double) columns;
+            double maxHeight = height / (double) rows;
             double scaling = 0.5;
             double translateFactor = (1 - scaling) * 0.5;
             double translatedX = position.getX() + maxHeight * translateFactor;
