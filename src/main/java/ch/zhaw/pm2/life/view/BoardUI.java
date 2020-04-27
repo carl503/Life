@@ -41,10 +41,10 @@ public class BoardUI {
      */
     public void draw() {
         drawLines();
-        drawLifeForms();
+        drawGameObjects();
     }
 
-    private void drawLifeForms() {
+    private void drawGameObjects() {
         for (GameObject gameObject : board.getGameObjects()) {
             Position position = gameObject.getPosition();
 //            double size = lifeForm.getSize() / 10;
