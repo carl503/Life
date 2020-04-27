@@ -14,8 +14,6 @@ public class BoardUI extends Canvas {
     private final Board board;
     private final int width;
     private final int height;
-    private final int rows;
-    private final int columns;
 
     /**
      * Default constructor.
@@ -27,8 +25,6 @@ public class BoardUI extends Canvas {
         this.width = width;
         this.height = height;
         this.board = board;
-        this.rows = board.getRows();
-        this.columns = board.getColumns();
         setHeight(height);
         setWidth(width);
     }
@@ -48,8 +44,8 @@ public class BoardUI extends Canvas {
 //
 //            gc.setFill(lifeForm.getColor());
             getGraphicsContext2D().setFill(Color.BLUE);
-            double maxWidth = width / (double) columns;
-            double maxHeight = height / (double) rows;
+            double maxWidth = width / (double) board.getColumns();
+            double maxHeight = height / (double) board.getRows();
             double scaling = 0.5;
             double translateFactor = (1 - scaling) * 0.5;
             double translatedX = position.getX() + maxHeight * translateFactor;
