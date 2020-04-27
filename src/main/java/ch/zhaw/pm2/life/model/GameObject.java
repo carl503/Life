@@ -4,6 +4,8 @@ import ch.zhaw.pm2.life.controller.LifeWindowController;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -25,10 +27,6 @@ public abstract class GameObject {
      * Valid values: 3-10
      */
     protected int size;
-
-    public int getSize() {
-        return size;
-    }
 
     public GameObject() {
         //size = random.nextInt(MAX_SIZE - 2) + 3;
@@ -98,7 +96,19 @@ public abstract class GameObject {
      */
     public abstract void decreaseEnergy();
 
+    /**
+     * Returns the color of the GameObject
+     * @return objectColor
+     */
     public Color getColor() {
         return objectColor;
+    }
+
+    /**
+     * Returns the size of the GameObject
+     * @return size
+     */
+    public int getSize() {
+        return size;
     }
 }

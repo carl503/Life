@@ -10,6 +10,7 @@ public class MeatEater extends AnimalObject {
     public MeatEater() {
         super();
         this.objectColor = Color.RED;
+        isMeatEater = true;
 
     }
 
