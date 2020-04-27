@@ -43,14 +43,17 @@ public class BoardView extends Canvas {
     private void drawGameObjects() {
         for (GameObject gameObject : board.getGameObjects()) {
             Position position = gameObject.getPosition();
-//            double size = lifeForm.getSize() / 10;
-//
 //            gc.setFill(lifeForm.getColor());
             getGraphicsContext2D().setFill(Color.BLUE);
-            double scaling = 0.5;
+            double scaling = gameObject.getSize() * 0.1;
             double translateFactor = (1 - scaling) * 0.5;
-            double translatedX = position.getX() + fieldDimension.getHeight() * translateFactor;
-            double translatedY = position.getY() + fieldDimension.getWidth() * translateFactor;
+
+            double fieldPosX = position.getX() * fieldDimension.getWidth();
+            double fieldPosY = position.getY() * fieldDimension.getHeight();
+
+            double translatedX = fieldPosX + fieldDimension.getWidth() * translateFactor;
+            double translatedY = fieldPosY + fieldDimension.getHeight() * translateFactor;
+
             getGraphicsContext2D().fillOval(translatedX, translatedY, fieldDimension.getWidth() * scaling, fieldDimension.getHeight() * scaling);
        }
     }
