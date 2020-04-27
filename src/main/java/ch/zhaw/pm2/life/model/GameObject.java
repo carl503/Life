@@ -1,6 +1,8 @@
 package ch.zhaw.pm2.life.model;
 
 import ch.zhaw.pm2.life.controller.LifeWindowController;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 
 import java.util.Random;
 
@@ -15,6 +17,9 @@ public abstract class GameObject {
     protected boolean isAlive;
     protected int currentEnergy;
     protected Position position;
+    protected Color objectColor;
+
+    private static final int BASIC_SIZE = 5;
     private Random random = new Random();
     /**
      * Valid values: 3-10
@@ -26,7 +31,8 @@ public abstract class GameObject {
     }
 
     public GameObject() {
-        size = random.nextInt(MAX_SIZE - 2) + 3;
+        //size = random.nextInt(MAX_SIZE - 2) + 3;
+        size = BASIC_SIZE;
         calculateRandomPointOnField();
     }
 
@@ -92,4 +98,7 @@ public abstract class GameObject {
      */
     public abstract void decreaseEnergy();
 
+    public Color getColor() {
+        return objectColor;
+    }
 }

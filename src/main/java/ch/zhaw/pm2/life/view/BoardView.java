@@ -44,7 +44,7 @@ public class BoardView extends Canvas {
         for (GameObject gameObject : board.getGameObjects()) {
             Position position = gameObject.getPosition();
 //            gc.setFill(lifeForm.getColor());
-            getGraphicsContext2D().setFill(Color.BLUE);
+            getGraphicsContext2D().setFill(gameObject.getColor());
             double scaling = gameObject.getSize() * 0.1;
             double translateFactor = (1 - scaling) * 0.5;
 

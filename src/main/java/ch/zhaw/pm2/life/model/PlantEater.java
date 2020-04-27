@@ -1,5 +1,7 @@
 package ch.zhaw.pm2.life.model;
 
+import javafx.scene.paint.Color;
+
 /**
  * First Version of a PlantEater animal that extends AnimalObject
  */
@@ -7,6 +9,8 @@ public class PlantEater extends AnimalObject {
 
     public PlantEater() {
         super();
+        this.objectColor = Color.LIGHTSEAGREEN;
+
     }
 
     /**
