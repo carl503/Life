@@ -18,7 +18,7 @@ public class LifeWindowController {
     @FXML public void initialize() {
         Board board = new Board(rows, columns);
         ui = new BoardUI(width, height, board);
-        this.board.getChildren().add(ui.getCanvas());
+        this.board.getChildren().add(ui);
         ui.draw();
     }
 }
