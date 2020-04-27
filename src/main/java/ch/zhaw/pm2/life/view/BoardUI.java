@@ -1,6 +1,8 @@
 package ch.zhaw.pm2.life.view;
 
+import ch.zhaw.pm2.life.controller.GameObject;
 import ch.zhaw.pm2.life.model.Board;
+import ch.zhaw.pm2.life.model.Position;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.paint.Color;
@@ -43,12 +45,20 @@ public class BoardUI {
     }
 
     private void drawLifeForms() {
-//        for (LifeForm lifeForm : board.getLifeForms()) {
+        for (GameObject gameObject : board.getGameObjects()) {
+            Position position = gameObject.getPosition();
 //            double size = lifeForm.getSize() / 10;
 //
 //            gc.setFill(lifeForm.getColor());
-//            gc.fillOval(0, 0, (width/columns) * 0.5  , (height/rows) * 0.5);
-//        }
+            gc.setFill(Color.BLUE);
+            double maxWidth = width / columns;
+            double maxHeight = height / rows;
+            double scaling = 0.5;
+            double translateFactor = (1 - scaling) * 0.5;
+            double translatedX = position.getX() + maxHeight * translateFactor;
+            double translatedY = position.getY() + maxWidth * translateFactor;
+            gc.fillOval(translatedX, translatedY, maxWidth * scaling, maxHeight * scaling);
+       }
     }
 
     private void drawLines() {
