@@ -21,7 +21,7 @@ public abstract class GameObject {
 
 
     public GameObject() {
-
+        calculateRandomPointOnField();
     }
 
     /**
