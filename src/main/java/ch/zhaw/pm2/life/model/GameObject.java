@@ -63,7 +63,7 @@ public abstract class GameObject {
     }
 
     /**
-     * Chooses 1 of the 8 or less fields around the AnimalObject
+     * Chooses 1 of the 8 or less fields around the GameObject
      * Is called when a plant reproduces itself next to its current Position
      * Is called before a move is made by an animal
      */
