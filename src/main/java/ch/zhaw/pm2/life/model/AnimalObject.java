@@ -16,9 +16,12 @@ public abstract class AnimalObject extends GameObject {
         super();
     }
 
-    public void makeAMove(){
+    /**
+     * Is called when the animal moves
+     */
+    public void move() {
         chooseRandomNeighbourPosition();
-        move();
+        decreaseEnergy();
     }
 
     /**
