@@ -84,23 +84,3 @@ public abstract class GameObject {
     public abstract void decreaseEnergy();
 
 }
-
-    /*
-    public boolean setInitialPosition(int xValue, int yValue){
-        boolean result = false;
-        if(isPointFree(xValue, yValue)) {
-            this.position = new Position(xValue, yValue);
-            result = isPointFree(xValue, yValue);
-        }
-        return result;
-    }
-
-    public void isPointFree(int xValue, int yValue) {
-        boolean result = false;
-        if() {
-
-        }
-
-    }
-
-     */
