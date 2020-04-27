@@ -10,7 +10,7 @@ import javafx.scene.paint.Color;
  * This class displays the board.
  * @author lubojcar, meletlea
  */
-public class BoardUI extends Canvas {
+public class BoardView extends Canvas {
     private final Board board;
     private final int width;
     private final int height;
@@ -21,7 +21,7 @@ public class BoardUI extends Canvas {
      * @param height The height in pixel.
      * @param board The board containing the game objects {@see Board}.
      */
-    public BoardUI(int width, int height, Board board) {
+    public BoardView(int width, int height, Board board) {
         this.width = width;
         this.height = height;
         this.board = board;
