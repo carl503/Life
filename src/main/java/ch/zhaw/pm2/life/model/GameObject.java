@@ -10,6 +10,8 @@ import java.util.Random;
  */
 public abstract class GameObject {
 
+    private static final int MAX_SIZE = 10;
+
     protected boolean isAlive;
     protected int currentEnergy;
     protected Position position;
@@ -19,8 +21,12 @@ public abstract class GameObject {
      */
     protected int size;
 
+    public int getSize() {
+        return size;
+    }
 
     public GameObject() {
+        size = random.nextInt(MAX_SIZE - 2) + 3;
         calculateRandomPointOnField();
     }
 
