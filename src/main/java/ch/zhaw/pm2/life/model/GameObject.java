@@ -13,7 +13,11 @@ public abstract class GameObject {
     protected boolean isAlive;
     protected int currentEnergy;
     protected Position position;
-
+    private Random random = new Random();
+    /**
+     * Valid values: 3-10
+     */
+    protected int size;
 
 
     public GameObject() {
@@ -24,7 +28,10 @@ public abstract class GameObject {
      * Calculates a random Point in the field
      */
     public void calculateRandomPointOnField() {
-
+        // TODO: exclude already occupied fields
+        int xPos = random.nextInt(LifeWindowController.ROWS + 1);
+        int yPos = random.nextInt(LifeWindowController.COLUMNS + 1);
+        position = new Position(xPos, yPos);
     }
 
     /**
