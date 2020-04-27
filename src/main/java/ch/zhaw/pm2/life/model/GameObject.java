@@ -75,17 +75,15 @@ public abstract class GameObject {
      * Increases energy by a certain amount. Gets called when an animal eats a plant or another animal
      * (Is called after a certain amount of turns - after X Energy the plants reproduces itself)
      */
-    public void increaseEnergy() {
-
-    }
+    public abstract void increaseEnergy();
 
     /**
      * decreases energy by a certain amount. Gets called when an animal makes a move
      * (or a plant is not fully eaten - phase - 2/3)
      */
-    public void decreaseEnergy() {
+    public abstract void decreaseEnergy();
 
-    }
+}
 
     /*
     public boolean setInitialPosition(int xValue, int yValue){
@@ -106,4 +104,3 @@ public abstract class GameObject {
     }
 
      */
-}
