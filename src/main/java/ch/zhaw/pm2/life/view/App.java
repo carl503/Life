@@ -10,10 +10,18 @@ import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Main class.
+ * @author lubojcar
+ */
 public class App extends Application {
 
     private static final Logger LOGGER = Logger.getLogger(App.class.getName());
 
+    /**
+     * Entry point for the application.
+     * @param args Array of {@link String}.
+     */
     public static void main(String[] args) {
         LOGGER.info("Starting the application");
         launch(args);
