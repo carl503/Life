@@ -25,21 +25,13 @@ public class BoardUI {
      * @param board The board containing the game objects {@see Board}.
      */
     public BoardUI(int width, int height, Board board) {
-        canvas = new Canvas(width, height);
         this.width = width;
         this.height = height;
         this.board = board;
         this.rows = board.getRows();
         this.columns = board.getColumns();
+        canvas = new Canvas(width, height);
         gc = canvas.getGraphicsContext2D();
-    }
-
-    /**
-     * Returns the canvas component.
-     * @return canvas
-     */
-    public Canvas getCanvas() {
-        return canvas;
     }
 
     /**
@@ -70,5 +62,13 @@ public class BoardUI {
         for (int i = 0; i <= height; i+= height / board.getRows()) {
             gc.strokeLine(0, i, width, i);
         }
+    }
+
+    /**
+     * Returns the canvas component.
+     * @return canvas
+     */
+    public Canvas getCanvas() {
+        return canvas;
     }
 }
