@@ -25,16 +25,16 @@ public abstract class AnimalObject extends GameObject {
     }
 
     /**
-     * Is called when the animal moves
+     * Is called when the animal eats meat
      */
-    public void move() {
-        decreaseEnergy();
+    public void eat(AnimalObject meat) {
+        increaseEnergy();
     }
 
     /**
-     * Is called when the animal eats something
+     * Is called when the animal eats a plant
      */
-    public void eat() {
+    public void eat(PlantObject plant) {
         increaseEnergy();
     }
 
