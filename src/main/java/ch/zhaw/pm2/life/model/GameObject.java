@@ -29,8 +29,8 @@ public abstract class GameObject {
      */
     public void calculateRandomPointOnField() {
         // TODO: exclude already occupied fields
-        int xPos = random.nextInt(LifeWindowController.ROWS + 1);
-        int yPos = random.nextInt(LifeWindowController.COLUMNS + 1);
+        int xPos = random.nextInt(LifeWindowController.ROWS);
+        int yPos = random.nextInt(LifeWindowController.COLUMNS);
         position = new Position(xPos, yPos);
     }
 
