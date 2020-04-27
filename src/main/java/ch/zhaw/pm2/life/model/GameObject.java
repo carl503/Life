@@ -11,9 +11,7 @@ import java.util.Map;
  * GameObjects handles the features and methods that PlantObjects and AnimalObjects have in common
  */
 public abstract class GameObject {
-    protected static final int PLANT_ENERGY = 5;
-    protected static final int PLANT_ANIMAL_ENERGY = 5;
-    protected static final int INIT_ENERGY_ANIMALS = 5;
+
     protected boolean isAlive;
     protected int currentEnergy;
     protected Position position;

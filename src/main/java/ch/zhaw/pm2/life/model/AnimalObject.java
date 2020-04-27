@@ -7,6 +7,8 @@ package ch.zhaw.pm2.life.model;
  */
 public abstract class AnimalObject extends GameObject {
 
+    protected static final int INIT_ENERGY_ANIMALS = 5;
+
     protected boolean eatsPlants;
     protected boolean eatsMeat;
 

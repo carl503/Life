@@ -6,6 +6,8 @@ package ch.zhaw.pm2.life.model;
  */
 public class PlantObject extends GameObject{
 
+    protected static final int PLANT_ENERGY = 5;
+
     public PlantObject() {
         super();
     }
