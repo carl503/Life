@@ -1,10 +1,8 @@
 package ch.zhaw.pm2.life.model;
 
-import ch.zhaw.pm2.life.model.Position;
+import ch.zhaw.pm2.life.controller.LifeWindowController;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import java.util.Random;
 
 /**
  * GameObject is an abstract superclass of AnimalObjects and PlantObjects
