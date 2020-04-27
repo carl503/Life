@@ -29,7 +29,7 @@ public class MeatEater extends AnimalObject {
      */
     @Override
     public void decreaseEnergy() {
-
+        currentEnergy--;
     }
 
 

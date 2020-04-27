@@ -80,8 +80,16 @@ public abstract class GameObject {
      * Is called when a plant reproduces itself next to its current Position
      * Is called before a move is made by an animal
      */
-    public void chooseRandomNeighbourPosition() {
+    public Position chooseRandomNeighbourPosition() {
+        List<Position> neighbours = getNeighbourFields();
+        int neighbourIndex = random.nextInt(neighbours.size());
+        return neighbours.get(neighbourIndex);
+    }
 
+
+    private List<Position> getNeighbourFields() {
+        
+        return new ArrayList<>();
     }
 
     /**

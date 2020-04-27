@@ -21,7 +21,7 @@ public abstract class AnimalObject extends GameObject implements Eatable {
      * Is called when the animal moves
      */
     public void move() {
-        chooseRandomNeighbourPosition();
+        position = chooseRandomNeighbourPosition();
         decreaseEnergy();
     }
 
