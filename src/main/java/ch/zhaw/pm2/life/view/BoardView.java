@@ -3,19 +3,23 @@ package ch.zhaw.pm2.life.view;
 import ch.zhaw.pm2.life.model.GameObject;
 import ch.zhaw.pm2.life.model.Board;
 import ch.zhaw.pm2.life.model.Position;
+import javafx.beans.InvalidationListener;
 import javafx.geometry.Dimension2D;
 import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
+
+import java.beans.PropertyChangeListener;
 
 /**
  * This class displays the board.
  * @author lubojcar, meletlea
  */
-public class BoardView extends Canvas {
+public class BoardView extends Pane {
     private final Board board;
-    private final int width;
-    private final int height;
-    private final Dimension2D fieldDimension;
+    private final GraphicsContext graphicsContext;
+    private Dimension2D fieldDimension;
 
     /**
      * Default constructor.
@@ -24,18 +28,28 @@ public class BoardView extends Canvas {
      * @param board The board containing the game objects {@see Board}.
      */
     public BoardView(int width, int height, Board board) {
-        this.width = width;
-        this.height = height;
         this.board = board;
         setHeight(height);
         setWidth(width);
-        fieldDimension = new Dimension2D(width / (double) board.getColumns(), height / (double) board.getRows());
+
+        Canvas canvas = new Canvas();
+        canvas.widthProperty().bind(this.widthProperty());
+        canvas.heightProperty().bind(this.heightProperty());
+
+        InvalidationListener resizeListener = observable -> draw();
+        canvas.widthProperty().addListener(resizeListener);
+        canvas.heightProperty().addListener(resizeListener);
+
+        graphicsContext = canvas.getGraphicsContext2D();
+        getChildren().add(canvas);
     }
 
     /**
      * Draw the board on the canvas.
      */
     public void draw() {
+        fieldDimension = new Dimension2D(getWidth() / (double) board.getColumns(), getHeight()/ (double) board.getRows());
+        graphicsContext.clearRect(0, 0, getWidth(), getHeight());
         drawLines();
         drawGameObjects();
     }
@@ -43,8 +57,7 @@ public class BoardView extends Canvas {
     private void drawGameObjects() {
         for (GameObject gameObject : board.getGameObjects()) {
             Position position = gameObject.getPosition();
-//            gc.setFill(lifeForm.getColor());
-            getGraphicsContext2D().setFill(gameObject.getColor());
+
             double scaling = gameObject.getSize() * 0.1;
             double translateFactor = (1 - scaling) * 0.5;
 
@@ -54,20 +67,21 @@ public class BoardView extends Canvas {
             double translatedX = fieldPosX + fieldDimension.getWidth() * translateFactor;
             double translatedY = fieldPosY + fieldDimension.getHeight() * translateFactor;
 
-            getGraphicsContext2D().fillOval(translatedX, translatedY, fieldDimension.getWidth() * scaling, fieldDimension.getHeight() * scaling);
+            graphicsContext.setFill(gameObject.getColor());
+            graphicsContext.fillOval(translatedX, translatedY, fieldDimension.getWidth() * scaling, fieldDimension.getHeight() * scaling);
        }
     }
 
     private void drawLines() {
-        getGraphicsContext2D().setLineWidth(1);
-        getGraphicsContext2D().setFill(Color.BLACK);
+        graphicsContext.setLineWidth(1);
+        graphicsContext.setFill(Color.BLACK);
 
-        for (int i = 0; i <= width; i+= fieldDimension.getWidth()) {
-            getGraphicsContext2D().strokeLine(i, 0, i, height);
+        for (double i = 0; i <= getWidth(); i+= fieldDimension.getWidth()) {
+            graphicsContext.strokeLine(i, 0, i, getHeight());
         }
 
-        for (int i = 0; i <= height; i+= fieldDimension.getHeight()) {
-            getGraphicsContext2D().strokeLine(0, i, width, i);
+        for (double i = 0; i <= getHeight(); i+= fieldDimension.getHeight()) {
+            graphicsContext.strokeLine(0, i, getWidth(), i);
         }
     }
 
