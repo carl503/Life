@@ -3,6 +3,7 @@ package ch.zhaw.pm2.life.view;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCombination;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -34,6 +35,8 @@ public class App extends Application {
             URL fxmlPath = getClass().getClassLoader().getResource("Window.fxml");
             primaryStage.setScene(new Scene(new FXMLLoader(fxmlPath).load()));
             primaryStage.setTitle("Life - simulation");
+            primaryStage.setFullScreen(true);
+            primaryStage.setFullScreenExitKeyCombination(KeyCombination.NO_MATCH);
             primaryStage.show();
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "Unable to load the fxml file", e);
