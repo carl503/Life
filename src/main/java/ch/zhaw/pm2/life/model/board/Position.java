@@ -1,4 +1,4 @@
-package ch.zhaw.pm2.life.model;
+package ch.zhaw.pm2.life.model.board;
 
 /**
  * Position Objects represent the positions of the GameObjects in the field

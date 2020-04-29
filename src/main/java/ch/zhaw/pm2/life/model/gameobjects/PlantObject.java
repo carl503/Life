@@ -1,4 +1,6 @@
-package ch.zhaw.pm2.life.model;
+package ch.zhaw.pm2.life.model.gameobjects;
+
+import ch.zhaw.pm2.life.model.lifeforms.Eatable;
 
 /**
  * PlantObject extends GameObject

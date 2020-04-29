@@ -1,8 +1,8 @@
 package ch.zhaw.pm2.life.view;
 
-import ch.zhaw.pm2.life.model.GameObject;
-import ch.zhaw.pm2.life.model.Board;
-import ch.zhaw.pm2.life.model.Position;
+import ch.zhaw.pm2.life.model.gameobjects.GameObject;
+import ch.zhaw.pm2.life.model.board.Board;
+import ch.zhaw.pm2.life.model.board.Position;
 import javafx.geometry.Dimension2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Color;

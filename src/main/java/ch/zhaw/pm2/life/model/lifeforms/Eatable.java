@@ -1,4 +1,4 @@
-package ch.zhaw.pm2.life.model;
+package ch.zhaw.pm2.life.model.lifeforms;
 
 public interface Eatable {
 
