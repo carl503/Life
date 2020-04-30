@@ -1,6 +1,6 @@
 package ch.zhaw.pm2.life.controller;
 
-import ch.zhaw.pm2.life.model.board.Board;
+import ch.zhaw.pm2.life.model.Board;
 
 public class Game {
     private Board board;

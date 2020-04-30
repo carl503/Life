@@ -1,6 +1,5 @@
 package ch.zhaw.pm2.life.model.lifeform.plant;
 
-import ch.zhaw.pm2.life.model.lifeform.plant.PlantObject;
 import javafx.scene.paint.Color;
 
 /**
