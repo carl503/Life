@@ -1,14 +1,13 @@
 package ch.zhaw.pm2.life.model.gameobjects;
 
 
-import ch.zhaw.pm2.life.model.lifeforms.Eatable;
 import ch.zhaw.pm2.life.model.board.Position;
 
 /**
  * AnimalObjects extends GameObject
  * AnimalObjects handles all features and methods that PlantEater and MeatEater have in common
  */
-public abstract class AnimalObject extends GameObject implements Eatable {
+public abstract class AnimalObject extends LifeForm {
 
     protected static final int INIT_ENERGY_ANIMALS = 5;
 
@@ -34,25 +33,13 @@ public abstract class AnimalObject extends GameObject implements Eatable {
     /**
      * Is called when the animal eats meat
      */
-    public void eat(Eatable food) {
-        GameObject gameObject = castEatableToGameObject(food);
-        if(isMeatEater && food.getFoodType() == FoodType.MEAT || isPlantEater && food.getFoodType() == FoodType.PLANT) {
-            currentEnergy = currentEnergy + gameObject.getCurrentEnergy();
-            gameObject.killObject();
+    public void eat(LifeForm lifeForm) {
+        if(isMeatEater && lifeForm.getFoodType() == FoodType.MEAT || isPlantEater && lifeForm.getFoodType() == FoodType.PLANT) {
+            currentEnergy = currentEnergy + lifeForm.getCurrentEnergy();
+            lifeForm.killObject();
         } else {
             System.out.println("");
         }
-    }
-
-    private GameObject castEatableToGameObject(Eatable food) {
-        GameObject gameObject = null;
-
-        if(food instanceof AnimalObject || food instanceof PlantObject) {
-            gameObject = (GameObject) food;
-        } else {
-            //TODO Error
-        }
-        return gameObject;
     }
 
     @Override
