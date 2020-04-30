@@ -10,6 +10,10 @@ public class Game {
         this.board = board;
     }
 
+    public void init() {
+        //todo
+    }
+
     public void stop() {
         ongoing = false;
     }
