@@ -1,6 +1,12 @@
 package ch.zhaw.pm2.life.controller;
 
-public class Game {
+import ch.zhaw.pm2.life.model.board.Board;
 
-    //Yeet
+public class Game {
+    private Board board;
+
+    public Game(Board board) {
+        this.board = board;
+    }
+
 }
