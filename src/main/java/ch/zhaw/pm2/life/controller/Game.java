@@ -14,4 +14,8 @@ public class Game {
         ongoing = false;
     }
 
+    private void collision() {
+        //todo
+    }
+
 }
