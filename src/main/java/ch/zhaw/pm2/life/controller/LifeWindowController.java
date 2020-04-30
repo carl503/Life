@@ -14,11 +14,13 @@ public class LifeWindowController {
     public static final int COLUMNS = 16;
 
     private BoardView boardView;
+    private Game game;
     @FXML private VBox board;
     @FXML private Pane rootPane;
 
     @FXML public void initialize() {
         Board board = new Board(ROWS, COLUMNS);
+        game = new Game(board);
         boardView = new BoardView(width, height, board);
         this.board.getChildren().add(boardView);
         boardView.draw();
@@ -26,5 +28,9 @@ public class LifeWindowController {
 
     @FXML public void nextRound() {
         //todo
+    }
+
+    @FXML public void stop() {
+        game.stop();
     }
 }
