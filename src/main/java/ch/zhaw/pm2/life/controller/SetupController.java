@@ -29,9 +29,9 @@ public class SetupController {
             FXMLLoader loader = new FXMLLoader(fxmlPath);
             Stage stage = (Stage) rootPane.getScene().getWindow();
             stage.setScene(new Scene(loader.load()));
-            stage.setTitle("Life - simulation");
+            stage.setTitle("Life - Simulation");
             stage.show();
-            LifeWindowController controller = ((LifeWindowController) loader.getController());
+            LifeWindowController controller = loader.getController();
             controller.setSetupController(this);
             controller.initGame();
         } catch (IOException e) {
