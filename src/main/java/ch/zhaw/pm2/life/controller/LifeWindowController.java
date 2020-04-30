@@ -3,7 +3,6 @@ package ch.zhaw.pm2.life.controller;
 import ch.zhaw.pm2.life.model.Board;
 import ch.zhaw.pm2.life.view.BoardView;
 import javafx.fxml.FXML;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 public class LifeWindowController {
@@ -16,7 +15,6 @@ public class LifeWindowController {
     private BoardView boardView;
     private Game game;
     @FXML private VBox board;
-    @FXML private Pane rootPane;
 
     @FXML public void initialize() {
         Board board = new Board(ROWS, COLUMNS);
