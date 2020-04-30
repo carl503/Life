@@ -20,7 +20,8 @@ public class LifeWindowController {
 
     @FXML public void initialize() {
         Board board = new Board(ROWS, COLUMNS);
-        game = new Game(board);
+        game = new Game(board, setupController.getPlantCount(),
+                setupController.getMeatEaterCount(), setupController.getPlantEaterCount());
         boardView = new BoardView(width, height, board);
         this.board.getChildren().add(boardView);
         boardView.draw();
