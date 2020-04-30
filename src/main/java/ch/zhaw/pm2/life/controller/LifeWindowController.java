@@ -23,7 +23,6 @@ public class LifeWindowController {
         boardObject = new Board(ROWS, COLUMNS);
         boardView = new BoardView(width, height, boardObject);
         this.board.getChildren().add(boardView);
-        boardView.draw();
     }
 
     @FXML public void nextRound() {
@@ -33,6 +32,10 @@ public class LifeWindowController {
 
     @FXML public void stop() {
         game.stop();
+    }
+
+    public void drawBoard() {
+        boardView.draw();
     }
 
     public void setSetupController(SetupController setupController) {
