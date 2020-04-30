@@ -26,12 +26,26 @@ public class SetupController {
     public void startSimulation() {
         try {
             URL fxmlPath = getClass().getClassLoader().getResource("Window.fxml");
+            FXMLLoader loader = new FXMLLoader(fxmlPath);
             Stage stage = (Stage) rootPane.getScene().getWindow();
-            stage.setScene(new Scene(new FXMLLoader(fxmlPath).load()));
+            stage.setScene(new Scene(loader.load()));
             stage.setTitle("Life - simulation");
             stage.show();
+            ((LifeWindowController) loader.getController()).setSetupController(this);
         } catch (IOException e) {
             logger.log(Level.SEVERE, "Error while setting up the scene", e);
         }
+    }
+
+    public int getPlantCount() {
+        return plantCount.getValue();
+    }
+
+    public int getMeatEaterCount() {
+        return meatEaterCount.getValue();
+    }
+
+    public int getPlantEaterCount() {
+        return plantEaterCount.getValue();
     }
 }
