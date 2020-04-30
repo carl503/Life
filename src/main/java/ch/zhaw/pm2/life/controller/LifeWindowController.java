@@ -5,6 +5,8 @@ import ch.zhaw.pm2.life.view.BoardView;
 import javafx.fxml.FXML;
 import javafx.scene.layout.VBox;
 
+import java.awt.*;
+
 public class LifeWindowController {
 
     private final int width = 800;
@@ -18,6 +20,7 @@ public class LifeWindowController {
     private Board boardObject;
 
     @FXML private VBox board;
+    @FXML private TextArea messageField;
 
     @FXML public void initialize() {
         boardObject = new Board(ROWS, COLUMNS);
