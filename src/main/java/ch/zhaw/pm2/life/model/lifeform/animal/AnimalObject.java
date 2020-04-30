@@ -1,7 +1,8 @@
-package ch.zhaw.pm2.life.model.gameobjects;
+package ch.zhaw.pm2.life.model.lifeform.animal;
 
 
-import ch.zhaw.pm2.life.model.board.Position;
+import ch.zhaw.pm2.life.model.Position;
+import ch.zhaw.pm2.life.model.lifeform.LifeForm;
 
 /**
  * AnimalObjects extends GameObject

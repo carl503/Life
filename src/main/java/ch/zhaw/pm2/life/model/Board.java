@@ -1,6 +1,6 @@
-package ch.zhaw.pm2.life.model.board;
+package ch.zhaw.pm2.life.model;
 
-import ch.zhaw.pm2.life.model.gameobjects.GameObject;
+import ch.zhaw.pm2.life.model.GameObject;
 
 import java.util.HashSet;
 import java.util.Set;

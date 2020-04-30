@@ -1,7 +1,6 @@
-package ch.zhaw.pm2.life.model.gameobjects;
+package ch.zhaw.pm2.life.model;
 
 import ch.zhaw.pm2.life.controller.LifeWindowController;
-import ch.zhaw.pm2.life.model.board.Position;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;

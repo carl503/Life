@@ -1,4 +1,6 @@
-package ch.zhaw.pm2.life.model.gameobjects;
+package ch.zhaw.pm2.life.model.lifeform;
+
+import ch.zhaw.pm2.life.model.GameObject;
 
 /**
  *

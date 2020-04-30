@@ -1,17 +1,17 @@
-package ch.zhaw.pm2.life.model.lifeforms;
+package ch.zhaw.pm2.life.model.lifeform.animal;
 
-import ch.zhaw.pm2.life.model.gameobjects.AnimalObject;
+import ch.zhaw.pm2.life.model.lifeform.animal.AnimalObject;
 import javafx.scene.paint.Color;
 
 /**
- * First Version of a MeatEater Animal that extends AnimalObject
+ * First Version of a PlantEater animal that extends AnimalObject
  */
-public class MeatEater extends AnimalObject {
+public class PlantEater extends AnimalObject {
 
-    public MeatEater() {
+    public PlantEater() {
         super();
-        this.objectColor = Color.RED;
-        isMeatEater = true;
+        this.objectColor = Color.LIGHTSEAGREEN;
+        isPlantEater = true;
 
     }
 
@@ -30,8 +30,6 @@ public class MeatEater extends AnimalObject {
      */
     @Override
     public void decreaseEnergy() {
-        currentEnergy--;
+
     }
-
-
 }
