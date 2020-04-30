@@ -23,4 +23,8 @@ public class LifeWindowController {
         this.board.getChildren().add(boardView);
         boardView.draw();
     }
+
+    @FXML public void nextRound() {
+        //todo
+    }
 }
