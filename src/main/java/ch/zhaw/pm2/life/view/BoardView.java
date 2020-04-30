@@ -36,6 +36,7 @@ public class BoardView extends Canvas {
      * Draw the board on the canvas.
      */
     public void draw() {
+        getGraphicsContext2D().clearRect(0,0, getWidth(), getHeight());
         drawLines();
         drawGameObjects();
     }
