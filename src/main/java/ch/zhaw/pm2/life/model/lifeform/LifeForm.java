@@ -9,7 +9,7 @@ import ch.zhaw.pm2.life.model.GameObject;
  */
 public abstract class LifeForm extends GameObject {
 
-    private boolean isAlive = true;
+    protected boolean isAlive = true;
 
     /**
      *
@@ -19,7 +19,7 @@ public abstract class LifeForm extends GameObject {
     }
 
     /**
-     *
+     * Kills the GameObject by setting isAlive to false;
      */
     public void killObject() {
         isAlive = false;
@@ -31,6 +31,10 @@ public abstract class LifeForm extends GameObject {
      */
     public abstract FoodType getFoodType();
 
+    /**
+     * Returns if the GameObject is alive or dead.
+     * @return isAlive true if the object is alive
+     */
     public boolean isAlive() {
         return isAlive;
     }

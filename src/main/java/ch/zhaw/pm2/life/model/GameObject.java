@@ -15,7 +15,6 @@ public abstract class GameObject {
 
     private static final int MAX_SIZE = 10;
 
-    protected boolean isAlive;
     protected int currentEnergy;
     protected Position position;
     protected Color objectColor;
@@ -66,21 +65,6 @@ public abstract class GameObject {
      */
     public int getCurrentEnergy() {
         return currentEnergy;
-    }
-
-    /**
-     * Returns if the GameObject is alive or dead.
-     * @return isAlive true if the object is alive
-     */
-    public boolean isAlive(){
-        return isAlive;
-    }
-
-    /**
-     * Kills the GameObject by setting isAlive to false;
-     */
-    public void killObject(){
-        isAlive = false;
     }
 
     /**
