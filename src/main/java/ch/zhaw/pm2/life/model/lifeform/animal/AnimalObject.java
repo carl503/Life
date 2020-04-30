@@ -1,6 +1,7 @@
 package ch.zhaw.pm2.life.model.lifeform.animal;
 
 
+import ch.zhaw.pm2.life.exception.LifeFormException;
 import ch.zhaw.pm2.life.model.Position;
 import ch.zhaw.pm2.life.model.lifeform.LifeForm;
 
@@ -34,13 +35,15 @@ public abstract class AnimalObject extends LifeForm {
     /**
      * Is called when the animal eats meat
      */
-    public void eat(LifeForm lifeForm) {
-        if(isMeatEater && lifeForm.getFoodType() == FoodType.MEAT || isPlantEater && lifeForm.getFoodType() == FoodType.PLANT) {
-            currentEnergy = currentEnergy + lifeForm.getCurrentEnergy();
-            lifeForm.killObject();
-        } else {
-            System.out.println("");
+    public void eat(LifeForm lifeForm) throws LifeFormException {
+        if(isPlantEater && lifeForm.getFoodType() == FoodType.MEAT) {
+            throw new LifeFormException("Cannot eat this meat, i am vegetarian.");
         }
+        if(isMeatEater && lifeForm.getFoodType() == FoodType.PLANT) {
+            throw new LifeFormException("Cannot eat this plant. Do i look like a vegetarian?!");
+        }
+        currentEnergy = currentEnergy + lifeForm.getCurrentEnergy();
+        lifeForm.killObject();
     }
 
     @Override
