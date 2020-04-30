@@ -24,6 +24,11 @@
           </Menu>
         </menus>
       </MenuBar>
-      <VBox fx:id="board" layoutY="26.0" prefHeight="374.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0" />
+      <VBox fx:id="board" layoutY="26.0" prefHeight="374.0" prefWidth="600.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="25.0" />
+      <ButtonBar buttonOrder="U+L_HE+FBIX_NCYOA_R" layoutX="134.0" layoutY="784.0" maxHeight="40.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <buttons>
+          <Button mnemonicParsing="false" onAction="#nextRound" text="Nächste Runde" />
+        </buttons>
+      </ButtonBar>
    </children>
 </AnchorPane>
