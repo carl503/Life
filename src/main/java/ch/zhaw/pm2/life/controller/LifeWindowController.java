@@ -27,7 +27,8 @@ public class LifeWindowController {
     }
 
     @FXML public void nextRound() {
-        //todo
+        //game.nextMove();
+        boardView.draw();
     }
 
     @FXML public void stop() {
