@@ -15,14 +15,13 @@ public class LifeWindowController {
     private BoardView boardView;
     private Game game;
     private SetupController setupController;
+    private Board boardObject;
 
     @FXML private VBox board;
 
     @FXML public void initialize() {
-        Board board = new Board(ROWS, COLUMNS);
-        game = new Game(board, setupController.getPlantCount(),
-                setupController.getMeatEaterCount(), setupController.getPlantEaterCount());
-        boardView = new BoardView(width, height, board);
+        boardObject = new Board(ROWS, COLUMNS);
+        boardView = new BoardView(width, height, boardObject);
         this.board.getChildren().add(boardView);
         boardView.draw();
     }
@@ -37,5 +36,11 @@ public class LifeWindowController {
 
     public void setSetupController(SetupController setupController) {
         this.setupController = setupController;
+    }
+
+    public void initGame() {
+        game = new Game(boardObject, setupController.getPlantCount(),
+                setupController.getMeatEaterCount(), setupController.getPlantEaterCount());
+        game.init();
     }
 }
