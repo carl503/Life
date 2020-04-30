@@ -11,6 +11,12 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import ch.zhaw.pm2.life.model.GameObject;
+import ch.zhaw.pm2.life.model.Position;
+import ch.zhaw.pm2.life.model.lifeform.animal.AnimalObject;
+
+
+import java.util.*;
 
 public class Game {
 
@@ -56,6 +62,52 @@ public class Game {
            }
        } catch (InstantiationException | InvocationTargetException | NoSuchMethodException | IllegalAccessException e) {
             throw new LifeFormException(e.getMessage(), e);
+        }
+    }
+
+
+    public void nextMove() throws LifeFormException {
+        Map<Position, Set<GameObject>> positionMap = new HashMap<>();
+        for(GameObject gameObject : board.getGameObjects()) {
+            if(gameObject instanceof AnimalObject) {
+                AnimalObject animalObject = (AnimalObject) gameObject;
+                animalObject.move();
+            }
+            if(!positionMap.containsKey(gameObject.getPosition())) {
+                positionMap.put(gameObject.getPosition(), new HashSet<>());
+            }
+            positionMap.get(gameObject.getPosition()).add(gameObject);
+        }
+
+        Set<GameObject> deadLifeForms = new HashSet<>();
+        for(GameObject gameObject : board.getGameObjects()) {
+            if(gameObject instanceof AnimalObject) {
+
+                AnimalObject animalObject = (AnimalObject) gameObject;
+                handleCollision(positionMap.get(animalObject.getPosition()), animalObject, deadLifeForms);
+/*
+                if(!animalObject.hasEnergy()) {
+                    animalObject.setCurrentEnergy(0);
+                }
+*/
+            }
+        }
+        board.getGameObjects().removeAll(deadLifeForms);
+    }
+
+    private void handleCollision(Set<GameObject> sameFieldSet, AnimalObject animalObject, Set<GameObject> deadLifeForms) throws LifeFormException {
+        for (GameObject gameObject : sameFieldSet) {
+            if (gameObject.equals(animalObject)) {
+                continue;
+            }
+            if (gameObject instanceof LifeForm) {
+                LifeForm lifeForm = (LifeForm) gameObject;
+                if (animalObject instanceof PlantEater || lifeForm.getCurrentEnergy() < animalObject.getCurrentEnergy()) {
+                    animalObject.eat(lifeForm);
+                    sameFieldSet.remove(lifeForm);
+                    deadLifeForms.add(lifeForm);
+                }
+            }
         }
     }
 }
