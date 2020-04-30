@@ -25,9 +25,9 @@ public abstract class AnimalObject extends LifeForm {
      * Is called when the animal moves
      */
     public void move() {
-        Position oldPosition = position;
+        Position previousPosition = position;
         position = chooseRandomNeighbourPosition();
-        if(!oldPosition.equals(position)) {
+        if(!previousPosition.equals(position)) {
             currentEnergy--;
         }
     }
