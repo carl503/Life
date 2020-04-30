@@ -30,10 +30,12 @@ public class SetupController {
             Stage stage = (Stage) rootPane.getScene().getWindow();
             stage.setScene(new Scene(loader.load()));
             stage.setTitle("Life - Simulation");
-            stage.show();
+
             LifeWindowController controller = loader.getController();
             controller.setSetupController(this);
             controller.initGame();
+            controller.drawBoard();
+            stage.show();
         } catch (IOException e) {
             logger.log(Level.SEVERE, "Error while setting up the scene", e);
         }
