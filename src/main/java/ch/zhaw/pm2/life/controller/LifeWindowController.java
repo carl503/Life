@@ -14,6 +14,8 @@ public class LifeWindowController {
 
     private BoardView boardView;
     private Game game;
+    private SetupController setupController;
+
     @FXML private VBox board;
 
     @FXML public void initialize() {
@@ -30,5 +32,9 @@ public class LifeWindowController {
 
     @FXML public void stop() {
         game.stop();
+    }
+
+    public void setSetupController(SetupController setupController) {
+        this.setupController = setupController;
     }
 }
