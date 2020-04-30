@@ -28,7 +28,7 @@ public abstract class AnimalObject extends LifeForm {
         Position oldPosition = position;
         position = chooseRandomNeighbourPosition();
         if(!oldPosition.equals(position)) {
-            decreaseEnergy();
+            currentEnergy--;
         }
     }
 
