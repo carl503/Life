@@ -31,9 +31,10 @@ public class App extends Application {
     @Override
     public void start(Stage primaryStage) {
         try {
-            URL fxmlPath = getClass().getClassLoader().getResource("Window.fxml");
-            primaryStage.setScene(new Scene(new FXMLLoader(fxmlPath).load()));
-            primaryStage.setTitle("Life - simulation");
+            URL fxmlSetUp = getClass().getClassLoader().getResource("Setup.fxml");
+            Scene scene = new Scene(new FXMLLoader(fxmlSetUp).load());
+            primaryStage.setTitle("Setup");
+            primaryStage.setScene(scene);
             primaryStage.show();
         } catch (IOException e) {
             LOGGER.log(Level.SEVERE, "Unable to load the fxml file", e);
