@@ -91,11 +91,6 @@ public class Game {
                 stringBuilder.append(eatMessage);
 
                 set.removeAll(deadLifeForms);
-/*
-                if(!animalObject.hasEnergy()) {
-                    animalObject.setCurrentEnergy(0);
-                }
-*/
             }
         }
         board.getGameObjects().removeAll(deadLifeForms);
