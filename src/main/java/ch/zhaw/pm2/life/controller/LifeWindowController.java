@@ -1,6 +1,5 @@
 package ch.zhaw.pm2.life.controller;
 
-import ch.zhaw.pm2.life.exception.LifeFormException;
 import ch.zhaw.pm2.life.model.Board;
 import ch.zhaw.pm2.life.view.BoardView;
 import javafx.fxml.FXML;
@@ -29,12 +28,8 @@ public class LifeWindowController {
     }
 
     @FXML public void nextRound() {
-        try {
-            game.nextMove();
-            boardView.draw();
-        } catch (LifeFormException e) {
-            messageField.setText(e.getMessage());
-        }
+        messageField.appendText(game.nextMove());
+        boardView.draw();
     }
 
     @FXML public void stop() {

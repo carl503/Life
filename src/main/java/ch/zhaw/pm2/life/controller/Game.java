@@ -66,7 +66,8 @@ public class Game {
     }
 
 
-    public void nextMove() throws LifeFormException {
+    public String nextMove() {
+        StringBuilder stringBuilder = new StringBuilder();
         Map<Position, Set<GameObject>> positionMap = new HashMap<>();
         for(GameObject gameObject : board.getGameObjects()) {
             if(gameObject instanceof AnimalObject) {
@@ -85,6 +86,7 @@ public class Game {
 
                 AnimalObject animalObject = (AnimalObject) gameObject;
                 Set<GameObject> set = positionMap.get(animalObject.getPosition());
+                stringBuilder.append(handleCollision(set, animalObject, deadLifeForms));
                 handleCollision(set, animalObject, deadLifeForms);
                 set.removeAll(deadLifeForms);
 /*
@@ -95,9 +97,10 @@ public class Game {
             }
         }
         board.getGameObjects().removeAll(deadLifeForms);
+        return stringBuilder.toString();
     }
 
-    private void handleCollision(Set<GameObject> sameFieldSet, AnimalObject animalObject, Set<GameObject> deadLifeForms) throws LifeFormException {
+    private String handleCollision(Set<GameObject> sameFieldSet, AnimalObject animalObject, Set<GameObject> deadLifeForms) {
         StringBuilder stringBuilder = new StringBuilder();
         for (GameObject gameObject : sameFieldSet) {
             if (gameObject.equals(animalObject)) {
@@ -114,6 +117,7 @@ public class Game {
                 }
             }
         }
+        return stringBuilder.toString();
     }
 
     private void processEat(AnimalObject animalObject, Set<GameObject> deadLifeForms, StringBuilder stringBuilder, LifeForm lifeForm) {
