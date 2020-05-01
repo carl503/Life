@@ -49,11 +49,7 @@ public class Game {
     public void stop() {
         ongoing = false;
     }
-
-    private void collision() {
-        //todo
-    }
-
+    
     private void addLifeform(Class<? extends LifeForm> lifeForm, int count) throws LifeFormException {
         try {
            for (int i = 0; i < count; i++) {
