@@ -22,6 +22,7 @@ public class LifeWindowController {
     @FXML private VBox board;
     @FXML private TextArea messageField;
     @FXML private Button nextRoundButton;
+    @FXML private Button stopSimButton;
 
     @FXML public void initialize() {
         boardObject = new Board(ROWS, COLUMNS);
@@ -35,12 +36,14 @@ public class LifeWindowController {
             boardView.draw();
         } else {
             nextRoundButton.setDisable(true);
+            stopSimButton.setDisable(true);
         }
     }
 
     @FXML public void stop() {
         game.stop();
         nextRoundButton.setDisable(true);
+        stopSimButton.setDisable(true);
     }
 
     public void drawBoard() {
