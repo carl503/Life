@@ -43,7 +43,7 @@ public abstract class AnimalObject extends LifeForm {
             throw new LifeFormException("Cannot eat this plant. Do i look like a vegetarian?!");
         }
         currentEnergy = currentEnergy + lifeForm.getCurrentEnergy();
-        lifeForm.killObject();
+        lifeForm.die();
     }
 
     @Override
