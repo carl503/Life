@@ -13,4 +13,9 @@ public class FirstPlant extends PlantObject {
         this.objectColor = Color.GREEN;
     }
 
+    @Override
+    public String toString(int currentEnergy) {
+        return String.valueOf(currentEnergy);
+    }
+
 }

@@ -14,4 +14,9 @@ public class PlantEater extends AnimalObject {
 
     }
 
+    @Override
+    public String toString(int currentEnergy) {
+        return String.valueOf(currentEnergy);
+    }
+
 }

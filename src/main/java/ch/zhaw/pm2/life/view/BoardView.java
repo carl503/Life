@@ -6,6 +6,7 @@ import ch.zhaw.pm2.life.model.Position;
 import javafx.geometry.Dimension2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
 
 /**
  * This class displays the board.
@@ -56,6 +57,8 @@ public class BoardView extends Canvas {
             double translatedY = fieldPosY + fieldDimension.getHeight() * translateFactor;
 
             getGraphicsContext2D().fillOval(translatedX, translatedY, fieldDimension.getWidth() * scaling, fieldDimension.getHeight() * scaling);
+            getGraphicsContext2D().setStroke(Color.BLACK);
+            getGraphicsContext2D().strokeText(gameObject.toString(gameObject.getCurrentEnergy()), translatedX, translatedY);
        }
     }
 

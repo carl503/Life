@@ -67,6 +67,8 @@ public abstract class GameObject {
         return currentEnergy;
     }
 
+    public abstract String toString(int currentEnergy);
+
     /**
      * Increase the energy by a certain value.
      * @param energy

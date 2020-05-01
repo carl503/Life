@@ -14,5 +14,10 @@ public class MeatEater extends AnimalObject {
 
     }
 
+    @Override
+    public String toString(int currentEnergy) {
+        return String.valueOf(currentEnergy);
+    }
+
 
 }
