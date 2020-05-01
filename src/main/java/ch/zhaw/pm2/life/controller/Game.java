@@ -61,12 +61,14 @@ public class Game {
         }
     }
 
-
     public String nextMove() {
-        Map<Position, Set<GameObject>> positionMap = new HashMap<>();
-        String moveLog = move(positionMap);
-        String eatLog = eat(positionMap);
-        return moveLog + eatLog;
+        String messageLog = "";
+        if(ongoing) {
+            Map<Position, Set<GameObject>> positionMap = new HashMap<>();
+            messageLog += move(positionMap);
+            messageLog += eat(positionMap);
+        }
+        return messageLog;
     }
 
     private String move(Map<Position, Set<GameObject>> positionMap) {
