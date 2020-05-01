@@ -68,12 +68,14 @@ public class Game {
 
     public String nextMove() {
         Map<Position, Set<GameObject>> positionMap = new HashMap<>();
-        move(positionMap);
+        String moveLog = move(positionMap);
         String eatLog = eat(positionMap);
-        return eatLog;
+        return moveLog + eatLog;
     }
 
-    private void move(Map<Position, Set<GameObject>> positionMap) {
+    private String move(Map<Position, Set<GameObject>> positionMap) {
+        StringBuilder stringBuilder = new StringBuilder();
+
         Set<GameObject> deadLifeForms = new HashSet<>();
         for(GameObject gameObject : board.getGameObjects()) {
             if(gameObject instanceof AnimalObject) {
@@ -81,6 +83,7 @@ public class Game {
                 animalObject.move();
                 if (animalObject.getCurrentEnergy() == -1) {
                     deadLifeForms.add(animalObject);
+                    stringBuilder.append(animalObject.toString()).append(": died of exhaustion.\n");
                 }
             }
             if(!positionMap.containsKey(gameObject.getPosition())) {
@@ -89,6 +92,8 @@ public class Game {
             positionMap.get(gameObject.getPosition()).add(gameObject);
         }
         board.getGameObjects().removeAll(deadLifeForms);
+
+        return stringBuilder.toString();
     }
 
     private String eat(Map<Position, Set<GameObject>> positionMap) {
