@@ -40,7 +40,7 @@ public class LifeWindowController {
         }
     }
 
-    @FXML public void stop() {
+    @FXML public void stopSimulation() {
         game.stop();
         nextRoundButton.setDisable(true);
         stopSimButton.setDisable(true);

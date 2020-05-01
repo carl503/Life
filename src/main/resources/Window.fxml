@@ -28,7 +28,7 @@
       <ButtonBar buttonOrder="U+L_HE+FBIX_NCYOA_R" layoutX="134.0" layoutY="784.0" maxHeight="40.0" prefHeight="40.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
         <buttons>
           <Button fx:id="nextRoundButton" mnemonicParsing="false" onAction="#nextRound" text="Nächste Runde" />
-            <Button fx:id="stopSimButton" mnemonicParsing="false" onAction="#stop" text="Simulation stoppen" />
+            <Button fx:id="stopSimButton" mnemonicParsing="false" onAction="#stopSimulation" text="Simulation stoppen" />
         </buttons>
       </ButtonBar>
       <TextArea fx:id="messageField" disable="true" layoutX="106.0" layoutY="543.0" prefHeight="95.0" prefWidth="800.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
