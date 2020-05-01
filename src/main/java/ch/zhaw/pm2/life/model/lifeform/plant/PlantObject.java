@@ -1,6 +1,7 @@
 package ch.zhaw.pm2.life.model.lifeform.plant;
 
 import ch.zhaw.pm2.life.model.lifeform.LifeForm;
+import ch.zhaw.pm2.life.model.lifeform.animal.AnimalObject;
 
 /**
  * PlantObject extends GameObject
@@ -8,10 +9,11 @@ import ch.zhaw.pm2.life.model.lifeform.LifeForm;
  */
 public abstract class PlantObject extends LifeForm {
 
-    protected static final int PLANT_ENERGY = 5;
+    protected static final int PLANT_ENERGY_FACTOR = 2;
 
     public PlantObject() {
         super();
+        currentEnergy = AnimalObject.INIT_ENERGY_ANIMALS * PLANT_ENERGY_FACTOR;
     }
 
     @Override
