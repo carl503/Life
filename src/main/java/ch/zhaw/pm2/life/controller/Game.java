@@ -63,7 +63,9 @@ public class Game {
 
     public String nextMove() {
         String messageLog = "";
-        if(ongoing) {
+        if (board.getAnimalsGameObjects().isEmpty()) {
+            stop();
+        } else if(ongoing) {
             Map<Position, Set<GameObject>> positionMap = new HashMap<>();
             messageLog += move(positionMap);
             messageLog += eat(positionMap);

@@ -1,5 +1,7 @@
 package ch.zhaw.pm2.life.model;
 
+import ch.zhaw.pm2.life.model.lifeform.animal.AnimalObject;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -60,5 +62,21 @@ public class Board {
      */
     public Set<GameObject> getGameObjects() {
         return gameObjects;
+    }
+
+    /**
+     * Returns a set of game objects with only animals.
+     * @return set of game objects.
+     */
+    public Set<GameObject> getAnimalsGameObjects() {
+        Set<GameObject> animalsGameObjects = new HashSet<>();
+
+        for (GameObject gameObject: gameObjects) {
+            if (gameObject instanceof AnimalObject) {
+                animalsGameObjects.add(gameObject);
+            }
+        }
+
+        return animalsGameObjects;
     }
 }
