@@ -67,8 +67,13 @@ public class Game {
 
 
     public String nextMove() {
-        StringBuilder stringBuilder = new StringBuilder();
         Map<Position, Set<GameObject>> positionMap = new HashMap<>();
+        move(positionMap);
+        String eatLog = eat(positionMap);
+        return eatLog;
+    }
+
+    private void move(Map<Position, Set<GameObject>> positionMap) {
         Set<GameObject> deadLifeForms = new HashSet<>();
         for(GameObject gameObject : board.getGameObjects()) {
             if(gameObject instanceof AnimalObject) {
@@ -84,11 +89,14 @@ public class Game {
             positionMap.get(gameObject.getPosition()).add(gameObject);
         }
         board.getGameObjects().removeAll(deadLifeForms);
+    }
+
+    private String eat(Map<Position, Set<GameObject>> positionMap) {
+        StringBuilder stringBuilder = new StringBuilder();
 
         Set<GameObject> deadLifeForms = new HashSet<>();
         for(GameObject gameObject : board.getGameObjects()) {
             if(gameObject instanceof AnimalObject) {
-
                 AnimalObject animalObject = (AnimalObject) gameObject;
                 Set<GameObject> set = positionMap.get(animalObject.getPosition());
 
@@ -99,6 +107,7 @@ public class Game {
             }
         }
         board.getGameObjects().removeAll(deadLifeForms);
+
         return stringBuilder.toString();
     }
 
