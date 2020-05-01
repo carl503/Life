@@ -30,8 +30,12 @@ public class LifeWindowController {
     }
 
     @FXML public void nextRound() {
-        messageField.appendText(game.nextMove());
-        boardView.draw();
+        if (game.isOngoing()) {
+            messageField.appendText(game.nextMove());
+            boardView.draw();
+        } else {
+            nextRoundButton.setDisable(true);
+        }
     }
 
     @FXML public void stop() {
