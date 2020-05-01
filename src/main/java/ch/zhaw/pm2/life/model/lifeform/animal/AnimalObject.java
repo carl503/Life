@@ -28,7 +28,7 @@ public abstract class AnimalObject extends LifeForm {
         Position previousPosition = position;
         position = chooseRandomNeighbourPosition();
         if(!previousPosition.equals(position)) {
-            currentEnergy--;
+            decreaseEnergy(1);
         }
     }
 
@@ -42,7 +42,7 @@ public abstract class AnimalObject extends LifeForm {
         if(isMeatEater && lifeForm.getFoodType() == FoodType.PLANT) {
             throw new LifeFormException("Cannot eat this plant. Do i look like a vegetarian?!");
         }
-        currentEnergy = currentEnergy + lifeForm.getCurrentEnergy();
+        increaseEnergy(lifeForm.getCurrentEnergy());
         lifeForm.die();
     }
 

@@ -68,6 +68,22 @@ public abstract class GameObject {
     }
 
     /**
+     * Increase the energy by a certain value.
+     * @param energy
+     */
+    public void increaseEnergy(int energy) {
+        currentEnergy += energy;
+    }
+
+    /**
+     * Decrease the energy by a certain value.
+     * @param consumedEnergy
+     */
+    public void decreaseEnergy(int consumedEnergy) {
+        currentEnergy -= consumedEnergy;
+    }
+
+    /**
      * Returns Position of the GameObject
      * @return position
      */
