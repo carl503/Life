@@ -85,6 +85,12 @@ public class Game {
                     deadLifeForms.add(animalObject);
                     stringBuilder.append(animalObject.toString()).append(": died of exhaustion.\n");
                 }
+            } else {
+                gameObject.decreaseEnergy(1);
+                if (gameObject.getCurrentEnergy() == -1) {
+                    deadLifeForms.add(gameObject);
+                    stringBuilder.append(gameObject.toString()).append(": died of exhaustion.\n");
+                }
             }
             if(!positionMap.containsKey(gameObject.getPosition())) {
                 positionMap.put(gameObject.getPosition(), new HashSet<>());
