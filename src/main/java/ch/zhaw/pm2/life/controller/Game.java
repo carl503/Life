@@ -79,7 +79,7 @@ public class Game {
             if(gameObject instanceof AnimalObject) {
                 AnimalObject animalObject = (AnimalObject) gameObject;
                 animalObject.move();
-                if (animalObject.getCurrentEnergy() == 0) {
+                if (animalObject.getCurrentEnergy() == -1) {
                     deadLifeForms.add(animalObject);
                 }
             }
