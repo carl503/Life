@@ -3,6 +3,7 @@ package ch.zhaw.pm2.life.controller;
 import ch.zhaw.pm2.life.model.Board;
 import ch.zhaw.pm2.life.view.BoardView;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
 
@@ -20,6 +21,7 @@ public class LifeWindowController {
 
     @FXML private VBox board;
     @FXML private TextArea messageField;
+    @FXML private Button nextRoundButton;
 
     @FXML public void initialize() {
         boardObject = new Board(ROWS, COLUMNS);
@@ -34,6 +36,7 @@ public class LifeWindowController {
 
     @FXML public void stop() {
         game.stop();
+        nextRoundButton.setDisable(true);
     }
 
     public void drawBoard() {
