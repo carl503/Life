@@ -73,6 +73,10 @@ public class Game {
         return messageLog;
     }
 
+    public boolean isOngoing() {
+        return ongoing;
+    }
+
     private String move(Map<Position, Set<GameObject>> positionMap) {
         StringBuilder stringBuilder = new StringBuilder();
 
