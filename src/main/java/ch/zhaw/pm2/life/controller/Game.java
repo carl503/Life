@@ -69,16 +69,21 @@ public class Game {
     public String nextMove() {
         StringBuilder stringBuilder = new StringBuilder();
         Map<Position, Set<GameObject>> positionMap = new HashMap<>();
+        Set<GameObject> deadLifeForms = new HashSet<>();
         for(GameObject gameObject : board.getGameObjects()) {
             if(gameObject instanceof AnimalObject) {
                 AnimalObject animalObject = (AnimalObject) gameObject;
                 animalObject.move();
+                if (animalObject.isDead()) {
+                    deadLifeForms.add(animalObject);
+                }
             }
             if(!positionMap.containsKey(gameObject.getPosition())) {
                 positionMap.put(gameObject.getPosition(), new HashSet<>());
             }
             positionMap.get(gameObject.getPosition()).add(gameObject);
         }
+        board.getGameObjects().removeAll(deadLifeForms);
 
         Set<GameObject> deadLifeForms = new HashSet<>();
         for(GameObject gameObject : board.getGameObjects()) {
