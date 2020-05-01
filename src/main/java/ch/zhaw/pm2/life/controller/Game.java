@@ -109,10 +109,12 @@ public class Game {
             if (gameObject instanceof LifeForm) {
                 LifeForm lifeForm = (LifeForm) gameObject;
                 if (animalObject instanceof PlantEater) {
-                    processEat(animalObject, deadLifeForms, stringBuilder, lifeForm);
+                    eatProcess(animalObject, deadLifeForms, stringBuilder, lifeForm);
                 } else {
                     if(lifeForm instanceof PlantEater || (lifeForm instanceof MeatEater && lifeForm.getCurrentEnergy() < animalObject.getCurrentEnergy())) {
-                        processEat(animalObject, deadLifeForms, stringBuilder, lifeForm);
+                        eatProcess(animalObject, deadLifeForms, stringBuilder, lifeForm);
+                    } else {
+                        // meat eater is not a vegetarian or the other meat eater is not weaker.
                     }
                 }
             }
@@ -120,7 +122,7 @@ public class Game {
         return stringBuilder.toString();
     }
 
-    private void processEat(AnimalObject animalObject, Set<GameObject> deadLifeForms, StringBuilder stringBuilder, LifeForm lifeForm) {
+    private void eatProcess(AnimalObject animalObject, Set<GameObject> deadLifeForms, StringBuilder stringBuilder, LifeForm lifeForm) {
         try {
             animalObject.eat(lifeForm);
             deadLifeForms.add(lifeForm);
