@@ -11,7 +11,7 @@ import ch.zhaw.pm2.life.model.lifeform.LifeForm;
  */
 public abstract class AnimalObject extends LifeForm {
 
-    protected static final int INIT_ENERGY_ANIMALS = 5;
+    public static final int INIT_ENERGY_ANIMALS = 10;
 
     protected boolean isPlantEater;
     protected boolean isMeatEater;
