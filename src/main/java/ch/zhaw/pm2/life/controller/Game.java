@@ -86,8 +86,10 @@ public class Game {
 
                 AnimalObject animalObject = (AnimalObject) gameObject;
                 Set<GameObject> set = positionMap.get(animalObject.getPosition());
-                stringBuilder.append(handleCollision(set, animalObject, deadLifeForms));
-                handleCollision(set, animalObject, deadLifeForms);
+
+                String eatMessage = handleCollision(set, animalObject, deadLifeForms);
+                stringBuilder.append(eatMessage);
+
                 set.removeAll(deadLifeForms);
 /*
                 if(!animalObject.hasEnergy()) {
