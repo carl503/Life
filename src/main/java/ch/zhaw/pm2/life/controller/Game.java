@@ -2,21 +2,21 @@ package ch.zhaw.pm2.life.controller;
 
 import ch.zhaw.pm2.life.exception.LifeFormException;
 import ch.zhaw.pm2.life.model.Board;
+import ch.zhaw.pm2.life.model.GameObject;
+import ch.zhaw.pm2.life.model.Position;
 import ch.zhaw.pm2.life.model.lifeform.LifeForm;
+import ch.zhaw.pm2.life.model.lifeform.animal.AnimalObject;
 import ch.zhaw.pm2.life.model.lifeform.animal.MeatEater;
 import ch.zhaw.pm2.life.model.lifeform.animal.PlantEater;
 import ch.zhaw.pm2.life.model.lifeform.plant.FirstPlant;
 
 import java.lang.reflect.InvocationTargetException;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-
-import ch.zhaw.pm2.life.model.GameObject;
-import ch.zhaw.pm2.life.model.Position;
-import ch.zhaw.pm2.life.model.lifeform.animal.AnimalObject;
-
-
-import java.util.*;
 
 public class Game {
 
@@ -84,7 +84,9 @@ public class Game {
             if(gameObject instanceof AnimalObject) {
 
                 AnimalObject animalObject = (AnimalObject) gameObject;
-                handleCollision(positionMap.get(animalObject.getPosition()), animalObject, deadLifeForms);
+                Set<GameObject> set = positionMap.get(animalObject.getPosition());
+                handleCollision(set, animalObject, deadLifeForms);
+                set.removeAll(deadLifeForms);
 /*
                 if(!animalObject.hasEnergy()) {
                     animalObject.setCurrentEnergy(0);
@@ -96,18 +98,31 @@ public class Game {
     }
 
     private void handleCollision(Set<GameObject> sameFieldSet, AnimalObject animalObject, Set<GameObject> deadLifeForms) throws LifeFormException {
+        StringBuilder stringBuilder = new StringBuilder();
         for (GameObject gameObject : sameFieldSet) {
             if (gameObject.equals(animalObject)) {
                 continue;
             }
             if (gameObject instanceof LifeForm) {
                 LifeForm lifeForm = (LifeForm) gameObject;
-                if (animalObject instanceof PlantEater || lifeForm.getCurrentEnergy() < animalObject.getCurrentEnergy()) {
-                    animalObject.eat(lifeForm);
-                    sameFieldSet.remove(lifeForm);
-                    deadLifeForms.add(lifeForm);
+                if (animalObject instanceof PlantEater) {
+                    processEat(animalObject, deadLifeForms, stringBuilder, lifeForm);
+                } else {
+                    if(lifeForm instanceof PlantEater || (lifeForm instanceof MeatEater && lifeForm.getCurrentEnergy() < animalObject.getCurrentEnergy())) {
+                        processEat(animalObject, deadLifeForms, stringBuilder, lifeForm);
+                    }
                 }
             }
+        }
+    }
+
+    private void processEat(AnimalObject animalObject, Set<GameObject> deadLifeForms, StringBuilder stringBuilder, LifeForm lifeForm) {
+        try {
+            animalObject.eat(lifeForm);
+            deadLifeForms.add(lifeForm);
+            stringBuilder.append(animalObject.toString()).append(": Yummy food!\n");
+        } catch (LifeFormException e) {
+            stringBuilder.append(String.format("%s%n", e.getMessage()));
         }
     }
 }
