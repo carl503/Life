@@ -40,9 +40,4 @@ public class App extends Application {
             LOGGER.log(Level.SEVERE, "Unable to load the fxml file", e);
         }
     }
-
-    @Override
-    public void stop() {
-        //todo
-    }
 }
