@@ -20,8 +20,11 @@ import java.util.logging.Logger;
 
 public class Game {
 
+    public static final int ENERGY_VALUE_DEAD = -1;
+    public static final int PLANT_ENERGY_CONSUMPTION = 1;
     private Logger logger = Logger.getLogger(Game.class.getName());
 
+    private Set<GameObject> deadLifeForms = new HashSet<>();
     private boolean ongoing = true;
     private Board board;
     private int plantCount;
@@ -61,6 +64,12 @@ public class Game {
         }
     }
 
+    /**
+     * Performs the next move.
+     * It moves every {@link AnimalObject} and then trys to eat.
+     * If then there are no more {@link MeatEater} or {@link PlantEater} then the simulation stops.
+     * @return message log of every move and eat call.
+     */
     public String nextMove() {
         String messageLog = "";
         if (board.getAnimalsGameObjects().isEmpty()) {
@@ -80,21 +89,14 @@ public class Game {
     private String move(Map<Position, Set<GameObject>> positionMap) {
         StringBuilder stringBuilder = new StringBuilder();
 
-        Set<GameObject> deadLifeForms = new HashSet<>();
         for(GameObject gameObject : board.getGameObjects()) {
             if(gameObject instanceof AnimalObject) {
                 AnimalObject animalObject = (AnimalObject) gameObject;
                 animalObject.move();
-                if (animalObject.getCurrentEnergy() == -1) {
-                    deadLifeForms.add(animalObject);
-                    stringBuilder.append(animalObject.toString()).append(": died of exhaustion.\n");
-                }
+                dieOfExhaustion(stringBuilder, deadLifeForms, animalObject);
             } else {
-                gameObject.decreaseEnergy(1);
-                if (gameObject.getCurrentEnergy() == -1) {
-                    deadLifeForms.add(gameObject);
-                    stringBuilder.append(gameObject.toString()).append(": died of exhaustion.\n");
-                }
+                gameObject.decreaseEnergy(PLANT_ENERGY_CONSUMPTION);
+                dieOfExhaustion(stringBuilder, deadLifeForms, gameObject);
             }
             if(!positionMap.containsKey(gameObject.getPosition())) {
                 positionMap.put(gameObject.getPosition(), new HashSet<>());
@@ -106,10 +108,16 @@ public class Game {
         return stringBuilder.toString();
     }
 
+    private void dieOfExhaustion(StringBuilder stringBuilder, Set<GameObject> deadLifeForms, GameObject gameObject) {
+        if (gameObject.getCurrentEnergy() == ENERGY_VALUE_DEAD) {
+            deadLifeForms.add(gameObject);
+            stringBuilder.append(gameObject.toString()).append(": died of exhaustion.\n");
+        }
+    }
+
     private String eat(Map<Position, Set<GameObject>> positionMap) {
         StringBuilder stringBuilder = new StringBuilder();
 
-        Set<GameObject> deadLifeForms = new HashSet<>();
         for(GameObject gameObject : board.getGameObjects()) {
             if(gameObject instanceof AnimalObject) {
                 AnimalObject animalObject = (AnimalObject) gameObject;
