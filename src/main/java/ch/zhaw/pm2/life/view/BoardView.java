@@ -1,18 +1,19 @@
 package ch.zhaw.pm2.life.view;
 
-import ch.zhaw.pm2.life.model.GameObject;
 import ch.zhaw.pm2.life.model.Board;
+import ch.zhaw.pm2.life.model.GameObject;
 import ch.zhaw.pm2.life.model.Position;
 import javafx.geometry.Dimension2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 
 /**
  * This class displays the board.
  * @author lubojcar, meletlea
  */
 public class BoardView extends Canvas {
+    public static final double GAME_OBJECT_SIZE_SCALING = 0.1;
+    public static final double HALF = 0.5;
     private final Board board;
     private final int width;
     private final int height;
@@ -45,10 +46,9 @@ public class BoardView extends Canvas {
     private void drawGameObjects() {
         for (GameObject gameObject : board.getGameObjects()) {
             Position position = gameObject.getPosition();
-//            gc.setFill(lifeForm.getColor());
             getGraphicsContext2D().setFill(gameObject.getColor());
-            double scaling = gameObject.getSize() * 0.1;
-            double translateFactor = (1 - scaling) * 0.5;
+            double scaling = gameObject.getSize() * GAME_OBJECT_SIZE_SCALING;
+            double translateFactor = (1 - scaling) * HALF;
 
             double fieldPosX = position.getX() * fieldDimension.getWidth();
             double fieldPosY = position.getY() * fieldDimension.getHeight();
