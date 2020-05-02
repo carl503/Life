@@ -20,8 +20,16 @@ import java.util.logging.Logger;
 
 public class Game {
 
+    /**
+     * When a {@link GameObject} has no energy, it has this value.
+     */
     public static final int ENERGY_VALUE_DEAD = -1;
+
+    /**
+     * When a next round is performed, the energy level of a plant drops by this amount.
+     */
     public static final int PLANT_ENERGY_CONSUMPTION = 1;
+
     private Logger logger = Logger.getLogger(Game.class.getName());
 
     private Set<GameObject> deadLifeForms = new HashSet<>();
