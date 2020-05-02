@@ -13,19 +13,22 @@ import java.util.Random;
  */
 public abstract class GameObject {
 
-    private static final int MAX_SIZE = 10;
+    //private static final int MAX_SIZE = 10;
 
     protected int currentEnergy;
     protected Position position;
     protected Color objectColor;
 
     private static final int BASIC_SIZE = 5;
-    private Random random = new Random();
+    private final Random random = new Random();
     /**
      * Valid values: 3-10
      */
     protected int size;
 
+    /**
+     * Default constructor.
+     */
     public GameObject() {
         //size = random.nextInt(MAX_SIZE - 2) + 3;
         size = BASIC_SIZE;
