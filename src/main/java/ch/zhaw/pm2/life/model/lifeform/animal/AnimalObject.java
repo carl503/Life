@@ -11,11 +11,24 @@ import ch.zhaw.pm2.life.model.lifeform.LifeForm;
  */
 public abstract class AnimalObject extends LifeForm {
 
+    /**
+     * Default energy level of an {@link AnimalObject}.
+     */
     public static final int INIT_ENERGY_ANIMALS = 10;
 
+    /**
+     * Determines if this {@link AnimalObject} can eat plants.
+     */
     protected boolean isPlantEater;
+
+    /**
+     * Determines if this {@link AnimalObject} can eat meat (other {@link AnimalObject}).
+     */
     protected boolean isMeatEater;
 
+    /**
+     * Default constructor.
+     */
     public AnimalObject() {
         super();
         currentEnergy = INIT_ENERGY_ANIMALS;
