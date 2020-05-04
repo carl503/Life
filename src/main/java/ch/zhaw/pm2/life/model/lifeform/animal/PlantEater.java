@@ -11,7 +11,7 @@ public class PlantEater extends AnimalObject {
         super();
         this.objectColor = Color.LIGHTSEAGREEN;
         isPlantEater = true;
-
+        isMale = setGender();
     }
 
     @Override

@@ -18,4 +18,9 @@ public class FirstPlant extends PlantObject {
         return String.valueOf(currentEnergy);
     }
 
+    @Override
+    public String getGender() {
+        return "N";
+    }
+
 }

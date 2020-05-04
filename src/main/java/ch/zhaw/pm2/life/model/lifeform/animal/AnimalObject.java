@@ -5,6 +5,7 @@ import ch.zhaw.pm2.life.exception.LifeFormException;
 import ch.zhaw.pm2.life.model.Position;
 import ch.zhaw.pm2.life.model.lifeform.LifeForm;
 
+import java.util.Random;
 /**
  * AnimalObjects extends GameObject
  * AnimalObjects handles all features and methods that PlantEater and MeatEater have in common
@@ -15,6 +16,7 @@ public abstract class AnimalObject extends LifeForm {
      * Default energy level of an {@link AnimalObject}.
      */
     public static final int INIT_ENERGY_ANIMALS = 10;
+    public boolean isMale = true;
 
     /**
      * Determines if this {@link AnimalObject} can eat plants.
@@ -32,6 +34,28 @@ public abstract class AnimalObject extends LifeForm {
     public AnimalObject() {
         super();
         currentEnergy = INIT_ENERGY_ANIMALS;
+    }
+
+    @Override
+    public String getGender() {
+        String gender = "F";
+        if(isMale) {
+            gender = "M";
+        }
+        return gender;
+    }
+
+    /**
+     *  Decides the gender by a 50/50 chance
+     * @return isMale = true if its a male and false if its a female
+     */
+    public boolean setGender() {
+        Random random = new Random();
+        int randomValue = random.nextInt(10);
+        if(randomValue < 5) {
+            isMale = false;
+        }
+        return isMale;
     }
 
     /**

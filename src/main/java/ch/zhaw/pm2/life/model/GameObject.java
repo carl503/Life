@@ -70,7 +70,18 @@ public abstract class GameObject {
         return currentEnergy;
     }
 
+    /**
+     *
+     * @param currentEnergy
+     * @return currentEnergy as a string for the board to print
+     */
     public abstract String toString(int currentEnergy);
+
+    /**
+     * Returns the gender as a string for the board to print
+     * @return Gender as a String
+     */
+    public abstract String getGender();
 
     /**
      * Increase the energy by a certain value.
