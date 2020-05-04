@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>ch.zhaw.pm2.life.controller.Game</OriginalElement>
+  <nodes>
+    <node x="31.0" y="858.0">ch.zhaw.pm2.life.model.lifeform.animal.AnimalObject</node>
+    <node x="838.0" y="1231.0">ch.zhaw.pm2.life.exception.LifeException</node>
+    <node x="0.0" y="1231.0">ch.zhaw.pm2.life.model.Board</node>
+    <node x="1296.0" y="1231.0">ch.zhaw.pm2.life.view.App</node>
+    <node x="299.0" y="1231.0">ch.zhaw.pm2.life.controller.SetupController</node>
+    <node x="446.0" y="902.0">ch.zhaw.pm2.life.model.lifeform.plant.PlantObject</node>
+    <node x="445.5" y="451.0">ch.zhaw.pm2.life.model.GameObject.Direction</node>
+    <node x="1117.0" y="1231.0">ch.zhaw.pm2.life.model.Position</node>
+    <node x="824.0" y="1378.0">ch.zhaw.pm2.life.exception.LifeFormException</node>
+    <node x="984.0" y="0.0">ch.zhaw.pm2.life.controller.Game</node>
+    <node x="0.0" y="1133.0">ch.zhaw.pm2.life.model.lifeform.animal.MeatEater</node>
+    <node x="575.0" y="1231.0">ch.zhaw.pm2.life.view.BoardView</node>
+    <node x="477.0" y="1133.0">ch.zhaw.pm2.life.model.lifeform.plant.FirstPlant</node>
+    <node x="675.0" y="0.0">ch.zhaw.pm2.life.controller.LifeWindowController</node>
+    <node x="241.5" y="560.0">ch.zhaw.pm2.life.model.lifeform.LifeForm</node>
+    <node x="134.0" y="1133.0">ch.zhaw.pm2.life.model.lifeform.animal.PlantEater</node>
+    <node x="241.0" y="901.0">ch.zhaw.pm2.life.model.lifeform.LifeForm.FoodType</node>
+    <node x="291.75" y="0.0">ch.zhaw.pm2.life.model.GameObject</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="ch.zhaw.pm2.life.model.lifeform.plant.PlantObject" target="ch.zhaw.pm2.life.model.lifeform.LifeForm">
+      <point x="0.0" y="-68.5" />
+      <point x="538.0" y="833.0" />
+      <point x="394.83333333333337" y="833.0" />
+      <point x="61.33333333333337" y="69.5" />
+    </edge>
+    <edge source="ch.zhaw.pm2.life.model.lifeform.LifeForm" target="ch.zhaw.pm2.life.model.GameObject">
+      <point x="0.0" y="-69.5" />
+      <point x="333.5" y="426.0" />
+      <point x="363.0" y="426.0" />
+      <point x="-71.25" y="200.5" />
+    </edge>
+    <edge source="ch.zhaw.pm2.life.model.lifeform.animal.MeatEater" target="ch.zhaw.pm2.life.model.lifeform.animal.AnimalObject">
+      <point x="0.0" y="-26.5" />
+      <point x="57.0" y="1108.0" />
+      <point x="78.5" y="1108.0" />
+      <point x="-47.5" y="112.5" />
+    </edge>
+    <edge source="ch.zhaw.pm2.life.model.lifeform.plant.FirstPlant" target="ch.zhaw.pm2.life.model.lifeform.plant.PlantObject">
+      <point x="0.0" y="-26.5" />
+      <point x="0.0" y="68.5" />
+    </edge>
+    <edge source="ch.zhaw.pm2.life.model.lifeform.animal.PlantEater" target="ch.zhaw.pm2.life.model.lifeform.animal.AnimalObject">
+      <point x="0.0" y="-26.5" />
+      <point x="195.0" y="1108.0" />
+      <point x="173.5" y="1108.0" />
+      <point x="47.5" y="112.5" />
+    </edge>
+    <edge source="ch.zhaw.pm2.life.model.GameObject.Direction" target="ch.zhaw.pm2.life.model.GameObject">
+      <point x="0.0" y="-178.5" />
+      <point x="535.0" y="426.0" />
+      <point x="505.5" y="426.0" />
+      <point x="71.25" y="200.5" />
+    </edge>
+    <edge source="ch.zhaw.pm2.life.model.lifeform.animal.AnimalObject" target="ch.zhaw.pm2.life.model.lifeform.LifeForm">
+      <point x="0.0" y="-112.5" />
+      <point x="126.0" y="833.0" />
+      <point x="272.16666666666663" y="833.0" />
+      <point x="-61.33333333333334" y="69.5" />
+    </edge>
+    <edge source="ch.zhaw.pm2.life.exception.LifeFormException" target="ch.zhaw.pm2.life.exception.LifeException">
+      <point x="0.0" y="-48.5" />
+      <point x="0.0" y="48.5" />
+    </edge>
+    <edge source="ch.zhaw.pm2.life.model.lifeform.LifeForm.FoodType" target="ch.zhaw.pm2.life.model.lifeform.LifeForm">
+      <point x="0.0" y="-69.5" />
+      <point x="0.0" y="69.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.8203947368421053" x="721.5" y="750.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Inner Classes</Category>
+    <Category>Fields</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
