@@ -14,6 +14,8 @@ import javafx.scene.paint.Color;
 public class BoardView extends Canvas {
     public static final double GAME_OBJECT_SIZE_SCALING = 0.1;
     public static final double HALF = 0.5;
+    public static final double ENERGY_SCALE_X = 0.55;
+    public static final double ENERGY_SCALE_Y = 0.25;
     private final Board board;
     private final int width;
     private final int height;
@@ -56,10 +58,15 @@ public class BoardView extends Canvas {
             double translatedX = fieldPosX + fieldDimension.getWidth() * translateFactor;
             double translatedY = fieldPosY + fieldDimension.getHeight() * translateFactor;
 
+            double energyPositionX = fieldPosX + fieldDimension.getWidth() * ENERGY_SCALE_X;
+            double energyPositionY = fieldPosY + fieldDimension.getHeight() * ENERGY_SCALE_Y;
+
+
             getGraphicsContext2D().fillOval(translatedX, translatedY, fieldDimension.getWidth() * scaling, fieldDimension.getHeight() * scaling);
             getGraphicsContext2D().setStroke(Color.BLACK);
-            getGraphicsContext2D().strokeText(gameObject.toString(gameObject.getCurrentEnergy()), translatedX, translatedY);
-       }
+            getGraphicsContext2D().strokeText(gameObject.toString(gameObject.getCurrentEnergy()), energyPositionX, energyPositionY);
+            getGraphicsContext2D().strokeText(gameObject.getGender(), translatedX, translatedY);
+        }
     }
 
     private void drawLines() {
