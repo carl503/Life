@@ -178,13 +178,7 @@ public class Game {
                 .map(LifeForm.class::cast)
                 .forEach(lifeForm -> {
 
-            boolean isPlantEater = lifeForm instanceof PlantEater;
-            boolean isMeatEater = lifeForm instanceof MeatEater;
-            boolean isFoodEnergyLower = lifeForm.getCurrentEnergy() < animalObject.getCurrentEnergy();
-
-            if (isPlantEater || (isMeatEater && isFoodEnergyLower)) {
                 eatProcess(animalObject, deadLifeForms, stringBuilder, lifeForm);
-            }
         });
 
         return stringBuilder.toString();
