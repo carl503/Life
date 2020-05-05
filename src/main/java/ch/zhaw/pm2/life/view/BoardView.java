@@ -76,12 +76,12 @@ public class BoardView extends Canvas {
         getGraphicsContext2D().setLineWidth(1);
         getGraphicsContext2D().setFill(Color.BLACK);
 
-        for (int i = 0; i <= width; i+= fieldDimension.getWidth()) {
-            getGraphicsContext2D().strokeLine(i, 0, i, height);
+        for (int column = 0; column <= width; column += fieldDimension.getWidth()) {
+            getGraphicsContext2D().strokeLine(column, 0, column, height);
         }
 
-        for (int i = 0; i <= height; i+= fieldDimension.getHeight()) {
-            getGraphicsContext2D().strokeLine(0, i, width, i);
+        for (int row = 0; row <= height; row += fieldDimension.getHeight()) {
+            getGraphicsContext2D().strokeLine(0, row, width, row);
         }
     }
 
