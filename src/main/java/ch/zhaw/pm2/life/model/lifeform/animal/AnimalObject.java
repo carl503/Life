@@ -36,7 +36,6 @@ public abstract class AnimalObject extends LifeForm {
      * Default constructor.
      */
     public AnimalObject() {
-        super();
         currentEnergy = INIT_ENERGY_ANIMALS;
     }
 

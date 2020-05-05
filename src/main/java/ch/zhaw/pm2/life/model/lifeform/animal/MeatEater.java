@@ -11,7 +11,6 @@ public class MeatEater extends AnimalObject {
      * Default constructor.
      */
     public MeatEater() {
-        super();
         this.objectColor = Color.RED;
         isMeatEater = true;
         isMale = setGender();
