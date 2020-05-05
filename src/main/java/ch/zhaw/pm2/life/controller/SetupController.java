@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  */
 public class SetupController {
 
-    private final Logger logger = Logger.getLogger(SetupController.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(SetupController.class.getName());
 
     @FXML private Pane rootPane;
     @FXML private Spinner<Integer> plantCount;
@@ -43,7 +43,7 @@ public class SetupController {
             controller.drawBoard();
             stage.show();
         } catch (IOException e) {
-            logger.log(Level.SEVERE, "Error while setting up the scene", e);
+            LOGGER.log(Level.SEVERE, "Error while setting up the scene", e);
         }
     }
 

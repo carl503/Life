@@ -33,7 +33,7 @@ public class Game {
      */
     public static final int PLANT_ENERGY_CONSUMPTION = 1;
 
-    private Logger logger = Logger.getLogger(Game.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(Game.class.getName());
 
     private Set<GameObject> deadLifeForms = new HashSet<>();
     private boolean ongoing = true;
@@ -65,7 +65,7 @@ public class Game {
             addLifeform(MeatEater.class, meatEaterCount);
             addLifeform(PlantEater.class, plantEaterCount);
         } catch (LifeFormException e) {
-            logger.log(Level.SEVERE, "Error while initializing the life form classes", e);
+            LOGGER.log(Level.SEVERE, "Error while initializing the life form classes", e);
             stop();
         }
     }
