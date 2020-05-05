@@ -27,7 +27,7 @@ public class Game {
     /**
      * When a {@link GameObject} has no energy, it has this value.
      */
-    public static final int ENERGY_VALUE_DEAD = -1;
+    public static final int ENERGY_VALUE_DEAD = 0;
 
     /**
      * When a next round is performed, the energy level of a plant drops by this amount.
@@ -144,7 +144,7 @@ public class Game {
     }
 
     private void dieOfExhaustion(StringBuilder stringBuilder, Set<GameObject> deadLifeForms, GameObject gameObject) {
-        if (gameObject.getCurrentEnergy() == ENERGY_VALUE_DEAD) {
+        if (gameObject.getCurrentEnergy() < ENERGY_VALUE_DEAD) {
             deadLifeForms.add(gameObject);
             stringBuilder.append(gameObject.toString()).append(": died of exhaustion.\n");
         }
