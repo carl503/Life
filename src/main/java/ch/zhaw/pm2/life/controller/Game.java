@@ -82,7 +82,12 @@ public class Game {
         try {
            for (int i = 0; i < count; i++) {
                LifeForm form = lifeForm.getConstructor().newInstance();
-               board.addGameObject(form);
+
+               if (board.getOccupiedPositions().contains(form.getPosition())) {
+                   i--;
+               } else {
+                   board.addGameObject(form);
+               }
            }
        } catch (InstantiationException | InvocationTargetException | NoSuchMethodException | IllegalAccessException e) {
             throw new LifeFormException(e.getMessage(), e);
