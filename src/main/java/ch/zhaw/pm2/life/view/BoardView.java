@@ -48,24 +48,27 @@ public class BoardView extends Canvas {
     private void drawGameObjects() {
         for (GameObject gameObject : board.getGameObjects()) {
             Position position = gameObject.getPosition();
-            getGraphicsContext2D().setFill(gameObject.getColor());
-            double scaling = gameObject.getSize() * GAME_OBJECT_SIZE_SCALING;
-            double translateFactor = (1 - scaling) * HALF;
-
             double fieldPosX = position.getX() * fieldDimension.getWidth();
             double fieldPosY = position.getY() * fieldDimension.getHeight();
+
+            double scaling = gameObject.getSize() * GAME_OBJECT_SIZE_SCALING;
+            double translateFactor = (1 - scaling) * HALF;
 
             double translatedX = fieldPosX + fieldDimension.getWidth() * translateFactor;
             double translatedY = fieldPosY + fieldDimension.getHeight() * translateFactor;
 
+            // draw object
+            getGraphicsContext2D().setFill(gameObject.getColor());
+            getGraphicsContext2D().fillOval(translatedX, translatedY, fieldDimension.getWidth() * scaling, fieldDimension.getHeight() * scaling);
+
+            // draw gender
+            getGraphicsContext2D().setStroke(Color.BLACK);
+            getGraphicsContext2D().strokeText(gameObject.getGender(), translatedX, translatedY);
+
+            // draw current energy
             double energyPositionX = fieldPosX + fieldDimension.getWidth() * ENERGY_SCALE_X;
             double energyPositionY = fieldPosY + fieldDimension.getHeight() * ENERGY_SCALE_Y;
-
-
-            getGraphicsContext2D().fillOval(translatedX, translatedY, fieldDimension.getWidth() * scaling, fieldDimension.getHeight() * scaling);
-            getGraphicsContext2D().setStroke(Color.BLACK);
             getGraphicsContext2D().strokeText(gameObject.toString(gameObject.getCurrentEnergy()), energyPositionX, energyPositionY);
-            getGraphicsContext2D().strokeText(gameObject.getGender(), translatedX, translatedY);
         }
     }
 
