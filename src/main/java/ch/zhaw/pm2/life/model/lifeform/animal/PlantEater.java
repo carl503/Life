@@ -17,9 +17,4 @@ public class PlantEater extends AnimalObject {
         isMale = setGender();
     }
 
-    @Override
-    public String toString(int currentEnergy) {
-        return String.valueOf(currentEnergy);
-    }
-
 }
