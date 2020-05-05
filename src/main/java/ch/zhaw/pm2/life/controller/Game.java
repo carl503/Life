@@ -9,6 +9,7 @@ import ch.zhaw.pm2.life.model.lifeform.animal.AnimalObject;
 import ch.zhaw.pm2.life.model.lifeform.animal.MeatEater;
 import ch.zhaw.pm2.life.model.lifeform.animal.PlantEater;
 import ch.zhaw.pm2.life.model.lifeform.plant.FirstPlant;
+import ch.zhaw.pm2.life.model.lifeform.plant.PlantObject;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
@@ -125,28 +126,31 @@ public class Game {
         StringBuilder stringBuilder = new StringBuilder();
 
         for(GameObject gameObject : board.getGameObjects()) {
-            if(gameObject instanceof AnimalObject) {
-                AnimalObject animalObject = (AnimalObject) gameObject;
-                animalObject.move();
-                dieOfExhaustion(stringBuilder, deadLifeForms, animalObject);
-            } else {
-                gameObject.decreaseEnergy(PLANT_ENERGY_CONSUMPTION);
-                dieOfExhaustion(stringBuilder, deadLifeForms, gameObject);
+            if(gameObject instanceof LifeForm) {
+                LifeForm lifeForm = (LifeForm) gameObject;
+                if (lifeForm instanceof AnimalObject) {
+                    AnimalObject animalObject = (AnimalObject) lifeForm;
+                    animalObject.move();
+                    dieOfExhaustion(stringBuilder, animalObject);
+                } else if(lifeForm instanceof PlantObject) {
+                    lifeForm.decreaseEnergy(PLANT_ENERGY_CONSUMPTION);
+                    dieOfExhaustion(stringBuilder, lifeForm);
+                }
             }
             if(!positionMap.containsKey(gameObject.getPosition())) {
                 positionMap.put(gameObject.getPosition(), new HashSet<>());
             }
             positionMap.get(gameObject.getPosition()).add(gameObject);
         }
-        board.getGameObjects().removeAll(deadLifeForms);
+        board.cleanBoard();
 
         return stringBuilder.toString();
     }
 
-    private void dieOfExhaustion(StringBuilder stringBuilder, Set<GameObject> deadLifeForms, GameObject gameObject) {
-        if (gameObject.getCurrentEnergy() < ENERGY_VALUE_DEAD) {
-            deadLifeForms.add(gameObject);
-            stringBuilder.append(gameObject.getClass().getSimpleName()).append(": died of exhaustion.\n");
+    private void dieOfExhaustion(StringBuilder stringBuilder, LifeForm lifeForm) {
+        if (lifeForm.getCurrentEnergy() < ENERGY_VALUE_DEAD) {
+            lifeForm.die();
+            stringBuilder.append(lifeForm.getClass().getSimpleName()).append(": died of exhaustion.\n");
         }
     }
 
@@ -164,7 +168,7 @@ public class Game {
                 set.removeAll(deadLifeForms);
             }
         }
-        board.getGameObjects().removeAll(deadLifeForms);
+        board.cleanBoard();
 
         return stringBuilder.toString();
     }

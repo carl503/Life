@@ -1,5 +1,6 @@
 package ch.zhaw.pm2.life.model;
 
+import ch.zhaw.pm2.life.model.lifeform.LifeForm;
 import ch.zhaw.pm2.life.model.lifeform.animal.AnimalObject;
 
 import java.util.HashSet;
@@ -38,12 +39,27 @@ public class Board {
     }
 
     /**
-     * Removes a game object from the set.
-     * @param gameObject
+     * Remove all dead life forms from the board.
      */
-    public void removeGameObject(GameObject gameObject) {
-        Objects.requireNonNull(gameObject, "Game object cannot be null to remove it from the board.");
-        gameObjects.remove(gameObject);
+    public void cleanBoard() {
+        Set<LifeForm> deadLifeForms = gameObjects.stream()
+                .filter(LifeForm.class::isInstance)
+                .map(LifeForm.class::cast)
+                .filter(LifeForm::isDead)
+                .collect(Collectors.toSet());
+        gameObjects.removeAll(deadLifeForms);
+        occupiedPositions.removeAll(getFreedPositions(deadLifeForms));
+    }
+
+    private Set<Position> getFreedPositions(Set<LifeForm> deadLifeForms) {
+        Set<Position> currentOccupiedPositions = gameObjects.stream()
+                .map(GameObject::getPosition)
+                .collect(Collectors.toSet());
+
+        return deadLifeForms.stream()
+                .map(GameObject::getPosition)
+                .filter(position -> !currentOccupiedPositions.contains(position))
+                .collect(Collectors.toSet());
     }
 
     /**

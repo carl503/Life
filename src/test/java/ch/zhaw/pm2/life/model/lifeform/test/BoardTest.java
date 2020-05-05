@@ -3,8 +3,10 @@ package ch.zhaw.pm2.life.model.lifeform.test;
 import ch.zhaw.pm2.life.model.Board;
 import ch.zhaw.pm2.life.model.GameObject;
 import ch.zhaw.pm2.life.model.Position;
+import ch.zhaw.pm2.life.model.lifeform.LifeForm;
 import ch.zhaw.pm2.life.model.lifeform.animal.MeatEater;
 import ch.zhaw.pm2.life.model.lifeform.animal.PlantEater;
+import ch.zhaw.pm2.life.model.lifeform.plant.PlantObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -51,30 +53,29 @@ public class BoardTest {
     }
 
     @Test
-    public void testRemoveGameObject() {
-        GameObject thirdGameObject = mock(GameObject.class);
+    public void testCleanBoard() {
+        LifeForm firstLifeForm = mock(MeatEater.class);
+        when(firstLifeForm.getPosition()).thenReturn(new Position(0, 0));
+        when(firstLifeForm.isDead()).thenReturn(true);
+        board.addGameObject(firstLifeForm);
 
-        when(firstGameObject.getPosition()).thenReturn(new Position(0, 0));
-        when(secondGameObject.getPosition()).thenReturn(new Position(0, 1));
-        when(thirdGameObject.getPosition()).thenReturn(new Position(0, 1));
+        LifeForm secondLifeForm = mock(PlantEater.class);
+        when(secondLifeForm.getPosition()).thenReturn(new Position(0, 1));
+        when(secondLifeForm.isDead()).thenReturn(false);
+        board.addGameObject(secondLifeForm);
 
-        board.addGameObject(firstGameObject);
-        board.addGameObject(secondGameObject);
-        board.addGameObject(thirdGameObject);
+        LifeForm thirdLifeForm = mock(PlantObject.class);
+        when(thirdLifeForm.getPosition()).thenReturn(new Position(0, 1));
+        when(thirdLifeForm.isDead()).thenReturn(false);
+        board.addGameObject(thirdLifeForm);
 
-        // existing game object
-        board.removeGameObject(firstGameObject);
+        assertEquals(3, board.getGameObjects().size());
+        assertEquals(2, board.getOccupiedPositions().size()); // second and third on same position
+
+        board.cleanBoard();
+
         assertEquals(2, board.getGameObjects().size());
         assertEquals(1, board.getOccupiedPositions().size()); // second and third on same position
-
-        board.removeGameObject(secondGameObject);
-        assertEquals(1, board.getGameObjects().size());
-        assertEquals(1, board.getOccupiedPositions().size());
-
-        // non existing game object
-        board.removeGameObject(firstGameObject);
-        assertEquals(1, board.getGameObjects().size());
-        assertEquals(1, board.getOccupiedPositions().size());
     }
 
     @Test
@@ -124,12 +125,6 @@ public class BoardTest {
         when(firstGameObject.getPosition()).thenReturn(new Position(BOARD_SIZE, 0));
         // todo: exception
         board.addGameObject(firstGameObject);
-    }
-
-    @Test
-    public void testRemoveGameObjectNull() {
-        NullPointerException thrown = assertThrows(NullPointerException.class, () -> board.removeGameObject(null));
-        assertEquals("Game object cannot be null to remove it from the board.", thrown.getMessage());
     }
 
     @Test
