@@ -6,21 +6,21 @@ import java.util.Objects;
  * Position Objects represent the positions of the GameObjects in the field
  */
 public class Position {
-    private int xValue;
-    private int yValue;
 
+    private int x;
+    private int y;
 
-    public Position(int xValue, int yValue){
-        this.xValue = xValue;
-        this.yValue = yValue;
+    public Position(int x, int y){
+        this.x = x;
+        this.y = y;
     }
 
     public int getX() {
-        return xValue;
+        return x;
     }
 
     public int getY() {
-        return yValue;
+        return y;
     }
 
     @Override
@@ -28,13 +28,12 @@ public class Position {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         Position position = (Position) o;
-        return xValue == position.xValue &&
-                yValue == position.yValue;
+        return x == position.x && y == position.y;
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(xValue, yValue);
+        return Objects.hash(x, y);
     }
 
 }
