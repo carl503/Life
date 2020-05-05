@@ -2,7 +2,7 @@ package ch.zhaw.pm2.life.view;
 
 import ch.zhaw.pm2.life.model.Board;
 import ch.zhaw.pm2.life.model.GameObject;
-import ch.zhaw.pm2.life.model.Position;
+import ch.zhaw.pm2.life.model.Vector2D;
 import ch.zhaw.pm2.life.model.lifeform.LifeForm;
 import javafx.geometry.Dimension2D;
 import javafx.scene.canvas.Canvas;
@@ -54,9 +54,9 @@ public class BoardView extends Canvas {
 
     private void drawGameObjects() {
         for (GameObject gameObject : board.getGameObjects()) {
-            Position position = gameObject.getPosition();
-            double fieldPosX = position.getX() * fieldDimension.getWidth();
-            double fieldPosY = position.getY() * fieldDimension.getHeight();
+            Vector2D vector2D = gameObject.getVector2D();
+            double fieldPosX = vector2D.getX() * fieldDimension.getWidth();
+            double fieldPosY = vector2D.getY() * fieldDimension.getHeight();
 
             double scaling = gameObject.getSize() * GAME_OBJECT_SIZE_SCALING;
             double translateFactor = (1 - scaling) * HALF;

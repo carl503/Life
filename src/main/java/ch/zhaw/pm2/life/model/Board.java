@@ -16,7 +16,7 @@ public class Board {
     private final int rows;
     private final int columns;
     private final Set<GameObject> gameObjects = new HashSet<>();
-    private final Set<Position> occupiedPositions = new HashSet<>();
+    private final Set<Vector2D> occupiedVector2DS = new HashSet<>();
 
     /**
      * Default constructor.
@@ -35,7 +35,7 @@ public class Board {
     public void addGameObject(GameObject gameObject) {
         Objects.requireNonNull(gameObject, "Game object cannot be null to add it on the board.");
         gameObjects.add(gameObject);
-        occupiedPositions.add(gameObject.getPosition());
+        occupiedVector2DS.add(gameObject.getVector2D());
     }
 
     /**
@@ -48,17 +48,17 @@ public class Board {
                 .filter(LifeForm::isDead)
                 .collect(Collectors.toSet());
         gameObjects.removeAll(deadLifeForms);
-        occupiedPositions.removeAll(getFreedPositions(deadLifeForms));
+        occupiedVector2DS.removeAll(getFreedPositions(deadLifeForms));
     }
 
-    private Set<Position> getFreedPositions(Set<LifeForm> deadLifeForms) {
-        Set<Position> currentOccupiedPositions = gameObjects.stream()
-                .map(GameObject::getPosition)
+    private Set<Vector2D> getFreedPositions(Set<LifeForm> deadLifeForms) {
+        Set<Vector2D> currentOccupiedVector2DS = gameObjects.stream()
+                .map(GameObject::getVector2D)
                 .collect(Collectors.toSet());
 
         return deadLifeForms.stream()
-                .map(GameObject::getPosition)
-                .filter(position -> !currentOccupiedPositions.contains(position))
+                .map(GameObject::getVector2D)
+                .filter(position -> !currentOccupiedVector2DS.contains(position))
                 .collect(Collectors.toSet());
     }
 
@@ -90,8 +90,8 @@ public class Board {
      * Returns a set of occupied positions
      * @return set of position objects
      */
-    public Set<Position> getOccupiedPositions() {
-        return occupiedPositions;
+    public Set<Vector2D> getOccupiedVector2DS() {
+        return occupiedVector2DS;
     }
 
     /**

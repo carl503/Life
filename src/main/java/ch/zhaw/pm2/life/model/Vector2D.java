@@ -5,7 +5,7 @@ import java.util.Objects;
 /**
  * Position Objects represent the positions of the GameObjects in the field
  */
-public class Position {
+public class Vector2D {
 
     private int x;
     private int y;
@@ -15,7 +15,7 @@ public class Position {
      * @param x X-Coordinate as int
      * @param y Y-Coordinate as int
      */
-    public Position(int x, int y){
+    public Vector2D(int x, int y){
         this.x = x;
         this.y = y;
     }
@@ -40,8 +40,8 @@ public class Position {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        Position position = (Position) o;
-        return x == position.x && y == position.y;
+        Vector2D vector2D = (Vector2D) o;
+        return x == vector2D.x && y == vector2D.y;
     }
 
     @Override

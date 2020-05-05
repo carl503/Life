@@ -1,10 +1,9 @@
 package ch.zhaw.pm2.life.model.lifeform.animal;
 
 import ch.zhaw.pm2.life.exception.LifeFormException;
-import ch.zhaw.pm2.life.model.Position;
+import ch.zhaw.pm2.life.model.Vector2D;
 import ch.zhaw.pm2.life.model.lifeform.LifeForm;
 
-import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -44,8 +43,8 @@ public abstract class AnimalObject extends LifeForm {
      */
     public void move() {
         LOGGER.log(Level.FINER, "Move {0}", getClass().getSimpleName());
-        Position previousPosition = position;
-        position = chooseRandomNeighbourPosition();
+        Vector2D previousVector2D = vector2D;
+        vector2D = chooseRandomNeighbourPosition();
         int consumeEnergy = 0;
         if(isPoisoned) {
             consumeEnergy = getPoisonedEnergyConsumption();
@@ -53,7 +52,7 @@ public abstract class AnimalObject extends LifeForm {
                     consumeEnergy, getClass().getSimpleName()
             });
         }
-        if(!previousPosition.equals(position)) {
+        if(!previousVector2D.equals(vector2D)) {
             consumeEnergy = 1;
             LOGGER.log(Level.FINE, "{1} decreased energy (move) by {0}", new Object[] {
                     consumeEnergy, getClass().getSimpleName()

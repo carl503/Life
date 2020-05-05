@@ -3,7 +3,7 @@ package ch.zhaw.pm2.life.controller;
 import ch.zhaw.pm2.life.exception.LifeFormException;
 import ch.zhaw.pm2.life.model.Board;
 import ch.zhaw.pm2.life.model.GameObject;
-import ch.zhaw.pm2.life.model.Position;
+import ch.zhaw.pm2.life.model.Vector2D;
 import ch.zhaw.pm2.life.model.lifeform.LifeForm;
 import ch.zhaw.pm2.life.model.lifeform.animal.AnimalObject;
 import ch.zhaw.pm2.life.model.lifeform.animal.MeatEater;
@@ -84,7 +84,7 @@ public class Game {
            for (int i = 0; i < count; i++) {
                LifeForm form = lifeForm.getConstructor().newInstance();
 
-               if (board.getOccupiedPositions().contains(form.getPosition())) {
+               if (board.getOccupiedVector2DS().contains(form.getVector2D())) {
                    i--;
                } else {
                    board.addGameObject(form);
@@ -104,7 +104,7 @@ public class Game {
     public String nextMove() {
         String messageLog = "";
         if(ongoing) {
-            Map<Position, Set<GameObject>> positionMap = new HashMap<>();
+            Map<Vector2D, Set<GameObject>> positionMap = new HashMap<>();
             messageLog += move(positionMap);
             messageLog += eat(positionMap);
             if (board.containsNotInstanceOfAnimalObject(MeatEater.class) || board.containsNotInstanceOfAnimalObject(PlantEater.class)) {
@@ -122,7 +122,7 @@ public class Game {
         return ongoing;
     }
 
-    private String move(Map<Position, Set<GameObject>> positionMap) {
+    private String move(Map<Vector2D, Set<GameObject>> positionMap) {
         StringBuilder stringBuilder = new StringBuilder();
 
         for(GameObject gameObject : board.getGameObjects()) {
@@ -137,10 +137,10 @@ public class Game {
                     dieOfExhaustion(stringBuilder, lifeForm);
                 }
             }
-            if(!positionMap.containsKey(gameObject.getPosition())) {
-                positionMap.put(gameObject.getPosition(), new HashSet<>());
+            if(!positionMap.containsKey(gameObject.getVector2D())) {
+                positionMap.put(gameObject.getVector2D(), new HashSet<>());
             }
-            positionMap.get(gameObject.getPosition()).add(gameObject);
+            positionMap.get(gameObject.getVector2D()).add(gameObject);
         }
         board.cleanBoard();
 
@@ -154,13 +154,13 @@ public class Game {
         }
     }
 
-    private String eat(Map<Position, Set<GameObject>> positionMap) {
+    private String eat(Map<Vector2D, Set<GameObject>> positionMap) {
         StringBuilder stringBuilder = new StringBuilder();
 
         for(GameObject gameObject : board.getGameObjects()) {
             if(gameObject instanceof AnimalObject) {
                 AnimalObject animalObject = (AnimalObject) gameObject;
-                Set<GameObject> set = positionMap.get(animalObject.getPosition());
+                Set<GameObject> set = positionMap.get(animalObject.getVector2D());
 
                 String eatMessage = handleCollision(set, animalObject, deadLifeForms);
                 stringBuilder.append(eatMessage);

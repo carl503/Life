@@ -23,7 +23,7 @@ public abstract class GameObject {
     /**
      * The current position of this game object.
      */
-    protected Position position;
+    protected Vector2D vector2D;
 
     /**
      * The color of this game object.
@@ -48,19 +48,19 @@ public abstract class GameObject {
     }
 
     private enum Direction {
-        DOWN_LEFT(new Position(-1, 1)),
-        DOWN(new Position(0, 1)),
-        DOWN_RIGHT(new Position(1, 1)),
-        LEFT(new Position(-1, 0)),
-        NONE(new Position(0, 0)),
-        RIGHT(new Position(1, 0)),
-        UP_LEFT(new Position(-1, -1)),
-        UP(new Position(0, -1)),
-        UP_RIGHT(new Position(1, -1));
+        DOWN_LEFT(new Vector2D(-1, 1)),
+        DOWN(new Vector2D(0, 1)),
+        DOWN_RIGHT(new Vector2D(1, 1)),
+        LEFT(new Vector2D(-1, 0)),
+        NONE(new Vector2D(0, 0)),
+        RIGHT(new Vector2D(1, 0)),
+        UP_LEFT(new Vector2D(-1, -1)),
+        UP(new Vector2D(0, -1)),
+        UP_RIGHT(new Vector2D(1, -1));
 
-        public final Position position;
-        Direction(final Position p) {
-            position = p;
+        public final Vector2D vector2D;
+        Direction(final Vector2D p) {
+            vector2D = p;
         }
     }
 
@@ -71,7 +71,7 @@ public abstract class GameObject {
         // TODO: exclude already occupied fields
         int xPos = random.nextInt(LifeWindowController.ROWS);
         int yPos = random.nextInt(LifeWindowController.COLUMNS);
-        position = new Position(xPos, yPos);
+        vector2D = new Vector2D(xPos, yPos);
     }
 
     /**
@@ -108,8 +108,8 @@ public abstract class GameObject {
      * Returns Position of the GameObject
      * @return position
      */
-    public Position getPosition(){
-        return position;
+    public Vector2D getVector2D(){
+        return vector2D;
     }
 
     /**
@@ -117,21 +117,21 @@ public abstract class GameObject {
      * Is called when a plant reproduces itself next to its current Position
      * Is called before a move is made by an animal
      */
-    public Position chooseRandomNeighbourPosition() {
-        List<Position> neighbours = getNeighbourFields();
+    public Vector2D chooseRandomNeighbourPosition() {
+        List<Vector2D> neighbours = getNeighbourFields();
         int neighbourIndex = random.nextInt(neighbours.size());
         return neighbours.get(neighbourIndex);
     }
 
 
-    private List<Position> getNeighbourFields() {
-        List<Position> neighbours = new ArrayList<>();
+    private List<Vector2D> getNeighbourFields() {
+        List<Vector2D> neighbours = new ArrayList<>();
         for(Direction direction : Direction.values()) {
-            int neighbourX = position.getX() + direction.position.getX();
-            int neighbourY = position.getY() + direction.position.getY();
+            int neighbourX = vector2D.getX() + direction.vector2D.getX();
+            int neighbourY = vector2D.getY() + direction.vector2D.getY();
             if(neighbourX >= 0 && neighbourX < LifeWindowController.COLUMNS
                     && neighbourY >= 0 && neighbourY < LifeWindowController.ROWS) {
-                neighbours.add(new Position(neighbourX, neighbourY));
+                neighbours.add(new Vector2D(neighbourX, neighbourY));
             }
         }
         return neighbours;
