@@ -26,16 +26,6 @@ public abstract class AnimalObject extends LifeForm {
     protected boolean isMale;
 
     /**
-     * Determines if this {@link AnimalObject} can eat plants.
-     */
-    protected boolean isPlantEater;
-
-    /**
-     * Determines if this {@link AnimalObject} can eat meat (other {@link AnimalObject}).
-     */
-    protected boolean isMeatEater;
-
-    /**
      * Default constructor.
      */
     public AnimalObject() {

@@ -20,7 +20,6 @@ public class PlantEater extends AnimalObject {
      */
     public PlantEater() {
         this.objectColor = Color.LIGHTSEAGREEN;
-        isPlantEater = true;
         isMale = setGender();
     }
 
