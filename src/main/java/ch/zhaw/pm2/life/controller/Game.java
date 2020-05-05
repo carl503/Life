@@ -178,20 +178,15 @@ public class Game {
                 .map(LifeForm.class::cast)
                 .forEach(lifeForm -> {
 
-                eatProcess(animalObject, deadLifeForms, stringBuilder, lifeForm);
+            try {
+                animalObject.eat(lifeForm);
+                deadLifeForms.add(lifeForm);
+                stringBuilder.append(animalObject.toString()).append(": Yummy food!\n");
+            } catch (LifeFormException e) {
+                stringBuilder.append(String.format("%s%n", e.getMessage()));
+            }
         });
 
         return stringBuilder.toString();
     }
-
-    private void eatProcess(AnimalObject animalObject, Set<GameObject> deadLifeForms, StringBuilder stringBuilder, LifeForm lifeForm) {
-        try {
-            animalObject.eat(lifeForm);
-            deadLifeForms.add(lifeForm);
-            stringBuilder.append(animalObject.toString()).append(": Yummy food!\n");
-        } catch (LifeFormException e) {
-            stringBuilder.append(String.format("%s%n", e.getMessage()));
-        }
-    }
-
 }
