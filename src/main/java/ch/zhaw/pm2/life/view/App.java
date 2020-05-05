@@ -6,8 +6,10 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.logging.Level;
+import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 /**
@@ -17,6 +19,17 @@ import java.util.logging.Logger;
 public class App extends Application {
 
     private static final Logger LOGGER = Logger.getLogger(App.class.getName());
+
+    /**
+     * Default constructor.
+     */
+    public App() {
+        try (InputStream config = App.class.getClassLoader().getResourceAsStream("log.properties")) {
+            LogManager.getLogManager().readConfiguration(config);
+        } catch (IOException e) {
+            LOGGER.log(Level.CONFIG,"No log.properties", e);
+        }
+    }
 
     /**
      * Entry point for the application.
