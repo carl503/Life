@@ -80,12 +80,13 @@ public class Game {
      */
     public String nextMove() {
         String messageLog = "";
-        if (board.getAnimalsGameObjects().isEmpty()) {
-            stop();
-        } else if(ongoing) {
+        if(ongoing) {
             Map<Position, Set<GameObject>> positionMap = new HashMap<>();
             messageLog += move(positionMap);
             messageLog += eat(positionMap);
+            if (board.containsNotInstanceOfAnimalObject(MeatEater.class) || board.containsNotInstanceOfAnimalObject(PlantEater.class)) {
+                stop();
+            }
         }
         return messageLog;
     }

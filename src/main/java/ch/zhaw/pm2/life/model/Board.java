@@ -4,6 +4,7 @@ import ch.zhaw.pm2.life.model.lifeform.animal.AnimalObject;
 
 import java.util.HashSet;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * This model class represents the board containing all the game objects.
@@ -65,18 +66,17 @@ public class Board {
     }
 
     /**
-     * Returns a set of game objects with only animals.
-     * @return set of game objects.
+     * Check if and instance of a specific animal object exists on the board.
+     * @param clazz {@link Class<? extends AnimalObject>} does an instance of this class exist?
+     * @return true if an instance of the provided class exists otherwise false
      */
-    public Set<GameObject> getAnimalsGameObjects() {
-        Set<GameObject> animalsGameObjects = new HashSet<>();
+    public boolean containsNotInstanceOfAnimalObject(Class<? extends AnimalObject> clazz) {
+        Set<Class<? extends AnimalObject>> animalClassSet = gameObjects.stream()
+                .filter(AnimalObject.class::isInstance)
+                .map(AnimalObject.class::cast)
+                .map(AnimalObject::getClass)
+                .collect(Collectors.toSet());
 
-        for (GameObject gameObject: gameObjects) {
-            if (gameObject instanceof AnimalObject) {
-                animalsGameObjects.add(gameObject);
-            }
-        }
-
-        return animalsGameObjects;
+        return !animalClassSet.contains(clazz);
     }
 }
