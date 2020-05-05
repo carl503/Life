@@ -6,11 +6,15 @@ import ch.zhaw.pm2.life.model.lifeform.LifeForm;
 
 import java.util.Objects;
 import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Abstract class of an animal.
  */
 public abstract class AnimalObject extends LifeForm {
+
+    private static final Logger LOGGER = Logger.getLogger(AnimalObject.class.getCanonicalName());
 
     /**
      * Default energy level of an {@link AnimalObject}.
@@ -66,14 +70,21 @@ public abstract class AnimalObject extends LifeForm {
      * Is called when the animal moves
      */
     public void move() {
+        LOGGER.log(Level.FINER, "Move {0}", getClass().getSimpleName());
         Position previousPosition = position;
         position = chooseRandomNeighbourPosition();
         int consumeEnergy = 0;
         if(isPoisoned) {
             consumeEnergy = getPoisonedEnergyConsumption();
+            LOGGER.log(Level.FINE, "{1} decreased energy (poisoned) by {0}", new Object[] {
+                    consumeEnergy, getClass().getSimpleName()
+            });
         }
         if(!previousPosition.equals(position)) {
             consumeEnergy = 1;
+            LOGGER.log(Level.FINE, "{1} decreased energy (move) by {0}", new Object[] {
+                    consumeEnergy, getClass().getSimpleName()
+            });
         }
         decreaseEnergy(consumeEnergy);
     }
