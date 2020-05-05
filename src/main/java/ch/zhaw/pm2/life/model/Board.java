@@ -34,6 +34,7 @@ public class Board {
     public void addGameObject(GameObject gameObject) {
         Objects.requireNonNull(gameObject, "Game object cannot be null to add it on the board.");
         gameObjects.add(gameObject);
+        occupiedPositions.add(gameObject.getPosition());
     }
 
     /**
