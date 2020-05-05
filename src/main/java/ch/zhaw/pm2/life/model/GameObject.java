@@ -32,6 +32,7 @@ public abstract class GameObject {
 
     private static final int BASIC_SIZE = 5;
     private final Random random = new Random();
+
     /**
      * Valid values: 3-10
      */

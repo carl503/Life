@@ -1,6 +1,5 @@
 package ch.zhaw.pm2.life.controller;
 
-
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -70,4 +69,5 @@ public class SetupController {
     public int getPlantEaterCount() {
         return plantEaterCount.getValue();
     }
+
 }

@@ -25,4 +25,5 @@ public abstract class PlantObject extends LifeForm {
     public FoodType getFoodType() {
         return FoodType.PLANT;
     }
+
 }

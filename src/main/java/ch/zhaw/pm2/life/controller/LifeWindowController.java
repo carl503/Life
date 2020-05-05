@@ -85,4 +85,5 @@ public class LifeWindowController {
                 setupController.getMeatEaterCount(), setupController.getPlantEaterCount());
         game.init();
     }
+
 }

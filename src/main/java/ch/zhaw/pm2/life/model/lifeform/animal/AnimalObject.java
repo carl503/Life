@@ -1,12 +1,12 @@
 package ch.zhaw.pm2.life.model.lifeform.animal;
 
-
 import ch.zhaw.pm2.life.exception.LifeFormException;
 import ch.zhaw.pm2.life.model.Position;
 import ch.zhaw.pm2.life.model.lifeform.LifeForm;
 
 import java.util.Objects;
 import java.util.Random;
+
 /**
  * Abstract class of an animal.
  */
@@ -91,6 +91,5 @@ public abstract class AnimalObject extends LifeForm {
     public FoodType getFoodType() {
         return FoodType.MEAT;
     }
-
 
 }

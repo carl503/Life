@@ -14,7 +14,6 @@ public class MeatEater extends AnimalObject {
         this.objectColor = Color.RED;
         isMeatEater = true;
         isMale = setGender();
-
     }
 
 }
