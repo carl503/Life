@@ -60,6 +60,7 @@ public class BoardTest {
 
         board.addGameObject(firstGameObject);
         board.addGameObject(secondGameObject);
+        board.addGameObject(thirdGameObject);
 
         // existing game object
         board.removeGameObject(firstGameObject);
