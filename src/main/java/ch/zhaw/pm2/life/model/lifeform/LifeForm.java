@@ -49,6 +49,8 @@ public abstract class LifeForm extends GameObject {
         if(genderValue < 5) {
             isMale = false;
         }
+           int poisonValue = random.nextInt(10);
+           isPoisonous = poisonValue < POISONOUS_PROBABILITY;
 
     }
 
