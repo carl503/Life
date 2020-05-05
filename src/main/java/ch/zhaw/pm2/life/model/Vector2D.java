@@ -36,6 +36,18 @@ public class Vector2D {
         return y;
     }
 
+    /**
+     * Subtracts the second from the first
+     * @param first vector
+     * @param second vector
+     * @return new Position
+     */
+    public static Vector2D subtract(Vector2D first, Vector2D second) {
+        int newX = first.getX() - second.getX();
+        int newY = first.getY() - second.getY();
+        return new Vector2D(newX, newY);
+    }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
