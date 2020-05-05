@@ -23,7 +23,7 @@ public abstract class AnimalObject extends LifeForm {
     /**
      * Flag indicating the gender.
      */
-    protected boolean isMale;
+
 
     /**
      * Default constructor.
@@ -41,19 +41,7 @@ public abstract class AnimalObject extends LifeForm {
         return gender;
     }
 
-    /**
-     *  Decides the gender by a 50/50 chance
-     * @return isMale = true if its a male and false if its a female
-     */
-    public boolean setGender() {
-        isMale = true;
-        Random random = new Random();
-        int randomValue = random.nextInt(10);
-        if(randomValue < 5) {
-            isMale = false;
-        }
-        return isMale;
-    }
+
 
     /**
      * Is called when the animal moves

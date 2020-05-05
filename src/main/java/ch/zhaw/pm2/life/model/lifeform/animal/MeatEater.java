@@ -20,7 +20,6 @@ public class MeatEater extends AnimalObject {
      */
     public MeatEater() {
         this.objectColor = Color.RED;
-        isMale = setGender();
     }
 
     @Override

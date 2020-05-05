@@ -30,6 +30,7 @@ public abstract class LifeForm extends GameObject {
      * Flag if this life form is poisonous.
      */
     protected boolean isPoisoned = false;
+    protected boolean isMale;
 
     private int nextPoisonedEnergyConsumption;
 
@@ -42,8 +43,13 @@ public abstract class LifeForm extends GameObject {
 
     public LifeForm() {
        Random random = new Random();
-       int randomValue = random.nextInt(10);
-       isPoisonous = randomValue < POISONOUS_PROBABILITY;
+
+        isMale = true;
+        int genderValue = random.nextInt(10);
+        if(genderValue < 5) {
+            isMale = false;
+        }
+
     }
 
     /**
