@@ -4,7 +4,6 @@ import ch.zhaw.pm2.life.exception.LifeFormException;
 import ch.zhaw.pm2.life.model.Position;
 import ch.zhaw.pm2.life.model.lifeform.LifeForm;
 
-import java.util.Objects;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
