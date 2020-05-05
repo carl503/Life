@@ -16,6 +16,7 @@ import java.util.HashSet;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Set;
+import java.util.function.Predicate;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -166,23 +167,22 @@ public class Game {
 
     private String handleCollision(Set<GameObject> sameFieldSet, AnimalObject animalObject, Set<GameObject> deadLifeForms) {
         StringBuilder stringBuilder = new StringBuilder();
-        for (GameObject gameObject : sameFieldSet) {
-            if (gameObject.equals(animalObject)) {
-                continue;
+
+        sameFieldSet.stream()
+                .filter(gameObject -> !gameObject.equals(animalObject))
+                .filter(LifeForm.class::isInstance)
+                .map(LifeForm.class::cast)
+                .forEach(lifeForm -> {
+
+            boolean isPlantEater = lifeForm instanceof PlantEater;
+            boolean isMeatEater = lifeForm instanceof MeatEater;
+            boolean isFoodEnergyLower = lifeForm.getCurrentEnergy() < animalObject.getCurrentEnergy();
+
+            if (isPlantEater || (isMeatEater && isFoodEnergyLower)) {
+                eatProcess(animalObject, deadLifeForms, stringBuilder, lifeForm);
             }
-            if (gameObject instanceof LifeForm) {
-                LifeForm lifeForm = (LifeForm) gameObject;
-                if (animalObject instanceof PlantEater) {
-                    eatProcess(animalObject, deadLifeForms, stringBuilder, lifeForm);
-                } else {
-                    if(lifeForm instanceof PlantEater || (lifeForm instanceof MeatEater && lifeForm.getCurrentEnergy() < animalObject.getCurrentEnergy())) {
-                        eatProcess(animalObject, deadLifeForms, stringBuilder, lifeForm);
-                    } else {
-                        // meat eater is not a vegetarian or the other meat eater is not weaker.
-                    }
-                }
-            }
-        }
+        });
+
         return stringBuilder.toString();
     }
 
