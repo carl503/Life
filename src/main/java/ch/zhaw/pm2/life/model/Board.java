@@ -3,6 +3,7 @@ package ch.zhaw.pm2.life.model;
 import ch.zhaw.pm2.life.model.lifeform.animal.AnimalObject;
 
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -30,6 +31,7 @@ public class Board {
      * @param gameObject {@link GameObject}
      */
     public void addGameObject(GameObject gameObject) {
+        Objects.requireNonNull(gameObject, "Game object cannot be null to add it on the board.");
         gameObjects.add(gameObject);
     }
 
@@ -38,6 +40,7 @@ public class Board {
      * @param gameObject
      */
     public void removeGameObject(GameObject gameObject) {
+        Objects.requireNonNull(gameObject, "Game object cannot be null to remove it from the board.");
         gameObjects.remove(gameObject);
     }
 
@@ -71,6 +74,10 @@ public class Board {
      * @return true if an instance of the provided class exists otherwise false
      */
     public boolean containsNotInstanceOfAnimalObject(Class<? extends AnimalObject> clazz) {
+        if(clazz == null) {
+            return false;
+        }
+
         Set<Class<? extends AnimalObject>> animalClassSet = gameObjects.stream()
                 .filter(AnimalObject.class::isInstance)
                 .map(AnimalObject.class::cast)

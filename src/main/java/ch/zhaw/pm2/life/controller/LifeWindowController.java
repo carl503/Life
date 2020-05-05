@@ -7,6 +7,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
 
+import java.util.Objects;
+
 /**
  * Controller for the main window.
  */
@@ -72,7 +74,7 @@ public class LifeWindowController {
      * @param setupController {@link SetupController}
      */
     public void setSetupController(SetupController setupController) {
-        this.setupController = setupController;
+        this.setupController = Objects.requireNonNull(setupController, "The setup controller cannot be null.");
     }
 
     /**

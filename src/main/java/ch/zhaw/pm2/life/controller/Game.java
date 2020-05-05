@@ -14,6 +14,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -50,7 +51,7 @@ public class Game {
      * @param plantEaterCount Initial amount of plant eaters.
      */
     public Game(Board board, int plantCount, int meatEaterCount, int plantEaterCount) {
-        this.board = board;
+        this.board = Objects.requireNonNull(board, "Board cannot be null to create the game.");
         this.plantCount = plantCount;
         this.meatEaterCount = meatEaterCount;
         this.plantEaterCount = plantEaterCount;

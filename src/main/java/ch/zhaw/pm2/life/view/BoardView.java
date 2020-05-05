@@ -7,6 +7,8 @@ import javafx.geometry.Dimension2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Color;
 
+import java.util.Objects;
+
 /**
  * This class displays the board.
  * @author lubojcar, meletlea
@@ -30,7 +32,7 @@ public class BoardView extends Canvas {
     public BoardView(int width, int height, Board board) {
         this.width = width;
         this.height = height;
-        this.board = board;
+        this.board = Objects.requireNonNull(board, "Board cannot be null to display it.");
         setHeight(height);
         setWidth(width);
         fieldDimension = new Dimension2D(width / (double) board.getColumns(), height / (double) board.getRows());

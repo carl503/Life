@@ -5,6 +5,7 @@ import ch.zhaw.pm2.life.exception.LifeFormException;
 import ch.zhaw.pm2.life.model.Position;
 import ch.zhaw.pm2.life.model.lifeform.LifeForm;
 
+import java.util.Objects;
 import java.util.Random;
 /**
  * Abstract class of an animal.
@@ -76,6 +77,7 @@ public abstract class AnimalObject extends LifeForm {
      * Is called when the animal eats meat
      */
     public void eat(LifeForm lifeForm) throws LifeFormException {
+        Objects.requireNonNull(lifeForm, "Cannot eat null.");
         if(isPlantEater && lifeForm.getFoodType() == FoodType.MEAT) {
             throw new LifeFormException("Cannot eat this meat, I am vegetarian.");
         }
