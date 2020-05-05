@@ -75,17 +75,7 @@ public abstract class AnimalObject extends LifeForm {
     /**
      * Is called when the animal eats meat
      */
-    public void eat(LifeForm lifeForm) throws LifeFormException {
-        Objects.requireNonNull(lifeForm, "Cannot eat null.");
-        if(isPlantEater && lifeForm.getFoodType() == FoodType.MEAT) {
-            throw new LifeFormException("Cannot eat this meat, I am vegetarian.");
-        }
-        if(isMeatEater && lifeForm.getFoodType() == FoodType.PLANT) {
-            throw new LifeFormException("Cannot eat this plant. Do I look like a vegetarian?!");
-        }
-        increaseEnergy(lifeForm.getCurrentEnergy());
-        lifeForm.die();
-    }
+    public abstract void eat(LifeForm lifeForm) throws LifeFormException;
 
     @Override
     public FoodType getFoodType() {
