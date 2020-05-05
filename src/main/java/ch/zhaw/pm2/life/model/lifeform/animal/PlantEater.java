@@ -27,6 +27,9 @@ public class PlantEater extends AnimalObject {
             throw new LifeFormException("Cannot eat this meat, I am vegetarian.");
         }
         increaseEnergy(lifeForm.getCurrentEnergy());
+        if(lifeForm.isPoisonous()) {
+            poisoned();
+        }
         lifeForm.die();
     }
 }

@@ -30,6 +30,9 @@ public class MeatEater extends AnimalObject {
             throw new LifeFormException("Cannot eat this meat eater. He is stronger than I.");
         }
         increaseEnergy(lifeForm.getCurrentEnergy());
+        if(lifeForm.isPoisonous()) {
+            poisoned();
+        }
         lifeForm.die();
     }
 }

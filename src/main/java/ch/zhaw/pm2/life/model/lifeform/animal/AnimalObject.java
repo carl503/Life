@@ -68,9 +68,14 @@ public abstract class AnimalObject extends LifeForm {
     public void move() {
         Position previousPosition = position;
         position = chooseRandomNeighbourPosition();
-        if(!previousPosition.equals(position)) {
-            decreaseEnergy(1);
+        int consumeEnergy = 0;
+        if(isPoisoned) {
+            consumeEnergy = getPoisonedEnergyConsumption();
         }
+        if(!previousPosition.equals(position)) {
+            consumeEnergy = 1;
+        }
+        decreaseEnergy(consumeEnergy);
     }
 
     /**

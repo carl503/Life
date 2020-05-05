@@ -2,16 +2,36 @@ package ch.zhaw.pm2.life.model.lifeform;
 
 import ch.zhaw.pm2.life.model.GameObject;
 
+import java.util.Random;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  * All living forms have to inherit this class.
  * @author meletlea
  */
 public abstract class LifeForm extends GameObject {
 
+    private static final Logger LOGGER = Logger.getLogger(LifeForm.class.getCanonicalName());
+    private static final double POISON_ENERGY_CONSUMPTION_START_FACTOR = 0.3;
+    private static final int POISONOUS_PROBABILITY = 3;
+
     /**
      * Flag to indicate the living state.
      */
     protected boolean isDead = false;
+
+    /**
+     * Flag if this life form is poisonous.
+     */
+    protected boolean isPoisonous;
+
+    /**
+     * Flag if this life form is poisonous.
+     */
+    protected boolean isPoisoned = false;
+
+    private int nextPoisonedEnergyConsumption;
 
     /**
      * Enumeration of food types.
@@ -20,11 +40,41 @@ public abstract class LifeForm extends GameObject {
         PLANT, MEAT
     }
 
+    public LifeForm() {
+       Random random = new Random();
+       int randomValue = random.nextInt(10);
+       isPoisonous = randomValue < POISONOUS_PROBABILITY;
+    }
+
     /**
      * Kills the GameObject by setting isAlive to false;
      */
     public void die() {
+        LOGGER.log(Level.FINE,"{0} died", getClass().getSimpleName());
         isDead = true;
+    }
+
+    /**
+     * Poison this life form.
+     */
+    public void poisoned() {
+        LOGGER.log(Level.FINE,"{0} got poisoned", getClass().getSimpleName());
+        isPoisoned = true;
+        nextPoisonedEnergyConsumption = (int) (currentEnergy * POISON_ENERGY_CONSUMPTION_START_FACTOR);
+    }
+
+    /**
+     * Returns the energy consumption of this life form if it's poisoned.
+     * @return consumptions as int or 0 if the life form is not poisoned.
+     */
+    public int getPoisonedEnergyConsumption() {
+        int energyConsumption = nextPoisonedEnergyConsumption;
+        if((energyConsumption - 1) == -1) {
+            LOGGER.log(Level.FINE,"{0} is not poisoned anymore", getClass().getSimpleName());
+            isPoisoned = false;
+        }
+        nextPoisonedEnergyConsumption--;
+        return Math.max(energyConsumption, 0);
     }
 
     /**
@@ -41,4 +91,19 @@ public abstract class LifeForm extends GameObject {
         return isDead;
     }
 
+    /**
+     * Indicates if this life form is poisonous or not.
+     * @return true if this life form is poisonous
+     */
+    public boolean isPoisonous() {
+        return isPoisonous;
+    }
+
+    /**
+     * Indicates if this life form is poisoned or not.
+     * @return true if this life form is poisoned
+     */
+    public boolean isPoisoned() {
+        return isPoisoned;
+    }
 }
