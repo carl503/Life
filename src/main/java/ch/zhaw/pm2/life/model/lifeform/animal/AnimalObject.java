@@ -53,6 +53,7 @@ public abstract class AnimalObject extends LifeForm {
      * @return isMale = true if its a male and false if its a female
      */
     public boolean setGender() {
+        isMale = true;
         Random random = new Random();
         int randomValue = random.nextInt(10);
         if(randomValue < 5) {
