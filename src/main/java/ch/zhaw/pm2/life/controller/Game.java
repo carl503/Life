@@ -146,7 +146,7 @@ public class Game {
     private void dieOfExhaustion(StringBuilder stringBuilder, Set<GameObject> deadLifeForms, GameObject gameObject) {
         if (gameObject.getCurrentEnergy() < ENERGY_VALUE_DEAD) {
             deadLifeForms.add(gameObject);
-            stringBuilder.append(gameObject.toString()).append(": died of exhaustion.\n");
+            stringBuilder.append(gameObject.getClass().getSimpleName()).append(": died of exhaustion.\n");
         }
     }
 
@@ -181,7 +181,7 @@ public class Game {
             try {
                 animalObject.eat(lifeForm);
                 deadLifeForms.add(lifeForm);
-                stringBuilder.append(animalObject.toString()).append(": Yummy food!\n");
+                stringBuilder.append(animalObject.getClass().getSimpleName()).append(": Yummy food!\n");
             } catch (LifeFormException e) {
                 stringBuilder.append(String.format("%s%n", e.getMessage()));
             }
