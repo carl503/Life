@@ -31,6 +31,6 @@
             <Button fx:id="stopSimButton" mnemonicParsing="false" onAction="#stopSimulation" text="Simulation stoppen" />
         </buttons>
       </ButtonBar>
-      <TextArea fx:id="messageField" disable="true" layoutX="106.0" layoutY="543.0" prefHeight="95.0" prefWidth="800.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+      <TextArea fx:id="messageField" editable="false" layoutX="106.0" layoutY="543.0" prefHeight="95.0" prefWidth="800.0" AnchorPane.bottomAnchor="40.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
    </children>
 </AnchorPane>
