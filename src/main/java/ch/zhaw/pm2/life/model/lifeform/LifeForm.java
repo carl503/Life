@@ -30,6 +30,10 @@ public abstract class LifeForm extends GameObject {
      * Flag if this life form is poisonous.
      */
     protected boolean isPoisoned = false;
+    
+    /**
+     * Flag indicating the gender
+     */
     protected boolean isMale;
 
     private int nextPoisonedEnergyConsumption;

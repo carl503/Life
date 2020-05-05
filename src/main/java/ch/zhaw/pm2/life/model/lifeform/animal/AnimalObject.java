@@ -20,10 +20,6 @@ public abstract class AnimalObject extends LifeForm {
      */
     public static final int INIT_ENERGY_ANIMALS = 10;
 
-    /**
-     * Flag indicating the gender.
-     */
-
 
     /**
      * Default constructor.
