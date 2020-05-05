@@ -61,9 +61,9 @@ public class Game {
      */
     public void init() {
         try {
-            addLifeform(FirstPlant.class, plantCount);
-            addLifeform(MeatEater.class, meatEaterCount);
-            addLifeform(PlantEater.class, plantEaterCount);
+            addLifeForm(FirstPlant.class, plantCount);
+            addLifeForm(MeatEater.class, meatEaterCount);
+            addLifeForm(PlantEater.class, plantEaterCount);
         } catch (LifeFormException e) {
             LOGGER.log(Level.SEVERE, "Error while initializing the life form classes", e);
             stop();
@@ -77,7 +77,7 @@ public class Game {
         ongoing = false;
     }
     
-    private void addLifeform(Class<? extends LifeForm> lifeForm, int count) throws LifeFormException {
+    private void addLifeForm(Class<? extends LifeForm> lifeForm, int count) throws LifeFormException {
         try {
            for (int i = 0; i < count; i++) {
                LifeForm form = lifeForm.getConstructor().newInstance();
