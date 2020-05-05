@@ -3,6 +3,7 @@ package ch.zhaw.pm2.life.view;
 import ch.zhaw.pm2.life.model.Board;
 import ch.zhaw.pm2.life.model.GameObject;
 import ch.zhaw.pm2.life.model.Position;
+import ch.zhaw.pm2.life.model.lifeform.LifeForm;
 import javafx.geometry.Dimension2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Color;
@@ -17,6 +18,8 @@ public class BoardView extends Canvas {
 
     private static final double GAME_OBJECT_SIZE_SCALING = 0.1;
     private static final double HALF = 0.5;
+    private static final double POISON_SCALE_X = 0.35;
+    private static final double POISON_SCALE_Y = 0.6;
     private static final double ENERGY_SCALE_X = 0.55;
     private static final double ENERGY_SCALE_Y = 0.25;
 
@@ -73,6 +76,16 @@ public class BoardView extends Canvas {
             double energyPositionX = fieldPosX + fieldDimension.getWidth() * ENERGY_SCALE_X;
             double energyPositionY = fieldPosY + fieldDimension.getHeight() * ENERGY_SCALE_Y;
             getGraphicsContext2D().strokeText(String.valueOf(gameObject.getCurrentEnergy()), energyPositionX, energyPositionY);
+
+            if(gameObject instanceof LifeForm) {
+                // draw poison status
+                double poisonStatusPositionX = fieldPosX + fieldDimension.getHeight() * POISON_SCALE_X;
+                double poisonStatusPositionY = fieldPosY + fieldDimension.getHeight() * POISON_SCALE_Y;
+                LifeForm lifeForm = (LifeForm) gameObject;
+                String labelValue = lifeForm.isPoisonous() ? "S" : "";
+                labelValue += (lifeForm.isPoisoned()) ? "D" : "";
+                getGraphicsContext2D().strokeText(labelValue, poisonStatusPositionX, poisonStatusPositionY);
+            }
         }
     }
 
