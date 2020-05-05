@@ -15,6 +15,7 @@ public class Board {
     private final int rows;
     private final int columns;
     private final Set<GameObject> gameObjects = new HashSet<>();
+    private final Set<Position> occupiedPositions = new HashSet<>();
 
     /**
      * Default constructor.
@@ -66,6 +67,14 @@ public class Board {
      */
     public Set<GameObject> getGameObjects() {
         return gameObjects;
+    }
+
+    /**
+     * Returns a set of occupied positions
+     * @return set of position objects
+     */
+    public Set<Position> getOccupiedPositions() {
+        return occupiedPositions;
     }
 
     /**
