@@ -14,10 +14,12 @@ import java.util.Objects;
  * @author lubojcar, meletlea
  */
 public class BoardView extends Canvas {
-    public static final double GAME_OBJECT_SIZE_SCALING = 0.1;
-    public static final double HALF = 0.5;
-    public static final double ENERGY_SCALE_X = 0.55;
-    public static final double ENERGY_SCALE_Y = 0.25;
+
+    private static final double GAME_OBJECT_SIZE_SCALING = 0.1;
+    private static final double HALF = 0.5;
+    private static final double ENERGY_SCALE_X = 0.55;
+    private static final double ENERGY_SCALE_Y = 0.25;
+
     private final Board board;
     private final int width;
     private final int height;
