@@ -7,6 +7,9 @@ import javafx.scene.paint.Color;
  */
 public class PlantEater extends AnimalObject {
 
+    /**
+     * Default constructor
+     */
     public PlantEater() {
         super();
         this.objectColor = Color.LIGHTSEAGREEN;

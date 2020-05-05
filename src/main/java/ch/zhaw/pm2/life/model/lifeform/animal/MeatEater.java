@@ -7,6 +7,9 @@ import javafx.scene.paint.Color;
  */
 public class MeatEater extends AnimalObject {
 
+    /**
+     * Default constructor.
+     */
     public MeatEater() {
         super();
         this.objectColor = Color.RED;

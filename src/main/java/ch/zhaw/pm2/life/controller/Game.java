@@ -18,6 +18,9 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * This controller class handles the logic of the game.
+ */
 public class Game {
 
     /**
@@ -39,6 +42,13 @@ public class Game {
     private int meatEaterCount;
     private int plantEaterCount;
 
+    /**
+     * Default constructor.
+     * @param board Stores all game objects.
+     * @param plantCount Initial amount of plants.
+     * @param meatEaterCount Initial amount of meat eaters.
+     * @param plantEaterCount Initial amount of plant eaters.
+     */
     public Game(Board board, int plantCount, int meatEaterCount, int plantEaterCount) {
         this.board = board;
         this.plantCount = plantCount;
@@ -46,6 +56,9 @@ public class Game {
         this.plantEaterCount = plantEaterCount;
     }
 
+    /**
+     * Initialize the game.
+     */
     public void init() {
         try {
             addLifeform(FirstPlant.class, plantCount);
@@ -57,6 +70,9 @@ public class Game {
         }
     }
 
+    /**
+     * Stop the game.
+     */
     public void stop() {
         ongoing = false;
     }
@@ -91,6 +107,10 @@ public class Game {
         return messageLog;
     }
 
+    /**
+     * Returns true if the game is ongoing otherwise false.
+     * @return boolean
+     */
     public boolean isOngoing() {
         return ongoing;
     }

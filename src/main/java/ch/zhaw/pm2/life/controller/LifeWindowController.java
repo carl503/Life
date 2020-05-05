@@ -7,11 +7,22 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
 
+/**
+ * Controller for the main window.
+ */
 public class LifeWindowController {
 
     private final int width = 800;
     private final int height = 800;
+
+    /**
+     * Number of rows on the board.
+     */
     public static final int ROWS = 16;
+
+    /**
+     * Number of columns on the board.
+     */
     public static final int COLUMNS = 16;
 
     private BoardView boardView;
@@ -24,6 +35,9 @@ public class LifeWindowController {
     @FXML private Button nextRoundButton;
     @FXML private Button stopSimButton;
 
+    /**
+     * Initializes everything after the JavaFX components are injected,
+     */
     @FXML public void initialize() {
         boardObject = new Board(ROWS, COLUMNS);
         boardView = new BoardView(width, height, boardObject);
@@ -46,14 +60,24 @@ public class LifeWindowController {
         stopSimButton.setDisable(true);
     }
 
+    /**
+     * Draws the board.
+     */
     public void drawBoard() {
         boardView.draw();
     }
 
+    /**
+     * Sets a reference of the {@link SetupController}.
+     * @param setupController {@link SetupController}
+     */
     public void setSetupController(SetupController setupController) {
         this.setupController = setupController;
     }
 
+    /**
+     * Initializes the game.
+     */
     public void initGame() {
         game = new Game(boardObject, setupController.getPlantCount(),
                 setupController.getMeatEaterCount(), setupController.getPlantEaterCount());

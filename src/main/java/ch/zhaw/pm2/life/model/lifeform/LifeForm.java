@@ -3,16 +3,18 @@ package ch.zhaw.pm2.life.model.lifeform;
 import ch.zhaw.pm2.life.model.GameObject;
 
 /**
- *
- * @author Leandro Meleti
- * @version 2020-04-29
+ * All living forms have to inherit this class.
+ * @author meletlea
  */
 public abstract class LifeForm extends GameObject {
 
+    /**
+     * Flag to indicate the living state.
+     */
     protected boolean isDead = false;
 
     /**
-     *
+     * Enumeration of food types.
      */
     public enum FoodType {
         PLANT, MEAT
@@ -26,8 +28,8 @@ public abstract class LifeForm extends GameObject {
     }
 
     /**
-     *
-     * @return
+     * Returns the type of food this life form is.
+     * @return {@link FoodType}
      */
     public abstract FoodType getFoodType();
 

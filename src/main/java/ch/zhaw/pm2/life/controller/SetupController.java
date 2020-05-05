@@ -13,6 +13,9 @@ import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+/**
+ * Controller for the setup window.
+ */
 public class SetupController {
 
     private final Logger logger = Logger.getLogger(SetupController.class.getName());
@@ -22,6 +25,9 @@ public class SetupController {
     @FXML private Spinner<Integer> meatEaterCount;
     @FXML private Spinner<Integer> plantEaterCount;
 
+    /**
+     * Shows the simulation window and starts the simulation itself.
+     */
     @FXML
     public void startSimulation() {
         try {
@@ -41,14 +47,26 @@ public class SetupController {
         }
     }
 
+    /**
+     * Returns the amount of plants the user has chosen to start with.
+     * @return {@link Integer}
+     */
     public int getPlantCount() {
         return plantCount.getValue();
     }
 
+    /**
+     * Returns the amount of meat eaters the user has chosen to start with.
+     * @return {@link Integer}
+     */
     public int getMeatEaterCount() {
         return meatEaterCount.getValue();
     }
 
+    /**
+     * Returns the amount of plant eaters the user has chosen to start with.
+     * @return {@link Integer}
+     */
     public int getPlantEaterCount() {
         return plantEaterCount.getValue();
     }

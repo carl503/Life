@@ -15,8 +15,19 @@ public abstract class GameObject {
 
     //private static final int MAX_SIZE = 10;
 
+    /**
+     * The current energy of this game object.
+     */
     protected int currentEnergy;
+
+    /**
+     * The current position of this game object.
+     */
     protected Position position;
+
+    /**
+     * The color of this game object.
+     */
     protected Color objectColor;
 
     private static final int BASIC_SIZE = 5;
@@ -85,7 +96,7 @@ public abstract class GameObject {
 
     /**
      * Increase the energy by a certain value.
-     * @param energy
+     * @param energy increasing energy by this amount.
      */
     public void increaseEnergy(int energy) {
         currentEnergy += energy;
@@ -93,7 +104,7 @@ public abstract class GameObject {
 
     /**
      * Decrease the energy by a certain value.
-     * @param consumedEnergy
+     * @param consumedEnergy reducing energy by this amount.
      */
     public void decreaseEnergy(int consumedEnergy) {
         currentEnergy -= consumedEnergy;

@@ -8,6 +8,9 @@ import javafx.scene.paint.Color;
  */
 public class FirstPlant extends PlantObject {
 
+    /**
+     * Default constructor.
+     */
     public FirstPlant() {
         super();
         this.objectColor = Color.GREEN;

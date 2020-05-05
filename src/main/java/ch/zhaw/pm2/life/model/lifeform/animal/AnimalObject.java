@@ -7,8 +7,7 @@ import ch.zhaw.pm2.life.model.lifeform.LifeForm;
 
 import java.util.Random;
 /**
- * AnimalObjects extends GameObject
- * AnimalObjects handles all features and methods that PlantEater and MeatEater have in common
+ * Abstract class of an animal.
  */
 public abstract class AnimalObject extends LifeForm {
 
@@ -16,7 +15,11 @@ public abstract class AnimalObject extends LifeForm {
      * Default energy level of an {@link AnimalObject}.
      */
     public static final int INIT_ENERGY_ANIMALS = 10;
-    public boolean isMale = true;
+
+    /**
+     * Flag indicating the gender.
+     */
+    protected boolean isMale;
 
     /**
      * Determines if this {@link AnimalObject} can eat plants.
