@@ -125,7 +125,7 @@ public abstract class GameObject {
         return size;
     }
 
-    private enum Direction {
+    public enum Direction {
         DOWN_LEFT(new Vector2D(-1, 1)),
         DOWN(new Vector2D(0, 1)),
         DOWN_RIGHT(new Vector2D(1, 1)),
