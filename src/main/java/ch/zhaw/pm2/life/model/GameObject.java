@@ -18,7 +18,7 @@ public abstract class GameObject {
     private static final int BASIC_SIZE = 5;
     private static int gameObjectCount;
     private final Random random = new Random();
-    private int id;
+    private final int id;
     /**
      * The current energy of this game object.
      */
@@ -147,4 +147,12 @@ public abstract class GameObject {
         }
     }
 
+    @Override
+    public boolean equals(Object obj) {
+        boolean equal = false;
+        if (obj instanceof GameObject) {
+            equal = ((GameObject) obj).id == this.id;
+        }
+        return equal;
+    }
 }
