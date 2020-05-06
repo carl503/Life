@@ -53,6 +53,19 @@ public class BoardView extends Canvas {
         drawGameObjects();
     }
 
+    private void drawLines() {
+        getGraphicsContext2D().setLineWidth(1);
+        getGraphicsContext2D().setFill(Color.BLACK);
+
+        for (int column = 0; column <= width; column += fieldDimension.getWidth()) {
+            getGraphicsContext2D().strokeLine(column, 0, column, height);
+        }
+
+        for (int row = 0; row <= height; row += fieldDimension.getHeight()) {
+            getGraphicsContext2D().strokeLine(0, row, width, row);
+        }
+    }
+
     private void drawGameObjects() {
         for (GameObject gameObject : board.getGameObjects()) {
             Vector2D vector2D = gameObject.getPosition();
@@ -102,18 +115,4 @@ public class BoardView extends Canvas {
             getGraphicsContext2D().strokeText(labelValue, poisonStatusPositionX, poisonStatusPositionY);
         }
     }
-
-    private void drawLines() {
-        getGraphicsContext2D().setLineWidth(1);
-        getGraphicsContext2D().setFill(Color.BLACK);
-
-        for (int column = 0; column <= width; column += fieldDimension.getWidth()) {
-            getGraphicsContext2D().strokeLine(column, 0, column, height);
-        }
-
-        for (int row = 0; row <= height; row += fieldDimension.getHeight()) {
-            getGraphicsContext2D().strokeLine(0, row, width, row);
-        }
-    }
-
 }
