@@ -41,7 +41,7 @@ public class GameTest {
     //==================================================================================================================
 
     @Test
-    public void initMock() {
+    public void testInit() {
         Set<GameObject> dummyGameObjectsSet = new HashSet<>();
         Set<Vector2D> dummyPositionsSet = new HashSet<>();
 
@@ -62,21 +62,21 @@ public class GameTest {
     }
 
     @Test
-    public void stop() {
+    public void testIsOngoing() {
+        game.init();
+        assertTrue(game.isOngoing());
+    }
+
+    @Test
+    public void testStop() {
         game.init();
         game.stop();
         assertFalse(game.isOngoing());
     }
 
     @Test
-    public void nextMove() {
+    public void testNextMove() {
          // TODO: implement
-    }
-
-    @Test
-    public void isOngoing() {
-        game.init();
-        assertTrue(game.isOngoing());
     }
 
     //==================================================================================================================
