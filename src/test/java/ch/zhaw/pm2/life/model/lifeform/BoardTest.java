@@ -1,9 +1,8 @@
-package ch.zhaw.pm2.life.model.lifeform.test;
+package ch.zhaw.pm2.life.model.lifeform;
 
 import ch.zhaw.pm2.life.model.Board;
 import ch.zhaw.pm2.life.model.GameObject;
 import ch.zhaw.pm2.life.model.Vector2D;
-import ch.zhaw.pm2.life.model.lifeform.LifeForm;
 import ch.zhaw.pm2.life.model.lifeform.animal.AnimalObject;
 import ch.zhaw.pm2.life.model.lifeform.animal.MeatEater;
 import ch.zhaw.pm2.life.model.lifeform.animal.PlantEater;
