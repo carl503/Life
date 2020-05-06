@@ -18,8 +18,7 @@ import static org.mockito.Mockito.*;
 public class BoardTest {
 
     private static final int BOARD_SIZE = 3;
-    private static final int BOARD_MIN_ROWS = 3;
-    private static final int BOARD_MIN_COLUMNS = 3;
+    private static final String ILLEGAL_POSITION_MESSAGE = "The position %s of the provided game object does not exist on the board.";
 
     private Board board;
 
@@ -100,31 +99,42 @@ public class BoardTest {
     }
 
     @Test
+    public void testAddGameObjectInvalidPositionNull() {
+        when(firstGameObject.getPosition()).thenReturn(null);
+        NullPointerException thrown = assertThrows(NullPointerException.class, () -> board.addGameObject(firstGameObject));
+        assertEquals("The position cannot be null to add the game object on the board.", thrown.getMessage());
+    }
+
+    @Test
     public void testAddGameObjectInvalidPositionRowNegative() {
         Vector2D position = new Vector2D(0, -1);
         when(firstGameObject.getPosition()).thenReturn(position);
-        board.addGameObject(firstGameObject);
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> board.addGameObject(firstGameObject));
+        assertEquals(String.format(ILLEGAL_POSITION_MESSAGE, position), thrown.getMessage());
     }
 
     @Test
     public void testAddGameObjectInvalidPositionColumnNegative() {
         Vector2D position = new Vector2D(-1, 0);
         when(firstGameObject.getPosition()).thenReturn(position);
-        board.addGameObject(firstGameObject);
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> board.addGameObject(firstGameObject));
+        assertEquals(String.format(ILLEGAL_POSITION_MESSAGE, position), thrown.getMessage());
     }
 
     @Test
     public void testAddGameObjectInvalidPositionBiggerThanNumberOfRows() {
         Vector2D position = new Vector2D(0, BOARD_SIZE);
         when(firstGameObject.getPosition()).thenReturn(position);
-        board.addGameObject(firstGameObject);
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> board.addGameObject(firstGameObject));
+        assertEquals(String.format(ILLEGAL_POSITION_MESSAGE, position), thrown.getMessage());
     }
 
     @Test
     public void testAddGameObjectInvalidPositionBiggerThanNumberOfColumns() {
         Vector2D position = new Vector2D(BOARD_SIZE, 0);
         when(firstGameObject.getPosition()).thenReturn(position);
-        board.addGameObject(firstGameObject);
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> board.addGameObject(firstGameObject));
+        assertEquals(String.format(ILLEGAL_POSITION_MESSAGE, position), thrown.getMessage());
     }
 
     @Test
@@ -140,14 +150,14 @@ public class BoardTest {
 
     @Test
     public void testInvalidConstructorRowLowerThanMinValue() {
-        // todo: exception
-        board = new Board(BOARD_MIN_ROWS - 1, BOARD_MIN_COLUMNS);
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> board = new Board(Board.MIN_ROWS - 1, Board.MIN_COLUMNS));
+        assertEquals("The number of rows cannot be less than " + Board.MIN_ROWS, thrown.getMessage());
     }
 
     @Test
     public void testInvalidConstructorColumnsLowerThanMinValue() {
-        // todo: exception
-        board = new Board(BOARD_MIN_ROWS, BOARD_MIN_COLUMNS - 1);
+        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> board = new Board(Board.MIN_ROWS, Board.MIN_COLUMNS - 1));
+        assertEquals("The number of columns cannot be less than " + Board.MIN_COLUMNS, thrown.getMessage());
     }
 
 }
