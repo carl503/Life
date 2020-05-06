@@ -54,7 +54,7 @@ public class BoardView extends Canvas {
 
     private void drawGameObjects() {
         for (GameObject gameObject : board.getGameObjects()) {
-            Vector2D vector2D = gameObject.getVector2D();
+            Vector2D vector2D = gameObject.getPosition();
             double fieldPosX = vector2D.getX() * fieldDimension.getWidth();
             double fieldPosY = vector2D.getY() * fieldDimension.getHeight();
 

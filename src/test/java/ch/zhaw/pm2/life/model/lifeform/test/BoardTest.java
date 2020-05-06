@@ -39,43 +39,43 @@ public class BoardTest {
     @Test
     public void testAddGameObject() {
         int expectedSize = 2;
-        when(firstGameObject.getVector2D()).thenReturn(new Vector2D(0, 0));
-        when(secondGameObject.getVector2D()).thenReturn(new Vector2D(0, 1));
+        when(firstGameObject.getPosition()).thenReturn(new Vector2D(0, 0));
+        when(secondGameObject.getPosition()).thenReturn(new Vector2D(0, 1));
 
         board.addGameObject(firstGameObject);
         board.addGameObject(secondGameObject);
         assertEquals(expectedSize, board.getGameObjects().size());
-        assertEquals(expectedSize, board.getOccupiedVector2DS().size());
+        assertEquals(expectedSize, board.getOccupiedPositions().size());
 
         board.addGameObject(firstGameObject);
         assertEquals(expectedSize, board.getGameObjects().size());
-        assertEquals(expectedSize, board.getOccupiedVector2DS().size());
+        assertEquals(expectedSize, board.getOccupiedPositions().size());
     }
 
     @Test
     public void testCleanBoard() {
         LifeForm firstLifeForm = mock(MeatEater.class);
-        when(firstLifeForm.getVector2D()).thenReturn(new Vector2D(0, 0));
+        when(firstLifeForm.getPosition()).thenReturn(new Vector2D(0, 0));
         when(firstLifeForm.isDead()).thenReturn(true);
         board.addGameObject(firstLifeForm);
 
         LifeForm secondLifeForm = mock(PlantEater.class);
-        when(secondLifeForm.getVector2D()).thenReturn(new Vector2D(0, 1));
+        when(secondLifeForm.getPosition()).thenReturn(new Vector2D(0, 1));
         when(secondLifeForm.isDead()).thenReturn(false);
         board.addGameObject(secondLifeForm);
 
         LifeForm thirdLifeForm = mock(PlantObject.class);
-        when(thirdLifeForm.getVector2D()).thenReturn(new Vector2D(0, 1));
+        when(thirdLifeForm.getPosition()).thenReturn(new Vector2D(0, 1));
         when(thirdLifeForm.isDead()).thenReturn(false);
         board.addGameObject(thirdLifeForm);
 
         assertEquals(3, board.getGameObjects().size());
-        assertEquals(2, board.getOccupiedVector2DS().size()); // second and third on same position
+        assertEquals(2, board.getOccupiedPositions().size()); // second and third on same position
 
         board.cleanBoard();
 
         assertEquals(2, board.getGameObjects().size());
-        assertEquals(1, board.getOccupiedVector2DS().size()); // second and third on same position
+        assertEquals(1, board.getOccupiedPositions().size()); // second and third on same position
     }
 
     @Test
@@ -83,7 +83,7 @@ public class BoardTest {
         firstGameObject = new MeatEater();
         board.addGameObject(firstGameObject);
         assertEquals(1, board.getGameObjects().size());
-        assertEquals(1, board.getOccupiedVector2DS().size());
+        assertEquals(1, board.getOccupiedPositions().size());
 
         assertFalse(board.containsNotInstanceOfAnimalObject(MeatEater.class));
         assertTrue(board.containsNotInstanceOfAnimalObject(PlantEater.class));
@@ -101,36 +101,36 @@ public class BoardTest {
 
     @Test
     public void testAddGameObjectInvalidPositionRowNegative() {
-        when(firstGameObject.getVector2D()).thenReturn(new Vector2D(0, -1));
-        // todo: exception
+        Vector2D position = new Vector2D(0, -1);
+        when(firstGameObject.getPosition()).thenReturn(position);
         board.addGameObject(firstGameObject);
     }
 
     @Test
     public void testAddGameObjectInvalidPositionColumnNegative() {
-        when(firstGameObject.getVector2D()).thenReturn(new Vector2D(-1, 0));
-        // todo: exception
+        Vector2D position = new Vector2D(-1, 0);
+        when(firstGameObject.getPosition()).thenReturn(position);
         board.addGameObject(firstGameObject);
     }
 
     @Test
     public void testAddGameObjectInvalidPositionBiggerThanNumberOfRows() {
-        when(firstGameObject.getVector2D()).thenReturn(new Vector2D(0, BOARD_SIZE));
-        // todo: exception
+        Vector2D position = new Vector2D(0, BOARD_SIZE);
+        when(firstGameObject.getPosition()).thenReturn(position);
         board.addGameObject(firstGameObject);
     }
 
     @Test
     public void testAddGameObjectInvalidPositionBiggerThanNumberOfColumns() {
-        when(firstGameObject.getVector2D()).thenReturn(new Vector2D(BOARD_SIZE, 0));
-        // todo: exception
+        Vector2D position = new Vector2D(BOARD_SIZE, 0);
+        when(firstGameObject.getPosition()).thenReturn(position);
         board.addGameObject(firstGameObject);
     }
 
     @Test
     public void testContainsNotInstanceOfAnimalObjectNull() {
         firstGameObject = mock(MeatEater.class);
-        when(firstGameObject.getVector2D()).thenReturn(new Vector2D(0, 0));
+        when(firstGameObject.getPosition()).thenReturn(new Vector2D(0, 0));
         board.addGameObject(firstGameObject);
 
         boolean containsNull = board.containsNotInstanceOfAnimalObject(null);

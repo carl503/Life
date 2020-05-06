@@ -16,7 +16,7 @@ public class Board {
     private final int rows;
     private final int columns;
     private final Set<GameObject> gameObjects = new HashSet<>();
-    private final Set<Vector2D> occupiedVector2DS = new HashSet<>();
+    private final Set<Vector2D> occupiedPositions = new HashSet<>();
 
     /**
      * Default constructor.
@@ -35,7 +35,7 @@ public class Board {
     public void addGameObject(GameObject gameObject) {
         Objects.requireNonNull(gameObject, "Game object cannot be null to add it on the board.");
         gameObjects.add(gameObject);
-        occupiedVector2DS.add(gameObject.getVector2D());
+        occupiedPositions.add(position);
     }
 
     /**
@@ -48,16 +48,16 @@ public class Board {
                 .filter(LifeForm::isDead)
                 .collect(Collectors.toSet());
         gameObjects.removeAll(deadLifeForms);
-        occupiedVector2DS.removeAll(getFreedPositions(deadLifeForms));
+        occupiedPositions.removeAll(getFreedPositions(deadLifeForms));
     }
 
     private Set<Vector2D> getFreedPositions(Set<LifeForm> deadLifeForms) {
         Set<Vector2D> currentOccupiedVector2DS = gameObjects.stream()
-                .map(GameObject::getVector2D)
+                .map(GameObject::getPosition)
                 .collect(Collectors.toSet());
 
         return deadLifeForms.stream()
-                .map(GameObject::getVector2D)
+                .map(GameObject::getPosition)
                 .filter(position -> !currentOccupiedVector2DS.contains(position))
                 .collect(Collectors.toSet());
     }
@@ -90,8 +90,8 @@ public class Board {
      * Returns a set of occupied positions
      * @return set of position objects
      */
-    public Set<Vector2D> getOccupiedVector2DS() {
-        return occupiedVector2DS;
+    public Set<Vector2D> getOccupiedPositions() {
+        return occupiedPositions;
     }
 
     /**

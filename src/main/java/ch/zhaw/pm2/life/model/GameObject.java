@@ -23,7 +23,7 @@ public abstract class GameObject {
     /**
      * The current position of this game object.
      */
-    protected Vector2D vector2D;
+    protected Vector2D position;
 
     /**
      * The color of this game object.
@@ -71,7 +71,7 @@ public abstract class GameObject {
         // TODO: exclude already occupied fields
         int xPos = random.nextInt(LifeWindowController.ROWS);
         int yPos = random.nextInt(LifeWindowController.COLUMNS);
-        vector2D = new Vector2D(xPos, yPos);
+        position = new Vector2D(xPos, yPos);
     }
 
     /**
@@ -108,8 +108,8 @@ public abstract class GameObject {
      * Returns Position of the GameObject
      * @return position
      */
-    public Vector2D getVector2D(){
-        return vector2D;
+    public Vector2D getPosition(){
+        return position;
     }
 
     /**
@@ -127,8 +127,8 @@ public abstract class GameObject {
     private List<Vector2D> getNeighbourFields() {
         List<Vector2D> neighbours = new ArrayList<>();
         for(Direction direction : Direction.values()) {
-            int neighbourX = vector2D.getX() + direction.vector2D.getX();
-            int neighbourY = vector2D.getY() + direction.vector2D.getY();
+            int neighbourX = position.getX() + direction.vector2D.getX();
+            int neighbourY = position.getY() + direction.vector2D.getY();
             if(neighbourX >= 0 && neighbourX < LifeWindowController.COLUMNS
                     && neighbourY >= 0 && neighbourY < LifeWindowController.ROWS) {
                 neighbours.add(new Vector2D(neighbourX, neighbourY));

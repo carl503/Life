@@ -84,7 +84,7 @@ public class Game {
            for (int i = 0; i < count; i++) {
                LifeForm form = lifeForm.getConstructor().newInstance();
 
-               if (board.getOccupiedVector2DS().contains(form.getVector2D())) {
+               if (board.getOccupiedPositions().contains(form.getPosition())) {
                    i--;
                } else {
                    board.addGameObject(form);
@@ -137,10 +137,10 @@ public class Game {
                     dieOfExhaustion(stringBuilder, lifeForm);
                 }
             }
-            if(!positionMap.containsKey(gameObject.getVector2D())) {
-                positionMap.put(gameObject.getVector2D(), new HashSet<>());
+            if(!positionMap.containsKey(gameObject.getPosition())) {
+                positionMap.put(gameObject.getPosition(), new HashSet<>());
             }
-            positionMap.get(gameObject.getVector2D()).add(gameObject);
+            positionMap.get(gameObject.getPosition()).add(gameObject);
         }
         board.cleanBoard();
 
@@ -160,7 +160,7 @@ public class Game {
         for(GameObject gameObject : board.getGameObjects()) {
             if(gameObject instanceof AnimalObject) {
                 AnimalObject animalObject = (AnimalObject) gameObject;
-                Set<GameObject> set = positionMap.get(animalObject.getVector2D());
+                Set<GameObject> set = positionMap.get(animalObject.getPosition());
 
                 String eatMessage = handleCollision(set, animalObject, deadLifeForms);
                 stringBuilder.append(eatMessage);

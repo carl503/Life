@@ -44,8 +44,8 @@ public abstract class AnimalObject extends LifeForm {
      */
     public void move() {
         LOGGER.log(Level.FINER, "Move {0}", getClass().getSimpleName());
-        Vector2D previousVector2D = vector2D;
-        vector2D = chooseRandomNeighbourPosition();
+        Vector2D previousPosition = position;
+        position = chooseRandomNeighbourPosition();
         int consumeEnergy = 0;
         if(isPoisoned) {
             consumeEnergy = getPoisonedEnergyConsumption();
@@ -53,7 +53,7 @@ public abstract class AnimalObject extends LifeForm {
                     consumeEnergy, getClass().getSimpleName()
             });
         }
-        if(!previousVector2D.equals(vector2D)) {
+        if(!previousPosition.equals(position)) {
             consumeEnergy = 1;
             LOGGER.log(Level.FINE, "{1} decreased energy (move) by {0}", new Object[] {
                     consumeEnergy, getClass().getSimpleName()
