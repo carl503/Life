@@ -56,6 +56,7 @@ public class BoardView extends Canvas {
     private void drawGameObjects() {
         for (GameObject gameObject : board.getGameObjects()) {
             Vector2D vector2D = gameObject.getPosition();
+
             double fieldPosX = vector2D.getX() * fieldDimension.getWidth();
             double fieldPosY = vector2D.getY() * fieldDimension.getHeight();
 
@@ -65,32 +66,40 @@ public class BoardView extends Canvas {
             double translatedX = fieldPosX + fieldDimension.getWidth() * translateFactor;
             double translatedY = fieldPosY + fieldDimension.getHeight() * translateFactor;
 
-            // TODO: extract this steps to separate methods
-            // draw object
-            getGraphicsContext2D().setFill(gameObject.getColor());
-            getGraphicsContext2D().fillOval(translatedX, translatedY, fieldDimension.getWidth() * scaling, fieldDimension.getHeight() * scaling);
+            drawGameObject(gameObject, scaling, translatedX, translatedY);
+            drawGender(gameObject, translatedX, translatedY);
+            drawCurrentEnergy(gameObject, fieldPosX, fieldPosY);
+            drawPoisonStatus(gameObject, fieldPosX, fieldPosY);
+        }
+    }
 
-            if(gameObject instanceof LifeForm) {
-                // draw gender
-                getGraphicsContext2D().setStroke(Color.BLACK);
-                LifeForm lifeForm = (LifeForm) gameObject;
-                getGraphicsContext2D().strokeText(lifeForm.getGender(), translatedX, translatedY);
-            }
+    private void drawGameObject(GameObject gameObject, double scaling, double translatedX, double translatedY) {
+        getGraphicsContext2D().setFill(gameObject.getColor());
+        getGraphicsContext2D().fillOval(translatedX, translatedY, fieldDimension.getWidth() * scaling, fieldDimension.getHeight() * scaling);
+    }
 
-            // draw current energy
-            double energyPositionX = fieldPosX + fieldDimension.getWidth() * ENERGY_SCALE_X;
-            double energyPositionY = fieldPosY + fieldDimension.getHeight() * ENERGY_SCALE_Y;
-            getGraphicsContext2D().strokeText(String.valueOf(gameObject.getCurrentEnergy()), energyPositionX, energyPositionY);
+    private void drawGender(GameObject gameObject, double translatedX, double translatedY) {
+        if(gameObject instanceof LifeForm) {
+            getGraphicsContext2D().setStroke(Color.BLACK);
+            LifeForm lifeForm = (LifeForm) gameObject;
+            getGraphicsContext2D().strokeText(lifeForm.getGender(), translatedX, translatedY);
+        }
+    }
 
-            if(gameObject instanceof LifeForm) {
-                // draw poison status
-                double poisonStatusPositionX = fieldPosX + fieldDimension.getHeight() * POISON_SCALE_X;
-                double poisonStatusPositionY = fieldPosY + fieldDimension.getHeight() * POISON_SCALE_Y;
-                LifeForm lifeForm = (LifeForm) gameObject;
-                String labelValue = lifeForm.isPoisonous() ? "S" : "";
-                labelValue += (lifeForm.isPoisoned()) ? "D" : "";
-                getGraphicsContext2D().strokeText(labelValue, poisonStatusPositionX, poisonStatusPositionY);
-            }
+    private void drawCurrentEnergy(GameObject gameObject, double fieldPosX, double fieldPosY) {
+        double energyPositionX = fieldPosX + fieldDimension.getWidth() * ENERGY_SCALE_X;
+        double energyPositionY = fieldPosY + fieldDimension.getHeight() * ENERGY_SCALE_Y;
+        getGraphicsContext2D().strokeText(String.valueOf(gameObject.getCurrentEnergy()), energyPositionX, energyPositionY);
+    }
+
+    private void drawPoisonStatus(GameObject gameObject, double fieldPosX, double fieldPosY) {
+        if(gameObject instanceof LifeForm) {
+            double poisonStatusPositionX = fieldPosX + fieldDimension.getHeight() * POISON_SCALE_X;
+            double poisonStatusPositionY = fieldPosY + fieldDimension.getHeight() * POISON_SCALE_Y;
+            LifeForm lifeForm = (LifeForm) gameObject;
+            String labelValue = lifeForm.isPoisonous() ? "S" : "";
+            labelValue += (lifeForm.isPoisoned()) ? "D" : "";
+            getGraphicsContext2D().strokeText(labelValue, poisonStatusPositionX, poisonStatusPositionY);
         }
     }
 
