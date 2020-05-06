@@ -44,9 +44,8 @@ public class MeatEater extends AnimalObject {
     @Override
     public AnimalObject reproduce(LifeForm lifeForm) throws LifeFormException {
         Objects.requireNonNull(lifeForm, "Cannot be null.");
-
-        if (!(lifeForm instanceof MeatEater)) {
-            throw new LifeFormException("Cannot reproduce with this object");
+        if (lifeForm.getGender().equals("F")) {
+            throw new LifeFormException("Cannot give birth, because im male");
         }
         return new MeatEater();
     }
