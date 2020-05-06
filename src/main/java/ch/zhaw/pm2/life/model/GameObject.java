@@ -83,12 +83,6 @@ public abstract class GameObject {
     }
 
     /**
-     * Returns the gender as a string for the board to print
-     * @return Gender as a String
-     */
-    public abstract String getGender(); // TODO: this should be in LifeForm and not abstract
-
-    /**
      * Increase the energy by a certain value.
      * @param energy increasing energy by this amount.
      */
