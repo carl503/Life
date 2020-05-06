@@ -80,13 +80,13 @@ public class Board {
     }
 
     private Set<Vector2D> getFreedPositions(Set<LifeForm> deadLifeForms) {
-        Set<Vector2D> currentOccupiedVector2DS = gameObjects.stream()
+        Set<Vector2D> currentOccupiedPositions = gameObjects.stream()
                 .map(GameObject::getPosition)
                 .collect(Collectors.toSet());
 
         return deadLifeForms.stream()
                 .map(GameObject::getPosition)
-                .filter(not(currentOccupiedVector2DS::contains))
+                .filter(not(currentOccupiedPositions::contains))
                 .collect(Collectors.toSet());
     }
 
