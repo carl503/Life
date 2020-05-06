@@ -45,16 +45,15 @@ public abstract class LifeForm extends GameObject {
         PLANT, MEAT
     }
 
+    /**
+     * Default constructor.
+     */
     public LifeForm() {
         Random random = new Random();
         int genderValue = random.nextInt(10);
         isMale = genderValue > 4;
         int poisonValue = random.nextInt(10);
         isPoisonous = poisonValue < POISONOUS_PROBABILITY;
-    }
-
-    public String getGender() {
-        return isMale ? "M" : "F";
     }
 
     /**
@@ -86,6 +85,14 @@ public abstract class LifeForm extends GameObject {
         }
         nextPoisonedEnergyConsumption--;
         return Math.max(energyConsumption, 0);
+    }
+
+    /**
+     * Returns the symbol of the gender.
+     * @return the symbol of the gender as {@link String}.
+     */
+    public String getGender() {
+        return isMale ? "M" : "F";
     }
 
     /**
