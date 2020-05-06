@@ -91,15 +91,15 @@ public class Game {
         ongoing = false;
     }
 
-    private void addLifeForm(Class<? extends LifeForm> lifeForm, int count) throws LifeFormException {
+    private void addLifeForm(Class<? extends LifeForm> lifeFormClass, int count) throws LifeFormException {
         try {
             for (int i = 0; i < count; i++) {
-                LifeForm form = lifeForm.getConstructor().newInstance();
+                LifeForm lifeForm = lifeFormClass.getConstructor().newInstance();
 
-                if (board.getOccupiedPositions().contains(form.getPosition())) {
+                if (board.getOccupiedPositions().contains(lifeForm.getPosition())) {
                     i--;
                 } else {
-                    board.addGameObject(form);
+                    board.addGameObject(lifeForm);
                 }
             }
         } catch (InstantiationException | InvocationTargetException | NoSuchMethodException | IllegalAccessException e) {
