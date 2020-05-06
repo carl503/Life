@@ -8,6 +8,7 @@ import javafx.geometry.Dimension2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Color;
 
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -69,10 +70,12 @@ public class BoardView extends Canvas {
             getGraphicsContext2D().setFill(gameObject.getColor());
             getGraphicsContext2D().fillOval(translatedX, translatedY, fieldDimension.getWidth() * scaling, fieldDimension.getHeight() * scaling);
 
-            // draw gender
-            // TODO: cast this gameObject to LifeForm to get the gender
-            getGraphicsContext2D().setStroke(Color.BLACK);
-            getGraphicsContext2D().strokeText(gameObject.getGender(), translatedX, translatedY);
+            if(gameObject instanceof LifeForm) {
+                // draw gender
+                getGraphicsContext2D().setStroke(Color.BLACK);
+                LifeForm lifeForm = (LifeForm) gameObject;
+                getGraphicsContext2D().strokeText(lifeForm.getGender(), translatedX, translatedY);
+            }
 
             // draw current energy
             double energyPositionX = fieldPosX + fieldDimension.getWidth() * ENERGY_SCALE_X;
