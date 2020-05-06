@@ -12,13 +12,11 @@ import java.util.logging.Logger;
  */
 public abstract class AnimalObject extends LifeForm {
 
-    private static final Logger LOGGER = Logger.getLogger(AnimalObject.class.getCanonicalName());
-
     /**
      * Default energy level of an {@link AnimalObject}.
      */
     public static final int INIT_ENERGY_ANIMALS = 10;
-
+    private static final Logger LOGGER = Logger.getLogger(AnimalObject.class.getCanonicalName());
 
     /**
      * Default constructor.
@@ -35,13 +33,13 @@ public abstract class AnimalObject extends LifeForm {
         Vector2D previousPosition = position;
         position = chooseRandomNeighbourPosition();
         int consumeEnergy = 0;
-        if(isPoisoned) {
+        if (isPoisoned) {
             consumeEnergy = getPoisonedEnergyConsumption();
             LOGGER.log(Level.FINE, "{1} decreased energy (poisoned) by {0}", new Object[] {
                     consumeEnergy, getClass().getSimpleName()
             });
         }
-        if(!previousPosition.equals(position)) {
+        if (!previousPosition.equals(position)) {
             consumeEnergy = 1;
             LOGGER.log(Level.FINE, "{1} decreased energy (move) by {0}", new Object[] {
                     consumeEnergy, getClass().getSimpleName()

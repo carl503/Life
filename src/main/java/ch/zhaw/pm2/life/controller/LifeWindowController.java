@@ -14,19 +14,16 @@ import java.util.Objects;
  */
 public class LifeWindowController {
 
-    private final int width = 800;
-    private final int height = 800;
-
     /**
      * Number of rows on the board.
      */
     public static final int ROWS = 16;
-
     /**
      * Number of columns on the board.
      */
     public static final int COLUMNS = 16;
-
+    private final int width = 800;
+    private final int height = 800;
     private BoardView boardView;
     private Game game;
     private SetupController setupController;
@@ -40,13 +37,15 @@ public class LifeWindowController {
     /**
      * Initializes everything after the JavaFX components are injected,
      */
-    @FXML public void initialize() {
+    @FXML
+    public void initialize() {
         boardObject = new Board(ROWS, COLUMNS);
         boardView = new BoardView(width, height, boardObject);
         this.board.getChildren().add(boardView);
     }
 
-    @FXML private void nextRound() {
+    @FXML
+    private void nextRound() {
         messageField.appendText(game.nextMove());
         boardView.draw();
         if (!game.isOngoing()) {
@@ -55,7 +54,8 @@ public class LifeWindowController {
         }
     }
 
-    @FXML private void stopSimulation() {
+    @FXML
+    private void stopSimulation() {
         game.stop();
         nextRoundButton.setDisable(true);
         stopSimButton.setDisable(true);
@@ -81,7 +81,7 @@ public class LifeWindowController {
      */
     public void initGame() {
         game = new Game(boardObject, setupController.getPlantCount(),
-                setupController.getMeatEaterCount(), setupController.getPlantEaterCount());
+                        setupController.getMeatEaterCount(), setupController.getPlantEaterCount());
         game.init();
     }
 

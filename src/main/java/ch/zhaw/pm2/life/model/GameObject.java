@@ -15,24 +15,20 @@ public abstract class GameObject {
 
     //private static final int MAX_SIZE = 10;
 
+    private static final int BASIC_SIZE = 5;
+    private final Random random = new Random();
     /**
      * The current energy of this game object.
      */
     protected int currentEnergy;
-
     /**
      * The current position of this game object.
      */
     protected Vector2D position;
-
     /**
      * The color of this game object.
      */
     protected Color objectColor;
-
-    private static final int BASIC_SIZE = 5;
-    private final Random random = new Random();
-
     /**
      * Valid values: 3-10
      */
@@ -45,23 +41,6 @@ public abstract class GameObject {
         //size = random.nextInt(MAX_SIZE - 2) + 3;
         size = BASIC_SIZE;
         calculateRandomPointOnField();
-    }
-
-    private enum Direction {
-        DOWN_LEFT(new Vector2D(-1, 1)),
-        DOWN(new Vector2D(0, 1)),
-        DOWN_RIGHT(new Vector2D(1, 1)),
-        LEFT(new Vector2D(-1, 0)),
-        NONE(new Vector2D(0, 0)),
-        RIGHT(new Vector2D(1, 0)),
-        UP_LEFT(new Vector2D(-1, -1)),
-        UP(new Vector2D(0, -1)),
-        UP_RIGHT(new Vector2D(1, -1));
-
-        public final Vector2D vector2D;
-        Direction(final Vector2D p) {
-            vector2D = p;
-        }
     }
 
     /**
@@ -102,7 +81,7 @@ public abstract class GameObject {
      * Returns Position of the GameObject
      * @return position
      */
-    public Vector2D getPosition(){
+    public Vector2D getPosition() {
         return position;
     }
 
@@ -117,13 +96,12 @@ public abstract class GameObject {
         return neighbours.get(neighbourIndex);
     }
 
-
     private List<Vector2D> getNeighbourFields() {
         List<Vector2D> neighbours = new ArrayList<>();
-        for(Direction direction : Direction.values()) {
+        for (Direction direction : Direction.values()) {
             int neighbourX = position.getX() + direction.vector2D.getX();
             int neighbourY = position.getY() + direction.vector2D.getY();
-            if(neighbourX >= 0 && neighbourX < LifeWindowController.COLUMNS
+            if (neighbourX >= 0 && neighbourX < LifeWindowController.COLUMNS
                     && neighbourY >= 0 && neighbourY < LifeWindowController.ROWS) {
                 neighbours.add(new Vector2D(neighbourX, neighbourY));
             }
@@ -146,4 +124,23 @@ public abstract class GameObject {
     public int getSize() {
         return size;
     }
+
+    private enum Direction {
+        DOWN_LEFT(new Vector2D(-1, 1)),
+        DOWN(new Vector2D(0, 1)),
+        DOWN_RIGHT(new Vector2D(1, 1)),
+        LEFT(new Vector2D(-1, 0)),
+        NONE(new Vector2D(0, 0)),
+        RIGHT(new Vector2D(1, 0)),
+        UP_LEFT(new Vector2D(-1, -1)),
+        UP(new Vector2D(0, -1)),
+        UP_RIGHT(new Vector2D(1, -1));
+
+        public final Vector2D vector2D;
+
+        Direction(final Vector2D p) {
+            vector2D = p;
+        }
+    }
+
 }

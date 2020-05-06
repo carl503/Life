@@ -25,14 +25,14 @@ public class PlantEater extends AnimalObject {
     @Override
     public void eat(LifeForm lifeForm) throws LifeFormException {
         Objects.requireNonNull(lifeForm, "Cannot eat null.");
-        if(lifeForm.getFoodType() == FoodType.MEAT) {
+        if (lifeForm.getFoodType() == FoodType.MEAT) {
             throw new LifeFormException("Cannot eat this meat, I am vegetarian.");
         }
 
         LOGGER.log(Level.FINE, "{0} ate {1}",
-                new Object[] { getClass().getSimpleName(), lifeForm.getClass().getSimpleName() });
+                   new Object[] { getClass().getSimpleName(), lifeForm.getClass().getSimpleName() });
         increaseEnergy(lifeForm.getCurrentEnergy());
-        if(lifeForm.isPoisonous()) {
+        if (lifeForm.isPoisonous()) {
             poisoned();
         }
         lifeForm.die();
@@ -42,9 +42,10 @@ public class PlantEater extends AnimalObject {
     public AnimalObject reproduce(LifeForm lifeForm) throws LifeFormException {
         Objects.requireNonNull(lifeForm, "Cannot be null.");
 
-        if(!(lifeForm instanceof PlantEater)) {
+        if (!(lifeForm instanceof PlantEater)) {
             throw new LifeFormException("Cannot reproduce with this object");
         }
         return new PlantEater();
     }
+
 }

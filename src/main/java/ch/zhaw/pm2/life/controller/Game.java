@@ -12,7 +12,11 @@ import ch.zhaw.pm2.life.model.lifeform.plant.FirstPlant;
 import ch.zhaw.pm2.life.model.lifeform.plant.PlantObject;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.*;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.Map;
+import java.util.Objects;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -33,18 +37,18 @@ public class Game {
 
     private static final Logger LOGGER = Logger.getLogger(Game.class.getName());
 
-    private Set<GameObject> deadLifeForms = new HashSet<>();
+    private final Set<GameObject> deadLifeForms = new HashSet<>();
     private boolean ongoing = true;
-    private Board board;
-    private int plantCount;
-    private int meatEaterCount;
-    private int plantEaterCount;
+    private final Board board;
+    private final int plantCount;
+    private final int meatEaterCount;
+    private final int plantEaterCount;
 
     /**
      * Default constructor.
-     * @param board Stores all game objects.
-     * @param plantCount Initial amount of plants.
-     * @param meatEaterCount Initial amount of meat eaters.
+     * @param board           Stores all game objects.
+     * @param plantCount      Initial amount of plants.
+     * @param meatEaterCount  Initial amount of meat eaters.
      * @param plantEaterCount Initial amount of plant eaters.
      */
     public Game(Board board, int plantCount, int meatEaterCount, int plantEaterCount) {
@@ -74,19 +78,19 @@ public class Game {
     public void stop() {
         ongoing = false;
     }
-    
+
     private void addLifeForm(Class<? extends LifeForm> lifeForm, int count) throws LifeFormException {
         try {
-           for (int i = 0; i < count; i++) {
-               LifeForm form = lifeForm.getConstructor().newInstance();
+            for (int i = 0; i < count; i++) {
+                LifeForm form = lifeForm.getConstructor().newInstance();
 
-               if (board.getOccupiedPositions().contains(form.getPosition())) {
-                   i--;
-               } else {
-                   board.addGameObject(form);
-               }
-           }
-       } catch (InstantiationException | InvocationTargetException | NoSuchMethodException | IllegalAccessException e) {
+                if (board.getOccupiedPositions().contains(form.getPosition())) {
+                    i--;
+                } else {
+                    board.addGameObject(form);
+                }
+            }
+        } catch (InstantiationException | InvocationTargetException | NoSuchMethodException | IllegalAccessException e) {
             throw new LifeFormException(e.getMessage(), e);
         }
     }
@@ -99,7 +103,7 @@ public class Game {
      */
     public String nextMove() {
         String messageLog = "";
-        if(ongoing) {
+        if (ongoing) {
             Map<Vector2D, Set<GameObject>> positionMap = new HashMap<>();
             messageLog += move(positionMap);
             messageLog += interact(positionMap);
@@ -121,19 +125,19 @@ public class Game {
     private String move(Map<Vector2D, Set<GameObject>> positionMap) {
         StringBuilder stringBuilder = new StringBuilder();
 
-        for(GameObject gameObject : board.getGameObjects()) {
-            if(gameObject instanceof LifeForm) {
+        for (GameObject gameObject : board.getGameObjects()) {
+            if (gameObject instanceof LifeForm) {
                 LifeForm lifeForm = (LifeForm) gameObject;
                 if (lifeForm instanceof AnimalObject) {
                     AnimalObject animalObject = (AnimalObject) lifeForm;
                     animalObject.move();
                     dieOfExhaustion(stringBuilder, animalObject);
-                } else if(lifeForm instanceof PlantObject) {
+                } else if (lifeForm instanceof PlantObject) {
                     lifeForm.decreaseEnergy(PLANT_ENERGY_CONSUMPTION);
                     dieOfExhaustion(stringBuilder, lifeForm);
                 }
             }
-            if(!positionMap.containsKey(gameObject.getPosition())) {
+            if (!positionMap.containsKey(gameObject.getPosition())) {
                 positionMap.put(gameObject.getPosition(), new HashSet<>());
             }
             positionMap.get(gameObject.getPosition()).add(gameObject);
@@ -154,8 +158,8 @@ public class Game {
         Set<GameObject> newLifeForms = new HashSet<>();
         StringBuilder stringBuilder = new StringBuilder();
 
-        for(GameObject gameObject : board.getGameObjects()) {
-            if(gameObject instanceof AnimalObject) {
+        for (GameObject gameObject : board.getGameObjects()) {
+            if (gameObject instanceof AnimalObject) {
                 AnimalObject animalObject = (AnimalObject) gameObject;
                 Set<GameObject> set = positionMap.get(animalObject.getPosition());
 
@@ -180,20 +184,21 @@ public class Game {
                 .map(LifeForm.class::cast)
                 .forEach(lifeForm -> {
 
-            try {
-                if(!(lifeForm.getGender().equals(animalObject.getGender())) && lifeForm.getClass().equals(animalObject.getClass())) {
-                    newLifeForms.add(animalObject.reproduce(lifeForm));
-                    stringBuilder.append(animalObject.getClass().getSimpleName()).append(": SEX!\n");
-                } else {
-                    animalObject.eat(lifeForm);
-                    deadLifeForms.add(lifeForm);
-                    stringBuilder.append(animalObject.getClass().getSimpleName()).append(": Yummy food!\n");
-                }
-                } catch (LifeFormException e) {
-                    stringBuilder.append(String.format("%s%n", e.getMessage()));
-                }
-        });
+                    try {
+                        if (!(lifeForm.getGender().equals(animalObject.getGender())) && lifeForm.getClass().equals(animalObject.getClass())) {
+                            newLifeForms.add(animalObject.reproduce(lifeForm));
+                            stringBuilder.append(animalObject.getClass().getSimpleName()).append(": SEX!\n");
+                        } else {
+                            animalObject.eat(lifeForm);
+                            deadLifeForms.add(lifeForm);
+                            stringBuilder.append(animalObject.getClass().getSimpleName()).append(": Yummy food!\n");
+                        }
+                    } catch (LifeFormException e) {
+                        stringBuilder.append(String.format("%s%n", e.getMessage()));
+                    }
+                });
 
         return stringBuilder.toString();
     }
+
 }

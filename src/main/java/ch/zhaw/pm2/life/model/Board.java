@@ -31,13 +31,13 @@ public class Board {
 
     /**
      * Default constructor.
-     * @param rows Number of rows as int.
+     * @param rows    Number of rows as int.
      * @param columns Number of columns as int.
      * @throws IllegalArgumentException when rows is less than {@link Board#MIN_ROWS} or columns is less than {@link Board#MIN_COLUMNS}
      */
     public Board(int rows, int columns) {
         if (rows < MIN_ROWS) {
-           throw new IllegalArgumentException("The number of rows cannot be less than " + MIN_ROWS);
+            throw new IllegalArgumentException("The number of rows cannot be less than " + MIN_ROWS);
         }
         if (columns < MIN_COLUMNS) {
             throw new IllegalArgumentException("The number of columns cannot be less than " + MIN_COLUMNS);
@@ -126,7 +126,7 @@ public class Board {
      * @return true if an instance of the provided class exists otherwise false
      */
     public boolean containsNotInstanceOfAnimalObject(Class<? extends AnimalObject> clazz) {
-        if(clazz == null) {
+        if (clazz == null) {
             return false;
         }
 
@@ -138,4 +138,5 @@ public class Board {
 
         return !animalClassSet.contains(clazz);
     }
+
 }

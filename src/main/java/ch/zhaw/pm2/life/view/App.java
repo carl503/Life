@@ -27,7 +27,7 @@ public class App extends Application {
         try (InputStream config = App.class.getClassLoader().getResourceAsStream("log.properties")) {
             LogManager.getLogManager().readConfiguration(config);
         } catch (IOException e) {
-            LOGGER.log(Level.CONFIG,"No log.properties", e);
+            LOGGER.log(Level.CONFIG, "No log.properties", e);
         }
     }
 
@@ -53,4 +53,5 @@ public class App extends Application {
             LOGGER.log(Level.SEVERE, "Unable to load the fxml file", e);
         }
     }
+
 }

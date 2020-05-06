@@ -8,7 +8,6 @@ import javafx.geometry.Dimension2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Color;
 
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -31,9 +30,9 @@ public class BoardView extends Canvas {
 
     /**
      * Default constructor.
-     * @param width The width in pixel.
+     * @param width  The width in pixel.
      * @param height The height in pixel.
-     * @param board The board containing the game objects {@see Board}.
+     * @param board  The board containing the game objects {@see Board}.
      */
     public BoardView(int width, int height, Board board) {
         this.width = width;
@@ -48,7 +47,7 @@ public class BoardView extends Canvas {
      * Draw the board on the canvas.
      */
     public void draw() {
-        getGraphicsContext2D().clearRect(0,0, getWidth(), getHeight());
+        getGraphicsContext2D().clearRect(0, 0, getWidth(), getHeight());
         drawLines();
         drawGameObjects();
     }
@@ -92,7 +91,7 @@ public class BoardView extends Canvas {
     }
 
     private void drawGender(GameObject gameObject, double translatedX, double translatedY) {
-        if(gameObject instanceof LifeForm) {
+        if (gameObject instanceof LifeForm) {
             getGraphicsContext2D().setStroke(Color.BLACK);
             LifeForm lifeForm = (LifeForm) gameObject;
             getGraphicsContext2D().strokeText(lifeForm.getGender(), translatedX, translatedY);
@@ -106,7 +105,7 @@ public class BoardView extends Canvas {
     }
 
     private void drawPoisonStatus(GameObject gameObject, double fieldPosX, double fieldPosY) {
-        if(gameObject instanceof LifeForm) {
+        if (gameObject instanceof LifeForm) {
             double poisonStatusPositionX = fieldPosX + fieldDimension.getHeight() * POISON_SCALE_X;
             double poisonStatusPositionY = fieldPosY + fieldDimension.getHeight() * POISON_SCALE_Y;
             LifeForm lifeForm = (LifeForm) gameObject;
@@ -115,4 +114,5 @@ public class BoardView extends Canvas {
             getGraphicsContext2D().strokeText(labelValue, poisonStatusPositionX, poisonStatusPositionY);
         }
     }
+
 }
