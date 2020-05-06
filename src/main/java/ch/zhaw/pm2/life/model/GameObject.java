@@ -16,7 +16,9 @@ public abstract class GameObject {
     //private static final int MAX_SIZE = 10;
 
     private static final int BASIC_SIZE = 5;
+    private static int gameObjectCount;
     private final Random random = new Random();
+    private int id;
     /**
      * The current energy of this game object.
      */
@@ -41,6 +43,8 @@ public abstract class GameObject {
         //size = random.nextInt(MAX_SIZE - 2) + 3;
         size = BASIC_SIZE;
         calculateRandomPointOnField();
+        gameObjectCount++;
+        id = gameObjectCount;
     }
 
     /**
