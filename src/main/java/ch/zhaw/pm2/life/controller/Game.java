@@ -102,7 +102,7 @@ public class Game {
         if(ongoing) {
             Map<Vector2D, Set<GameObject>> positionMap = new HashMap<>();
             messageLog += move(positionMap);
-            messageLog += eat(positionMap);
+            messageLog += interact(positionMap);
             if (board.containsNotInstanceOfAnimalObject(MeatEater.class) || board.containsNotInstanceOfAnimalObject(PlantEater.class)) {
                 stop();
             }
@@ -150,7 +150,7 @@ public class Game {
         }
     }
 
-    private String eat(Map<Vector2D, Set<GameObject>> positionMap) {
+    private String interact(Map<Vector2D, Set<GameObject>> positionMap) {
         Set<GameObject> newLifeForms = new HashSet<>();
         StringBuilder stringBuilder = new StringBuilder();
 
@@ -159,8 +159,8 @@ public class Game {
                 AnimalObject animalObject = (AnimalObject) gameObject;
                 Set<GameObject> set = positionMap.get(animalObject.getPosition());
 
-                String eatMessage = handleCollision(set, animalObject, newLifeForms);
-                stringBuilder.append(eatMessage);
+                String interactMessage = handleCollision(set, animalObject, newLifeForms);
+                stringBuilder.append(interactMessage);
 
                 set.removeAll(deadLifeForms);
             }
