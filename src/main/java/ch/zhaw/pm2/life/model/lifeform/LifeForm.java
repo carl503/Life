@@ -30,20 +30,13 @@ public abstract class LifeForm extends GameObject {
      * Flag if this life form is poisonous.
      */
     protected boolean isPoisoned = false;
-    
+
     /**
      * Flag indicating the gender
      */
     protected boolean isMale;
 
     private int nextPoisonedEnergyConsumption;
-
-    /**
-     * Enumeration of food types.
-     */
-    public enum FoodType {
-        PLANT, MEAT
-    }
 
     /**
      * Default constructor.
@@ -60,7 +53,7 @@ public abstract class LifeForm extends GameObject {
      * Kills the GameObject by setting isAlive to false;
      */
     public void die() {
-        LOGGER.log(Level.FINE,"{0} died", getClass().getSimpleName());
+        LOGGER.log(Level.FINE, "{0} died", getClass().getSimpleName());
         isDead = true;
     }
 
@@ -68,7 +61,7 @@ public abstract class LifeForm extends GameObject {
      * Poison this life form.
      */
     public void poisoned() {
-        LOGGER.log(Level.FINE,"{0} got poisoned", getClass().getSimpleName());
+        LOGGER.log(Level.FINE, "{0} got poisoned", getClass().getSimpleName());
         isPoisoned = true;
         nextPoisonedEnergyConsumption = (int) (currentEnergy * POISON_ENERGY_CONSUMPTION_START_FACTOR);
     }
@@ -79,8 +72,8 @@ public abstract class LifeForm extends GameObject {
      */
     public int getPoisonedEnergyConsumption() {
         int energyConsumption = nextPoisonedEnergyConsumption;
-        if((energyConsumption - 1) == -1) {
-            LOGGER.log(Level.FINE,"{0} is not poisoned anymore", getClass().getSimpleName());
+        if ((energyConsumption - 1) == -1) {
+            LOGGER.log(Level.FINE, "{0} is not poisoned anymore", getClass().getSimpleName());
             isPoisoned = false;
         }
         nextPoisonedEnergyConsumption--;
@@ -124,4 +117,12 @@ public abstract class LifeForm extends GameObject {
     public boolean isPoisoned() {
         return isPoisoned;
     }
+
+    /**
+     * Enumeration of food types.
+     */
+    public enum FoodType {
+        PLANT, MEAT
+    }
+
 }
