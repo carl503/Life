@@ -48,7 +48,7 @@ public abstract class LifeForm extends GameObject {
     public LifeForm() {
         Random random = new Random();
         int genderValue = random.nextInt(10);
-        isMale = (genderValue > 5);
+        isMale = (genderValue > 4);
         int poisonValue = random.nextInt(10);
         isPoisonous = poisonValue < POISONOUS_PROBABILITY;
     }
