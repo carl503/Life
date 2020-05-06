@@ -37,4 +37,14 @@ public class PlantEater extends AnimalObject {
         }
         lifeForm.die();
     }
+
+    @Override
+    public AnimalObject reproduce(LifeForm lifeForm) throws LifeFormException {
+        Objects.requireNonNull(lifeForm, "Cannot be null.");
+
+        if(!(lifeForm instanceof PlantEater)) {
+            throw new LifeFormException("Cannot reproduce with this object");
+        }
+        return new PlantEater();
+    }
 }
