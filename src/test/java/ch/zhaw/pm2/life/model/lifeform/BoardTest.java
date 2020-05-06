@@ -124,7 +124,7 @@ public class BoardTest {
 
     @Test
     public void testAddGameObjectInvalidPositionBiggerThanNumberOfRows() {
-        Vector2D position = new Vector2D(0, BOARD_SIZE);
+        Vector2D position = new Vector2D(0, board.getRows());
         when(firstGameObject.getPosition()).thenReturn(position);
         IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> board.addGameObject(firstGameObject));
         assertEquals(String.format(ILLEGAL_POSITION_MESSAGE, position), thrown.getMessage());
@@ -132,7 +132,7 @@ public class BoardTest {
 
     @Test
     public void testAddGameObjectInvalidPositionBiggerThanNumberOfColumns() {
-        Vector2D position = new Vector2D(BOARD_SIZE, 0);
+        Vector2D position = new Vector2D(board.getColumns(), 0);
         when(firstGameObject.getPosition()).thenReturn(position);
         IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> board.addGameObject(firstGameObject));
         assertEquals(String.format(ILLEGAL_POSITION_MESSAGE, position), thrown.getMessage());
