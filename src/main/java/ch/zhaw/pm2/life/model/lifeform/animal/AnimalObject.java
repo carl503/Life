@@ -27,18 +27,6 @@ public abstract class AnimalObject extends LifeForm {
         currentEnergy = INIT_ENERGY_ANIMALS;
     }
 
-    @Override
-    public String getGender() { // TODO: this should be moved in LifeForm and not Override
-        // TODO: return with inline if
-        String gender = "F";
-        if(isMale) {
-            gender = "M";
-        }
-        return gender;
-    }
-
-
-
     /**
      * Is called when the animal moves
      */
