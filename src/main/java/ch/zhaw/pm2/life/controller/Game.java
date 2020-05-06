@@ -187,7 +187,7 @@ public class Game {
                     try {
                         if (!(lifeForm.getGender().equals(animalObject.getGender())) && lifeForm.getClass().equals(animalObject.getClass())) {
                             newLifeForms.add(animalObject.reproduce(lifeForm));
-                            stringBuilder.append(animalObject.getClass().getSimpleName()).append(": SEX!\n");
+                            stringBuilder.append(animalObject.getClass().getSimpleName()).append(": We just reproduced with each other\n");
                         } else {
                             animalObject.eat(lifeForm);
                             deadLifeForms.add(lifeForm);
