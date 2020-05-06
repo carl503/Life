@@ -67,6 +67,11 @@ public abstract class AnimalObject extends LifeForm {
      */
     public abstract void eat(LifeForm lifeForm) throws LifeFormException;
 
+    /**
+     * is called when the animal reproduces
+     */
+    public abstract AnimalObject reproduce(LifeForm lifeForm) throws LifeFormException;
+
     @Override
     public FoodType getFoodType() {
         return FoodType.MEAT;
