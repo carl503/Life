@@ -28,7 +28,8 @@ public abstract class AnimalObject extends LifeForm {
     }
 
     @Override
-    public String getGender() {
+    public String getGender() { // TODO: this should be moved in LifeForm and not Override
+        // TODO: return with inline if
         String gender = "F";
         if(isMale) {
             gender = "M";

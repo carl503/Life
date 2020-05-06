@@ -64,11 +64,13 @@ public class BoardView extends Canvas {
             double translatedX = fieldPosX + fieldDimension.getWidth() * translateFactor;
             double translatedY = fieldPosY + fieldDimension.getHeight() * translateFactor;
 
+            // TODO: extract this steps to separate methods
             // draw object
             getGraphicsContext2D().setFill(gameObject.getColor());
             getGraphicsContext2D().fillOval(translatedX, translatedY, fieldDimension.getWidth() * scaling, fieldDimension.getHeight() * scaling);
 
             // draw gender
+            // TODO: cast this gameObject to LifeForm to get the gender
             getGraphicsContext2D().setStroke(Color.BLACK);
             getGraphicsContext2D().strokeText(gameObject.getGender(), translatedX, translatedY);
 

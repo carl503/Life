@@ -50,7 +50,7 @@ public abstract class LifeForm extends GameObject {
 
         isMale = true;
         int genderValue = random.nextInt(10);
-        if(genderValue < 5) {
+        if(genderValue < 5) { // todo: this condition is the boolean you want to set
             isMale = false;
         }
            int poisonValue = random.nextInt(10);
