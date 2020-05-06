@@ -12,11 +12,7 @@ import ch.zhaw.pm2.life.model.lifeform.plant.FirstPlant;
 import ch.zhaw.pm2.life.model.lifeform.plant.PlantObject;
 
 import java.lang.reflect.InvocationTargetException;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.Map;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -155,6 +151,7 @@ public class Game {
     }
 
     private String eat(Map<Vector2D, Set<GameObject>> positionMap) {
+        Set<GameObject> newLifeForms = new HashSet<>();
         StringBuilder stringBuilder = new StringBuilder();
 
         for(GameObject gameObject : board.getGameObjects()) {
@@ -162,18 +159,19 @@ public class Game {
                 AnimalObject animalObject = (AnimalObject) gameObject;
                 Set<GameObject> set = positionMap.get(animalObject.getPosition());
 
-                String eatMessage = handleCollision(set, animalObject, deadLifeForms);
+                String eatMessage = handleCollision(set, animalObject, newLifeForms);
                 stringBuilder.append(eatMessage);
 
                 set.removeAll(deadLifeForms);
             }
         }
         board.cleanBoard();
+        board.getGameObjects().addAll(newLifeForms);
 
         return stringBuilder.toString();
     }
 
-    private String handleCollision(Set<GameObject> sameFieldSet, AnimalObject animalObject, Set<GameObject> deadLifeForms) {
+    private String handleCollision(Set<GameObject> sameFieldSet, AnimalObject animalObject, Set<GameObject> newLifeForms) {
         StringBuilder stringBuilder = new StringBuilder();
 
         sameFieldSet.stream()
@@ -183,12 +181,17 @@ public class Game {
                 .forEach(lifeForm -> {
 
             try {
-                animalObject.eat(lifeForm);
-                deadLifeForms.add(lifeForm);
-                stringBuilder.append(animalObject.getClass().getSimpleName()).append(": Yummy food!\n");
-            } catch (LifeFormException e) {
-                stringBuilder.append(String.format("%s%n", e.getMessage()));
-            }
+                if(!(lifeForm.getGender().equals(animalObject.getGender())) && lifeForm.getClass().equals(animalObject.getClass())) {
+                    newLifeForms.add(animalObject.reproduce(lifeForm));
+                    stringBuilder.append(animalObject.getClass().getSimpleName()).append(": SEX!\n");
+                } else {
+                    animalObject.eat(lifeForm);
+                    deadLifeForms.add(lifeForm);
+                    stringBuilder.append(animalObject.getClass().getSimpleName()).append(": Yummy food!\n");
+                }
+                } catch (LifeFormException e) {
+                    stringBuilder.append(String.format("%s%n", e.getMessage()));
+                }
         });
 
         return stringBuilder.toString();
