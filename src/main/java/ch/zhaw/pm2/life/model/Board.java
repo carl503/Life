@@ -8,6 +8,8 @@ import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import static java.util.function.Predicate.*;
+
 /**
  * This model class represents the board containing all the game objects.
  * @author lubojcar, meletlea
@@ -84,7 +86,7 @@ public class Board {
 
         return deadLifeForms.stream()
                 .map(GameObject::getPosition)
-                .filter(position -> !currentOccupiedVector2DS.contains(position))
+                .filter(not(currentOccupiedVector2DS::contains))
                 .collect(Collectors.toSet());
     }
 

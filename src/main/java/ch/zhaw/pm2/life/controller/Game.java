@@ -20,6 +20,8 @@ import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import static java.util.function.Predicate.*;
+
 /**
  * This controller class handles the logic of the game.
  */
@@ -191,7 +193,7 @@ public class Game {
         StringBuilder stringBuilder = new StringBuilder();
 
         sameFieldSet.stream()
-                .filter(gameObject -> !gameObject.equals(animalObject))
+                .filter(not(animalObject::equals))
                 .filter(LifeForm.class::isInstance)
                 .map(LifeForm.class::cast)
                 .forEach(lifeForm -> {
