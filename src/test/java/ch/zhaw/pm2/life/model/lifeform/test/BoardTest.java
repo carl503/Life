@@ -4,6 +4,7 @@ import ch.zhaw.pm2.life.model.Board;
 import ch.zhaw.pm2.life.model.GameObject;
 import ch.zhaw.pm2.life.model.Vector2D;
 import ch.zhaw.pm2.life.model.lifeform.LifeForm;
+import ch.zhaw.pm2.life.model.lifeform.animal.AnimalObject;
 import ch.zhaw.pm2.life.model.lifeform.animal.MeatEater;
 import ch.zhaw.pm2.life.model.lifeform.animal.PlantEater;
 import ch.zhaw.pm2.life.model.lifeform.plant.PlantObject;
@@ -79,13 +80,14 @@ public class BoardTest {
 
     @Test
     public void testContainsNotInstanceOfAnimalObject() {
-        firstGameObject = new MeatEater();
-        board.addGameObject(firstGameObject);
-        assertEquals(1, board.getGameObjects().size());
-        assertEquals(1, board.getOccupiedPositions().size());
+        AnimalObject animalObject = mock(AnimalObject.class);
 
-        assertFalse(board.containsNotInstanceOfAnimalObject(MeatEater.class));
-        assertTrue(board.containsNotInstanceOfAnimalObject(PlantEater.class));
+        AnimalObject meatEater = mock(MeatEater.class);
+        when(meatEater.getPosition()).thenReturn(new Vector2D(0, 1));
+        board.addGameObject(meatEater);
+
+        assertFalse(board.containsNotInstanceOfAnimalObject(meatEater.getClass()));
+        assertTrue(board.containsNotInstanceOfAnimalObject(animalObject.getClass()));
     }
 
     //==================================================================================================================
