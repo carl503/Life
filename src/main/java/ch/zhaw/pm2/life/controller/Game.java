@@ -84,13 +84,6 @@ public class Game {
         }
     }
 
-    /**
-     * Stop the game.
-     */
-    public void stop() {
-        ongoing = false;
-    }
-
     private void addLifeForm(Class<? extends LifeForm> lifeFormClass, int count) throws LifeFormException {
         try {
             for (int i = 0; i < count; i++) {
@@ -105,6 +98,21 @@ public class Game {
         } catch (InstantiationException | InvocationTargetException | NoSuchMethodException | IllegalAccessException e) {
             throw new LifeFormException(e.getMessage(), e);
         }
+    }
+
+    /**
+     * Stop the game.
+     */
+    public void stop() {
+        ongoing = false;
+    }
+
+    /**
+     * Returns true if the game is ongoing otherwise false.
+     * @return boolean
+     */
+    public boolean isOngoing() {
+        return ongoing;
     }
 
     /**
@@ -124,14 +132,6 @@ public class Game {
             }
         }
         return messageLog;
-    }
-
-    /**
-     * Returns true if the game is ongoing otherwise false.
-     * @return boolean
-     */
-    public boolean isOngoing() {
-        return ongoing;
     }
 
     private String move(Map<Vector2D, Set<GameObject>> positionMap) {
