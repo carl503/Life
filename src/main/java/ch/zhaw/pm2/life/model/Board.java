@@ -13,6 +13,17 @@ import java.util.stream.Collectors;
  * @author lubojcar, meletlea
  */
 public class Board {
+
+    /**
+     * Minimal number of rows.
+     */
+    public static final int MIN_ROWS = 3;
+
+    /**
+     * Minimal number of columns.
+     */
+    public static final int MIN_COLUMNS = 3;
+
     private final int rows;
     private final int columns;
     private final Set<GameObject> gameObjects = new HashSet<>();
@@ -22,8 +33,15 @@ public class Board {
      * Default constructor.
      * @param rows Number of rows as int.
      * @param columns Number of columns as int.
+     * @throws IllegalArgumentException when rows is less than {@link Board#MIN_ROWS} or columns is less than {@link Board#MIN_COLUMNS}
      */
     public Board(int rows, int columns) {
+        if (rows < MIN_ROWS) {
+           throw new IllegalArgumentException("The number of rows cannot be less than " + MIN_ROWS);
+        }
+        if (columns < MIN_COLUMNS) {
+            throw new IllegalArgumentException("The number of columns cannot be less than " + MIN_COLUMNS);
+        }
         this.rows = rows;
         this.columns = columns;
     }
@@ -31,9 +49,17 @@ public class Board {
     /**
      * Adds a game object to the set.
      * @param gameObject {@link GameObject}
+     * @throws NullPointerException when the argument gameObject or its position is null.
+     * @throws NullPointerException when the argument gameObject is null.
      */
     public void addGameObject(GameObject gameObject) {
         Objects.requireNonNull(gameObject, "Game object cannot be null to add it on the board.");
+        Objects.requireNonNull(gameObject.getPosition(), "The position cannot be null to add the game object on the board.");
+        Vector2D position = gameObject.getPosition();
+        if (position.getX() < 0 || position.getX() >= columns || position.getY() < 0 || position.getY() >= rows) {
+            String message = String.format("The position %s of the provided game object does not exist on the board.", position);
+            throw new IllegalArgumentException(message);
+        }
         gameObjects.add(gameObject);
         occupiedPositions.add(position);
     }
