@@ -113,6 +113,21 @@ public class Board {
     }
 
     /**
+     * Returns the game object of a position
+     * @param pos Position on the field
+     * @return game object if found otherwise null
+     */
+    public GameObject getGameObject(Vector2D pos) {
+        GameObject gameObject = null;
+        for (GameObject go : gameObjects) {
+            if (go.getPosition().equals(pos)) {
+                gameObject = go;
+            }
+        }
+        return gameObject;
+    }
+
+    /**
      * Returns a set of occupied positions
      * @return set of position objects
      */
