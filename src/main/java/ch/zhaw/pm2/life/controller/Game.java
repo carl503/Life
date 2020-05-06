@@ -53,9 +53,21 @@ public class Game {
      */
     public Game(Board board, int plantCount, int meatEaterCount, int plantEaterCount) {
         this.board = Objects.requireNonNull(board, "Board cannot be null to create the game.");
+        validateNumOfGameObjects(plantCount, "plants");
+        validateNumOfGameObjects(meatEaterCount, "meat eaters");
+        validateNumOfGameObjects(plantEaterCount, "plant eaters");
+        validateNumOfGameObjects(plantCount + meatEaterCount + plantEaterCount, "game objects");
         this.plantCount = plantCount;
         this.meatEaterCount = meatEaterCount;
         this.plantEaterCount = plantEaterCount;
+    }
+
+    private void validateNumOfGameObjects(int num, String type) {
+        if(num < 0) {
+            throw new IllegalArgumentException(String.format("Number of %s is less than the minimal value.", type));
+        } else if(num > board.getRows() * board.getColumns()) {
+            throw new IllegalArgumentException(String.format("Number of %s exceed the number of available field.", type));
+        }
     }
 
     /**
