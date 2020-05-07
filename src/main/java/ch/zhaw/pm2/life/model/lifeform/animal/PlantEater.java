@@ -41,10 +41,11 @@ public class PlantEater extends AnimalObject {
     @Override
     public AnimalObject reproduce(LifeForm lifeForm) throws LifeFormException {
         Objects.requireNonNull(lifeForm, "Cannot be null.");
-        if (lifeForm.getGender().equals("F")) {
-            throw new LifeFormException("Cannot give birth because im male");
+        if (lifeForm.getGender().equals("F") && getReproductionCounter() > 9) {
+            throw new LifeFormException("Cannot give birth because im male or the partner cannot reproduce yet ");
         }
         return new PlantEater();
+        setReproduceCounter(); // sets own counter to zero (only on females)
     }
 
 }
