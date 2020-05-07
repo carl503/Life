@@ -48,8 +48,8 @@ public class MeatEater extends AnimalObject {
         if (lifeForm.getGender().equals("F") || getReproductionCounter() < REPRODUCTION_MINIMUM) {
             throw new LifeFormException("Cannot give birth because im male or the partner cannot reproduce yet");
         }
-        return new MeatEater();
         setReproduceCounter(); // sets own counter to zero (only on females)
+        return new MeatEater();
     }
 
 }
