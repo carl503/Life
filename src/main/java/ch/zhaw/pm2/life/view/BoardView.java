@@ -82,6 +82,7 @@ public class BoardView extends Canvas {
             drawGender(gameObject, translatedX, translatedY);
             drawCurrentEnergy(gameObject, fieldPosX, fieldPosY);
             drawPoisonStatus(gameObject, fieldPosX, fieldPosY);
+            drawReproduceCounter(gameObject, translatedX, translatedY);
         }
     }
 
@@ -95,6 +96,15 @@ public class BoardView extends Canvas {
             getGraphicsContext2D().setStroke(Color.BLACK);
             LifeForm lifeForm = (LifeForm) gameObject;
             getGraphicsContext2D().strokeText(lifeForm.getGender(), translatedX, translatedY);
+        }
+    }
+
+    private void drawReproduceCounter(GameObject gameObject, double translatedX, double translatedY) {
+        if (gameObject instanceof LifeForm) {
+            getGraphicsContext2D().setStroke(Color.BLACK);
+            LifeForm lifeForm = (LifeForm) gameObject;
+            getGraphicsContext2D().strokeText(lifeForm.displayReproductionCounter(), translatedX + 35, translatedY);
+            //todo optimize position and remove magic number 35
         }
     }
 
