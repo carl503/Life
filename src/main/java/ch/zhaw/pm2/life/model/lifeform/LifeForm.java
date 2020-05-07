@@ -15,6 +15,7 @@ public abstract class LifeForm extends GameObject {
     private static final Logger LOGGER = Logger.getLogger(LifeForm.class.getCanonicalName());
     private static final double POISON_ENERGY_CONSUMPTION_START_FACTOR = 0.3;
     private static final int POISONOUS_PROBABILITY = 3;
+    protected int reproduceCounter;
 
     /**
      * Flag to indicate the living state.
@@ -47,6 +48,7 @@ public abstract class LifeForm extends GameObject {
         isMale = genderValue > 4;
         int poisonValue = random.nextInt(10);
         isPoisonous = poisonValue < POISONOUS_PROBABILITY;
+        reproduceCounter = 0;
     }
 
     /**
@@ -86,6 +88,30 @@ public abstract class LifeForm extends GameObject {
      */
     public String getGender() {
         return isMale ? "M" : "F";
+    }
+
+    /**
+     * Used to display on board
+     * @return the reproductionCounter as {@link String}
+     */
+    public String displayReproductionCounter() {
+        return String.valueOf(reproduceCounter);
+    }
+
+    /**
+     * Used to determine wether animalobjects can reproduce or not
+     * @return reproductionCounter as int
+     */
+    public int getReproductionCounter() {
+        return reproduceCounter;
+    }
+
+    /**
+     * Sets reproduceCounter to 0 after successful reproduction, but only on females because males
+     * are not really affected by birth
+     */
+    public void setReproduceCounter() {
+        this.reproduceCounter = 0;
     }
 
     /**
