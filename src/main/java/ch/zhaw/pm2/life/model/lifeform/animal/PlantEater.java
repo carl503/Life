@@ -14,6 +14,7 @@ import java.util.logging.Logger;
 public class PlantEater extends AnimalObject {
 
     private static final Logger LOGGER = Logger.getLogger(PlantEater.class.getCanonicalName());
+    public static final int REPRODUCTION_MINIMUM = 9;
 
     /**
      * Default constructor
@@ -41,7 +42,7 @@ public class PlantEater extends AnimalObject {
     @Override
     public AnimalObject reproduce(LifeForm lifeForm) throws LifeFormException {
         Objects.requireNonNull(lifeForm, "Cannot be null.");
-        if (lifeForm.getGender().equals("F") && getReproductionCounter() > 9) {
+        if (lifeForm.getGender().equals("F") || getReproductionCounter() > REPRODUCTION_MINIMUM) {
             throw new LifeFormException("Cannot give birth because im male or the partner cannot reproduce yet ");
         }
         return new PlantEater();
