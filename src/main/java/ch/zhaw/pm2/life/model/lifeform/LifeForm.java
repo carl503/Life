@@ -21,6 +21,8 @@ public abstract class LifeForm extends GameObject {
      */
     protected int fertilityThreshold;
 
+    private Random random = new Random();
+
     /**
      * Flag to indicate the living state.
      */
@@ -47,7 +49,6 @@ public abstract class LifeForm extends GameObject {
      * Default constructor.
      */
     public LifeForm() {
-        Random random = new Random();
         int genderValue = random.nextInt(10);
         isMale = genderValue > 4;
         int poisonValue = random.nextInt(10);

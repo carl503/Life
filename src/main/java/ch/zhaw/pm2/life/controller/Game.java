@@ -15,6 +15,7 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Random;
 import java.util.Objects;
 import java.util.Set;
 import java.util.logging.Level;
@@ -36,8 +37,10 @@ public class Game {
      * When a next round is performed, the energy level of a plant drops by this amount.
      */
     public static final int PLANT_ENERGY_CONSUMPTION = 1;
+    public static final int PLANT_RESPAWN_CHANCE = 2; // 2 -> 20% respawn chance every turn for every plant.
 
     private static final Logger LOGGER = Logger.getLogger(Game.class.getName());
+    private Random random = new Random();
 
     private final Set<GameObject> deadLifeForms = new HashSet<>();
     private boolean ongoing = true;
@@ -126,11 +129,12 @@ public class Game {
     public String nextMove() {
         String messageLog = "";
         if (ongoing) {
+            spawnPlantRandomlyOnMap();
             Map<Vector2D, Set<GameObject>> positionMap = new HashMap<>();
             messageLog += move(positionMap);
             messageLog += interact(positionMap);
             if (board.containsNotInstanceOfAnimalObject(MeatEater.class) || board.containsNotInstanceOfAnimalObject(PlantEater.class)) {
-                stop();
+                //stop();
             }
         }
         return messageLog;
@@ -216,6 +220,14 @@ public class Game {
                 });
 
         return stringBuilder.toString();
+    }
+
+    private void spawnPlantRandomlyOnMap() {
+        int spawnChance = random.nextInt(10);
+        if ((spawnChance < PLANT_RESPAWN_CHANCE)) {
+            board.addGameObject(new FirstPlant());
+        }
+
     }
 
 }
