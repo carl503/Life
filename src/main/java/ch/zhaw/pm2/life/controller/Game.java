@@ -40,6 +40,8 @@ public class Game {
     public static final int PLANT_RESPAWN_CHANCE = 2; // 2 -> 20% respawn chance every turn for every plant.
 
     private static final Logger LOGGER = Logger.getLogger(Game.class.getName());
+    private static final int SCAN_RADIUS = 2;
+
     private Random random = new Random();
 
     private final Set<GameObject> deadLifeForms = new HashSet<>();
@@ -149,7 +151,7 @@ public class Game {
                 LifeForm lifeForm = (LifeForm) gameObject;
                 if (lifeForm instanceof AnimalObject) {
                     AnimalObject animalObject = (AnimalObject) lifeForm;
-                    animalObject.move();
+                    animalObject.move(board.getNeighbourObjects(animalObject, SCAN_RADIUS));
                     dieOfExhaustion(stringBuilder, animalObject);
                 } else if (lifeForm instanceof PlantObject) {
                     lifeForm.decreaseEnergy(PLANT_ENERGY_CONSUMPTION);
