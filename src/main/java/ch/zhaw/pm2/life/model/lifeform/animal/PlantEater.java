@@ -41,7 +41,7 @@ public class PlantEater extends AnimalObject {
         if (lifeForm.getGender().equals("F") || getReproductionCounter() > REPRODUCTION_MINIMUM) {
             throw new LifeFormException("Cannot give birth because im male or the partner cannot reproduce yet ");
         }
-        setReproduceCounter(); // sets own counter to zero (only on females)
+        resetReproductionCounter(); // sets own counter to zero (only on females)
         PlantEater plantEaterChild = new PlantEater();
         plantEaterChild.setPosition(this.chooseRandomNeighbourPosition());
         return plantEaterChild;

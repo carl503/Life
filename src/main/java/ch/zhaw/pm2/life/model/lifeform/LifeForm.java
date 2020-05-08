@@ -111,7 +111,7 @@ public abstract class LifeForm extends GameObject {
      * Sets reproduceCounter to 0 after successful reproduction, but only on females because males
      * are not really affected by birth
      */
-    public void setReproduceCounter() {
+    public void resetReproductionCounter() {
         this.reproduceCounter = 0;
     }
 
