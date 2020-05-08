@@ -100,9 +100,10 @@ public abstract class AnimalObject extends LifeForm {
     /**
      * Resets the fertility threshold.
      */
-    public void resetFertilityThreashold() {
+    public void resetFertilityThreshold() {
         this.fertilityThreshold = 0;
     }
+
     /**
      * Is called when the animal reproduces.
      * @throws LifeFormException could not reproduce with the life form
