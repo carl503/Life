@@ -10,6 +10,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import static java.util.function.Predicate.*;
+import static ch.zhaw.pm2.life.model.GameObject.Direction;
 
 /**
  * This model class represents the board containing all the game objects.
@@ -134,6 +135,35 @@ public class Board {
             }
         }
         return gameObject;
+    }
+
+    /**
+     * Searches all neighbours of a game object with radius radius
+     * @param gameObject game object where the neighbours should be searched
+     * @param radius radius to search from game object
+     * @return Set<GameObject> of neighbours
+     */
+    public Set<GameObject> getNeighbourObjects(GameObject gameObject, int radius) {
+        Set<GameObject> neighbours = new HashSet<>();
+
+        Vector2D topLeftCorner = Vector2D.add(gameObject.position,
+                Vector2D.multiply(radius, Direction.UP_LEFT.getDirectionVector()));
+
+        for (int i = 0; i <= 2 * radius; i++) {
+            for (int j = 0; j <= 2 * radius; j++) {
+                Vector2D next = new Vector2D(topLeftCorner.getX() + j, topLeftCorner.getY() + i);
+                if (isVectorOnBoard(next)) {
+                    GameObject neighbour = getGameObject(next);
+                    if (neighbour != null && !neighbour.equals(gameObject)) {neighbours.add(neighbour);}
+                }
+            }
+        }
+
+        return neighbours;
+    }
+
+    private boolean isVectorOnBoard(Vector2D vector) {
+        return (Vector2D.isPositive(vector) && vector.getY() < columns && vector.getX() < rows);
     }
 
     private void generateBorderPoints() {
