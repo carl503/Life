@@ -40,9 +40,9 @@ public class MeatEater extends AnimalObject {
         } else if (getFertilityThreshold() < REPRODUCTION_MINIMUM) {
             throw new LifeFormException("Cannot reproduce because partner is not fertile yet");
         }
-        resetFertilityThreashold(); // sets own counter to zero (only on females)
+        resetFertilityThreshold(); // sets own counter to zero (only on females)
         MeatEater meatEaterChild = new MeatEater();
-        meatEaterChild.setPositionNewBorn(this.chooseRandomNeighbourPosition());
+        meatEaterChild.setPosition(this.chooseRandomNeighbourPosition());
         return meatEaterChild;
     }
 

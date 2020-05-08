@@ -15,7 +15,7 @@ public class PlantEater extends AnimalObject {
     private static final int REPRODUCTION_MINIMUM = 9;
 
     /**
-     * Default constructor
+     * Default constructor.
      */
     public PlantEater() {
         this.objectColor = Color.LIGHTSEAGREEN;
@@ -38,9 +38,9 @@ public class PlantEater extends AnimalObject {
         } else if (getFertilityThreshold() < REPRODUCTION_MINIMUM) {
             throw new LifeFormException("Cannot reproduce because partner is not fertile yet");
         }
-        resetFertilityThreashold(); // sets own counter to zero (only on females)
+        resetFertilityThreshold(); // sets own counter to zero (only on females)
         PlantEater plantEaterChild = new PlantEater();
-        plantEaterChild.setPositionNewBorn(this.chooseRandomNeighbourPosition());
+        plantEaterChild.setPosition(this.chooseRandomNeighbourPosition());
         return plantEaterChild;
     }
 

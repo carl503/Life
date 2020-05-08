@@ -34,7 +34,7 @@ public abstract class AnimalObject extends LifeForm {
     }
 
     /**
-     * Is called when the animal moves
+     * Is called when the animal moves.
      */
     public void move() {
         LOGGER.log(Level.FINER, "Move {0}", getClass().getSimpleName());
@@ -58,15 +58,19 @@ public abstract class AnimalObject extends LifeForm {
     }
 
     /**
-     * Is called when the animal eats meat
+     * Is called when the animal eats meat.
      * @param lifeForm {@link LifeForm}
+     * @throws LifeFormException when could not eat the provided life form.
+     * @throws NullPointerException When the provided life form wanted to eat is null.
      */
     public abstract void eat(LifeForm lifeForm) throws LifeFormException;
 
     /**
-     * Is called when the animal eats meat
+     * Is called when the animal eats meat.
      * @param lifeForm    {@link LifeForm}
      * @param actionCheck {@link LifeFormActionCheck}
+     * @throws LifeFormException  could not eat the provided life form.
+     * @throws NullPointerException the provided life form wanted to eat is null.
      */
     protected void eat(LifeForm lifeForm, LifeFormActionCheck actionCheck) throws LifeFormException {
         Objects.requireNonNull(lifeForm, "Cannot eat null.");
@@ -100,7 +104,9 @@ public abstract class AnimalObject extends LifeForm {
         this.fertilityThreshold = 0;
     }
     /**
-     * is called when the animal reproduces
+     * Is called when the animal reproduces.
+     * @throws LifeFormException could not reproduce with the life form
+     * @throws NullPointerException the provided life form wanted to reproduce with is null.
      */
 
     public abstract AnimalObject reproduce(LifeForm lifeForm) throws LifeFormException;

@@ -105,7 +105,7 @@ public abstract class GameObject {
     private List<Vector2D> getNeighbourFields() {
         List<Vector2D> neighbours = new ArrayList<>();
         for (Direction direction : Direction.values()) {
-            Vector2D newPosition = Vector2D.add(position, direction.direction);
+            Vector2D newPosition = Vector2D.add(position, direction.directionVector);
             int neighbourX = newPosition.getX();
             int neighbourY = newPosition.getY();
             if (neighbourX >= 0 && neighbourX < LifeWindowController.COLUMNS
@@ -154,14 +154,10 @@ public abstract class GameObject {
         UP(new Vector2D(0, -1)),
         UP_RIGHT(new Vector2D(1, -1));
 
-        private final Vector2D direction;
+        private final Vector2D directionVector;
 
         Direction(final Vector2D p) {
-            direction = p;
-        }
-
-        public Vector2D getDirection() {
-            return direction;
+            directionVector = p;
         }
     }
 
