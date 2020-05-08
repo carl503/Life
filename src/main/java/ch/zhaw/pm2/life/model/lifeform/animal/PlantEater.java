@@ -14,7 +14,7 @@ import java.util.logging.Logger;
 public class PlantEater extends AnimalObject {
 
     private static final Logger LOGGER = Logger.getLogger(PlantEater.class.getCanonicalName());
-    public static final int REPRODUCTION_MINIMUM = 9;
+    private static final int REPRODUCTION_MINIMUM = 9;
 
     /**
      * Default constructor
