@@ -56,6 +56,17 @@ public class Vector2D {
     }
 
     /**
+     * Multiplies a vector y value factor times
+     * @param number factor
+     * @param vector vector
+     * @return the result of the multiplication as vector
+     */
+    public static Vector2D multiplyY(int number, Vector2D vector) {
+        int newY = number * vector.getY();
+        return new Vector2D(vector.getX(), newY);
+    }
+
+    /**
      * Returns the x value.
      * @return x coordinate as int
      */
