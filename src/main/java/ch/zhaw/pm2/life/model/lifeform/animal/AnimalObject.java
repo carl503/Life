@@ -1,11 +1,13 @@
 package ch.zhaw.pm2.life.model.lifeform.animal;
 
 import ch.zhaw.pm2.life.exception.LifeFormException;
+import ch.zhaw.pm2.life.model.GameObject;
 import ch.zhaw.pm2.life.model.Vector2D;
 import ch.zhaw.pm2.life.model.lifeform.LifeForm;
 import ch.zhaw.pm2.life.model.lifeform.LifeFormActionCheck;
 
 import java.util.Objects;
+import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -36,10 +38,14 @@ public abstract class AnimalObject extends LifeForm {
     /**
      * Is called when the animal moves.
      */
-    public void move() {
+    public void move(Set<GameObject> neighbourObjs) {
         LOGGER.log(Level.FINER, "Move {0}", getClass().getSimpleName());
         Vector2D previousPosition = position;
-        position = chooseRandomNeighbourPosition();
+        if (neighbourObjs.isEmpty()) {
+            position = chooseRandomNeighbourPosition();
+        } else {
+            position = calculateNextPos(neighbourObjs);
+        }
         int consumeEnergy = 0;
         if (isPoisoned) {
             consumeEnergy = getPoisonedEnergyConsumption();
@@ -64,6 +70,8 @@ public abstract class AnimalObject extends LifeForm {
      * @throws NullPointerException When the provided life form wanted to eat is null.
      */
     public abstract void eat(LifeForm lifeForm) throws LifeFormException;
+
+    protected abstract Vector2D calculateNextPos(Set<GameObject> neighbourObjects);
 
     /**
      * Is called when the animal eats meat.
