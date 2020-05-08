@@ -47,7 +47,7 @@ public abstract class AnimalObject extends LifeForm {
                     consumeEnergy, getClass().getSimpleName()
             });
         }
-        reproduceCounter++;
+        fertilityThreshold++;
         decreaseEnergy(consumeEnergy);
     }
 

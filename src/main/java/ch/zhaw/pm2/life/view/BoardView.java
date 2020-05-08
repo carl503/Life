@@ -103,7 +103,7 @@ public class BoardView extends Canvas {
         if (gameObject instanceof LifeForm) {
             getGraphicsContext2D().setStroke(Color.BLACK);
             LifeForm lifeForm = (LifeForm) gameObject;
-            getGraphicsContext2D().strokeText(lifeForm.displayReproductionCounter(), translatedX + 35, translatedY);
+            getGraphicsContext2D().strokeText(String.valueOf(lifeForm.getFertilityThreshold()), translatedX + 35, translatedY);
             //todo optimize position and remove magic number 35
         }
     }

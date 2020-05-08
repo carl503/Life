@@ -32,12 +32,12 @@ public class MeatEater extends AnimalObject {
     }
 
     @Override
-    public AnimalObject reproduce(LifeForm lifeForm) throws LifeFormException {
-        Objects.requireNonNull(lifeForm, "Cannot be null.");
-        if (lifeForm.getGender().equals("F") || getReproductionCounter() < REPRODUCTION_MINIMUM) {
+    public AnimalObject reproduce(LifeForm partner) throws LifeFormException {
+        Objects.requireNonNull(partner, "Cannot be null.");
+        if (partner.getGender().equals("F") || getFertilityThreshold() < REPRODUCTION_MINIMUM) {
             throw new LifeFormException("Cannot give birth because im male or the partner cannot reproduce yet");
         }
-        resetReproductionCounter(); // sets own counter to zero (only on females)
+        resetFertilityThreashold(); // sets own counter to zero (only on females)
         MeatEater meatEaterChild = new MeatEater();
         meatEaterChild.setPositionNewBorn(this.chooseRandomNeighbourPosition());
         return meatEaterChild;

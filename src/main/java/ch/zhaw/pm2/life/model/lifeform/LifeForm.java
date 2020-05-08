@@ -16,8 +16,8 @@ public abstract class LifeForm extends GameObject {
     private static final Logger LOGGER = Logger.getLogger(LifeForm.class.getCanonicalName());
     private static final double POISON_ENERGY_CONSUMPTION_START_FACTOR = 0.3;
     private static final int POISONOUS_PROBABILITY = 3;
-    protected int reproduceCounter;
 
+    protected int fertilityThreshold;
     /**
      * Flag to indicate the living state.
      */
@@ -49,7 +49,7 @@ public abstract class LifeForm extends GameObject {
         isMale = genderValue > 4;
         int poisonValue = random.nextInt(10);
         isPoisonous = poisonValue < POISONOUS_PROBABILITY;
-        reproduceCounter = 0;
+        fertilityThreshold = 0;
     }
 
     /**
@@ -92,31 +92,22 @@ public abstract class LifeForm extends GameObject {
     }
 
     /**
-     * Used to display on board
-     * @return the reproductionCounter as {@link String}
+     * Used to determine weather this life form can reproduce or not.
+     * @return reproduction counter as int.
      */
-    public String displayReproductionCounter() {
-        return String.valueOf(reproduceCounter);
+    public int getFertilityThreshold() {
+        return fertilityThreshold;
     }
 
     /**
-     * Used to determine wether animalobjects can reproduce or not
-     * @return reproductionCounter as int
+     * Resets the fertility threshold.
      */
-    public int getReproductionCounter() {
-        return reproduceCounter;
+    public void resetFertilityThreashold() {
+        this.fertilityThreshold = 0;
     }
 
     /**
-     * Sets reproduceCounter to 0 after successful reproduction, but only on females because males
-     * are not really affected by birth
-     */
-    public void resetReproductionCounter() {
-        this.reproduceCounter = 0;
-    }
-
-    /**
-     * Returns the type of food this life form is.
+     * Returns which type of food this life form is.
      * @return {@link FoodType}
      */
     public abstract FoodType getFoodType();
