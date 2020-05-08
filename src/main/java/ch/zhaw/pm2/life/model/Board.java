@@ -30,6 +30,7 @@ public class Board {
     private final int columns;
     private final Set<GameObject> gameObjects = new HashSet<>();
     private final Set<Vector2D> occupiedPositions = new HashSet<>();
+    private final Set<Vector2D> borders = new HashSet<>();
 
     /**
      * Default constructor.
@@ -46,6 +47,7 @@ public class Board {
         }
         this.rows = rows;
         this.columns = columns;
+        generateBorderPoints();
     }
 
     /**
@@ -127,6 +129,18 @@ public class Board {
             }
         }
         return gameObject;
+    }
+
+    private void generateBorderPoints() {
+        for (int i = 0; i < rows; i++) {
+            for (int j = 0; j < columns; j++) {
+                borders.add(new Vector2D(j, 0));
+                borders.add(new Vector2D(j, columns));
+            }
+            borders.add(new Vector2D(0, i));
+            borders.add(new Vector2D(rows, i));
+        }
+        System.out.println(borders);
     }
 
     /**
