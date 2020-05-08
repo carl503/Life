@@ -39,16 +39,16 @@
 | Methode          | testAddGameObjectNull                                        |
 | ---------------- | ------------------------------------------------------------ |
 | Äquivalenzklasse | 5                                                            |
-| Input            | Null                                                         |
+| Input            | Argument: Null                                               |
 | Output           | NullPointerException<br />Message: "Game object cannot be null to add it on the board." |
 | Status           | Passed                                                       |
 
-| Methode          | testContainsNotInstanceOfAnimalObjectNull              |
-| ---------------- | ------------------------------------------------------ |
-| Äquivalenzklasse | 5                                                      |
-| Input            | BoardSet: 1x MeatEater / Position [x:0, y:0]<br />null |
-| Output           | false                                                  |
-| Status           | Passed                                                 |
+| Methode          | testContainsNotInstanceOfAnimalObjectNull                    |
+| ---------------- | ------------------------------------------------------------ |
+| Äquivalenzklasse | 5                                                            |
+| Input            | Auf dem Board: 1x MeatEater / Position [x:0, y:0]<br />Argument: null |
+| Output           | false                                                        |
+| Status           | Passed                                                       |
 
 | Methode          | testInvalidConstructorRowLowerThanMinValue                   |
 | ---------------- | ------------------------------------------------------------ |
@@ -63,6 +63,8 @@
 | Input            | Number of Rows: MIN_ROWS (3)<br />Number of Columns: MIN_COLUMNS (3) - 1 |
 | Output           | IllegalArgumentException<br />Message: "The number of columns cannot be less than " + MIN_COLUMNS |
 | Status           | Passed                                                       |
+
+## Game
 
 | Methode          |      |
 | ---------------- | ---- |
