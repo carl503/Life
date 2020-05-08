@@ -5,15 +5,12 @@ import ch.zhaw.pm2.life.model.lifeform.LifeForm;
 import javafx.scene.paint.Color;
 
 import java.util.Objects;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * First Version of a PlantEater animal that extends AnimalObject
  */
 public class PlantEater extends AnimalObject {
 
-    private static final Logger LOGGER = Logger.getLogger(PlantEater.class.getCanonicalName());
     private static final int REPRODUCTION_MINIMUM = 9;
 
     /**
@@ -25,18 +22,11 @@ public class PlantEater extends AnimalObject {
 
     @Override
     public void eat(LifeForm lifeForm) throws LifeFormException {
-        Objects.requireNonNull(lifeForm, "Cannot eat null.");
-        if (lifeForm.getFoodType() == FoodType.MEAT) {
-            throw new LifeFormException("Cannot eat this meat, I am vegetarian.");
-        }
-
-        LOGGER.log(Level.FINE, "{0} ate {1}",
-                   new Object[] { getClass().getSimpleName(), lifeForm.getClass().getSimpleName() });
-        increaseEnergy(lifeForm.getCurrentEnergy());
-        if (lifeForm.isPoisonous()) {
-            becomePoisoned();
-        }
-        lifeForm.die();
+        eat(lifeForm, () -> {
+            if (lifeForm.getFoodType() == FoodType.MEAT) {
+                throw new LifeFormException("Cannot eat this meat, I am vegetarian.");
+            }
+        });
     }
 
     @Override

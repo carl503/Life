@@ -3,7 +3,9 @@ package ch.zhaw.pm2.life.model.lifeform.animal;
 import ch.zhaw.pm2.life.exception.LifeFormException;
 import ch.zhaw.pm2.life.model.Vector2D;
 import ch.zhaw.pm2.life.model.lifeform.LifeForm;
+import ch.zhaw.pm2.life.model.lifeform.LifeFormActionCheck;
 
+import java.util.Objects;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -51,9 +53,31 @@ public abstract class AnimalObject extends LifeForm {
 
     /**
      * Is called when the animal eats meat
+     * @param lifeForm {@link LifeForm}
      */
     public abstract void eat(LifeForm lifeForm) throws LifeFormException;
 
+    /**
+     * Is called when the animal eats meat
+     * @param lifeForm    {@link LifeForm}
+     * @param actionCheck {@link LifeFormActionCheck}
+     */
+    protected void eat(LifeForm lifeForm, LifeFormActionCheck actionCheck) throws LifeFormException {
+        Objects.requireNonNull(lifeForm, "Cannot eat null.");
+        if (actionCheck != null) {
+            actionCheck.check();
+        }
+
+        LOGGER.log(Level.FINE, "{0} ate {1}", new Object[] {
+                getClass().getSimpleName(),
+                lifeForm.getClass().getSimpleName()
+        });
+        increaseEnergy(lifeForm.getCurrentEnergy());
+        if (lifeForm.isPoisonous()) {
+            becomePoisoned();
+        }
+        lifeForm.die();
+    }
     /**
      * is called when the animal reproduces
      */
