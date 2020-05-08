@@ -140,7 +140,6 @@ public class Board {
             borders.add(new Vector2D(0, i));
             borders.add(new Vector2D(rows, i));
         }
-        System.out.println(borders);
     }
 
     /**
