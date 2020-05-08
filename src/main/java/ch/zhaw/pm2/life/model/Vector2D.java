@@ -78,6 +78,16 @@ public class Vector2D {
     }
 
     /**
+     * Calculates the dot product of two vectors.
+     * @param first vector
+     * @param second vector
+     * @return dot product
+     */
+    public static int dot(Vector2D first, Vector2D second) {
+        return (first.getX() * second.getX()) + (first.getY() * second.getY());
+    }
+
+    /**
      * Checks if the x and y values of the vector are positive
      * @param vector vector to be checked
      * @return true if positive otherwise false
