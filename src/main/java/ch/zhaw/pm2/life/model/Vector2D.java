@@ -68,6 +68,15 @@ public class Vector2D {
     }
 
     /**
+     * Checks if the x and y values of the vector are positive
+     * @param vector vector to be checked
+     * @return true if positive otherwise false
+     */
+    public static boolean isPositive(Vector2D vector) {
+        return vector.getX() >= 0 && vector.getY() >= 0;
+    }
+
+    /**
      * Returns the x value.
      * @return x coordinate as int.
      */
