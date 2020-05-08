@@ -205,7 +205,10 @@ public class Game {
                         } else {
                             animalObject.eat(lifeForm);
                             deadLifeForms.add(lifeForm);
-                            stringBuilder.append(animalObject.getClass().getSimpleName()).append(": Yummy food!\n");
+                            stringBuilder.append(animalObject.getClass().getSimpleName())
+                                    .append(": Yummy food (")
+                                    .append(lifeForm.getClass().getSimpleName())
+                                    .append(")!\n");
                         }
                     } catch (LifeFormException e) {
                         stringBuilder.append(String.format("%s%n", e.getMessage()));
