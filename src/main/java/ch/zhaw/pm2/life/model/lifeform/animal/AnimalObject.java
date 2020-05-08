@@ -21,10 +21,16 @@ public abstract class AnimalObject extends LifeForm {
     private static final Logger LOGGER = Logger.getLogger(AnimalObject.class.getCanonicalName());
 
     /**
+     * Indicates the current fertility value for reproduction. Needs a specific value to be able to reproduce.
+     */
+    protected int fertilityThreshold;
+
+    /**
      * Default constructor.
      */
     public AnimalObject() {
         currentEnergy = INIT_ENERGY_ANIMALS;
+        fertilityThreshold = 0;
     }
 
     /**
@@ -78,9 +84,25 @@ public abstract class AnimalObject extends LifeForm {
         }
         lifeForm.die();
     }
+
+    /**
+     * Used to determine weather this life form can reproduce or not.
+     * @return reproduction counter as int.
+     */
+    public int getFertilityThreshold() {
+        return fertilityThreshold;
+    }
+
+    /**
+     * Resets the fertility threshold.
+     */
+    public void resetFertilityThreashold() {
+        this.fertilityThreshold = 0;
+    }
     /**
      * is called when the animal reproduces
      */
+
     public abstract AnimalObject reproduce(LifeForm lifeForm) throws LifeFormException;
 
     @Override

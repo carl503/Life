@@ -16,11 +16,6 @@ public abstract class LifeForm extends GameObject {
     private static final double POISON_ENERGY_CONSUMPTION_START_FACTOR = 0.3;
     private static final int POISONOUS_PROBABILITY = 3;
 
-    /**
-     * Indicates the current fertility value for reproduction. Needs a specific value to be able to reproduce.
-     */
-    protected int fertilityThreshold;
-
     private Random random = new Random();
 
     /**
@@ -53,7 +48,6 @@ public abstract class LifeForm extends GameObject {
         isMale = genderValue > 4;
         int poisonValue = random.nextInt(10);
         isPoisonous = poisonValue < POISONOUS_PROBABILITY;
-        fertilityThreshold = 0;
     }
 
     /**
@@ -93,21 +87,6 @@ public abstract class LifeForm extends GameObject {
      */
     public String getGender() {
         return isMale ? "M" : "F";
-    }
-
-    /**
-     * Used to determine weather this life form can reproduce or not.
-     * @return reproduction counter as int.
-     */
-    public int getFertilityThreshold() {
-        return fertilityThreshold;
-    }
-
-    /**
-     * Resets the fertility threshold.
-     */
-    public void resetFertilityThreashold() {
-        this.fertilityThreshold = 0;
     }
 
     /**

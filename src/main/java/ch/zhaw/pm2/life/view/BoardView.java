@@ -4,9 +4,11 @@ import ch.zhaw.pm2.life.model.Board;
 import ch.zhaw.pm2.life.model.GameObject;
 import ch.zhaw.pm2.life.model.Vector2D;
 import ch.zhaw.pm2.life.model.lifeform.LifeForm;
+import ch.zhaw.pm2.life.model.lifeform.animal.AnimalObject;
 import javafx.geometry.Dimension2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Color;
+import org.checkerframework.checker.units.qual.A;
 
 import java.util.Objects;
 
@@ -101,10 +103,10 @@ public class BoardView extends Canvas {
     }
 
     private void drawFertilityThreshold(GameObject gameObject, double translatedX, double translatedY) {
-        if (gameObject instanceof LifeForm) {
+        if (gameObject instanceof AnimalObject) {
             getGraphicsContext2D().setStroke(Color.BLACK);
-            LifeForm lifeForm = (LifeForm) gameObject;
-            getGraphicsContext2D().strokeText(String.valueOf(lifeForm.getFertilityThreshold()), translatedX + 35, translatedY);
+            AnimalObject animalObject = (AnimalObject) gameObject;
+            getGraphicsContext2D().strokeText(String.valueOf(animalObject.getFertilityThreshold()), translatedX + 35, translatedY);
             //todo optimize position and remove magic number 35
         }
     }
