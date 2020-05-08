@@ -83,7 +83,7 @@ public class BoardView extends Canvas {
             drawGender(gameObject, translatedX, translatedY);
             drawCurrentEnergy(gameObject, fieldPosX, fieldPosY);
             drawPoisonStatus(gameObject, fieldPosX, fieldPosY);
-            drawReproduceCounter(gameObject, translatedX, translatedY);
+            drawFertilityThreshold(gameObject, translatedX, translatedY);
         }
     }
 
@@ -100,7 +100,7 @@ public class BoardView extends Canvas {
         }
     }
 
-    private void drawReproduceCounter(GameObject gameObject, double translatedX, double translatedY) {
+    private void drawFertilityThreshold(GameObject gameObject, double translatedX, double translatedY) {
         if (gameObject instanceof LifeForm) {
             getGraphicsContext2D().setStroke(Color.BLACK);
             LifeForm lifeForm = (LifeForm) gameObject;
