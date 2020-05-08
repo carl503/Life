@@ -55,8 +55,8 @@ public abstract class GameObject {
      */
     public void calculateRandomPositionOnField() {
         // TODO: exclude already occupied fields
-        int xPos = random.nextInt(LifeWindowController.ROWS);
-        int yPos = random.nextInt(LifeWindowController.COLUMNS);
+        int xPos = random.nextInt(LifeWindowController.COLUMNS);
+        int yPos = random.nextInt(LifeWindowController.ROWS);
         position = new Vector2D(xPos, yPos);
     }
 
