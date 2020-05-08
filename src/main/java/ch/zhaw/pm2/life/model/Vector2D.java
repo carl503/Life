@@ -68,6 +68,16 @@ public class Vector2D {
     }
 
     /**
+     * Multiplies a vector by factor factor
+     * @param factor factor
+     * @param vector vector
+     * @return result of the multiplication as {@link Vector2D}
+     */
+    public static Vector2D multiply(int factor, Vector2D vector) {
+        return new Vector2D(multiplyX(factor, vector).getX(), multiplyY(factor, vector).getY());
+    }
+
+    /**
      * Checks if the x and y values of the vector are positive
      * @param vector vector to be checked
      * @return true if positive otherwise false
