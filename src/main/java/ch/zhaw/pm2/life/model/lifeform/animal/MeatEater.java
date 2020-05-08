@@ -1,10 +1,13 @@
 package ch.zhaw.pm2.life.model.lifeform.animal;
 
 import ch.zhaw.pm2.life.exception.LifeFormException;
+import ch.zhaw.pm2.life.model.GameObject;
+import ch.zhaw.pm2.life.model.Vector2D;
 import ch.zhaw.pm2.life.model.lifeform.LifeForm;
 import javafx.scene.paint.Color;
 
 import java.util.Objects;
+import java.util.Set;
 
 /**
  * First Version of a {@link MeatEater} animal.
@@ -19,6 +22,11 @@ public class MeatEater extends AnimalObject {
      */
     public MeatEater() {
         this.objectColor = Color.RED;
+    }
+
+    @Override
+    protected Vector2D calculateNextPos(Set<GameObject> neighbourObjects) {
+        return chooseRandomNeighbourPosition();
     }
 
     @Override
