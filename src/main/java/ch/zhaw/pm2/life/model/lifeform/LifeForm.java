@@ -1,6 +1,7 @@
 package ch.zhaw.pm2.life.model.lifeform;
 
 import ch.zhaw.pm2.life.model.GameObject;
+import ch.zhaw.pm2.life.model.Vector2D;
 
 import java.util.Random;
 import java.util.logging.Level;
@@ -143,6 +144,8 @@ public abstract class LifeForm extends GameObject {
     public boolean isPoisoned() {
         return isPoisoned;
     }
+
+    protected abstract void setPosition(Vector2D newBornPosition);
 
     /**
      * Enumeration of food types.

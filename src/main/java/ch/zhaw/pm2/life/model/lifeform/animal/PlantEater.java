@@ -1,6 +1,7 @@
 package ch.zhaw.pm2.life.model.lifeform.animal;
 
 import ch.zhaw.pm2.life.exception.LifeFormException;
+import ch.zhaw.pm2.life.model.Vector2D;
 import ch.zhaw.pm2.life.model.lifeform.LifeForm;
 import javafx.scene.paint.Color;
 
@@ -21,6 +22,11 @@ public class PlantEater extends AnimalObject {
     }
 
     @Override
+    protected void setPosition(Vector2D newBornPosition) {
+        this.position = newBornPosition;
+    }
+
+    @Override
     public void eat(LifeForm lifeForm) throws LifeFormException {
         eat(lifeForm, () -> {
             if (lifeForm.getFoodType() == FoodType.MEAT) {
@@ -36,7 +42,9 @@ public class PlantEater extends AnimalObject {
             throw new LifeFormException("Cannot give birth because im male or the partner cannot reproduce yet ");
         }
         setReproduceCounter(); // sets own counter to zero (only on females)
-        return new PlantEater();
+        PlantEater plantEaterChild = new PlantEater();
+        plantEaterChild.setPosition(this.chooseRandomNeighbourPosition());
+        return plantEaterChild;
     }
 
 }
