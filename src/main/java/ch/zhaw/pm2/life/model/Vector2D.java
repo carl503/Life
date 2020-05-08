@@ -33,6 +33,18 @@ public class Vector2D {
     }
 
     /**
+     * Adds two vectors
+     * @param first vector
+     * @param second vector
+     * @return the result of the addition as vector
+     */
+    public static Vector2D add(Vector2D first, Vector2D second) {
+        int newX = first.getX() + second.getX();
+        int newY = first.getY() + second.getY();
+        return new Vector2D(newX, newY);
+    }
+
+    /**
      * Returns the x value.
      * @return x coordinate as int
      */
