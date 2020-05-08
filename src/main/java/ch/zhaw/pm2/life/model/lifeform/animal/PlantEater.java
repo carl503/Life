@@ -34,7 +34,7 @@ public class PlantEater extends AnimalObject {
                    new Object[] { getClass().getSimpleName(), lifeForm.getClass().getSimpleName() });
         increaseEnergy(lifeForm.getCurrentEnergy());
         if (lifeForm.isPoisonous()) {
-            poisoned();
+            becomePoisoned();
         }
         lifeForm.die();
     }
