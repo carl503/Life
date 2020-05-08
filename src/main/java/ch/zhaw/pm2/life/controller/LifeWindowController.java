@@ -39,9 +39,13 @@ public class LifeWindowController {
      */
     @FXML
     public void initialize() {
-        boardObject = new Board(ROWS, COLUMNS);
-        boardView = new BoardView(width, height, boardObject);
-        this.board.getChildren().add(boardView);
+        try {
+            boardObject = new Board(ROWS, COLUMNS);
+            boardView = new BoardView(width, height, boardObject);
+            this.board.getChildren().add(boardView);
+        } catch (NullPointerException | IllegalArgumentException e) {
+            messageField.appendText(e.getMessage());
+        }
     }
 
     @FXML

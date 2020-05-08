@@ -100,7 +100,8 @@ public class Game {
                     board.addGameObject(lifeForm);
                 }
             }
-        } catch (InstantiationException | InvocationTargetException | NoSuchMethodException | IllegalAccessException e) {
+        } catch (NullPointerException | InstantiationException | InvocationTargetException | NoSuchMethodException
+                | IllegalAccessException e) {
             throw new LifeFormException(e.getMessage(), e);
         }
     }
@@ -214,7 +215,7 @@ public class Game {
                                     .append(lifeForm.getClass().getSimpleName())
                                     .append(")!\n");
                         }
-                    } catch (LifeFormException e) {
+                    } catch (LifeFormException | NullPointerException e) {
                         stringBuilder.append(String.format("%s%n", e.getMessage()));
                     }
                 });
