@@ -1,7 +1,6 @@
 package ch.zhaw.pm2.life.model.lifeform.animal;
 
 import ch.zhaw.pm2.life.exception.LifeFormException;
-import ch.zhaw.pm2.life.model.Vector2D;
 import ch.zhaw.pm2.life.model.lifeform.LifeForm;
 import javafx.scene.paint.Color;
 
@@ -19,11 +18,6 @@ public class MeatEater extends AnimalObject {
      */
     public MeatEater() {
         this.objectColor = Color.RED;
-    }
-
-    @Override
-    protected void setPosition(Vector2D newBornPosition) {
-        this.position = newBornPosition;
     }
 
     @Override
@@ -45,7 +39,7 @@ public class MeatEater extends AnimalObject {
         }
         resetReproductionCounter(); // sets own counter to zero (only on females)
         MeatEater meatEaterChild = new MeatEater();
-        meatEaterChild.setPosition(this.chooseRandomNeighbourPosition());
+        meatEaterChild.setPositionNewBorn(this.chooseRandomNeighbourPosition());
         return meatEaterChild;
     }
 

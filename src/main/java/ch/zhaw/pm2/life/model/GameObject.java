@@ -129,6 +129,14 @@ public abstract class GameObject {
         return size;
     }
 
+    /**
+     * Sets the position of a newborn
+     * @param newBornPosition
+     */
+    protected void setPositionNewBorn(Vector2D newBornPosition) {
+        this.position = newBornPosition;
+    }
+
     public enum Direction {
         DOWN_LEFT(new Vector2D(-1, 1)),
         DOWN(new Vector2D(0, 1)),

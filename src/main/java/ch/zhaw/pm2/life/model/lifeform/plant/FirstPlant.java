@@ -22,7 +22,7 @@ public class FirstPlant extends PlantObject {
     }
 
     @Override
-    protected void setPosition(Vector2D newBornPosition) {
+    protected void setPositionNewBorn(Vector2D newBornPosition) {
 
     }
 

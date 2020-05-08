@@ -145,8 +145,6 @@ public abstract class LifeForm extends GameObject {
         return isPoisoned;
     }
 
-    protected abstract void setPosition(Vector2D newBornPosition);
-
     /**
      * Enumeration of food types.
      */
