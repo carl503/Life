@@ -157,6 +157,10 @@ public abstract class GameObject {
         Direction(final Vector2D p) {
             directionVector = p;
         }
+
+        public Vector2D getDirectionVector() {
+            return directionVector;
+        }
     }
 
     @Override
