@@ -7,7 +7,8 @@ import javafx.scene.paint.Color;
 import java.util.Objects;
 
 /**
- * First Version of a MeatEater Animal that extends AnimalObject
+ * First Version of a {@link MeatEater} animal.
+ * @author pedernin
  */
 public class MeatEater extends AnimalObject {
 

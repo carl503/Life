@@ -8,8 +8,9 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * GameObject is an abstract superclass of AnimalObjects and PlantObjects
- * GameObjects handles the features and methods that PlantObjects and AnimalObjects have in common
+ * This class is the superior object of every model that is part of the game.
+ * It stores common attributes and behaviour of every other model.
+ * @author pedernin
  */
 public abstract class GameObject {
 
@@ -32,6 +33,7 @@ public abstract class GameObject {
      */
     protected Color objectColor;
     /**
+     * The size used to scale this object in the visualization.
      * Valid values: 3-10
      */
     protected int size;
@@ -42,15 +44,15 @@ public abstract class GameObject {
     public GameObject() {
         //size = random.nextInt(MAX_SIZE - 2) + 3;
         size = BASIC_SIZE;
-        calculateRandomPointOnField();
+        calculateRandomPositionOnField();
         gameObjectCount++;
         id = gameObjectCount;
     }
 
     /**
-     * Calculates a random Point in the field
+     * Calculates a random position on the field.
      */
-    public void calculateRandomPointOnField() {
+    public void calculateRandomPositionOnField() {
         // TODO: exclude already occupied fields
         int xPos = random.nextInt(LifeWindowController.ROWS);
         int yPos = random.nextInt(LifeWindowController.COLUMNS);
@@ -58,8 +60,8 @@ public abstract class GameObject {
     }
 
     /**
-     * Returns the energy of a GameObject
-     * @return energy - current energy as int
+     * Returns the energy of this {@link GameObject}.
+     * @return current energy as int.
      */
     public int getCurrentEnergy() {
         return currentEnergy;
@@ -82,8 +84,8 @@ public abstract class GameObject {
     }
 
     /**
-     * Returns Position of the GameObject
-     * @return position
+     * Returns position of the {@link GameObject}.
+     * @return position as {@link Vector2D}
      */
     public Vector2D getPosition() {
         return position;
@@ -114,16 +116,16 @@ public abstract class GameObject {
     }
 
     /**
-     * Returns the color of the GameObject
-     * @return objectColor
+     * Returns the color of the {@link GameObject}.
+     * @return color as {@link Color}.
      */
     public Color getColor() {
         return objectColor;
     }
 
     /**
-     * Returns the size of the GameObject
-     * @return size
+     * Returns the size of the {@link GameObject}
+     * @return size as int.
      */
     public int getSize() {
         return size;
@@ -137,6 +139,9 @@ public abstract class GameObject {
         this.position = newBornPosition;
     }
 
+    /**
+     * Enumeration of {@link Vector2D} pointing in any direction with length 1.
+     */
     public enum Direction {
         DOWN_LEFT(new Vector2D(-1, 1)),
         DOWN(new Vector2D(0, 1)),
@@ -148,10 +153,14 @@ public abstract class GameObject {
         UP(new Vector2D(0, -1)),
         UP_RIGHT(new Vector2D(1, -1));
 
-        public final Vector2D vector2D;
+        private final Vector2D direction;
 
         Direction(final Vector2D p) {
-            vector2D = p;
+            direction = p;
+        }
+
+        public Vector2D getDirection() {
+            return direction;
         }
     }
 

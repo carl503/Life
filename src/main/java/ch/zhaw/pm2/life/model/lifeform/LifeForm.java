@@ -1,7 +1,6 @@
 package ch.zhaw.pm2.life.model.lifeform;
 
 import ch.zhaw.pm2.life.model.GameObject;
-import ch.zhaw.pm2.life.model.Vector2D;
 
 import java.util.Random;
 import java.util.logging.Level;
@@ -17,7 +16,11 @@ public abstract class LifeForm extends GameObject {
     private static final double POISON_ENERGY_CONSUMPTION_START_FACTOR = 0.3;
     private static final int POISONOUS_PROBABILITY = 3;
 
+    /**
+     * Indicates the current fertility value for reproduction. Needs a specific value to be able to reproduce.
+     */
     protected int fertilityThreshold;
+
     /**
      * Flag to indicate the living state.
      */
@@ -34,7 +37,7 @@ public abstract class LifeForm extends GameObject {
     protected boolean isPoisoned = false;
 
     /**
-     * Flag indicating the gender
+     * Flag indicating if the gender is male or not.
      */
     protected boolean isMale;
 
@@ -53,7 +56,7 @@ public abstract class LifeForm extends GameObject {
     }
 
     /**
-     * Kills the GameObject by setting isAlive to false;
+     * Kills the life form by setting.
      */
     public void die() {
         LOGGER.log(Level.FINE, "{0} died", getClass().getSimpleName());
@@ -71,7 +74,7 @@ public abstract class LifeForm extends GameObject {
 
     /**
      * Returns the energy consumption of this life form if it's poisoned.
-     * @return consumptions as int or 0 if the life form is not poisoned.
+     * @return consumption as int or 0 if the life form is not poisoned.
      */
     public int getPoisonedEnergyConsumption() {
         int energyConsumption = nextPoisonedEnergyConsumption;
@@ -113,8 +116,8 @@ public abstract class LifeForm extends GameObject {
     public abstract FoodType getFoodType();
 
     /**
-     * Returns if the GameObject is alive or dead.
-     * @return isAlive true if the object is alive
+     * Indicates if this life form is alive or dead.
+     * @return true if the object is dead.
      */
     public boolean isDead() {
         return isDead;
@@ -122,7 +125,7 @@ public abstract class LifeForm extends GameObject {
 
     /**
      * Indicates if this life form is poisonous or not.
-     * @return true if this life form is poisonous
+     * @return true if this life form is poisonous.
      */
     public boolean isPoisonous() {
         return isPoisonous;
@@ -130,7 +133,7 @@ public abstract class LifeForm extends GameObject {
 
     /**
      * Indicates if this life form is poisoned or not.
-     * @return true if this life form is poisoned
+     * @return true if this life form is poisoned.
      */
     public boolean isPoisoned() {
         return isPoisoned;

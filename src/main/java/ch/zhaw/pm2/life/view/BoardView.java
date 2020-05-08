@@ -33,6 +33,7 @@ public class BoardView extends Canvas {
      * @param width  The width in pixel.
      * @param height The height in pixel.
      * @param board  The board containing the game objects {@see Board}.
+     * @throws NullPointerException if board is null.
      */
     public BoardView(int width, int height, Board board) {
         this.width = width;

@@ -3,7 +3,8 @@ package ch.zhaw.pm2.life.model;
 import java.util.Objects;
 
 /**
- * Position Objects represent the positions of the GameObjects in the field
+ * Vector in a two dimensional room.
+ * @author pedernin
  */
 public class Vector2D {
 
@@ -12,8 +13,8 @@ public class Vector2D {
 
     /**
      * Default constructor.
-     * @param x X-Coordinate as int
-     * @param y Y-Coordinate as int
+     * @param x X-Coordinate as int.
+     * @param y Y-Coordinate as int.
      */
     public Vector2D(int x, int y) {
         this.x = x;
@@ -21,10 +22,10 @@ public class Vector2D {
     }
 
     /**
-     * Subtracts the second from the first
-     * @param first  vector
-     * @param second vector
-     * @return new Position
+     * Subtracts the second {@link Vector2D} from the first {@link Vector2D}.
+     * @param first {@link Vector2D}.
+     * @param second {@link Vector2D}.
+     * @return new {@link Vector2D}.
      */
     public static Vector2D subtract(Vector2D first, Vector2D second) {
         int newX = first.getX() - second.getX();
@@ -33,10 +34,10 @@ public class Vector2D {
     }
 
     /**
-     * Adds two vectors
-     * @param first vector
-     * @param second vector
-     * @return the result of the addition as vector
+     * Adds two {@link Vector2D}.
+     * @param first {@link Vector2D}.
+     * @param second {@link Vector2D}.
+     * @return the result of the addition as {@link Vector2D}.
      */
     public static Vector2D add(Vector2D first, Vector2D second) {
         int newX = first.getX() + second.getX();
@@ -45,30 +46,30 @@ public class Vector2D {
     }
 
     /**
-     * Multiplies a vector x value factor times
-     * @param number factor
-     * @param vector vector
-     * @return the result of the multiplication as vector
+     * Multiplies a {@link Vector2D} x component with a scalar.
+     * @param scalar as int.
+     * @param vector {@link Vector2D}.
+     * @return the result of the multiplication as {@link Vector2D}.
      */
-    public static Vector2D multiplyX(int number, Vector2D vector) {
-        int newX = number * vector.getX();
+    public static Vector2D multiplyX(int scalar, Vector2D vector) {
+        int newX = scalar * vector.getX();
         return new Vector2D(newX, vector.getY());
     }
 
     /**
-     * Multiplies a vector y value factor times
-     * @param number factor
-     * @param vector vector
-     * @return the result of the multiplication as vector
+     * Multiplies a {@link Vector2D} y component with a scalar.
+     * @param scalar as int.
+     * @param vector {@link Vector2D}.
+     * @return the result of the multiplication as {@link Vector2D}.
      */
-    public static Vector2D multiplyY(int number, Vector2D vector) {
-        int newY = number * vector.getY();
+    public static Vector2D multiplyY(int scalar, Vector2D vector) {
+        int newY = scalar * vector.getY();
         return new Vector2D(vector.getX(), newY);
     }
 
     /**
      * Returns the x value.
-     * @return x coordinate as int
+     * @return x coordinate as int.
      */
     public int getX() {
         return x;
@@ -76,7 +77,7 @@ public class Vector2D {
 
     /**
      * Returns the y value.
-     * @return y coordinate as int
+     * @return y coordinate as int.
      */
     public int getY() {
         return y;
