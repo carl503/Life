@@ -5,6 +5,7 @@ import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 /**
@@ -133,11 +134,19 @@ public abstract class GameObject {
     }
 
     /**
-     * Sets the position of a newborn
-     * @param newBornPosition
+     * Sets the position of the {@link GameObject}
+     * @param position position as {@link Vector2D}.
+     * @throws NullPointerException when the position is null.
+     * @throws IllegalArgumentException when the position is not on the board.
      */
-    protected void setPositionNewBorn(Vector2D newBornPosition) {
-        this.position = newBornPosition;
+    protected void setPosition(Vector2D position) {
+        Objects.requireNonNull(position, "The position of the game object cannot be null.");
+        if (position.getX() < 0 || position.getX() >= LifeWindowController.COLUMNS
+        || position.getY() < 0 || position.getY() >= LifeWindowController.ROWS) {
+            String message = String.format("The position value %s is not on the board.", position);
+            throw new IllegalArgumentException(message);
+        }
+        this.position = position;
     }
 
     /**
