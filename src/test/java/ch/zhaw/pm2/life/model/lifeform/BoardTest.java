@@ -18,7 +18,6 @@ import static org.mockito.Mockito.*;
 public class BoardTest {
 
     private static final int BOARD_SIZE = 3;
-    private static final String ILLEGAL_POSITION_MESSAGE = "The position %s of the provided game object does not exist on the board.";
 
     private Board board;
 
@@ -97,45 +96,6 @@ public class BoardTest {
     public void testAddGameObjectNull() {
         NullPointerException thrown = assertThrows(NullPointerException.class, () -> board.addGameObject(null));
         assertEquals("Game object cannot be null to add it on the board.", thrown.getMessage());
-    }
-
-    @Test
-    public void testAddGameObjectInvalidPositionNull() {
-        when(firstGameObject.getPosition()).thenReturn(null);
-        NullPointerException thrown = assertThrows(NullPointerException.class, () -> board.addGameObject(firstGameObject));
-        assertEquals("The position cannot be null to add the game object on the board.", thrown.getMessage());
-    }
-
-    @Test
-    public void testAddGameObjectInvalidPositionRowNegative() {
-        Vector2D position = new Vector2D(0, -1);
-        when(firstGameObject.getPosition()).thenReturn(position);
-        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> board.addGameObject(firstGameObject));
-        assertEquals(String.format(ILLEGAL_POSITION_MESSAGE, position), thrown.getMessage());
-    }
-
-    @Test
-    public void testAddGameObjectInvalidPositionColumnNegative() {
-        Vector2D position = new Vector2D(-1, 0);
-        when(firstGameObject.getPosition()).thenReturn(position);
-        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> board.addGameObject(firstGameObject));
-        assertEquals(String.format(ILLEGAL_POSITION_MESSAGE, position), thrown.getMessage());
-    }
-
-    @Test
-    public void testAddGameObjectInvalidPositionBiggerThanNumberOfRows() {
-        Vector2D position = new Vector2D(0, board.getRows());
-        when(firstGameObject.getPosition()).thenReturn(position);
-        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> board.addGameObject(firstGameObject));
-        assertEquals(String.format(ILLEGAL_POSITION_MESSAGE, position), thrown.getMessage());
-    }
-
-    @Test
-    public void testAddGameObjectInvalidPositionBiggerThanNumberOfColumns() {
-        Vector2D position = new Vector2D(board.getColumns(), 0);
-        when(firstGameObject.getPosition()).thenReturn(position);
-        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> board.addGameObject(firstGameObject));
-        assertEquals(String.format(ILLEGAL_POSITION_MESSAGE, position), thrown.getMessage());
     }
 
     @Test

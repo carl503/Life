@@ -5,6 +5,7 @@ import ch.zhaw.pm2.life.model.lifeform.animal.AnimalObject;
 
 import java.util.HashSet;
 import java.util.Objects;
+import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -26,6 +27,7 @@ public class Board {
      */
     public static final int MIN_COLUMNS = 3;
 
+    private final Random random = new Random();
     private final int rows;
     private final int columns;
     private final Set<GameObject> gameObjects = new HashSet<>();
@@ -53,19 +55,22 @@ public class Board {
     /**
      * Adds a game object to the set.
      * @param gameObject {@link GameObject}
-     * @throws NullPointerException when the argument gameObject or its position is null.
-     * @throws NullPointerException when the argument gameObject is null.
+     * @throws NullPointerException when the {@link GameObject} is null.
      */
     public void addGameObject(GameObject gameObject) {
         Objects.requireNonNull(gameObject, "Game object cannot be null to add it on the board.");
-        Objects.requireNonNull(gameObject.getPosition(), "The position cannot be null to add the game object on the board.");
-        Vector2D position = gameObject.getPosition();
-        if (position.getX() < 0 || position.getX() >= columns || position.getY() < 0 || position.getY() >= rows) {
-            String message = String.format("The position %s of the provided game object does not exist on the board.", position);
-            throw new IllegalArgumentException(message);
-        }
+
+        Vector2D position = calculateRandomPosition(rows, columns);
+        gameObject.setPosition(position);
+
         gameObjects.add(gameObject);
-        occupiedPositions.add(position);
+        occupiedPositions.add(gameObject.getPosition());
+    }
+
+    private Vector2D calculateRandomPosition(int rows, int columns) {
+        int xPos = random.nextInt(columns);
+        int yPos = random.nextInt(rows);
+        return new Vector2D(xPos, yPos);
     }
 
     /**

@@ -45,19 +45,8 @@ public abstract class GameObject {
     public GameObject() {
         //size = random.nextInt(MAX_SIZE - 2) + 3;
         size = BASIC_SIZE;
-        calculateRandomPositionOnField();
         gameObjectCount++;
         id = gameObjectCount;
-    }
-
-    /**
-     * Calculates a random position on the field.
-     */
-    public void calculateRandomPositionOnField() {
-        // TODO: exclude already occupied fields
-        int xPos = random.nextInt(LifeWindowController.COLUMNS);
-        int yPos = random.nextInt(LifeWindowController.ROWS);
-        position = new Vector2D(xPos, yPos);
     }
 
     /**
