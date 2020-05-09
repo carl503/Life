@@ -63,6 +63,41 @@ public abstract class AnimalObject extends LifeForm {
         decreaseEnergy(consumeEnergy);
     }
 
+    private Vector2D calculateNextPos(Set<GameObject> neighbourObjects) {
+        Vector2D nextPosition;
+        Vector2D neighbourPos = getNearestNeighbour(neighbourObjects);
+
+        if (neighbourPos != null) {
+            Vector2D distance = Vector2D.subtract(neighbourPos, this.getPosition());
+            int absX = Math.abs(distance.getX());
+            int absY = Math.abs(distance.getY());
+
+            if ((absX == 0 || absX == 1) && (absY == 0 || absY == 1)) {
+                nextPosition = Vector2D.add(this.getPosition(), distance);
+            } else {
+                nextPosition = nextPos(distance);
+            }
+        } else {
+            nextPosition = chooseRandomNeighbourPosition();
+        }
+
+        return nextPosition;
+    }
+
+    private Vector2D nextPos(Vector2D distance) {
+        Vector2D dir = Direction.NONE.getDirectionVector();
+        int max = 0;
+
+        for (Direction direction : Direction.values()) {
+            int dotProduct = Vector2D.dot(distance, direction.getDirectionVector());
+            if(Math.max(dotProduct, max) > max) {
+                max = dotProduct;
+                dir = direction.getDirectionVector();
+            }
+        }
+        return Vector2D.add(this.getPosition(), dir);
+    }
+
     /**
      * Is called when the animal eats meat.
      * @param lifeForm {@link LifeForm}
@@ -71,7 +106,7 @@ public abstract class AnimalObject extends LifeForm {
      */
     public abstract void eat(LifeForm lifeForm) throws LifeFormException;
 
-    protected abstract Vector2D calculateNextPos(Set<GameObject> neighbourObjects);
+    protected abstract Vector2D getNearestNeighbour(Set<GameObject> gameObjects);
 
     /**
      * Is called when the animal eats meat.
