@@ -8,7 +8,6 @@ import ch.zhaw.pm2.life.model.lifeform.animal.AnimalObject;
 import javafx.geometry.Dimension2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.paint.Color;
-import org.checkerframework.checker.units.qual.A;
 
 import java.util.Objects;
 
