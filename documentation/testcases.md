@@ -18,15 +18,19 @@
 | Methode          | testAddGameObject                                            |
 | ---------------- | ------------------------------------------------------------ |
 | Äquivalenzklasse | 1, 2                                                         |
-| Input            | GameObject  1: Position [x:0, y:0]<br />GameObject  2: Position [x:0, y:1] |
-| Output           | Anzahl GameObjects: 2<br />Anzahl Positionen: 2              |
+| Input 1.1        | GameObject  1: Position [x:0, y:0]<br />GameObject  2: Position [x:0, y:1] |
+| Output 1.1       | Anzahl GameObjects: 2<br />Anzahl Positionen: 2              |
+| Input 1.2        | GameObject  1: Position [x:0, y:0]                           |
+| Output 1.2       | Anzahl GameObjects: 2<br />Anzahl Positionen: 2              |
+| Input 1.3        | GameObject  3: Position [x:0, y:1]                           |
+| Output           | Anzahl GameObjects: 3<br />Anzahl Positionen: 2              |
 | Status           | Passed                                                       |
 
 | Methode          | testCleanBoard                                               |
 | ---------------- | ------------------------------------------------------------ |
 | Äquivalenzklasse | 3                                                            |
 | Input            | LifeForm 1: Position [x:0, y:0] / Ist tot: true<br />LifeForm 2: Position [x:0, y:1] / Ist tot: false<br />LifeForm 3: Position [x:0, y:1] / Ist tot: false |
-| Output           | Anzahl GameObjects: 2<br />Anzahl Positionen: 1              |
+| Output           | Anzahl GameObjects: 2<br />Anzahl Positionen: 1<br />Set von GameObjects beinhaltet: LifeForm 2 & 3<br />Set von besetzten Positionen beinhaltet: [x:0 , y:1] |
 | Status           | Passed                                                       |
 
 | Methode          | testContainsNotInstanceOfAnimalObject                        |

@@ -10,6 +10,9 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.HashSet;
+import java.util.Set;
+
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -21,6 +24,7 @@ public class BoardTest {
 
     @Mock private GameObject firstGameObject;
     @Mock private GameObject secondGameObject;
+    @Mock private GameObject thirdGameObject;
 
     @BeforeEach
     public void setUp() {
@@ -34,22 +38,47 @@ public class BoardTest {
 
     @Test
     public void testAddGameObject() {
-        int expectedSize = 2;
+        // prepare
         when(firstGameObject.getPosition()).thenReturn(new Vector2D(0, 0));
         when(secondGameObject.getPosition()).thenReturn(new Vector2D(0, 1));
+        when(thirdGameObject.getPosition()).thenReturn(new Vector2D(0, 1));
 
+        Set<GameObject> gameObjects = new HashSet<>();
+        gameObjects.add(firstGameObject);
+        gameObjects.add(secondGameObject);
+        gameObjects.add(thirdGameObject);
+
+        Set<Vector2D> positions = new HashSet<>();
+        positions.add(firstGameObject.getPosition());
+        positions.add(secondGameObject.getPosition());
+        positions.add(thirdGameObject.getPosition());
+
+        // execute + assert
         board.addGameObject(firstGameObject);
         board.addGameObject(secondGameObject);
-        assertEquals(expectedSize, board.getGameObjects().size());
-        assertEquals(expectedSize, board.getOccupiedPositions().size());
+        assertEquals(2, board.getGameObjects().size());
+        assertEquals(2, board.getOccupiedPositions().size());
+        assertTrue(gameObjects.containsAll(board.getGameObjects()));
+        assertTrue(positions.containsAll(board.getOccupiedPositions()));
 
+        // execute + assert
         board.addGameObject(firstGameObject);
-        assertEquals(expectedSize, board.getGameObjects().size());
-        assertEquals(expectedSize, board.getOccupiedPositions().size());
+        assertEquals(2, board.getGameObjects().size());
+        assertEquals(2, board.getOccupiedPositions().size());
+        assertTrue(gameObjects.containsAll(board.getGameObjects()));
+        assertTrue(positions.containsAll(board.getOccupiedPositions()));
+
+        // execute + assert
+        board.addGameObject(thirdGameObject);
+        assertEquals(3, board.getGameObjects().size());
+        assertEquals(2, board.getOccupiedPositions().size());
+        assertTrue(gameObjects.containsAll(board.getGameObjects()));
+        assertTrue(positions.containsAll(board.getOccupiedPositions()));
     }
 
     @Test
     public void testCleanBoard() {
+        // prepare
         LifeForm firstLifeForm = mock(MeatEater.class);
         when(firstLifeForm.getPosition()).thenReturn(new Vector2D(0, 0));
         when(firstLifeForm.isDead()).thenReturn(true);
@@ -65,13 +94,24 @@ public class BoardTest {
         when(thirdLifeForm.isDead()).thenReturn(false);
         board.addGameObject(thirdLifeForm);
 
-        assertEquals(3, board.getGameObjects().size());
-        assertEquals(2, board.getOccupiedPositions().size()); // second and third on same position
+        Set<GameObject> gameObjects = new HashSet<>();
+        gameObjects.add(secondLifeForm);
+        gameObjects.add(thirdLifeForm);
 
+        Set<Vector2D> positions = new HashSet<>();
+        positions.add(secondLifeForm.getPosition());
+        positions.add(thirdLifeForm.getPosition());
+
+        // execute
         board.cleanBoard();
+        gameObjects.remove(firstLifeForm);
+        positions.remove(firstLifeForm.getPosition());
 
+        // check
         assertEquals(2, board.getGameObjects().size());
         assertEquals(1, board.getOccupiedPositions().size()); // second and third on same position
+        assertTrue(gameObjects.containsAll(board.getGameObjects()));
+        assertTrue(positions.containsAll(board.getOccupiedPositions()));
     }
 
     @Test
