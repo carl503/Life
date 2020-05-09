@@ -172,10 +172,10 @@ public class Board {
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < columns; j++) {
                 borders.add(new Vector2D(j, 0));
-                borders.add(new Vector2D(j, columns));
+                borders.add(new Vector2D(j, rows));
             }
             borders.add(new Vector2D(0, i));
-            borders.add(new Vector2D(rows, i));
+            borders.add(new Vector2D(columns, i));
         }
     }
 
