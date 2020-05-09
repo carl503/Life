@@ -16,7 +16,7 @@ public abstract class LifeForm extends GameObject {
     private static final double POISON_ENERGY_CONSUMPTION_START_FACTOR = 0.3;
     private static final int POISONOUS_PROBABILITY = 3;
 
-    private Random random = new Random();
+    private final Random random = new Random();
 
     /**
      * Flag to indicate the living state.
