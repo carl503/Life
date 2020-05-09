@@ -42,7 +42,7 @@ public class LifeWindowController {
         try {
             boardObject = new Board(ROWS, COLUMNS);
             boardView = new BoardView(width, height, boardObject);
-            this.board.getChildren().add(boardView);
+            this.board.getChildren().add(0, boardView);
         } catch (NullPointerException | IllegalArgumentException e) {
             messageField.appendText(e.getMessage());
         }
