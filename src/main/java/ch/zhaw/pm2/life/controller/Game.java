@@ -137,7 +137,7 @@ public class Game {
             messageLog += move(positionMap);
             messageLog += interact(positionMap);
             if (board.containsNotInstanceOfAnimalObject(MeatEater.class) || board.containsNotInstanceOfAnimalObject(PlantEater.class)) {
-                //stop();
+                stop();
             }
         }
         return messageLog;
