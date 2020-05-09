@@ -25,7 +25,7 @@ public class MeatEater extends AnimalObject {
     }
 
     @Override
-    protected Vector2D calculateNextPos(Set<GameObject> neighbourObjects) {
+    protected Vector2D getNearestNeighbour(Set<GameObject> gameObjects) {
         return chooseRandomNeighbourPosition();
     }
 
