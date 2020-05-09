@@ -84,7 +84,7 @@ public abstract class GameObject {
     }
 
     /**
-     * Chooses 1 of the 8 fields around the {@link GameObject}.
+     * Chooses 1 of the 8 fields around the {@link GameObject} or the current position.
      */
     public Vector2D chooseRandomNeighbourPosition() {
         List<Vector2D> neighbours = getNeighbourFields();
