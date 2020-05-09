@@ -63,6 +63,8 @@ public class Board {
 
         Vector2D position = calculateRandomPosition(rows, columns);
         gameObject.setPosition(position);
+        gameObject.setColumns(columns);
+        gameObject.setRows(rows);
 
         gameObjects.add(gameObject);
         occupiedPositions.add(gameObject.getPosition());

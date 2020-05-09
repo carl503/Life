@@ -1,6 +1,5 @@
 package ch.zhaw.pm2.life.model;
 
-import ch.zhaw.pm2.life.controller.LifeWindowController;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
@@ -38,6 +37,9 @@ public abstract class GameObject {
      * Valid values: 3-10
      */
     protected int size;
+
+    private int rows;
+    private int columns;
 
     /**
      * Default constructor.
@@ -98,8 +100,7 @@ public abstract class GameObject {
             Vector2D newPosition = Vector2D.add(position, direction.directionVector);
             int neighbourX = newPosition.getX();
             int neighbourY = newPosition.getY();
-            if (neighbourX >= 0 && neighbourX < LifeWindowController.COLUMNS
-                    && neighbourY >= 0 && neighbourY < LifeWindowController.ROWS) {
+            if (Vector2D.isPositive(newPosition) && neighbourX < columns && neighbourY < rows) {
                 neighbours.add(new Vector2D(neighbourX, neighbourY));
             }
         }
@@ -130,6 +131,22 @@ public abstract class GameObject {
     protected void setPosition(Vector2D position) {
         Objects.requireNonNull(position, "The position of the game object cannot be null.");
         this.position = position;
+    }
+
+    /**
+     * Sets the number of rows on the board.
+     * @param rows as int
+     */
+    public void setRows(int rows) {
+        this.rows = rows;
+    }
+
+    /**
+     * Sets the number of columns on the board.
+     * @param columns as int
+     */
+    public void setColumns(int columns) {
+        this.columns = columns;
     }
 
     /**
