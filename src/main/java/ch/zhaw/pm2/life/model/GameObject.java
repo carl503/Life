@@ -77,16 +77,14 @@ public abstract class GameObject {
 
     /**
      * Returns position of the {@link GameObject}.
-     * @return position as {@link Vector2D}
+     * @return position as {@link Vector2D}.
      */
     public Vector2D getPosition() {
         return position;
     }
 
     /**
-     * Chooses 1 of the 8 or less fields around the GameObject
-     * Is called when a plant reproduces itself next to its current Position
-     * Is called before a move is made by an animal
+     * Chooses 1 of the 8 fields around the {@link GameObject}.
      */
     public Vector2D chooseRandomNeighbourPosition() {
         List<Vector2D> neighbours = getNeighbourFields();
@@ -116,7 +114,7 @@ public abstract class GameObject {
     }
 
     /**
-     * Returns the size of the {@link GameObject}
+     * Returns the size of the {@link GameObject}.
      * @return size as int.
      */
     public int getSize() {
@@ -124,7 +122,7 @@ public abstract class GameObject {
     }
 
     /**
-     * Sets the position of the {@link GameObject}
+     * Sets the position of the {@link GameObject}.
      * @param position position as {@link Vector2D}.
      * @throws NullPointerException when the position is null.
      */

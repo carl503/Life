@@ -68,29 +68,29 @@ public class Vector2D {
     }
 
     /**
-     * Multiplies a vector by factor factor
-     * @param factor factor
-     * @param vector vector
+     * Multiplies a vector by factor factor.
+     * @param scalar as int.
+     * @param vector {@link Vector2D}.
      * @return result of the multiplication as {@link Vector2D}
      */
-    public static Vector2D multiply(int factor, Vector2D vector) {
-        return new Vector2D(multiplyX(factor, vector).getX(), multiplyY(factor, vector).getY());
+    public static Vector2D multiply(int scalar, Vector2D vector) {
+        return new Vector2D(multiplyX(scalar, vector).getX(), multiplyY(scalar, vector).getY());
     }
 
     /**
      * Calculates the dot product of two vectors.
-     * @param first vector
-     * @param second vector
-     * @return dot product
+     * @param first {@link Vector2D}.
+     * @param second {@link Vector2D}.
+     * @return dot product as int.
      */
     public static int dot(Vector2D first, Vector2D second) {
         return (first.getX() * second.getX()) + (first.getY() * second.getY());
     }
 
     /**
-     * Checks if the x and y values of the vector are positive
-     * @param vector vector to be checked
-     * @return true if positive otherwise false
+     * Checks if the x and y values of the vector are positive.
+     * @param vector {@link Vector2D} to be checked.
+     * @return true if positive otherwise false.
      */
     public static boolean isPositive(Vector2D vector) {
         return vector.getX() >= 0 && vector.getY() >= 0;
