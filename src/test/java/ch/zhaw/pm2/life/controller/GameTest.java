@@ -9,6 +9,7 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
 import java.util.HashSet;
+import java.util.Random;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -26,6 +27,7 @@ public class GameTest {
     private static final int NUMBER_OF_GAME_OBJECTS = NUM_OF_MEAT_EATERS + NUM_OF_PLANT_EATERS + NUM_OF_PLANTS;
 
     @Mock private Board board;
+    private final Random random = new Random();
     private Game game;
 
     @BeforeEach
@@ -54,6 +56,11 @@ public class GameTest {
         }
         when(board.getGameObjects()).thenReturn(dummyGameObjectsSet);
         when(board.getOccupiedPositions()).thenReturn(dummyPositionsSet);
+        when(board.getRandomPosition()).thenAnswer(invocation -> {
+            int x = random.nextInt(NUM_OF_COLUMNS);
+            int y = random.nextInt(NUM_OF_ROWS);
+            return new Vector2D(x, y);
+        });
 
         game.init();
 
@@ -63,12 +70,14 @@ public class GameTest {
 
     @Test
     public void testIsOngoing() {
+        game = new Game(board,0, 0, 0);
         game.init();
         assertTrue(game.isOngoing());
     }
 
     @Test
     public void testStop() {
+        game = new Game(board,0, 0, 0);
         game.init();
         game.stop();
         assertFalse(game.isOngoing());
