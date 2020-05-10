@@ -91,11 +91,11 @@ public abstract class GameObject {
     private List<Vector2D> getNeighbourFields() {
         List<Vector2D> neighbours = new ArrayList<>();
         for (Direction direction : Direction.values()) {
-            Vector2D newPosition = Vector2D.add(position, direction.directionVector);
-            int neighbourX = newPosition.getX();
-            int neighbourY = newPosition.getY();
-            if (Vector2D.isPositive(newPosition) && neighbourX < columns && neighbourY < rows) {
-                neighbours.add(newPosition);
+            Vector2D neighbourPosition = Vector2D.add(position, direction.directionVector);
+            int neighbourX = neighbourPosition.getX();
+            int neighbourY = neighbourPosition.getY();
+            if (Vector2D.isPositive(neighbourPosition) && neighbourX < columns && neighbourY < rows) {
+                neighbours.add(neighbourPosition);
             }
         }
         return neighbours;
