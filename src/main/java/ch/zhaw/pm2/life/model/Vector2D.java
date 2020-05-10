@@ -23,7 +23,7 @@ public class Vector2D {
 
     /**
      * Subtracts the second {@link Vector2D} from the first {@link Vector2D}.
-     * @param first {@link Vector2D}.
+     * @param first  {@link Vector2D}.
      * @param second {@link Vector2D}.
      * @return new {@link Vector2D}.
      */
@@ -35,7 +35,7 @@ public class Vector2D {
 
     /**
      * Adds two {@link Vector2D}.
-     * @param first {@link Vector2D}.
+     * @param first  {@link Vector2D}.
      * @param second {@link Vector2D}.
      * @return the result of the addition as {@link Vector2D}.
      */
@@ -79,7 +79,7 @@ public class Vector2D {
 
     /**
      * Calculates the dot product of two vectors.
-     * @param first {@link Vector2D}.
+     * @param first  {@link Vector2D}.
      * @param second {@link Vector2D}.
      * @return dot product as int.
      */

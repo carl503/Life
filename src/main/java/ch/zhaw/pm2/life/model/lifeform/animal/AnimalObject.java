@@ -20,6 +20,7 @@ public abstract class AnimalObject extends LifeForm {
      * Default energy level of an {@link AnimalObject}.
      */
     public static final int INIT_ENERGY_ANIMALS = 10;
+
     private static final Logger LOGGER = Logger.getLogger(AnimalObject.class.getCanonicalName());
 
     /**
@@ -90,7 +91,7 @@ public abstract class AnimalObject extends LifeForm {
 
         for (Direction direction : Direction.values()) {
             int dotProduct = Vector2D.dot(distance, direction.getDirectionVector());
-            if(Math.max(dotProduct, max) > max) {
+            if (Math.max(dotProduct, max) > max) {
                 max = dotProduct;
                 dir = direction.getDirectionVector();
             }
@@ -99,20 +100,25 @@ public abstract class AnimalObject extends LifeForm {
     }
 
     /**
+     * Returns the position of the nearest neighbour.
+     * @param gameObjects set of {@link GameObject} containing the position.
+     * @return the position of a neighbour as {@link Vector2D}.
+     */
+    protected abstract Vector2D getNearestNeighbour(Set<GameObject> gameObjects);
+
+    /**
      * Is called when the animal eats meat.
      * @param lifeForm {@link LifeForm}
-     * @throws LifeFormException when could not eat the provided life form.
+     * @throws LifeFormException    when could not eat the provided life form.
      * @throws NullPointerException When the provided life form wanted to eat is null.
      */
     public abstract void eat(LifeForm lifeForm) throws LifeFormException;
-
-    protected abstract Vector2D getNearestNeighbour(Set<GameObject> gameObjects);
 
     /**
      * Is called when the animal eats meat.
      * @param lifeForm    {@link LifeForm}
      * @param actionCheck {@link LifeFormActionCheck}
-     * @throws LifeFormException  could not eat the provided life form.
+     * @throws LifeFormException    could not eat the provided life form.
      * @throws NullPointerException the provided life form wanted to eat is null.
      */
     protected void eat(LifeForm lifeForm, LifeFormActionCheck actionCheck) throws LifeFormException {
@@ -149,10 +155,9 @@ public abstract class AnimalObject extends LifeForm {
 
     /**
      * Is called when the animal reproduces.
-     * @throws LifeFormException could not reproduce with the life form
+     * @throws LifeFormException    could not reproduce with the life form
      * @throws NullPointerException the provided life form wanted to reproduce with is null.
      */
-
     public abstract AnimalObject reproduce(LifeForm lifeForm) throws LifeFormException;
 
     @Override

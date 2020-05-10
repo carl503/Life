@@ -18,18 +18,22 @@ public abstract class GameObject {
 
     private static final int BASIC_SIZE = 5;
     private final Random random = new Random();
+
     /**
      * The current energy of this game object.
      */
     protected int currentEnergy;
+
     /**
      * The current position of this game object.
      */
     protected Vector2D position;
+
     /**
      * The color of this game object.
      */
     protected Color objectColor;
+
     /**
      * The size used to scale this object in the visualization.
      * Valid values: 3-10
@@ -72,14 +76,6 @@ public abstract class GameObject {
     }
 
     /**
-     * Returns position of the {@link GameObject}.
-     * @return position as {@link Vector2D}.
-     */
-    public Vector2D getPosition() {
-        return position;
-    }
-
-    /**
      * Chooses 1 of the 8 fields around the {@link GameObject} or the current position.
      */
     public Vector2D chooseRandomNeighbourPosition() {
@@ -115,6 +111,14 @@ public abstract class GameObject {
      */
     public int getSize() {
         return size;
+    }
+
+    /**
+     * Returns position of the {@link GameObject}.
+     * @return position as {@link Vector2D}.
+     */
+    public Vector2D getPosition() {
+        return position;
     }
 
     /**

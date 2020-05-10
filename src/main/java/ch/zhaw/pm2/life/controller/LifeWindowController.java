@@ -18,12 +18,15 @@ public class LifeWindowController {
      * Number of rows on the board.
      */
     public static final int ROWS = 16;
+
     /**
      * Number of columns on the board.
      */
     public static final int COLUMNS = 16;
+
     private final int width = 800;
     private final int height = 800;
+
     private BoardView boardView;
     private Game game;
     private SetupController setupController;

@@ -15,8 +15,8 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
-import java.util.Random;
 import java.util.Objects;
+import java.util.Random;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,14 +42,14 @@ public class Game {
     private static final Logger LOGGER = Logger.getLogger(Game.class.getName());
     private static final int SCAN_RADIUS = 2;
 
-    private Random random = new Random();
-
     private final Set<GameObject> deadLifeForms = new HashSet<>();
-    private boolean ongoing = true;
+    private final Random random = new Random();
     private final Board board;
     private final int plantCount;
     private final int meatEaterCount;
     private final int plantEaterCount;
+
+    private boolean ongoing = true;
 
     /**
      * Default constructor.
@@ -70,9 +70,9 @@ public class Game {
     }
 
     private void validateNumOfGameObjects(int num, String type) {
-        if(num < 0) {
+        if (num < 0) {
             throw new IllegalArgumentException(String.format("Number of %s is less than the minimal value.", type));
-        } else if(num > board.getRows() * board.getColumns()) {
+        } else if (num > board.getRows() * board.getColumns()) {
             throw new IllegalArgumentException(String.format("Number of %s exceed the number of available field.", type));
         }
     }
