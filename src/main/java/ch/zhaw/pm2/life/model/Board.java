@@ -102,16 +102,17 @@ public class Board {
     }
 
     /**
-     * Returns the game object of a position
+     * Returns any game object of a position
      * @param pos Position on the field
      * @return game object if found otherwise null
      */
-    public GameObject getGameObject(Vector2D pos) {
-        // TODO: validate argument(s)
+    public GameObject getAnyGameObject(Vector2D pos) {
         GameObject gameObject = null;
-        for (GameObject go : gameObjects) {
-            if (go.getPosition().equals(pos)) {
-                gameObject = go;
+        if (isVectorOnBoard(pos)) {
+            for (GameObject go : gameObjects) {
+                if (go.getPosition().equals(pos)) {
+                    gameObject = go;
+                }
             }
         }
         return gameObject;
@@ -134,7 +135,7 @@ public class Board {
             for (int j = 0; j <= 2 * radius; j++) {
                 Vector2D next = new Vector2D(topLeftCorner.getX() + j, topLeftCorner.getY() + i);
                 if (isVectorOnBoard(next)) {
-                    GameObject neighbour = getGameObject(next);
+                    GameObject neighbour = getAnyGameObject(next);
                     if (neighbour != null && !neighbour.equals(gameObject)) {
                         neighbours.add(neighbour);
                     }
