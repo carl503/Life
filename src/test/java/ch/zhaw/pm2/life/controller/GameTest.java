@@ -93,13 +93,13 @@ public class GameTest {
         // TODO: test reproduction
         //--- valid  : is fecund and male/female
         //--- invalid: is not fecund or male/male or female/female, ...
-        // plant eater tries to f**k plant (invalid)
-        // plant eater tries to f**k plant eater (valid)
-        // plant eater tries to f**k meat eater (invalid)
+        // plant eater tries to have a good time with plant (invalid)
+        // plant eater tries to have a good time with plant eater (valid)
+        // plant eater tries to have a good time with meat eater (invalid)
 
-        // meat eater tries to f**k plant (invalid)
-        // meat eater tries to f**k plant eater (invalid)
-        // meat eater tries to f**k meat eater (valid)
+        // meat eater tries to have a good time with plant (invalid)
+        // meat eater tries to have a good time with plant eater (invalid)
+        // meat eater tries to have a good time with meat eater (valid)
 
         // TODO: test eat (only when not reproducing)
         // plant eater tries to eat plant (valid)
