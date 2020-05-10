@@ -58,6 +58,7 @@ public class Board {
      */
     public void addGameObject(GameObject gameObject) {
         Objects.requireNonNull(gameObject, "Game object cannot be null to add it on the board.");
+        // TODO: validate position (maybe reuse code from this commit? f10b6f7d2cd422d4089ffa21bee0ead454b39ce5)
 
         gameObject.setColumns(columns);
         gameObject.setRows(rows);
@@ -101,35 +102,12 @@ public class Board {
     }
 
     /**
-     * Returns the number of rows.
-     * @return rows as int.
-     */
-    public int getRows() {
-        return rows;
-    }
-
-    /**
-     * Returns the number of columns.
-     * @return columns as int.
-     */
-    public int getColumns() {
-        return columns;
-    }
-
-    /**
-     * Returns a set of game objects
-     * @return set of game objects.
-     */
-    public Set<GameObject> getGameObjects() {
-        return gameObjects;
-    }
-
-    /**
      * Returns the game object of a position
      * @param pos Position on the field
      * @return game object if found otherwise null
      */
     public GameObject getGameObject(Vector2D pos) {
+        // TODO: validate argument(s)
         GameObject gameObject = null;
         for (GameObject go : gameObjects) {
             if (go.getPosition().equals(pos)) {
@@ -146,6 +124,7 @@ public class Board {
      * @return Set<GameObject> of neighbours
      */
     public Set<GameObject> getNeighbourObjects(GameObject gameObject, int radius) {
+        // TODO: validate argument(s)
         Set<GameObject> neighbours = new HashSet<>();
 
         Vector2D topLeftCorner = Vector2D.add(gameObject.position,
@@ -171,14 +150,6 @@ public class Board {
     }
 
     /**
-     * Returns a set of occupied positions
-     * @return set of position objects
-     */
-    public Set<Vector2D> getOccupiedPositions() {
-        return occupiedPositions;
-    }
-
-    /**
      * Check if and instance of a specific animal object exists on the board.
      * @param clazz {@link Class<? extends AnimalObject>} does an instance of this class exist?
      * @return true if an instance of the provided class exists otherwise false
@@ -195,6 +166,38 @@ public class Board {
                 .collect(Collectors.toSet());
 
         return !animalClassSet.contains(clazz);
+    }
+
+    /**
+     * Returns the number of rows.
+     * @return rows as int.
+     */
+    public int getRows() {
+        return rows;
+    }
+
+    /**
+     * Returns the number of columns.
+     * @return columns as int.
+     */
+    public int getColumns() {
+        return columns;
+    }
+
+    /**
+     * Returns a set of game objects
+     * @return set of game objects.
+     */
+    public Set<GameObject> getGameObjects() {
+        return gameObjects;
+    }
+
+    /**
+     * Returns a set of occupied positions
+     * @return set of position objects
+     */
+    public Set<Vector2D> getOccupiedPositions() {
+        return occupiedPositions;
     }
 
 }

@@ -32,6 +32,8 @@ public class BoardTest {
         board = new Board(BOARD_SIZE, BOARD_SIZE);
     }
 
+    // TODO:  add positive and negative tests for missing non-private methods (getRandomPosition, getNeighbourObjects, ...)
+
     //==================================================================================================================
     // Positive tests
     //==================================================================================================================
@@ -135,6 +137,8 @@ public class BoardTest {
         NullPointerException thrown = assertThrows(NullPointerException.class, () -> board.addGameObject(null));
         assertEquals("Game object cannot be null to add it on the board.", thrown.getMessage());
     }
+
+    // TODO: add negtive test for addGameObject with invalid positions (maybe reuse code from this commit? f10b6f7d2cd422d4089ffa21bee0ead454b39ce5)
 
     @Test
     public void testContainsNotInstanceOfAnimalObjectNull() {

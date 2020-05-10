@@ -37,7 +37,11 @@ public class Game {
      * When a next round is performed, the energy level of a plant drops by this amount.
      */
     public static final int PLANT_ENERGY_CONSUMPTION = 1;
-    public static final int PLANT_RESPAWN_CHANCE = 2; // 2 -> 20% respawn chance every turn for every plant.
+
+    /**
+     * Respawn chance from 0 to 10 (0% - 100%)
+     */
+    public static final int PLANT_RESPAWN_CHANCE = 2;
 
     private static final Logger LOGGER = Logger.getLogger(Game.class.getName());
     private static final int SCAN_RADIUS = 2;
