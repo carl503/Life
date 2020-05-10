@@ -95,17 +95,21 @@ public class Game {
         try {
             for (int i = 0; i < count; i++) {
                 LifeForm lifeForm = lifeFormClass.getConstructor().newInstance();
-
-                if (board.getOccupiedPositions().contains(lifeForm.getPosition())) {
-                    i--;
-                } else {
-                    board.addGameObject(lifeForm);
-                }
+                lifeForm.setPosition(calculatePosition());
+                board.addGameObject(lifeForm);
             }
         } catch (NullPointerException | InstantiationException | InvocationTargetException | NoSuchMethodException
                 | IllegalAccessException e) {
             throw new LifeFormException(e.getMessage(), e);
         }
+    }
+
+    private Vector2D calculatePosition() {
+        Vector2D position;
+        do {
+            position = board.getRandomPosition();
+        } while (board.getOccupiedPositions().contains(position));
+        return position;
     }
 
     /**
@@ -228,7 +232,9 @@ public class Game {
     private void spawnPlantRandomlyOnMap() {
         int spawnChance = random.nextInt(10);
         if ((spawnChance < PLANT_RESPAWN_CHANCE)) {
-            board.addGameObject(new FirstPlant());
+            GameObject gameObject = new FirstPlant();
+            gameObject.setPosition(calculatePosition());
+            board.addGameObject(gameObject);
         }
 
     }

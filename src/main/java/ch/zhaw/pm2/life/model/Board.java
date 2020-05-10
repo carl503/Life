@@ -61,8 +61,6 @@ public class Board {
     public void addGameObject(GameObject gameObject) {
         Objects.requireNonNull(gameObject, "Game object cannot be null to add it on the board.");
 
-        Vector2D position = calculateRandomPosition(rows, columns);
-        gameObject.setPosition(position);
         gameObject.setColumns(columns);
         gameObject.setRows(rows);
 
@@ -70,7 +68,11 @@ public class Board {
         occupiedPositions.add(gameObject.getPosition());
     }
 
-    private Vector2D calculateRandomPosition(int rows, int columns) {
+    /**
+     * Returns a random position on the board.
+     * @return a position as {@link Vector2D}
+     */
+    public Vector2D getRandomPosition() {
         int xPos = random.nextInt(columns);
         int yPos = random.nextInt(rows);
         return new Vector2D(xPos, yPos);

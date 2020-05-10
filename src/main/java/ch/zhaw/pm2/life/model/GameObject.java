@@ -99,7 +99,7 @@ public abstract class GameObject {
             int neighbourX = newPosition.getX();
             int neighbourY = newPosition.getY();
             if (Vector2D.isPositive(newPosition) && neighbourX < columns && neighbourY < rows) {
-                neighbours.add(new Vector2D(neighbourX, neighbourY));
+                neighbours.add(newPosition);
             }
         }
         return neighbours;
@@ -126,7 +126,7 @@ public abstract class GameObject {
      * @param position position as {@link Vector2D}.
      * @throws NullPointerException when the position is null.
      */
-    protected void setPosition(Vector2D position) {
+    public void setPosition(Vector2D position) {
         Objects.requireNonNull(position, "The position of the game object cannot be null.");
         this.position = position;
     }
