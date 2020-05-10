@@ -31,7 +31,6 @@ public class Board {
     private final Random random = new Random();
     private final Set<GameObject> gameObjects = new HashSet<>();
     private final Set<Vector2D> occupiedPositions = new HashSet<>();
-    private final Set<Vector2D> borders = new HashSet<>();
     private final int rows;
     private final int columns;
 
@@ -50,7 +49,6 @@ public class Board {
         }
         this.rows = rows;
         this.columns = columns;
-        generateBorderPoints();
     }
 
     /**
@@ -170,17 +168,6 @@ public class Board {
 
     private boolean isVectorOnBoard(Vector2D vector) {
         return (Vector2D.isPositive(vector) && vector.getY() < columns && vector.getX() < rows);
-    }
-
-    private void generateBorderPoints() {
-        for (int i = 0; i < rows; i++) {
-            for (int j = 0; j < columns; j++) {
-                borders.add(new Vector2D(j, 0));
-                borders.add(new Vector2D(j, rows));
-            }
-            borders.add(new Vector2D(0, i));
-            borders.add(new Vector2D(columns, i));
-        }
     }
 
     /**
