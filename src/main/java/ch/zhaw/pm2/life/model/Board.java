@@ -127,12 +127,13 @@ public class Board {
     public Set<GameObject> getNeighbourObjects(GameObject gameObject, int radius) {
         // TODO: validate argument(s)
         Set<GameObject> neighbours = new HashSet<>();
+        int diameter = 2 * radius;
 
         Vector2D topLeftCorner = Vector2D.add(gameObject.position,
                                               Vector2D.multiply(radius, Direction.UP_LEFT.getDirectionVector()));
 
-        for (int i = 0; i <= 2 * radius; i++) {
-            for (int j = 0; j <= 2 * radius; j++) {
+        for (int i = 0; i <= diameter; i++) {
+            for (int j = 0; j <= diameter; j++) {
                 Vector2D next = new Vector2D(topLeftCorner.getX() + j, topLeftCorner.getY() + i);
                 if (isVectorOnBoard(next)) {
                     GameObject neighbour = getAnyGameObject(next);
