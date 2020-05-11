@@ -154,20 +154,15 @@ public class Game {
         StringBuilder stringBuilder = new StringBuilder();
 
         for (GameObject gameObject : board.getGameObjects()) {
-            if (gameObject instanceof LifeForm) {
-                LifeForm lifeForm = (LifeForm) gameObject;
-                if (lifeForm instanceof AnimalObject) {
-                    AnimalObject animalObject = (AnimalObject) lifeForm;
-                    animalObject.move(board.getNeighbourObjects(animalObject, SCAN_RADIUS));
-                    dieOfExhaustion(stringBuilder, animalObject);
-                } else if (lifeForm instanceof PlantObject) {
-                    lifeForm.decreaseEnergy(PLANT_ENERGY_CONSUMPTION);
-                    dieOfExhaustion(stringBuilder, lifeForm);
-                }
+            if (gameObject instanceof AnimalObject) {
+                AnimalObject animalObject = (AnimalObject) gameObject;
+                animalObject.move(board.getNeighbourObjects(animalObject, SCAN_RADIUS));
+                dieOfExhaustion(stringBuilder, animalObject);
+            } else if (gameObject instanceof PlantObject) {
+                gameObject.decreaseEnergy(PLANT_ENERGY_CONSUMPTION);
+                dieOfExhaustion(stringBuilder, (PlantObject) gameObject);
             }
-            if (!positionMap.containsKey(gameObject.getPosition())) {
-                positionMap.put(gameObject.getPosition(), new HashSet<>());
-            }
+            positionMap.putIfAbsent(gameObject.getPosition(), new HashSet<>());
             positionMap.get(gameObject.getPosition()).add(gameObject);
         }
         board.cleanBoard();
