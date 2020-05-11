@@ -157,11 +157,10 @@ public class Game {
             if (gameObject instanceof AnimalObject) {
                 AnimalObject animalObject = (AnimalObject) gameObject;
                 animalObject.move(board.getNeighbourObjects(animalObject, SCAN_RADIUS));
-                dieOfExhaustion(stringBuilder, animalObject);
             } else if (gameObject instanceof PlantObject) {
                 gameObject.decreaseEnergy(PLANT_ENERGY_CONSUMPTION);
-                dieOfExhaustion(stringBuilder, (PlantObject) gameObject);
             }
+            stringBuilder.append(dieOfExhaustion(gameObject));
             positionMap.putIfAbsent(gameObject.getPosition(), new HashSet<>());
             positionMap.get(gameObject.getPosition()).add(gameObject);
         }
@@ -170,11 +169,14 @@ public class Game {
         return stringBuilder.toString();
     }
 
-    private void dieOfExhaustion(StringBuilder stringBuilder, LifeForm lifeForm) {
-        if (lifeForm.getCurrentEnergy() < ENERGY_VALUE_DEAD) {
+    private String dieOfExhaustion(GameObject gameObject) {
+        String message = "";
+        if (gameObject instanceof LifeForm && gameObject.getCurrentEnergy() < ENERGY_VALUE_DEAD) {
+            LifeForm lifeForm = (LifeForm) gameObject;
             lifeForm.die();
-            stringBuilder.append(lifeForm.getClass().getSimpleName()).append(": died of exhaustion.\n");
+            return String.format("%s: died of exhaustion.%n", lifeForm.getClass().getSimpleName());
         }
+        return message;
     }
 
     private String interact(Map<Vector2D, Set<GameObject>> positionMap) {
