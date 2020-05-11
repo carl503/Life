@@ -1,5 +1,7 @@
 package ch.zhaw.pm2.life.model;
 
+import org.junit.jupiter.api.BeforeEach;
+
 public class GameObjectTest {
 
     @BeforeEach
@@ -11,10 +13,6 @@ public class GameObjectTest {
     // Positive tests
     //==================================================================================================================
 
-    @Test
-    public void testChooseRandomNeighbourPosition() {
-
-    }
 
     //==================================================================================================================
     // Negative tests
