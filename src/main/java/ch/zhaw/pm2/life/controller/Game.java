@@ -137,17 +137,16 @@ public class Game {
      * @return message log of every move and eat call.
      */
     public String nextMove() {
-        String messageLog = "";
-        if (ongoing) {
+        StringBuilder messageLog = new StringBuilder();
+        if (ongoing && board.noAnimalExtinct()) {
             spawnPlantRandomlyOnMap();
             Map<Vector2D, Set<GameObject>> positionMap = new HashMap<>();
-            messageLog += move(positionMap);
-            messageLog += interact(positionMap);
-            if (board.containsNotInstanceOfAnimalObject(MeatEater.class) || board.containsNotInstanceOfAnimalObject(PlantEater.class)) {
-                stop();
-            }
+            messageLog.append(move(positionMap));
+            messageLog.append(interact(positionMap));
+        } else {
+            stop();
         }
-        return messageLog;
+        return messageLog.toString();
     }
 
     private String move(Map<Vector2D, Set<GameObject>> positionMap) {
