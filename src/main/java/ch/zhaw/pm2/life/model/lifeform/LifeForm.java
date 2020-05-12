@@ -12,7 +12,7 @@ import java.util.logging.Logger;
  */
 public abstract class LifeForm extends GameObject {
 
-    private static final Logger LOGGER = Logger.getLogger(LifeForm.class.getCanonicalName());
+    private static final Logger logger = Logger.getLogger(LifeForm.class.getCanonicalName());
     private static final double POISON_ENERGY_CONSUMPTION_START_FACTOR = 0.3;
     private static final int POISONOUS_PROBABILITY = 3;
 
@@ -54,7 +54,7 @@ public abstract class LifeForm extends GameObject {
      * Kills the life form by setting.
      */
     public void die() {
-        LOGGER.log(Level.FINE, "{0} died", getClass().getSimpleName());
+        logger.log(Level.FINE, "{0} died", getClass().getSimpleName());
         isDead = true;
     }
 
@@ -62,7 +62,7 @@ public abstract class LifeForm extends GameObject {
      * Poison this life form.
      */
     public void becomePoisoned() {
-        LOGGER.log(Level.FINE, "{0} got poisoned", getClass().getSimpleName());
+        logger.log(Level.FINE, "{0} got poisoned", getClass().getSimpleName());
         isPoisoned = true;
         nextPoisonedEnergyConsumption = (int) (currentEnergy * POISON_ENERGY_CONSUMPTION_START_FACTOR);
     }
@@ -74,7 +74,7 @@ public abstract class LifeForm extends GameObject {
     public int getPoisonedEnergyConsumption() {
         int energyConsumption = nextPoisonedEnergyConsumption;
         if ((energyConsumption - 1) == -1) {
-            LOGGER.log(Level.FINE, "{0} is not poisoned anymore", getClass().getSimpleName());
+            logger.log(Level.FINE, "{0} is not poisoned anymore", getClass().getSimpleName());
             isPoisoned = false;
         }
         nextPoisonedEnergyConsumption--;

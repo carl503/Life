@@ -43,7 +43,7 @@ public class Game {
      */
     public static final int PLANT_RESPAWN_CHANCE = 2;
 
-    private static final Logger LOGGER = Logger.getLogger(Game.class.getName());
+    private static final Logger logger = Logger.getLogger(Game.class.getName());
     private static final int SCAN_RADIUS = 2;
 
     private final Set<GameObject> deadLifeForms = new HashSet<>();
@@ -90,7 +90,7 @@ public class Game {
             addLifeForm(MeatEater.class, meatEaterCount);
             addLifeForm(PlantEater.class, plantEaterCount);
         } catch (LifeFormException e) {
-            LOGGER.log(Level.SEVERE, "Error while initializing the life form classes", e);
+            logger.log(Level.SEVERE, "Error while initializing the life form classes", e);
             stop();
         }
     }

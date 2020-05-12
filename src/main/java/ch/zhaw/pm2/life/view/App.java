@@ -18,7 +18,7 @@ import java.util.logging.Logger;
  */
 public class App extends Application {
 
-    private static final Logger LOGGER = Logger.getLogger(App.class.getName());
+    private static final Logger logger = Logger.getLogger(App.class.getName());
 
     /**
      * Default constructor.
@@ -27,7 +27,7 @@ public class App extends Application {
         try (InputStream config = App.class.getClassLoader().getResourceAsStream("log.properties")) {
             LogManager.getLogManager().readConfiguration(config);
         } catch (IOException e) {
-            LOGGER.log(Level.CONFIG, "No log.properties", e);
+            logger.log(Level.CONFIG, "No log.properties", e);
         }
     }
 
@@ -36,9 +36,9 @@ public class App extends Application {
      * @param args Array of {@link String}.
      */
     public static void main(String[] args) {
-        LOGGER.info("Starting the application");
+        logger.info("Starting the application");
         launch(args);
-        LOGGER.info("Closing the application");
+        logger.info("Closing the application");
     }
 
     @Override
@@ -50,7 +50,7 @@ public class App extends Application {
             primaryStage.setScene(scene);
             primaryStage.show();
         } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "Unable to load the fxml file", e);
+            logger.log(Level.SEVERE, "Unable to load the fxml file", e);
         }
     }
 

@@ -21,7 +21,7 @@ public abstract class AnimalObject extends LifeForm {
      */
     public static final int INIT_ENERGY_ANIMALS = 10;
 
-    private static final Logger LOGGER = Logger.getLogger(AnimalObject.class.getCanonicalName());
+    private static final Logger logger = Logger.getLogger(AnimalObject.class.getCanonicalName());
 
     /**
      * Indicates the current fertility value for reproduction. Needs a specific value to be able to reproduce.
@@ -40,7 +40,7 @@ public abstract class AnimalObject extends LifeForm {
      * Is called when the animal moves.
      */
     public void move(Set<GameObject> neighbourObjs) {
-        LOGGER.log(Level.FINER, "Move {0}", getClass().getSimpleName());
+        logger.log(Level.FINER, "Move {0}", getClass().getSimpleName());
         Vector2D previousPosition = position;
         if (neighbourObjs.isEmpty()) {
             position = chooseRandomNeighbourPosition();
@@ -50,13 +50,13 @@ public abstract class AnimalObject extends LifeForm {
         int consumeEnergy = 0;
         if (isPoisoned) {
             consumeEnergy = getPoisonedEnergyConsumption();
-            LOGGER.log(Level.FINE, "{1} decreased energy (poisoned) by {0}", new Object[] {
+            logger.log(Level.FINE, "{1} decreased energy (poisoned) by {0}", new Object[] {
                     consumeEnergy, getClass().getSimpleName()
             });
         }
         if (!previousPosition.equals(position)) {
             consumeEnergy = 1;
-            LOGGER.log(Level.FINE, "{1} decreased energy (move) by {0}", new Object[] {
+            logger.log(Level.FINE, "{1} decreased energy (move) by {0}", new Object[] {
                     consumeEnergy, getClass().getSimpleName()
             });
         }
@@ -127,7 +127,7 @@ public abstract class AnimalObject extends LifeForm {
             actionCheck.check();
         }
 
-        LOGGER.log(Level.FINE, "{0} ate {1}", new Object[] {
+        logger.log(Level.FINE, "{0} ate {1}", new Object[] {
                 getClass().getSimpleName(),
                 lifeForm.getClass().getSimpleName()
         });
