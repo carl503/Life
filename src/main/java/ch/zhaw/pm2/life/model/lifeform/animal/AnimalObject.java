@@ -52,7 +52,7 @@ public abstract class AnimalObject extends LifeForm {
             int poisonedEnergyConsumption = getPoisonedEnergyConsumption();
             consumeEnergy += poisonedEnergyConsumption;
             logger.log(Level.FINE, "{1} decreased energy (poisoned) by {0}", new Object[] {
-                    consumeEnergy, getClass().getSimpleName()
+                    poisonedEnergyConsumption, getClass().getSimpleName()
             });
         }
         if (!previousPosition.equals(position)) {
