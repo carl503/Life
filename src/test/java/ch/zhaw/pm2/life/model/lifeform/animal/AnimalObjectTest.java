@@ -62,18 +62,18 @@ public class AnimalObjectTest {
     @Test
     public void moveTestSameEnergyNotPoisonedSamePosition() {
         doReturn(animalObject.getPosition()).when(animalObject).chooseRandomNeighbourPosition();
-        int energy = animalObject.getCurrentEnergy();
+        int energy = animalObject.getEnergy();
         animalObject.move(dummyGameObjectsSet);
-        assertEquals(energy, animalObject.getCurrentEnergy());
+        assertEquals(energy, animalObject.getEnergy());
     }
 
     @Test
     public void moveTestDecreaseEnergyNotPoisonedAnotherPosition() {
         doReturn(new Vector2D(0, 0)).when(animalObject).chooseRandomNeighbourPosition();
         animalObject.increaseEnergy(5);
-        int energy = animalObject.getCurrentEnergy();
+        int energy = animalObject.getEnergy();
         animalObject.move(dummyGameObjectsSet);
-        assertEquals(energy - MOVE_ENERGY_CONSUMPTION, animalObject.getCurrentEnergy());
+        assertEquals(energy - MOVE_ENERGY_CONSUMPTION, animalObject.getEnergy());
     }
 
     @Test
@@ -82,9 +82,9 @@ public class AnimalObjectTest {
         doReturn(2).when(animalObject).getPoisonedEnergyConsumption();
         animalObject.becomePoisoned();
         animalObject.increaseEnergy(5);
-        int energy = animalObject.getCurrentEnergy();
+        int energy = animalObject.getEnergy();
         animalObject.move(dummyGameObjectsSet);
-        assertEquals(energy - 2, animalObject.getCurrentEnergy());
+        assertEquals(energy - 2, animalObject.getEnergy());
     }
 
     @Test
@@ -93,11 +93,11 @@ public class AnimalObjectTest {
         doReturn(2).when(animalObject).getPoisonedEnergyConsumption();
         animalObject.becomePoisoned();
         animalObject.increaseEnergy(5);
-        int energy = animalObject.getCurrentEnergy();
+        int energy = animalObject.getEnergy();
         animalObject.move(dummyGameObjectsSet);
 
         verify(animalObject).decreaseEnergy(MOVE_ENERGY_CONSUMPTION + POISONED_ENERGY_CONSUMPTION);
-        assertEquals(energy - MOVE_ENERGY_CONSUMPTION - POISONED_ENERGY_CONSUMPTION, animalObject.getCurrentEnergy());
+        assertEquals(energy - MOVE_ENERGY_CONSUMPTION - POISONED_ENERGY_CONSUMPTION, animalObject.getEnergy());
     }
 
     //==================================================================================================================
