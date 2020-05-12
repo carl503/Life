@@ -31,6 +31,7 @@ public class Board {
     private final Random random = new Random();
     private final Set<GameObject> gameObjects = new HashSet<>();
     private final Set<Vector2D> occupiedPositions = new HashSet<>();
+    private final Set<String> animalForms = new HashSet<>();
     private final int rows;
     private final int columns;
 
@@ -70,6 +71,9 @@ public class Board {
         gameObject.setRows(rows);
 
         gameObjects.add(gameObject);
+        if (gameObject instanceof AnimalObject) {
+            animalForms.add(gameObject.getClass().getSimpleName());
+        }
         occupiedPositions.add(position);
     }
 
@@ -158,22 +162,19 @@ public class Board {
     }
 
     /**
-     * Check if and instance of a specific animal object exists on the board.
-     * @param clazz {@link Class<? extends AnimalObject>} does an instance of this class exist?
-     * @return true if an instance of the provided class exists otherwise false
+     * Returns if an animal form is extinct.
+     * @return true if no animal form is extinct otherwise false
      */
-    public boolean containsNotInstanceOfAnimalObject(Class<? extends AnimalObject> clazz) {
-        if (clazz == null) {
-            return false;
+    public boolean noAnimalExtinct() {
+        Set<String> found = new HashSet<>();
+
+        for (GameObject gameObject : gameObjects) {
+            if (gameObject instanceof AnimalObject) {
+                found.add(gameObject.getClass().getSimpleName());
+            }
         }
 
-        Set<Class<? extends AnimalObject>> animalClassSet = gameObjects.stream()
-                .filter(AnimalObject.class::isInstance)
-                .map(AnimalObject.class::cast)
-                .map(AnimalObject::getClass)
-                .collect(Collectors.toSet());
-
-        return !animalClassSet.contains(clazz);
+        return found.containsAll(animalForms);
     }
 
     /**
