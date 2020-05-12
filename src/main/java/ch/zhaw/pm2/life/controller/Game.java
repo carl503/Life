@@ -193,7 +193,7 @@ public class Game {
                 });
 
         board.cleanBoard();
-        board.getGameObjects().addAll(newLifeForms);
+        newLifeForms.forEach(lifeForm -> board.addGameObject(lifeForm, lifeForm.getPosition()));
 
         return stringBuilder.toString();
     }
@@ -228,11 +228,10 @@ public class Game {
     }
 
     private void spawnPlantRandomlyOnMap() {
-        int spawnChance = random.nextInt(10);
-        if ((spawnChance < PLANT_RESPAWN_CHANCE)) {
+        int spawnChance = random.nextInt(11);
+        if (spawnChance < PLANT_RESPAWN_CHANCE) {
             board.addGameObject(new FirstPlant(), calculatePosition());
         }
-
     }
 
 }

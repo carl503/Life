@@ -107,7 +107,7 @@ public class Board {
 
         return deadLifeForms.stream()
                 .map(GameObject::getPosition)
-                .filter(not(currentOccupiedPositions::contains))
+                .filter(not(currentOccupiedPositions::contains)) // positions of dead life forms that were alone on that position
                 .collect(Collectors.toSet());
     }
 
