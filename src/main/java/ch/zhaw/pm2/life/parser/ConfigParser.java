@@ -75,9 +75,11 @@ public class ConfigParser {
 
                 int energy = Integer.parseInt(getConfigValue(lifeForm, Options.ENERGY.name()));
                 Color color = Color.valueOf(getConfigValue(lifeForm, Options.COLOR.name()));
+                String name = getConfigValue(lifeForm, Options.NAME.name());
                 GameObject gameObject = (GameObject) clazz.getConstructor().newInstance();
                 gameObject.setColor(color);
                 gameObject.setEnergy(energy);
+                gameObject.setName(name);
 
                 parsedObjects.add(gameObject);
             }
@@ -115,7 +117,8 @@ public class ConfigParser {
     private enum Options {
         ENERGY,
         TYPE,
-        COLOR
+        COLOR,
+        NAME
     }
 
     private enum Type {
