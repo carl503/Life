@@ -99,8 +99,7 @@ public class Game {
         try {
             for (int i = 0; i < count; i++) {
                 LifeForm lifeForm = lifeFormClass.getConstructor().newInstance();
-                lifeForm.setPosition(calculatePosition());
-                board.addGameObject(lifeForm);
+                board.addGameObject(lifeForm, calculatePosition());
             }
         } catch (NullPointerException | InstantiationException | InvocationTargetException | NoSuchMethodException
                 | IllegalAccessException e) {
@@ -236,9 +235,7 @@ public class Game {
     private void spawnPlantRandomlyOnMap() {
         int spawnChance = random.nextInt(10);
         if ((spawnChance < PLANT_RESPAWN_CHANCE)) {
-            GameObject gameObject = new FirstPlant();
-            gameObject.setPosition(calculatePosition());
-            board.addGameObject(gameObject);
+            board.addGameObject(new FirstPlant(), calculatePosition());
         }
 
     }

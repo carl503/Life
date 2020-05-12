@@ -56,22 +56,22 @@ public class BoardTest {
         positions.add(thirdGameObject.getPosition());
 
         // execute + assert
-        board.addGameObject(firstGameObject);
-        board.addGameObject(secondGameObject);
+        board.addGameObject(firstGameObject, firstGameObject.getPosition());
+        board.addGameObject(secondGameObject, secondGameObject.getPosition());
         assertEquals(2, board.getGameObjects().size());
         assertEquals(2, board.getOccupiedPositions().size());
         assertTrue(gameObjects.containsAll(board.getGameObjects()));
         assertTrue(positions.containsAll(board.getOccupiedPositions()));
 
         // execute + assert
-        board.addGameObject(firstGameObject);
+        board.addGameObject(firstGameObject, firstGameObject.getPosition());
         assertEquals(2, board.getGameObjects().size());
         assertEquals(2, board.getOccupiedPositions().size());
         assertTrue(gameObjects.containsAll(board.getGameObjects()));
         assertTrue(positions.containsAll(board.getOccupiedPositions()));
 
         // execute + assert
-        board.addGameObject(thirdGameObject);
+        board.addGameObject(thirdGameObject, thirdGameObject.getPosition());
         assertEquals(3, board.getGameObjects().size());
         assertEquals(2, board.getOccupiedPositions().size());
         assertTrue(gameObjects.containsAll(board.getGameObjects()));
@@ -84,17 +84,17 @@ public class BoardTest {
         LifeForm firstLifeForm = mock(MeatEater.class);
         when(firstLifeForm.getPosition()).thenReturn(new Vector2D(0, 0));
         when(firstLifeForm.isDead()).thenReturn(true);
-        board.addGameObject(firstLifeForm);
+        board.addGameObject(firstLifeForm, firstLifeForm.getPosition());
 
         LifeForm secondLifeForm = mock(PlantEater.class);
         when(secondLifeForm.getPosition()).thenReturn(new Vector2D(0, 1));
         when(secondLifeForm.isDead()).thenReturn(false);
-        board.addGameObject(secondLifeForm);
+        board.addGameObject(secondLifeForm, secondLifeForm.getPosition());
 
         LifeForm thirdLifeForm = mock(PlantObject.class);
         when(thirdLifeForm.getPosition()).thenReturn(new Vector2D(0, 1));
         when(thirdLifeForm.isDead()).thenReturn(false);
-        board.addGameObject(thirdLifeForm);
+        board.addGameObject(thirdLifeForm, thirdLifeForm.getPosition());
 
         Set<GameObject> gameObjects = new HashSet<>();
         gameObjects.add(secondLifeForm);
@@ -122,7 +122,7 @@ public class BoardTest {
 
         AnimalObject meatEater = mock(MeatEater.class);
         when(meatEater.getPosition()).thenReturn(new Vector2D(0, 1));
-        board.addGameObject(meatEater);
+        board.addGameObject(meatEater, meatEater.getPosition());
 
         assertFalse(board.containsNotInstanceOfAnimalObject(meatEater.getClass()));
         assertTrue(board.containsNotInstanceOfAnimalObject(animalObject.getClass()));
@@ -134,20 +134,23 @@ public class BoardTest {
 
     @Test
     public void testAddGameObjectNull() {
-        NullPointerException thrown = assertThrows(NullPointerException.class, () -> board.addGameObject(null));
+        Exception thrown = assertThrows(NullPointerException.class, () -> board.addGameObject(null, new Vector2D(0, 0)));
         assertEquals("Game object cannot be null to add it on the board.", thrown.getMessage());
+    }
+
+
+    @Test
+    public void testAddGameObjectInvalidPositionNull() {
+        Exception thrown = assertThrows(NullPointerException.class, () -> board.addGameObject(firstGameObject, null));
+        assertEquals("The position cannot be null to add the game object on the board.", thrown.getMessage());
     }
 
     // TODO: add negtive test for addGameObject with invalid positions (maybe reuse code from this commit? f10b6f7d2cd422d4089ffa21bee0ead454b39ce5)
 
     @Test
     public void testContainsNotInstanceOfAnimalObjectNull() {
-        firstGameObject = mock(MeatEater.class);
-        when(firstGameObject.getPosition()).thenReturn(new Vector2D(0, 0));
-        board.addGameObject(firstGameObject);
-
+        board.addGameObject(mock(MeatEater.class), new Vector2D(0, 0));
         boolean containsNull = board.containsNotInstanceOfAnimalObject(null);
-
         assertFalse(containsNull);
     }
 

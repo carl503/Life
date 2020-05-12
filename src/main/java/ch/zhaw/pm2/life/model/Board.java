@@ -54,17 +54,23 @@ public class Board {
     /**
      * Adds a game object to the set.
      * @param gameObject {@link GameObject}
+     * @param position {@link Vector2D}
      * @throws NullPointerException when the {@link GameObject} is null.
      */
-    public void addGameObject(GameObject gameObject) {
+    public void addGameObject(GameObject gameObject, Vector2D position) {
         Objects.requireNonNull(gameObject, "Game object cannot be null to add it on the board.");
-        // TODO: validate position (maybe reuse code from this commit? f10b6f7d2cd422d4089ffa21bee0ead454b39ce5)
+        Objects.requireNonNull(position, "The position cannot be null to add the game object on the board.");
+        if (Vector2D.isNegative(position) || position.getX() >= columns || position.getY() >= rows) {
+            String message = String.format("The position %s of the provided game object does not exist on the board.", position);
+            throw new IllegalArgumentException(message);
+        }
 
+        gameObject.setPosition(position);
         gameObject.setColumns(columns);
         gameObject.setRows(rows);
 
         gameObjects.add(gameObject);
-        occupiedPositions.add(gameObject.getPosition());
+        occupiedPositions.add(position);
     }
 
     /**
