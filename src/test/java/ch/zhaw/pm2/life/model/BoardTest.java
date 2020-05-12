@@ -183,13 +183,13 @@ public class BoardTest {
 
     @Test
     public void testInvalidConstructorRowLowerThanMinValue() {
-        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> board = new Board(Board.MIN_ROWS - 1, Board.MIN_COLUMNS));
+        Exception thrown = assertThrows(IllegalArgumentException.class, () -> board = new Board(Board.MIN_ROWS - 1, Board.MIN_COLUMNS));
         assertEquals("The number of rows cannot be less than " + Board.MIN_ROWS, thrown.getMessage());
     }
 
     @Test
     public void testInvalidConstructorColumnsLowerThanMinValue() {
-        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> board = new Board(Board.MIN_ROWS, Board.MIN_COLUMNS - 1));
+        Exception thrown = assertThrows(IllegalArgumentException.class, () -> board = new Board(Board.MIN_ROWS, Board.MIN_COLUMNS - 1));
         assertEquals("The number of columns cannot be less than " + Board.MIN_COLUMNS, thrown.getMessage());
     }
 
