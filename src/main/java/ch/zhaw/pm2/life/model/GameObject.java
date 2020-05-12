@@ -22,7 +22,7 @@ public abstract class GameObject {
     /**
      * The current energy of this game object.
      */
-    protected int currentEnergy;
+    protected int energy;
 
     /**
      * The current position of this game object.
@@ -32,7 +32,7 @@ public abstract class GameObject {
     /**
      * The color of this game object.
      */
-    protected Color objectColor;
+    protected Color color;
 
     /**
      * The size used to scale this object in the visualization.
@@ -56,8 +56,8 @@ public abstract class GameObject {
      * Returns the energy of this {@link GameObject}.
      * @return current energy as int.
      */
-    public int getCurrentEnergy() {
-        return currentEnergy;
+    public int getEnergy() {
+        return energy;
     }
 
     /**
@@ -65,7 +65,7 @@ public abstract class GameObject {
      * @param energy increasing energy by this amount.
      */
     public void increaseEnergy(int energy) {
-        currentEnergy += energy;
+        this.energy += energy;
     }
 
     /**
@@ -73,7 +73,7 @@ public abstract class GameObject {
      * @param consumedEnergy reducing energy by this amount.
      */
     public void decreaseEnergy(int consumedEnergy) {
-        currentEnergy -= consumedEnergy;
+        energy -= consumedEnergy;
     }
 
     /**
@@ -103,7 +103,7 @@ public abstract class GameObject {
      * @return color as {@link Color}.
      */
     public Color getColor() {
-        return objectColor;
+        return color;
     }
 
     /**
@@ -162,6 +162,22 @@ public abstract class GameObject {
      */
     public void setRandom(Random random) {
         this.random = random;
+    }
+
+    /**
+     * Sets the energy of this {@link GameObject}.
+     * @param energy the energy as int.
+     */
+    public void setEnergy(int energy) {
+        this.energy = energy;
+    }
+
+    /**
+     * Sets the color of this {@link GameObject}.
+     * @param color sets the color as {@link Color};
+     */
+    public void setColor(Color color) {
+        this.color = color;
     }
 
     /**

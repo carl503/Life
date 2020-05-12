@@ -64,7 +64,7 @@ public abstract class LifeForm extends GameObject {
     public void becomePoisoned() {
         logger.log(Level.FINE, "{0} got poisoned", getClass().getSimpleName());
         isPoisoned = true;
-        nextPoisonedEnergyConsumption = (int) (currentEnergy * POISON_ENERGY_CONSUMPTION_START_FACTOR);
+        nextPoisonedEnergyConsumption = (int) (energy * POISON_ENERGY_CONSUMPTION_START_FACTOR);
     }
 
     /**

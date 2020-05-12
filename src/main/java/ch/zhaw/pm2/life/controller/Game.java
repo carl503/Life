@@ -172,7 +172,7 @@ public class Game {
 
     private String dieOfExhaustion(GameObject gameObject) {
         String message = "";
-        if (gameObject instanceof LifeForm && gameObject.getCurrentEnergy() < ENERGY_VALUE_DEAD) {
+        if (gameObject instanceof LifeForm && gameObject.getEnergy() < ENERGY_VALUE_DEAD) {
             LifeForm lifeForm = (LifeForm) gameObject;
             lifeForm.die();
             return String.format("%s: died of exhaustion.%n", lifeForm.getClass().getSimpleName());

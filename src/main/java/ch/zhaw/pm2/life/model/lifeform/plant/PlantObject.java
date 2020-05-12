@@ -18,7 +18,7 @@ public abstract class PlantObject extends LifeForm {
      * Default constructor.
      */
     public PlantObject() {
-        currentEnergy = AnimalObject.INIT_ENERGY_ANIMALS * PLANT_ENERGY_FACTOR;
+        energy = AnimalObject.INIT_ENERGY_ANIMALS * PLANT_ENERGY_FACTOR;
     }
 
     @Override

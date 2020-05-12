@@ -22,7 +22,7 @@ public class MeatEater extends AnimalObject {
      * Default constructor.
      */
     public MeatEater() {
-        this.objectColor = Color.RED;
+        this.color = Color.RED;
     }
 
     @Override
@@ -35,7 +35,7 @@ public class MeatEater extends AnimalObject {
         return () -> {
             if (lifeForm.getFoodType() == FoodType.PLANT) {
                 throw new LifeFormException("Cannot eat this plant. Do I look like a vegetarian?!");
-            } else if (lifeForm instanceof MeatEater && lifeForm.getCurrentEnergy() > this.getCurrentEnergy()) {
+            } else if (lifeForm instanceof MeatEater && lifeForm.getEnergy() > this.getEnergy()) {
                 throw new LifeFormException("Cannot eat this meat eater. He is stronger than I.");
             }
         };

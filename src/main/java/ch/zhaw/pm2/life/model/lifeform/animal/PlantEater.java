@@ -23,7 +23,7 @@ public class PlantEater extends AnimalObject {
      * Default constructor.
      */
     public PlantEater() {
-        this.objectColor = Color.LIGHTSEAGREEN;
+        this.color = Color.LIGHTSEAGREEN;
     }
 
     @Override

@@ -32,7 +32,7 @@ public abstract class AnimalObject extends LifeForm {
      * Default constructor.
      */
     public AnimalObject() {
-        currentEnergy = INIT_ENERGY_ANIMALS;
+        energy = INIT_ENERGY_ANIMALS;
         fertilityThreshold = 0;
     }
 
@@ -125,7 +125,7 @@ public abstract class AnimalObject extends LifeForm {
                 getClass().getSimpleName(),
                 lifeForm.getClass().getSimpleName()
         });
-        increaseEnergy(lifeForm.getCurrentEnergy());
+        increaseEnergy(lifeForm.getEnergy());
         if (lifeForm.isPoisonous()) {
             becomePoisoned();
         }

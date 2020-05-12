@@ -12,7 +12,7 @@ public class FirstPlant extends PlantObject {
      * Default constructor.
      */
     public FirstPlant() {
-        this.objectColor = Color.GREEN;
+        this.color = Color.GREEN;
     }
 
     @Override

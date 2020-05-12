@@ -113,7 +113,7 @@ public class BoardView extends Canvas {
     private void drawCurrentEnergy(GameObject gameObject, double fieldPosX, double fieldPosY) {
         double energyPositionX = fieldPosX + fieldDimension.getWidth() * ENERGY_SCALE_X;
         double energyPositionY = fieldPosY + fieldDimension.getHeight() * ENERGY_SCALE_Y;
-        getGraphicsContext2D().strokeText(String.valueOf(gameObject.getCurrentEnergy()), energyPositionX, energyPositionY);
+        getGraphicsContext2D().strokeText(String.valueOf(gameObject.getEnergy()), energyPositionX, energyPositionY);
     }
 
     private void drawPoisonStatus(GameObject gameObject, double fieldPosX, double fieldPosY) {
