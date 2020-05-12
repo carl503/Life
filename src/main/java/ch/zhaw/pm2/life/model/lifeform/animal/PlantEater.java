@@ -4,6 +4,7 @@ import ch.zhaw.pm2.life.exception.LifeFormException;
 import ch.zhaw.pm2.life.model.GameObject;
 import ch.zhaw.pm2.life.model.Vector2D;
 import ch.zhaw.pm2.life.model.lifeform.LifeForm;
+import ch.zhaw.pm2.life.model.lifeform.LifeFormActionCheck;
 import ch.zhaw.pm2.life.model.lifeform.plant.PlantObject;
 import javafx.scene.paint.Color;
 
@@ -46,7 +47,7 @@ public class PlantEater extends AnimalObject {
             if (lifeForm.getFoodType() == FoodType.MEAT) {
                 throw new LifeFormException("Cannot eat this meat, I am vegetarian.");
             }
-        });
+        };
     }
 
     @Override

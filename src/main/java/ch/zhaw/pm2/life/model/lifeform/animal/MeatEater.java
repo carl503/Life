@@ -4,6 +4,7 @@ import ch.zhaw.pm2.life.exception.LifeFormException;
 import ch.zhaw.pm2.life.model.GameObject;
 import ch.zhaw.pm2.life.model.Vector2D;
 import ch.zhaw.pm2.life.model.lifeform.LifeForm;
+import ch.zhaw.pm2.life.model.lifeform.LifeFormActionCheck;
 import javafx.scene.paint.Color;
 
 import java.util.Objects;
@@ -37,7 +38,7 @@ public class MeatEater extends AnimalObject {
             } else if (lifeForm instanceof MeatEater && lifeForm.getCurrentEnergy() > this.getCurrentEnergy()) {
                 throw new LifeFormException("Cannot eat this meat eater. He is stronger than I.");
             }
-        });
+        };
     }
 
     @Override
