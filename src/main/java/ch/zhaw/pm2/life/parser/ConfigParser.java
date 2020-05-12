@@ -17,11 +17,13 @@ public class ConfigParser {
 
     private static final String CONFIG_PATH = "config";
     private static final String FILE_NAME = "config.properties";
+    private static final String DELIMITER = ".";
+    private static final String DELIMITER_REGEX = "\\" + DELIMITER;
+    private static final String LIFE_FORM_PACKAGE = "ch.zhaw.pm2.life.model.lifeform";
     private static final URL templateFile = ConfigParser.class.getClassLoader()
             .getResource(CONFIG_PATH + File.separator + FILE_NAME);
-    private static final String DELIMITER = ".";
-    private static File configFile = new File(CONFIG_PATH + File.separator + FILE_NAME);
-    private static Properties config = new Properties();
+    private static final File configFile = new File(CONFIG_PATH + File.separator + FILE_NAME);
+    private static final Properties config = new Properties();
 
     private static ConfigParser instance = null;
 
@@ -43,32 +45,12 @@ public class ConfigParser {
         Set<String> lifeForms = new HashSet<>();
         Enumeration<Object> property = config.keys();
         while (property.hasMoreElements()) {
-            lifeForms.add(property.nextElement().toString().split("\\.")[0]);
+            lifeForms.add(property.nextElement().toString().split(DELIMITER_REGEX)[0]);
         }
 
         try {
             for (String lifeForm : lifeForms) {
-                Class<?> clazz = null;
-                Type type = Type.getType(getConfigValue(lifeForm, Options.TYPE.name()));
-                if (type != null) {
-                    switch (type) {
-                        case PLANT_EATER:
-                            clazz = Class.forName(Type.PLANT_EATER.value);
-                            break;
-
-                        case MEAT_EATER:
-                            clazz = Class.forName(Type.MEAT_EATER.value);
-                            break;
-
-                        case PLANT:
-                            clazz = Class.forName(Type.PLANT.value);
-                            break;
-
-                        default:
-                            break;
-                    }
-                }
-
+                Class<?> clazz = getGameObjectClass(lifeForm);
                 if (clazz == null) {
                     throw new LifeException("Could not parse the config file");
                 }
@@ -88,6 +70,24 @@ public class ConfigParser {
         }
 
         return parsedObjects;
+    }
+
+    private Class<?> getGameObjectClass(String lifeForm) throws ClassNotFoundException {
+        Class<?> clazz = null;
+        Type type = Type.getType(getConfigValue(lifeForm, Options.TYPE.name()));
+        if (type != null) {
+            switch (type) {
+                case PLANT_EATER: clazz = Class.forName(Type.PLANT_EATER.value);
+                    break;
+                case MEAT_EATER: clazz = Class.forName(Type.MEAT_EATER.value);
+                    break;
+                case PLANT: clazz = Class.forName(Type.PLANT.value);
+                    break;
+                default:
+                    break;
+            }
+        }
+        return clazz;
     }
 
     private String getConfigValue(String lifeForm, String property) {
@@ -122,9 +122,9 @@ public class ConfigParser {
     }
 
     private enum Type {
-        MEAT_EATER("ch.zhaw.pm2.life.model.lifeform.animal.MeatEater"),
-        PLANT_EATER("ch.zhaw.pm2.life.model.lifeform.animal.PlantEater"),
-        PLANT("ch.zhaw.pm2.life.model.lifeform.plant.FirstPlant");
+        MEAT_EATER(LIFE_FORM_PACKAGE + ".animal.MeatEater"),
+        PLANT_EATER(LIFE_FORM_PACKAGE + ".animal.PlantEater"),
+        PLANT(LIFE_FORM_PACKAGE + ".plant.FirstPlant");
 
         private final String value;
         Type(final String v) {
@@ -133,7 +133,7 @@ public class ConfigParser {
 
         public static Type getType(String val) {
             for (Type type : Type.values()) {
-                String[] values = type.value.split("\\.");
+                String[] values = type.value.split(DELIMITER_REGEX);
                 if (values[values.length - 1].equalsIgnoreCase(val)) {
                     return type;
                 }
