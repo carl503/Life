@@ -182,17 +182,16 @@ public class Game {
         Set<GameObject> newLifeForms = new HashSet<>();
         StringBuilder stringBuilder = new StringBuilder();
 
-        for (GameObject gameObject : board.getGameObjects()) {
-            if (gameObject instanceof AnimalObject) {
-                AnimalObject animalObject = (AnimalObject) gameObject;
-                Set<GameObject> set = positionMap.get(animalObject.getPosition());
+        board.getGameObjects().stream()
+                .filter(AnimalObject.class::isInstance)
+                .map(AnimalObject.class::cast)
+                .forEach(animalObject -> {
+                    Set<GameObject> set = positionMap.get(animalObject.getPosition());
+                    String interactMessage = handleCollision(set, animalObject, newLifeForms);
+                    stringBuilder.append(interactMessage);
+                    set.removeAll(deadLifeForms);
+                });
 
-                String interactMessage = handleCollision(set, animalObject, newLifeForms);
-                stringBuilder.append(interactMessage);
-
-                set.removeAll(deadLifeForms);
-            }
-        }
         board.cleanBoard();
         board.getGameObjects().addAll(newLifeForms);
 
