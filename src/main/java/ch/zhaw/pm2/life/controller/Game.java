@@ -194,7 +194,7 @@ public class Game {
             }
         }
         board.cleanBoard();
-        board.getGameObjects().addAll(newLifeForms);
+        newLifeForms.forEach(lifeForm -> board.addGameObject(lifeForm, lifeForm.getPosition()));
 
         return stringBuilder.toString();
     }
