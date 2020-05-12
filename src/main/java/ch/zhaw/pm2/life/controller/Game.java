@@ -61,6 +61,8 @@ public class Game {
      * @param plantCount      Initial amount of plants.
      * @param meatEaterCount  Initial amount of meat eaters.
      * @param plantEaterCount Initial amount of plant eaters.
+     * @throws NullPointerException when the board is null
+     * @throws IllegalArgumentException when the plant, meat- or plant-eater count is negative or the sum of all counts is higher than the number of fields on the board
      */
     public Game(Board board, int plantCount, int meatEaterCount, int plantEaterCount) {
         this.board = Objects.requireNonNull(board, "Board cannot be null to create the game.");
