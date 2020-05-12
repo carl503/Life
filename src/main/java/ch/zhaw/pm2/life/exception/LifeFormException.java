@@ -27,6 +27,7 @@ public class LifeFormException extends LifeException {
      * @param cause   the cause (which is saved for later retrieval by the
      *                {@link #getCause()} method).  (A {@code null} value is
      *                permitted, and indicates that the cause is nonexistent or
+     *                unknown.)
      */
     public LifeFormException(String message, Throwable cause) {
         super(message, cause);
