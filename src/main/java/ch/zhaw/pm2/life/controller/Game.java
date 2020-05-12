@@ -229,7 +229,7 @@ public class Game {
     }
 
     private void spawnPlantRandomlyOnMap() {
-        int spawnChance = random.nextInt(10);
+        int spawnChance = random.nextInt(11);
         if (spawnChance < PLANT_RESPAWN_CHANCE) {
             board.addGameObject(new FirstPlant(), calculatePosition());
         }
