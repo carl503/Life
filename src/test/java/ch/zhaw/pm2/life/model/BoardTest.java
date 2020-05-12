@@ -19,6 +19,7 @@ import static org.mockito.Mockito.*;
 public class BoardTest {
 
     private static final int BOARD_SIZE = 3;
+    private static final String ILLEGAL_POSITION_MESSAGE = "The position %s of the provided game object does not exist on the board.";
 
     private Board board;
 
@@ -145,7 +146,33 @@ public class BoardTest {
         assertEquals("The position cannot be null to add the game object on the board.", thrown.getMessage());
     }
 
-    // TODO: add negtive test for addGameObject with invalid positions (maybe reuse code from this commit? f10b6f7d2cd422d4089ffa21bee0ead454b39ce5)
+    @Test
+    public void testAddGameObjectInvalidPositionRowNegative() {
+        Vector2D position = new Vector2D(0, -1);
+        Exception thrown = assertThrows(IllegalArgumentException.class, () -> board.addGameObject(firstGameObject, position));
+        assertEquals(String.format(ILLEGAL_POSITION_MESSAGE, position), thrown.getMessage());
+    }
+
+    @Test
+    public void testAddGameObjectInvalidPositionColumnNegative() {
+        Vector2D position = new Vector2D(-1, 0);
+        Exception thrown = assertThrows(IllegalArgumentException.class, () -> board.addGameObject(firstGameObject, position));
+        assertEquals(String.format(ILLEGAL_POSITION_MESSAGE, position), thrown.getMessage());
+    }
+
+    @Test
+    public void testAddGameObjectInvalidPositionBiggerThanNumberOfRows() {
+        Vector2D position = new Vector2D(0, board.getRows());
+        Exception thrown = assertThrows(IllegalArgumentException.class, () -> board.addGameObject(firstGameObject, position));
+        assertEquals(String.format(ILLEGAL_POSITION_MESSAGE, position), thrown.getMessage());
+    }
+
+    @Test
+    public void testAddGameObjectInvalidPositionBiggerThanNumberOfColumns() {
+        Vector2D position = new Vector2D(board.getColumns(), 0);
+        Exception thrown = assertThrows(IllegalArgumentException.class, () -> board.addGameObject(firstGameObject, position));
+        assertEquals(String.format(ILLEGAL_POSITION_MESSAGE, position), thrown.getMessage());
+    }
 
     @Test
     public void testContainsNotInstanceOfAnimalObjectNull() {
