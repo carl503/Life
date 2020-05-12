@@ -41,8 +41,8 @@ public class PlantEater extends AnimalObject {
     }
 
     @Override
-    public void eat(LifeForm lifeForm) throws LifeFormException {
-        eat(lifeForm, () -> {
+    protected LifeFormActionCheck getEatRules(LifeForm lifeForm) {
+        return () -> {
             if (lifeForm.getFoodType() == FoodType.MEAT) {
                 throw new LifeFormException("Cannot eat this meat, I am vegetarian.");
             }

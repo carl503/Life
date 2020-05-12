@@ -112,19 +112,11 @@ public abstract class AnimalObject extends LifeForm {
      * @throws LifeFormException    when could not eat the provided life form.
      * @throws NullPointerException When the provided life form wanted to eat is null.
      */
-    public abstract void eat(LifeForm lifeForm) throws LifeFormException;
-
-    /**
-     * Is called when the animal eats meat.
-     * @param lifeForm    {@link LifeForm}
-     * @param actionCheck {@link LifeFormActionCheck}
-     * @throws LifeFormException    could not eat the provided life form.
-     * @throws NullPointerException the provided life form wanted to eat is null.
-     */
-    protected void eat(LifeForm lifeForm, LifeFormActionCheck actionCheck) throws LifeFormException {
+    public void eat(LifeForm lifeForm) throws LifeFormException {
         Objects.requireNonNull(lifeForm, "Cannot eat null.");
-        if (actionCheck != null) {
-            actionCheck.check();
+        LifeFormActionCheck eatRules = getEatRules(lifeForm);
+        if (eatRules != null) {
+            eatRules.check();
         }
 
         logger.log(Level.FINE, "{0} ate {1}", new Object[] {
@@ -137,6 +129,13 @@ public abstract class AnimalObject extends LifeForm {
         }
         lifeForm.die();
     }
+
+    /**
+     * Returns the rules to be checked on before an animal can eat.
+     * @param lifeForm The {@link LifeForm} this animal wants to eat.
+     * @return rules to check before eating the {@link LifeForm}.
+     */
+    protected abstract LifeFormActionCheck getEatRules(LifeForm lifeForm);
 
     /**
      * Used to determine weather this life form can reproduce or not.
