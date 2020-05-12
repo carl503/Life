@@ -17,7 +17,7 @@ public abstract class GameObject {
     //private static final int MAX_SIZE = 10;
 
     private static final int BASIC_SIZE = 5;
-    private final Random random = new Random();
+    private Random random;
 
     /**
      * The current energy of this game object.
@@ -49,6 +49,7 @@ public abstract class GameObject {
     public GameObject() {
         //size = random.nextInt(MAX_SIZE - 2) + 3;
         size = BASIC_SIZE;
+        random = new Random();
     }
 
     /**
@@ -145,6 +146,22 @@ public abstract class GameObject {
      */
     public void setColumns(int columns) {
         this.columns = columns;
+    }
+
+    /**
+     * Returns the random object
+     * @return Random
+     */
+    public Random getRandom() {
+        return random;
+    }
+
+    /**
+     * Sets the random object
+     * @param random {@link Random}
+     */
+    public void setRandom(Random random) {
+        this.random = random;
     }
 
     /**
