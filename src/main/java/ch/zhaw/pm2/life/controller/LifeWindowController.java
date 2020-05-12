@@ -38,33 +38,39 @@ public class LifeWindowController {
             boardObject = new Board(ROWS, COLUMNS);
             boardView = new BoardView(WIDTH, HEIGHT, boardObject);
             this.board.getChildren().add(0, boardView);
-        } catch (NullPointerException | IllegalArgumentException e) {
-            messageField.appendText(e.getMessage());
+        } catch (Exception e) {
+            messageField.appendText(e.getMessage() + "\n");
         }
     }
 
     @FXML
     private void nextRound() {
-        messageField.appendText(game.nextMove());
-        boardView.draw();
-        if (!game.isOngoing()) {
-            nextRoundButton.setDisable(true);
-            stopSimButton.setDisable(true);
+        if (game != null) {
+            messageField.appendText(game.nextMove());
+            boardView.draw();
+            if (!game.isOngoing()) {
+                nextRoundButton.setDisable(true);
+                stopSimButton.setDisable(true);
+            }
         }
     }
 
     @FXML
     private void stopSimulation() {
-        game.stop();
-        nextRoundButton.setDisable(true);
-        stopSimButton.setDisable(true);
+        if (game != null) {
+            game.stop();
+            nextRoundButton.setDisable(true);
+            stopSimButton.setDisable(true);
+        }
     }
 
     /**
      * Draws the board.
      */
     public void drawBoard() {
-        boardView.draw();
+        if (game != null) {
+            boardView.draw();
+        }
     }
 
     /**
@@ -79,9 +85,15 @@ public class LifeWindowController {
      * Initializes the game.
      */
     public void initGame() {
-        game = new Game(boardObject, setupController.getPlantCount(),
-                        setupController.getMeatEaterCount(), setupController.getPlantEaterCount());
-        game.init();
+        if (boardObject != null) {
+            try {
+                game = new Game(boardObject, setupController.getPlantCount(),
+                                setupController.getMeatEaterCount(), setupController.getPlantEaterCount());
+                game.init();
+            } catch (Exception e) {
+                messageField.appendText(e.getMessage() + "\n");
+            }
+        }
     }
 
 }
