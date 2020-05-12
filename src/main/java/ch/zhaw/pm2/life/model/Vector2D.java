@@ -97,6 +97,15 @@ public class Vector2D {
     }
 
     /**
+     * Checks if the x or y value of the vector is negative.
+     * @param vector {@link Vector2D} to be checked.
+     * @return true if x or y is negative otherwise false.
+     */
+    public static boolean isNegative(Vector2D vector) {
+        return vector.getX() < 0 || vector.getY() < 0;
+    }
+
+    /**
      * Returns the x value.
      * @return x coordinate as int.
      */
