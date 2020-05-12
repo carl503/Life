@@ -18,6 +18,7 @@ public abstract class GameObject {
 
     private static final int BASIC_SIZE = 5;
     private Random random;
+    private String name;
 
     /**
      * The current energy of this game object.
@@ -178,6 +179,22 @@ public abstract class GameObject {
      */
     public void setColor(Color color) {
         this.color = color;
+    }
+
+    /**
+     * Returns the name of an object
+     * @return String
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Sets the name of a game object
+     * @param name name
+     */
+    public void setName(String name) {
+        this.name = name;
     }
 
     /**
