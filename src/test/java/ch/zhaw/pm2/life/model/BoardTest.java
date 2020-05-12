@@ -77,6 +77,8 @@ public class BoardTest {
         assertEquals(2, board.getOccupiedPositions().size());
         assertTrue(gameObjects.containsAll(board.getGameObjects()));
         assertTrue(positions.containsAll(board.getOccupiedPositions()));
+        assertTrue(board.getGameObjects().containsAll(gameObjects));
+        assertTrue(board.getOccupiedPositions().containsAll(positions));
     }
 
     @Test
@@ -115,6 +117,8 @@ public class BoardTest {
         assertEquals(1, board.getOccupiedPositions().size()); // second and third on same position
         assertTrue(gameObjects.containsAll(board.getGameObjects()));
         assertTrue(positions.containsAll(board.getOccupiedPositions()));
+        assertTrue(board.getGameObjects().containsAll(gameObjects));
+        assertTrue(board.getOccupiedPositions().containsAll(positions));
     }
 
     @Test
