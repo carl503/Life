@@ -49,15 +49,17 @@ public abstract class AnimalObject extends LifeForm {
         }
         int consumeEnergy = 0;
         if (isPoisoned) {
-            consumeEnergy = getPoisonedEnergyConsumption();
+            int poisonedEnergyConsumption = getPoisonedEnergyConsumption();
+            consumeEnergy += poisonedEnergyConsumption;
             logger.log(Level.FINE, "{1} decreased energy (poisoned) by {0}", new Object[] {
                     consumeEnergy, getClass().getSimpleName()
             });
         }
         if (!previousPosition.equals(position)) {
-            consumeEnergy = 1;
+            int moveEnergyConsumption = 1;
+            consumeEnergy += moveEnergyConsumption;
             logger.log(Level.FINE, "{1} decreased energy (move) by {0}", new Object[] {
-                    consumeEnergy, getClass().getSimpleName()
+                    moveEnergyConsumption, getClass().getSimpleName()
             });
         }
         fertilityThreshold++;
