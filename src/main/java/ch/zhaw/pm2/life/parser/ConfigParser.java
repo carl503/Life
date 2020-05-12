@@ -11,7 +11,12 @@ import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.file.Files;
 import java.nio.file.Path;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.Enumeration;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Properties;
+import java.util.Set;
 
 public class ConfigParser {
 
@@ -36,7 +41,13 @@ public class ConfigParser {
         } catch (IOException | URISyntaxException e) {
             throw new LifeException(e);
         }
+    }
 
+    public static ConfigParser getInstance() throws LifeException {
+        if (instance == null) {
+            instance = new ConfigParser();
+        }
+        return instance;
     }
 
     public List<GameObject> parseObjects() throws LifeException {
@@ -58,6 +69,7 @@ public class ConfigParser {
                 int energy = Integer.parseInt(getConfigValue(lifeForm, Options.ENERGY.name()));
                 Color color = Color.valueOf(getConfigValue(lifeForm, Options.COLOR.name()));
                 String name = getConfigValue(lifeForm, Options.NAME.name());
+
                 GameObject gameObject = (GameObject) clazz.getConstructor().newInstance();
                 gameObject.setColor(color);
                 gameObject.setEnergy(energy);
@@ -77,11 +89,14 @@ public class ConfigParser {
         Type type = Type.getType(getConfigValue(lifeForm, Options.TYPE.name()));
         if (type != null) {
             switch (type) {
-                case PLANT_EATER: clazz = Class.forName(Type.PLANT_EATER.value);
+                case PLANT_EATER:
+                    clazz = Class.forName(Type.PLANT_EATER.value);
                     break;
-                case MEAT_EATER: clazz = Class.forName(Type.MEAT_EATER.value);
+                case MEAT_EATER:
+                    clazz = Class.forName(Type.MEAT_EATER.value);
                     break;
-                case PLANT: clazz = Class.forName(Type.PLANT.value);
+                case PLANT:
+                    clazz = Class.forName(Type.PLANT.value);
                     break;
                 default:
                     break;
@@ -97,21 +112,13 @@ public class ConfigParser {
     private void copyConfig() throws LifeException, IOException, URISyntaxException {
         File configFolder = new File(CONFIG_PATH);
 
-
         if (Files.notExists(configFolder.toPath())) {
             Files.createDirectory(configFolder.toPath());
             Files.copy(Path.of(templateFile.toURI()),
-                    new File(configFolder + File.separator + FILE_NAME).toPath());
+                       new File(configFolder + File.separator + FILE_NAME).toPath());
         } else {
             throw new LifeException("Could not create the config folder");
         }
-    }
-
-    public static ConfigParser getInstance() throws LifeException {
-        if (instance == null) {
-            instance = new ConfigParser();
-        }
-        return instance;
     }
 
     private enum Options {
@@ -127,6 +134,7 @@ public class ConfigParser {
         PLANT(LIFE_FORM_PACKAGE + ".plant.FirstPlant");
 
         private final String value;
+
         Type(final String v) {
             value = v;
         }
@@ -142,4 +150,5 @@ public class ConfigParser {
         }
 
     }
+
 }
