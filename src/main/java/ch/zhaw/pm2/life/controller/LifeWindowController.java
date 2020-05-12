@@ -14,18 +14,10 @@ import java.util.Objects;
  */
 public class LifeWindowController {
 
-    /**
-     * Number of rows on the board.
-     */
-    public static final int ROWS = 16;
-
-    /**
-     * Number of columns on the board.
-     */
-    public static final int COLUMNS = 16;
-
-    private final int width = 800;
-    private final int height = 800;
+    private static final int ROWS = 16;
+    private static final int COLUMNS = 16;
+    private static final int WIDTH = 800;
+    private static final int HEIGHT = 800;
 
     private BoardView boardView;
     private Game game;
@@ -44,7 +36,7 @@ public class LifeWindowController {
     public void initialize() {
         try {
             boardObject = new Board(ROWS, COLUMNS);
-            boardView = new BoardView(width, height, boardObject);
+            boardView = new BoardView(WIDTH, HEIGHT, boardObject);
             this.board.getChildren().add(0, boardView);
         } catch (NullPointerException | IllegalArgumentException e) {
             messageField.appendText(e.getMessage());
