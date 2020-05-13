@@ -32,6 +32,10 @@ dependencies {
     // Use JUnit Jupiter API for testing.
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.5.2'
 
+    // Use Hamcrest for testing.
+    testImplementation 'org.hamcrest:hamcrest-library:2.1'
+
+
     // Use JUnit Jupiter Engine for testing.
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.5.2'
 
