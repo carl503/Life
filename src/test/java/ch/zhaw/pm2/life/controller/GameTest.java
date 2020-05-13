@@ -158,6 +158,70 @@ public class GameTest {
         // meat eater tries to eat meat eater (valid)
     }
 
+    @Test
+    public void testNextMoveReproduce() throws LifeFormException {
+        // setup
+        Vector2D zeroPosition = new Vector2D(0,0);
+
+        Set<GameObject> dummyGameObjectsSet = new HashSet<>();
+        Set<Vector2D> dummyPositionsSet = new HashSet<>();
+
+        PlantEater plantEaterChild = mock(PlantEater.class);
+        PlantEater plantEaterMale = mock(PlantEater.class);
+        PlantEater plantEaterFemale = mock(PlantEater.class);
+
+        // plantEaterChild Mock
+        when(plantEaterChild.getEnergy()).thenReturn(10);
+        when(plantEaterChild.getGender()).thenReturn("F");
+        when(plantEaterChild.getPosition()).thenReturn(new Vector2D(1,1));
+
+        // plantEaterMale Mock
+        when(plantEaterMale.getEnergy()).thenReturn(10);
+        when(plantEaterMale.getFertilityThreshold()).thenReturn(10);
+        when(plantEaterMale.getGender()).thenReturn("M");
+        when(plantEaterMale.reproduce(plantEaterFemale)).thenThrow(new LifeFormException("Cannot give birth because im male"));
+        when(plantEaterMale.getPosition()).thenReturn(zeroPosition);
+
+        dummyGameObjectsSet.add(plantEaterMale);
+        dummyPositionsSet.add(plantEaterMale.getPosition());
+
+        // plantEaterFemale Mock
+        when(plantEaterFemale.getEnergy()).thenReturn(10);
+        when(plantEaterFemale.getFertilityThreshold()).thenReturn(10);
+        when(plantEaterFemale.getGender()).thenReturn("F");
+        when(plantEaterFemale.reproduce(plantEaterMale)).thenReturn(plantEaterChild);
+        when(plantEaterFemale.getPosition()).thenReturn(zeroPosition);
+
+        dummyGameObjectsSet.add(plantEaterFemale);
+        dummyPositionsSet.add(plantEaterFemale.getPosition());
+
+        dummyGameObjectsSet.add(plantEaterChild);
+        dummyPositionsSet.add(plantEaterChild.getPosition());
+
+        //board mock
+        when(board.getGameObjects()).thenReturn(dummyGameObjectsSet);
+        when(board.getOccupiedPositions()).thenReturn(dummyPositionsSet);
+        when(board.noAnimalExtinct()).thenReturn(true);
+
+
+        game = new Game(board,0, 0, 2);
+        game.init();
+        game.nextMove();
+
+        // verifies and assertions
+        verify(plantEaterMale, times(0)).eat(plantEaterFemale);
+        verify(plantEaterMale, times(1)).reproduce(plantEaterFemale);
+        verify(plantEaterFemale, times(1)).reproduce(plantEaterMale);
+        verify(plantEaterMale, times(1)).move(anySet());
+        verify(plantEaterFemale, times(1)).move(anySet());
+
+        assertThat(game.nextMove(), anyOf(is(plantEaterFemale.getClass().getSimpleName() + ": We just reproduced with each other\nCannot give birth because im male\r\n"),
+                                          is("Cannot give birth because im male\r\n" + plantEaterFemale.getClass().getSimpleName() + ": We just reproduced with each other\n")));
+        dummyGameObjectsSet.add(plantEaterChild);
+        assertEquals(3, board.getGameObjects().size());
+        dummyPositionsSet.add(plantEaterChild.getPosition());
+        assertEquals(2, board.getOccupiedPositions().size());
+    }
     //==================================================================================================================
     // Negative tests
     //==================================================================================================================
