@@ -1,8 +1,13 @@
 package ch.zhaw.pm2.life.controller;
 
+import ch.zhaw.pm2.life.exception.LifeFormException;
 import ch.zhaw.pm2.life.model.Board;
 import ch.zhaw.pm2.life.model.GameObject;
 import ch.zhaw.pm2.life.model.Vector2D;
+import ch.zhaw.pm2.life.model.lifeform.animal.AnimalObject;
+import ch.zhaw.pm2.life.model.lifeform.animal.MeatEater;
+import ch.zhaw.pm2.life.model.lifeform.animal.PlantEater;
+import ch.zhaw.pm2.life.model.lifeform.plant.PlantObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -84,7 +89,49 @@ public class GameTest {
     }
 
     @Test
-    public void testNextMove() {
+    public void testNextMoveEat() throws LifeFormException {
+
+        // setup
+        Vector2D zeroPosition = new Vector2D(0,0);
+        Set<GameObject> dummyGameObjectsSet = new HashSet<>();
+        Set<Vector2D> dummyPositionsSet = new HashSet<>();
+
+        // plantObject Mock
+        PlantObject plantObject = mock(PlantObject.class);
+        when(plantObject.getEnergy()).thenReturn(10);
+        when(plantObject.getGender()).thenReturn("N");
+        when(plantObject.getPosition()).thenReturn(zeroPosition);
+
+        dummyGameObjectsSet.add(plantObject);
+        dummyPositionsSet.add(plantObject.getPosition());
+
+        // animalObject Mock
+        AnimalObject animalObject = mock(AnimalObject.class);
+        when(animalObject.getEnergy()).thenReturn(10);
+        when(animalObject.getGender()).thenReturn("F");
+        when(animalObject.getPosition()).thenReturn(zeroPosition);
+
+        // Sets and game init
+        dummyGameObjectsSet.add(animalObject);
+        dummyPositionsSet.add(animalObject.getPosition());
+
+        when(board.getGameObjects()).thenReturn(dummyGameObjectsSet);
+        when(board.getOccupiedPositions()).thenReturn(dummyPositionsSet);
+        when(board.noAnimalExtinct()).thenReturn(true);
+
+        game = new Game(board,1, 0, 1);
+        game.init();
+        game.nextMove();
+
+        // verifies and assertions
+        verify(animalObject, times(1)).eat(plantObject);
+        verify(animalObject, times(1)).move(anySet());
+
+        assertEquals( animalObject.getClass().getSimpleName() + ": Yummy food (" + plantObject.getClass().getSimpleName() + ")!\n", game.nextMove());
+        dummyGameObjectsSet.remove(plantObject);
+        assertEquals(1, board.getGameObjects().size());
+        assertEquals(1, board.getOccupiedPositions().size());
+
         // IMPORTANT TO CHECK: positions, number of occupied positions, number of game objects, message log
 
         // TODO: test move
