@@ -222,6 +222,50 @@ public class GameTest {
         dummyPositionsSet.add(plantEaterChild.getPosition());
         assertEquals(2, board.getOccupiedPositions().size());
     }
+
+    @Test
+    public void testNextMoveNoMovesDone() {
+        // setup
+        Vector2D zeroPosition = new Vector2D(0,0);
+        Vector2D onePosition = new Vector2D(1,1);
+        Set<GameObject> dummyGameObjectsSet = new HashSet<>();
+        Set<Vector2D> dummyPositionsSet = new HashSet<>();
+
+        // animalObjectOne Mock
+        AnimalObject animalObjectOne = mock(AnimalObject.class);
+        when(animalObjectOne.getEnergy()).thenReturn(10);
+        when(animalObjectOne.getGender()).thenReturn("F");
+        when(animalObjectOne.getPosition()).thenReturn(zeroPosition);
+
+        dummyGameObjectsSet.add(animalObjectOne);
+        dummyPositionsSet.add(animalObjectOne.getPosition());
+
+        // animalObjectTwo Mock
+        AnimalObject animalObjectTwo = mock(AnimalObject.class);
+        when(animalObjectTwo.getEnergy()).thenReturn(10);
+        when(animalObjectTwo.getGender()).thenReturn("F");
+        when(animalObjectTwo.getPosition()).thenReturn(onePosition);
+
+        dummyGameObjectsSet.add(animalObjectTwo);
+        dummyPositionsSet.add(animalObjectTwo.getPosition());
+
+        //board mock
+        when(board.getGameObjects()).thenReturn(dummyGameObjectsSet);
+        when(board.getOccupiedPositions()).thenReturn(dummyPositionsSet);
+        when(board.noAnimalExtinct()).thenReturn(true);
+
+        game = new Game(board,0, 0, 2);
+        game.init();
+        game.nextMove();
+
+        // verifies and assertions
+        verify(animalObjectOne, times(1)).move(anySet());
+        verify(animalObjectTwo, times(1)).move(anySet());
+
+        assertEquals( "", game.nextMove());
+        assertEquals(2, board.getGameObjects().size());
+        assertEquals(2, board.getOccupiedPositions().size());
+    }
     //==================================================================================================================
     // Negative tests
     //==================================================================================================================
