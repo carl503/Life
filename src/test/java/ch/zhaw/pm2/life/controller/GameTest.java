@@ -269,6 +269,43 @@ public class GameTest {
         assertEquals(2, board.getGameObjects().size());
         assertEquals(2, board.getOccupiedPositions().size());
     }
+
+    @Test
+    public void testNextMoveDiedOfExhaustion() {
+        // setup
+        Vector2D zeroPosition = new Vector2D(0,0);
+
+        Set<GameObject> dummyGameObjectsSet = new HashSet<>();
+        Set<Vector2D> dummyPositionsSet = new HashSet<>();
+
+        // animalObjectOne Mock
+        MeatEater meatEater = mock(MeatEater.class);
+        when(meatEater.getEnergy()).thenReturn(-1);
+        when(meatEater.getGender()).thenReturn("F");
+        when(meatEater.getPosition()).thenReturn(zeroPosition);
+
+        dummyGameObjectsSet.add(meatEater);
+        dummyPositionsSet.add(meatEater.getPosition());
+
+        //board mock
+        when(board.getGameObjects()).thenReturn(dummyGameObjectsSet);
+        when(board.getOccupiedPositions()).thenReturn(dummyPositionsSet);
+        when(board.noAnimalExtinct()).thenReturn(true);
+
+        game = new Game(board,0, 1, 0);
+        game.init();
+        game.nextMove();
+
+        // verifies and assertions
+        verify(meatEater, times(1)).move(anySet());
+        assertEquals(meatEater.getClass().getSimpleName() + ": died of exhaustion.\r\n", game.nextMove());
+        dummyPositionsSet.remove(meatEater.getPosition());
+        assertEquals(0, board.getOccupiedPositions().size());
+        dummyGameObjectsSet.remove(meatEater);
+        assertEquals(0, board.getGameObjects().size());
+
+    }
+
     //==================================================================================================================
     // Negative tests
     //==================================================================================================================
