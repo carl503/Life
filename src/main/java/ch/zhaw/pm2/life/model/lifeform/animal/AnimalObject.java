@@ -21,6 +21,11 @@ public abstract class AnimalObject extends LifeForm {
      */
     public static final int INIT_ENERGY_ANIMALS = 10;
 
+    /**
+     * Value needed to reproduce for {@link AnimalObject} must be bigger than REPRODUCTION_MINIMUM.
+     */
+    private static final int REPRODUCTION_MINIMUM = 9;
+
     private static final Logger logger = Logger.getLogger(AnimalObject.class.getCanonicalName());
 
     /**
@@ -150,7 +155,7 @@ public abstract class AnimalObject extends LifeForm {
     /**
      * Resets the fertility threshold.
      */
-    public void resetFertilityThreshold() {
+    private void resetFertilityThreshold() {
         this.fertilityThreshold = 0;
     }
 
@@ -158,8 +163,28 @@ public abstract class AnimalObject extends LifeForm {
      * Is called when the animal reproduces.
      * @throws LifeFormException    could not reproduce with the life form
      * @throws NullPointerException the provided life form wanted to reproduce with is null.
+     * @return animalObjectChild depending on which Object called the method.
      */
-    public abstract AnimalObject reproduce(LifeForm lifeForm) throws LifeFormException;
+    public AnimalObject reproduce(LifeForm partner) throws LifeFormException {
+        Objects.requireNonNull(partner, "Cannot be null.");
+        if (partner.getGender().equals("F")) {
+            throw new LifeFormException("Cannot give birth because im male");
+        } else if (getFertilityThreshold() < REPRODUCTION_MINIMUM) {
+            throw new LifeFormException("Cannot reproduce because partner is not fertile yet");
+        }
+        resetFertilityThreshold(); // sets own counter to zero (only on females)
+        AnimalObject animalObjectChild = createChild();
+        animalObjectChild.setPosition(this.chooseRandomNeighbourPosition());
+        return animalObjectChild;
+    }
+
+    private AnimalObject createChild() throws LifeFormException {
+        try {
+            return getClass().getConstructor().newInstance();
+        } catch (ReflectiveOperationException e) {
+            throw new LifeFormException("There were complications at birth", e);
+        }
+    }
 
     @Override
     public FoodType getFoodType() {

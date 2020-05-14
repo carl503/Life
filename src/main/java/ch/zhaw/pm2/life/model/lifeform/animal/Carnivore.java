@@ -6,7 +6,6 @@ import ch.zhaw.pm2.life.model.Vector2D;
 import ch.zhaw.pm2.life.model.lifeform.LifeForm;
 import ch.zhaw.pm2.life.model.lifeform.LifeFormActionCheck;
 
-import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -14,8 +13,6 @@ import java.util.Set;
  * @author pedernin
  */
 public class Carnivore extends AnimalObject {
-
-    private static final int REPRODUCTION_MINIMUM = 9;
 
     /**
      * Default constructor.
@@ -38,20 +35,6 @@ public class Carnivore extends AnimalObject {
                 throw new LifeFormException("Cannot eat this carnivore. He is stronger than I.");
             }
         };
-    }
-
-    @Override
-    public AnimalObject reproduce(LifeForm partner) throws LifeFormException {
-        Objects.requireNonNull(partner, "Cannot be null.");
-        if (partner.getGender().equals("F")) {
-            throw new LifeFormException("Cannot give birth because im male");
-        } else if (getFertilityThreshold() < REPRODUCTION_MINIMUM) {
-            throw new LifeFormException("Cannot reproduce because partner is not fertile yet");
-        }
-        resetFertilityThreshold(); // sets own counter to zero (only on females)
-        Carnivore carnivoreChild = new Carnivore();
-        carnivoreChild.setPosition(this.chooseRandomNeighbourPosition());
-        return carnivoreChild;
     }
 
 }

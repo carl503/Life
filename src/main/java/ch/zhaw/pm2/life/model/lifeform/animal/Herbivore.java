@@ -7,7 +7,6 @@ import ch.zhaw.pm2.life.model.lifeform.LifeForm;
 import ch.zhaw.pm2.life.model.lifeform.LifeFormActionCheck;
 import ch.zhaw.pm2.life.model.lifeform.plant.Plant;
 
-import java.util.Objects;
 import java.util.Set;
 
 /**
@@ -15,8 +14,6 @@ import java.util.Set;
  * @author pedernin
  */
 public class Herbivore extends AnimalObject {
-
-    private static final int REPRODUCTION_MINIMUM = 9;
 
     /**
      * Default constructor.
@@ -47,20 +44,6 @@ public class Herbivore extends AnimalObject {
                 throw new LifeFormException("Cannot eat this meat, I am vegetarian.");
             }
         };
-    }
-
-    @Override
-    public AnimalObject reproduce(LifeForm partner) throws LifeFormException {
-        Objects.requireNonNull(partner, "Cannot be null.");
-        if (partner.getGender().equals("F")) {
-            throw new LifeFormException("Cannot give birth because im male");
-        } else if (getFertilityThreshold() < REPRODUCTION_MINIMUM) {
-            throw new LifeFormException("Cannot reproduce because partner is not fertile yet");
-        }
-        resetFertilityThreshold(); // sets own counter to zero (only on females)
-        Herbivore herbivoreChild = new Herbivore();
-        herbivoreChild.setPosition(this.chooseRandomNeighbourPosition());
-        return herbivoreChild;
     }
 
 }
