@@ -125,7 +125,7 @@ public class Game {
      */
     public String nextMove() {
         StringBuilder messageLog = new StringBuilder();
-        if (ongoing && board.noAnimalExtinct()) {
+        if (ongoing && board.areAllSpeciesAlive()) {
             spawnPlantRandomlyOnMap();
             Map<Vector2D, Set<GameObject>> positionMap = new HashMap<>();
             messageLog.append(move(positionMap));

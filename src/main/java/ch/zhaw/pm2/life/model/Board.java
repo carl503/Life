@@ -170,7 +170,7 @@ public class Board {
      * Returns if an animal form is extinct.
      * @return true if no animal form is extinct otherwise false
      */
-    public boolean noAnimalExtinct() {
+    public boolean areAllSpeciesAlive() {
         Set<String> found = new HashSet<>();
 
         for (GameObject gameObject : gameObjects) {
