@@ -3,8 +3,10 @@ package ch.zhaw.pm2.life.controller;
 import ch.zhaw.pm2.life.controller.dialogs.ChangeEnergyDialog;
 import ch.zhaw.pm2.life.controller.dialogs.ChangeNameDialog;
 import ch.zhaw.pm2.life.controller.dialogs.ColorPickerDialog;
+import ch.zhaw.pm2.life.controller.dialogs.ScanRadiusDialog;
 import ch.zhaw.pm2.life.model.Board;
 import ch.zhaw.pm2.life.model.GameObject;
+import ch.zhaw.pm2.life.model.lifeform.animal.AnimalObject;
 import ch.zhaw.pm2.life.view.BoardView;
 import ch.zhaw.pm2.life.view.StatisticView;
 import javafx.fxml.FXML;
@@ -140,14 +142,37 @@ public class LifeWindowController {
                 lifeform.getItems().add(changeName(gameObject));
                 lifeform.getItems().add(changeEnergy(gameObject));
 
+                if (gameObject instanceof AnimalObject) {
+                    AnimalObject animalObject = (AnimalObject) gameObject;
+                    lifeform.getItems().add(changeScanRadius(animalObject));
+                }
+
                 editMenu.getItems().add(lifeform);
             }
         });
     }
 
+    private MenuItem changeScanRadius(AnimalObject animalObject) {
+        MenuItem radiusItem = new MenuItem();
+        radiusItem.setText("Sichtweite aendern");
+        radiusItem.setOnAction(event -> {
+            ScanRadiusDialog dialog = new ScanRadiusDialog();
+            Optional<Integer> response = dialog.showAndWait();
+            response.ifPresent(responseValue -> boardObject.getGameObjects().stream()
+                    .filter(AnimalObject.class::isInstance)
+                    .map(AnimalObject.class::cast)
+                    .forEach(ao -> {
+                        if (ao.getName().equals(animalObject.getName())) {
+                            ao.setScanRadius(response.get());
+                        }
+                    }));
+        });
+        return radiusItem;
+    }
+
     private MenuItem changeColor(GameObject gameObject) {
         MenuItem changeColor = new MenuItem();
-        changeColor.setText("Change color");
+        changeColor.setText("Farbe aendern");
         changeColor.setOnAction(event -> {
             ColorPickerDialog dialog = new ColorPickerDialog();
             Optional<String> response = dialog.showAndWait();
