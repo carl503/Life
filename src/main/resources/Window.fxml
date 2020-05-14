@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane minHeight="1000.0" minWidth="1000.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.zhaw.pm2.life.controller.LifeWindowController">
+<BorderPane fx:id="borderPane" minHeight="600.0" minWidth="400.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.zhaw.pm2.life.controller.LifeWindowController">
    <top>
       <MenuBar prefHeight="25.0" prefWidth="600.0" BorderPane.alignment="CENTER">
         <menus>
@@ -17,6 +17,12 @@
               <MenuItem mnemonicParsing="false" text="Delete" />
             </items>
           </Menu>
+            <Menu mnemonicParsing="false" text="View">
+               <items>
+                  <CheckMenuItem fx:id="toggleMessageItem" mnemonicParsing="false" selected="true" text="Show Messages" />
+                  <CheckMenuItem fx:id="toggleSidebarItem" mnemonicParsing="false" selected="true" text="Show Sidebar" />
+               </items>
+            </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <items>
               <MenuItem mnemonicParsing="false" text="About" />
@@ -26,18 +32,19 @@
       </MenuBar>
    </top>
    <bottom>
-      <ButtonBar buttonOrder="U+L_HE+FBIX_NCYOA_R" maxHeight="40.0" prefHeight="40.0" prefWidth="200.0" BorderPane.alignment="CENTER">
-        <buttons>
-          <Button fx:id="nextRoundButton" mnemonicParsing="false" onAction="#nextRound" text="Nächste Runde" />
-            <Button fx:id="stopSimButton" mnemonicParsing="false" onAction="#stopSimulation" text="Simulation stoppen" />
-        </buttons>
-      </ButtonBar>
-   </bottom>
-   <center>
-      <VBox fx:id="board" prefHeight="560.0" prefWidth="800.0" BorderPane.alignment="CENTER">
+      <VBox BorderPane.alignment="CENTER">
          <children>
             <TextArea fx:id="messageField" editable="false" prefHeight="181.0" prefWidth="800.0" />
+            <ButtonBar buttonOrder="U+L_HE+FBIX_NCYOA_R" maxHeight="40.0" prefHeight="40.0" prefWidth="200.0">
+              <buttons>
+                <Button fx:id="nextRoundButton" mnemonicParsing="false" onAction="#nextRound" text="Nächste Runde" />
+                  <Button fx:id="stopSimButton" mnemonicParsing="false" onAction="#stopSimulation" text="Simulation stoppen" />
+              </buttons>
+            </ButtonBar>
          </children>
       </VBox>
+   </bottom>
+   <center>
+      <Pane fx:id="board" prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>
