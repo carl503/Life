@@ -1,50 +1,25 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane fx:id="rootPane" fx:controller="ch.zhaw.pm2.life.controller.SetupController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="128.0" prefWidth="347.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="128.0" prefWidth="347.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.zhaw.pm2.life.controller.SetupController">
    <bottom>
       <Button mnemonicParsing="false" onAction="#startSimulation" text="Simulation starten" BorderPane.alignment="CENTER" />
    </bottom>
-   <left>
-      <VBox prefHeight="245.0" prefWidth="134.0" spacing="8.0" BorderPane.alignment="CENTER">
-         <children>
-            <Label text="Anzahl Pflanzen" />
-            <Label text="Anzahl Fleischfresser" />
-            <Label text="Anzahl Pflanzenfresser" />
-         </children>
-         <BorderPane.margin>
-            <Insets left="10.0" top="10.0" />
-         </BorderPane.margin>
-      </VBox>
-   </left>
-   <right>
-      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
-         <children>
-            <Spinner fx:id="plantCount">
-               <valueFactory>
-                  <SpinnerValueFactory.IntegerSpinnerValueFactory min="0" max="10"/>
-               </valueFactory>
-            </Spinner>
-            <Spinner fx:id="carnivoreCount">
-               <valueFactory>
-                  <SpinnerValueFactory.IntegerSpinnerValueFactory min="0" max="10"/>
-               </valueFactory>
-            </Spinner>
-            <Spinner fx:id="herbivoreCount">
-               <valueFactory>
-                  <SpinnerValueFactory.IntegerSpinnerValueFactory min="0" max="10"/>
-               </valueFactory>
-            </Spinner>
-         </children>
-         <opaqueInsets>
-            <Insets />
-         </opaqueInsets>
-         <padding>
-            <Insets right="10.0" top="10.0" />
-         </padding>
-      </VBox>
-   </right>
+   <center>
+      <ScrollPane prefHeight="200.0" prefWidth="200.0" BorderPane.alignment="CENTER">
+         <content>
+            <GridPane fx:id="pane">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+            </GridPane>
+         </content>
+      </ScrollPane>
+   </center>
 </BorderPane>
