@@ -13,6 +13,8 @@ import org.mockito.MockitoAnnotations;
 import java.util.HashSet;
 import java.util.Set;
 
+import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -141,11 +143,21 @@ public class BoardTest {
         assertTrue(board.areAllSpeciesAlive());
     }
 
+    @Test
+    public void testGetRandomValueValid() {
+        assertThat(board.getRandomPosition().getX(), anyOf(is(0), is(1), is(2)));
+        assertThat(board.getRandomPosition().getY(), anyOf(is(0), is(1), is(2)));
     }
 
     //==================================================================================================================
     // Negative tests
     //==================================================================================================================
+
+    @Test
+    public void testGetRandomValueInValid() {
+        assertThat(board.getRandomPosition().getX(), anyOf(is(not(-1)), is(not(4)), is(not(2.5))));
+        assertThat(board.getRandomPosition().getY(), anyOf(is(not(-0)), is(not(0.0)), is(not(3.0))));
+    }
 
     @Test
     public void testAddGameObjectNull() {
