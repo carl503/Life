@@ -1,16 +1,19 @@
 package ch.zhaw.pm2.life.controller;
 
+import ch.zhaw.pm2.life.controller.dialogs.ChangeEnergyDialog;
+import ch.zhaw.pm2.life.controller.dialogs.ChangeNameDialog;
+import ch.zhaw.pm2.life.controller.dialogs.ColorPickerDialog;
 import ch.zhaw.pm2.life.model.Board;
 import ch.zhaw.pm2.life.model.GameObject;
 import ch.zhaw.pm2.life.view.BoardView;
 import ch.zhaw.pm2.life.view.StatisticView;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextArea;
+import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -30,6 +33,7 @@ public class LifeWindowController {
     @FXML private TextArea messageField;
     @FXML private Button nextRoundButton;
     @FXML private Button stopSimButton;
+    @FXML private Menu editMenu;
 
     /**
      * Initializes everything after the JavaFX components are injected,
@@ -124,6 +128,78 @@ public class LifeWindowController {
                 messageField.appendText(e.getMessage() + "\n");
             }
         }
+    }
+
+    public void initEditMenu() {
+        setupController.getGameObjects().forEach((gameObject, amount) -> {
+            if (amount > 0) {
+                Menu lifeform = new Menu();
+                lifeform.setText(gameObject.getName());
+
+                lifeform.getItems().add(changeColor(gameObject));
+                lifeform.getItems().add(changeName(gameObject));
+                lifeform.getItems().add(changeEnergy(gameObject));
+
+                editMenu.getItems().add(lifeform);
+            }
+        });
+    }
+
+    private MenuItem changeColor(GameObject gameObject) {
+        MenuItem changeColor = new MenuItem();
+        changeColor.setText("Change color");
+        changeColor.setOnAction(event -> {
+            ColorPickerDialog dialog = new ColorPickerDialog();
+            Optional<String> response = dialog.showAndWait();
+            response.ifPresent(responseValue -> boardObject.getGameObjects().forEach(go -> {
+                if (go.getName().equals(gameObject.getName())) {
+                    go.setColor(responseValue);
+                }
+            }));
+        });
+        return changeColor;
+    }
+
+    private MenuItem changeName(GameObject gameObject) {
+        MenuItem changeName = new MenuItem();
+        changeName.setText("Name aendern");
+        changeName.setOnAction(event -> {
+            ChangeNameDialog changeNameDialog = new ChangeNameDialog();
+            changeNameDialog.showAndWait();
+
+            boardObject.getGameObjects().forEach(gameObject1 -> {
+                if (gameObject1.getName().equals(gameObject.getName())) {
+                    String newName = changeNameDialog.getEditor().getText();
+                    gameObject1.setName(newName);
+                    editMenu.getItems().forEach(menuItem -> {
+                        if (menuItem.getText().equals(gameObject.getName())) {
+                            menuItem.setText(newName);
+                        }
+                    });
+                }
+            });
+        });
+        return changeName;
+    }
+
+    private MenuItem changeEnergy(GameObject gameObject) {
+        MenuItem changeEnergy = new MenuItem();
+        changeEnergy.setText("Energie aendern");
+        changeEnergy.setOnAction(event -> {
+            ChangeEnergyDialog changeEnergyDialog = new ChangeEnergyDialog();
+            changeEnergyDialog.showAndWait();
+            String energyString = changeEnergyDialog.getEditor().getText();
+            if (energyString.isBlank()) {
+                return;
+            }
+            int energy = Integer.parseInt(energyString);
+            boardObject.getGameObjects().forEach(gameObject1 -> {
+                if(gameObject1.equals(gameObject)) {
+                    gameObject1.setEnergy(energy);
+                }
+            });
+        });
+        return changeEnergy;
     }
 
 }
