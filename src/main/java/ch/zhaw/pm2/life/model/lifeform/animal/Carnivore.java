@@ -19,6 +19,7 @@ public class Carnivore extends AnimalObject {
      */
     public Carnivore() {
         this.color = "red";
+        setName("Carnivore");
     }
 
     @Override

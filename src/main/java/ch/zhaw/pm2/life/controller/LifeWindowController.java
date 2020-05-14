@@ -2,10 +2,12 @@ package ch.zhaw.pm2.life.controller;
 
 import ch.zhaw.pm2.life.model.Board;
 import ch.zhaw.pm2.life.view.BoardView;
+import ch.zhaw.pm2.life.view.StatisticView;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.Pane;
+import javafx.stage.Stage;
 
 import java.util.Objects;
 
@@ -21,6 +23,8 @@ public class LifeWindowController {
     private Game game;
     private SetupController setupController;
     private Board boardObject;
+
+    private StatisticView statisticView = new StatisticView();
 
     @FXML private Pane board;
     @FXML private TextArea messageField;
@@ -51,6 +55,7 @@ public class LifeWindowController {
             if (!game.isOngoing()) {
                 nextRoundButton.setDisable(true);
                 stopSimButton.setDisable(true);
+                showStatistics();
             }
         }
     }
@@ -61,6 +66,7 @@ public class LifeWindowController {
             game.stop();
             nextRoundButton.setDisable(true);
             stopSimButton.setDisable(true);
+            showStatistics();
         }
     }
 
@@ -71,6 +77,16 @@ public class LifeWindowController {
         if (newHeight > 0.0 && newWidth > 0.0) {
             boardView.updateDimension(newWidth, newHeight);
         }
+    }
+
+    private void showStatistics() {
+        statisticView.setStartLifeForms(game.getStartLifeForms());
+        statisticView.setBornLifeForms(game.getBornLifeForms());
+        statisticView.setDiedLifeForms(game.getDeadLifeForms());
+        statisticView.setSurvivedLifeForms(game.getSurvivedLifeForms());
+        statisticView.setSpawnLifeForms(game.getSpawnedLifeForms());
+        statisticView.initChart((Stage) board.getScene().getWindow());
+        statisticView.show();
     }
 
     /**

@@ -20,6 +20,7 @@ public class Plant extends LifeForm {
     public Plant() {
         energy = AnimalObject.INIT_ENERGY_ANIMALS * PLANT_ENERGY_FACTOR;
         color = "green";
+        setName("Plant");
     }
 
     @Override

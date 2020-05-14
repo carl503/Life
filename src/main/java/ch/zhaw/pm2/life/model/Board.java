@@ -91,11 +91,9 @@ public class Board {
      * Remove all dead life forms from the board.
      */
     public void cleanBoard() {
-        Set<LifeForm> deadLifeForms = gameObjects.stream()
-                .filter(LifeForm.class::isInstance)
-                .map(LifeForm.class::cast)
-                .filter(LifeForm::isDead)
-                .collect(Collectors.toSet());
+        Set<LifeForm> deadLifeForms = getLifeForms().stream()
+                                                    .filter(LifeForm::isDead)
+                                                    .collect(Collectors.toSet());
         gameObjects.removeAll(deadLifeForms);
         occupiedPositions.removeAll(getFreedPositions(deadLifeForms));
     }
@@ -108,6 +106,13 @@ public class Board {
         return deadLifeForms.stream()
                 .map(GameObject::getPosition)
                 .filter(not(currentOccupiedPositions::contains)) // positions of dead life forms that were alone on that position
+                .collect(Collectors.toSet());
+    }
+
+    public Set<LifeForm> getLifeForms() {
+        return gameObjects.stream()
+                .filter(LifeForm.class::isInstance)
+                .map(LifeForm.class::cast)
                 .collect(Collectors.toSet());
     }
 

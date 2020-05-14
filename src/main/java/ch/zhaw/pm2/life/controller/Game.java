@@ -45,7 +45,10 @@ public class Game {
     private static final Logger logger = Logger.getLogger(Game.class.getName());
     private static final int SCAN_RADIUS = 2;
 
-    private final Set<GameObject> deadLifeForms = new HashSet<>();
+    private final Set<LifeForm> startLifeForms = new HashSet<>();
+    private final Set<LifeForm> bornLifeForms = new HashSet<>();
+    private final Set<LifeForm> deadLifeForms = new HashSet<>();
+    private final Set<LifeForm> spawnedLifeForms = new HashSet<>();
     private final Random random = new Random();
     private final Board board;
     private boolean ongoing = true;
@@ -156,13 +159,14 @@ public class Game {
         if (gameObject instanceof LifeForm && gameObject.getEnergy() < ENERGY_VALUE_DEAD) {
             LifeForm lifeForm = (LifeForm) gameObject;
             lifeForm.die();
+            deadLifeForms.add(lifeForm);
             return String.format("%s: died of exhaustion.%n", gameObject.getName());
         }
         return message;
     }
 
     private String interact(Map<Vector2D, Set<GameObject>> positionMap) {
-        Set<GameObject> newLifeForms = new HashSet<>();
+        Set<LifeForm> newLifeForms = new HashSet<>();
         StringBuilder stringBuilder = new StringBuilder();
 
         board.getGameObjects().stream()
@@ -177,11 +181,12 @@ public class Game {
 
         board.cleanBoard();
         newLifeForms.forEach(lifeForm -> board.addGameObject(lifeForm, lifeForm.getPosition()));
+        bornLifeForms.addAll(newLifeForms);
 
         return stringBuilder.toString();
     }
 
-    private String handleCollision(Set<GameObject> sameFieldSet, AnimalObject animalObject, Set<GameObject> newLifeForms) {
+    private String handleCollision(Set<GameObject> sameFieldSet, AnimalObject animalObject, Set<LifeForm> newLifeForms) {
         StringBuilder stringBuilder = new StringBuilder();
 
         sameFieldSet.stream()
@@ -213,8 +218,30 @@ public class Game {
     private void spawnPlantRandomlyOnMap() {
         int spawnChance = random.nextInt(11);
         if (spawnChance < PLANT_RESPAWN_CHANCE) {
-            board.addGameObject(new Plant(), calculatePosition());
+            Plant plant = new Plant();
+            board.addGameObject(plant, calculatePosition());
+            spawnedLifeForms.add(plant);
         }
+    }
+
+    public Set<LifeForm> getStartLifeForms() {
+        return startLifeForms;
+    }
+
+    public Set<LifeForm> getBornLifeForms() {
+        return bornLifeForms;
+    }
+
+    public Set<LifeForm> getDeadLifeForms() {
+        return deadLifeForms;
+    }
+
+    public Set<LifeForm> getSurvivedLifeForms() {
+        return board.getLifeForms();
+    }
+
+    public Set<LifeForm> getSpawnedLifeForms() {
+        return spawnedLifeForms;
     }
 
 }
