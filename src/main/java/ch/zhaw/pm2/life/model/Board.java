@@ -142,7 +142,7 @@ public class Board {
     public Set<GameObject> getNeighbourObjects(GameObject gameObject, int radius) {
         Set<GameObject> neighbours = new HashSet<>();
         int diameter = 2 * radius;
-        if (gameObject == null) { return neighbours; }
+        if (gameObject == null || diameter == 0) { return neighbours; }
 
         Vector2D topLeftCorner = Vector2D.add(gameObject.position,
                                               Vector2D.multiply(radius, Direction.UP_LEFT.getDirectionVector()));
