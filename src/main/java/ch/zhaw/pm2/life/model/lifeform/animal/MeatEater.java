@@ -5,7 +5,6 @@ import ch.zhaw.pm2.life.model.GameObject;
 import ch.zhaw.pm2.life.model.Vector2D;
 import ch.zhaw.pm2.life.model.lifeform.LifeForm;
 import ch.zhaw.pm2.life.model.lifeform.LifeFormActionCheck;
-import javafx.scene.paint.Color;
 
 import java.util.Objects;
 import java.util.Set;
@@ -22,7 +21,7 @@ public class MeatEater extends AnimalObject {
      * Default constructor.
      */
     public MeatEater() {
-        this.color = Color.RED;
+        this.color = "red";
     }
 
     @Override

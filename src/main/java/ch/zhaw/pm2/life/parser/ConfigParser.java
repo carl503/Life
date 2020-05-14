@@ -2,7 +2,6 @@ package ch.zhaw.pm2.life.parser;
 
 import ch.zhaw.pm2.life.exception.LifeException;
 import ch.zhaw.pm2.life.model.GameObject;
-import javafx.scene.paint.Color;
 
 import java.io.File;
 import java.io.FileReader;
@@ -67,7 +66,7 @@ public class ConfigParser {
                 }
 
                 int energy = Integer.parseInt(getConfigValue(lifeForm, Options.ENERGY.name()));
-                Color color = Color.valueOf(getConfigValue(lifeForm, Options.COLOR.name()));
+                String color = getConfigValue(lifeForm, Options.COLOR.name());
                 String name = getConfigValue(lifeForm, Options.NAME.name());
 
                 GameObject gameObject = (GameObject) clazz.getConstructor().newInstance();

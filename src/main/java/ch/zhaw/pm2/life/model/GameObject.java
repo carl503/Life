@@ -1,7 +1,5 @@
 package ch.zhaw.pm2.life.model;
 
-import javafx.scene.paint.Color;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -33,7 +31,7 @@ public abstract class GameObject {
     /**
      * The color of this game object.
      */
-    protected Color color;
+    protected String color;
 
     /**
      * The size used to scale this object in the visualization.
@@ -52,15 +50,6 @@ public abstract class GameObject {
         size = BASIC_SIZE;
         random = new Random();
     }
-
-    /**
-     * Returns the energy of this {@link GameObject}.
-     * @return current energy as int.
-     */
-    public int getEnergy() {
-        return energy;
-    }
-
     /**
      * Increase the energy by a certain value.
      * @param energy increasing energy by this amount.
@@ -101,10 +90,18 @@ public abstract class GameObject {
 
     /**
      * Returns the color of the {@link GameObject}.
-     * @return color as {@link Color}.
+     * @return color as {@link String}.
      */
-    public Color getColor() {
+    public String getColor() {
         return color;
+    }
+
+    /**
+     * Sets the color of this {@link GameObject}.
+     * @param color sets the color as {@link String};
+     */
+    public void setColor(String color) {
+        this.color = color;
     }
 
     /**
@@ -166,19 +163,19 @@ public abstract class GameObject {
     }
 
     /**
+     * Returns the energy of this {@link GameObject}.
+     * @return current energy as int.
+     */
+    public int getEnergy() {
+        return energy;
+    }
+
+    /**
      * Sets the energy of this {@link GameObject}.
      * @param energy the energy as int.
      */
     public void setEnergy(int energy) {
         this.energy = energy;
-    }
-
-    /**
-     * Sets the color of this {@link GameObject}.
-     * @param color sets the color as {@link Color};
-     */
-    public void setColor(Color color) {
-        this.color = color;
     }
 
     /**

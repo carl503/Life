@@ -89,7 +89,7 @@ public class BoardView extends Canvas {
     }
 
     private void drawGameObject(GameObject gameObject, double scaling, double translatedX, double translatedY) {
-        getGraphicsContext2D().setFill(gameObject.getColor());
+        getGraphicsContext2D().setFill(Color.valueOf(gameObject.getColor()));
         getGraphicsContext2D().fillOval(translatedX, translatedY, fieldDimension.getWidth() * scaling, fieldDimension.getHeight() * scaling);
     }
 
