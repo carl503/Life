@@ -314,6 +314,40 @@ public class GameTest {
     }
 
     @Test
+    public void testNextMoveElseCase() {
+        // setup
+        Vector2D zeroPosition = new Vector2D(0,0);
+        Set<GameObject> dummyGameObjectsSet = new HashSet<>();
+        Set<Vector2D> dummyPositionsSet = new HashSet<>();
+
+        // animalObjectOne Mock
+        Carnivore carnivore = mock(Carnivore.class);
+        when(carnivore.getEnergy()).thenReturn(10);
+        when(carnivore.getGender()).thenReturn("F");
+        when(carnivore.getPosition()).thenReturn(zeroPosition);
+
+        dummyGameObjectsSet.add(carnivore);
+        dummyPositionsSet.add(carnivore.getPosition());
+
+        //board mock
+        when(board.getGameObjects()).thenReturn(dummyGameObjectsSet);
+        when(board.getOccupiedPositions()).thenReturn(dummyPositionsSet);
+        when(board.noAnimalExtinct()).thenReturn(false);
+
+        game = new Game(board,0, 1, 0);
+        game.init();
+        game.nextMove();
+
+        // verifies and assertions
+        assertEquals( "The simulation has stopped because the ending condition was met", game.nextMove());
+        assertFalse(game.isOngoing());
+        dummyPositionsSet.remove(carnivore.getPosition());
+        assertEquals(0, board.getOccupiedPositions().size());
+        dummyGameObjectsSet.remove(carnivore);
+        assertEquals(0, board.getGameObjects().size());
+    }
+
+    @Test
     public void testNextMoveDiedOfExhaustion() {
         // setup
         Vector2D zeroPosition = new Vector2D(0,0);
