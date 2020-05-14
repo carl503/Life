@@ -5,7 +5,6 @@ import ch.zhaw.pm2.life.model.GameObject;
 import ch.zhaw.pm2.life.model.Vector2D;
 import ch.zhaw.pm2.life.model.lifeform.LifeForm;
 import ch.zhaw.pm2.life.model.lifeform.LifeFormActionCheck;
-
 import java.util.Set;
 
 /**
@@ -20,11 +19,22 @@ public class Carnivore extends AnimalObject {
     public Carnivore() {
         this.color = "red";
         setName("Carnivore");
+        setScanRadius(0);
     }
 
     @Override
-    protected Vector2D getNearestNeighbour(Set<GameObject> gameObjects) {
-        return chooseRandomNeighbourPosition();
+    protected Vector2D getNearestNeighbour(Set<GameObject> neighbours) {
+        int min = Integer.MAX_VALUE;
+        Vector2D neighbourPos = null;
+
+        for (GameObject neighbour : neighbours) {
+            int distance = Vector2D.dot(this.getPosition(), neighbour.getPosition());
+            if (neighbour instanceof AnimalObject && distance < min) {
+                min = distance;
+                neighbourPos = neighbour.getPosition();
+            }
+        }
+        return neighbourPos;
     }
 
     @Override
