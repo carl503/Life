@@ -158,31 +158,6 @@ public class GameTest {
         dummyGameObjectsSet.remove(plant);
         assertEquals(1, board.getGameObjects().size());
         assertEquals(1, board.getOccupiedPositions().size());
-
-        // IMPORTANT TO CHECK: positions, number of occupied positions, number of game objects, message log
-
-        // TODO: test move
-        // does it move outside the grid?
-
-        // TODO: test reproduction
-        //--- valid  : is fecund and male/female
-        //--- invalid: is not fecund or male/male or female/female, ...
-        // plant eater tries to have a good time with plant (invalid)
-        // plant eater tries to have a good time with plant eater (valid)
-        // plant eater tries to have a good time with meat eater (invalid)
-
-        // meat eater tries to have a good time with plant (invalid)
-        // meat eater tries to have a good time with plant eater (invalid)
-        // meat eater tries to have a good time with meat eater (valid)
-
-        // TODO: test eat (only when not reproducing)
-        // plant eater tries to eat plant (valid)
-        // plant eater tries to eat plant eater (invalid)
-        // plant eater tries to eat meat eater (invalid)
-
-        // meat eater tries to eat plant (invalid)
-        // meat eater tries to eat plant eater (valid)
-        // meat eater tries to eat meat eater (valid)
     }
 
     @Test
