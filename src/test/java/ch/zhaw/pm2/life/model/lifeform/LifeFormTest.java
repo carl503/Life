@@ -63,11 +63,6 @@ public class LifeFormTest {
     }
 
     @Test
-    public void testLifeFormGenderPlant() {
-        assertEquals("N", lifeform.getGender());
-    }
-
-    @Test
     public void testLifeFormGenderCarnivore() {
         assertThat(lifeform.getGender(), anyOf(is("F"), is("M")));
     }
