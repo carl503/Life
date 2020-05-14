@@ -1,7 +1,9 @@
 package ch.zhaw.pm2.life.model.lifeform.animal;
 
+import ch.zhaw.pm2.life.exception.LifeFormException;
 import ch.zhaw.pm2.life.model.GameObject;
 import ch.zhaw.pm2.life.model.Vector2D;
+import ch.zhaw.pm2.life.model.lifeform.LifeForm;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
@@ -9,7 +11,7 @@ import org.mockito.Mockito;
 import java.util.HashSet;
 import java.util.Set;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class AnimalObjectTest {
@@ -35,17 +37,17 @@ public class AnimalObjectTest {
         doReturn(new Vector2D(0, 0)).when(animalObject).chooseRandomNeighbourPosition();
 
         animalObject.move(dummyGameObjectsSet);
+
         verify(animalObject).chooseRandomNeighbourPosition();
         assertEquals(new Vector2D(0, 0), animalObject.getPosition());
     }
 
     @Test
     public void moveTestWithNeighbourObj() {
+        doReturn(new Vector2D(2, 2)).when(animalObject).getNearestNeighbour(dummyGameObjectsSet);
         GameObject neighbour = mock(GameObject.class, CALLS_REAL_METHODS);
 
         dummyGameObjectsSet.add(neighbour);
-
-        doReturn(new Vector2D(2, 2)).when(animalObject).getNearestNeighbour(dummyGameObjectsSet);
         animalObject.move(dummyGameObjectsSet);
 
         assertEquals(new Vector2D(2, 2), animalObject.getPosition());
@@ -54,25 +56,32 @@ public class AnimalObjectTest {
     @Test
     public void moveTestFertilityThresholdIncrease() {
         doReturn(new Vector2D(0, 0)).when(animalObject).chooseRandomNeighbourPosition();
+
         int fertilityThreshold = animalObject.getFertilityThreshold();
         animalObject.move(dummyGameObjectsSet);
+
         assertEquals(fertilityThreshold + 1, animalObject.getFertilityThreshold());
     }
 
     @Test
     public void moveTestSameEnergyNotPoisonedSamePosition() {
         doReturn(animalObject.getPosition()).when(animalObject).chooseRandomNeighbourPosition();
+
         int energy = animalObject.getEnergy();
         animalObject.move(dummyGameObjectsSet);
+
         assertEquals(energy, animalObject.getEnergy());
     }
 
     @Test
     public void moveTestDecreaseEnergyNotPoisonedAnotherPosition() {
         doReturn(new Vector2D(0, 0)).when(animalObject).chooseRandomNeighbourPosition();
+        int energy;
+
         animalObject.increaseEnergy(5);
-        int energy = animalObject.getEnergy();
+        energy = animalObject.getEnergy();
         animalObject.move(dummyGameObjectsSet);
+
         assertEquals(energy - MOVE_ENERGY_CONSUMPTION, animalObject.getEnergy());
     }
 
@@ -80,10 +89,13 @@ public class AnimalObjectTest {
     public void moveTestSameEnergyPoisonedSamePosition() {
         doReturn(animalObject.getPosition()).when(animalObject).chooseRandomNeighbourPosition();
         doReturn(2).when(animalObject).getPoisonedEnergyConsumption();
+        int energy;
+
         animalObject.becomePoisoned();
         animalObject.increaseEnergy(5);
-        int energy = animalObject.getEnergy();
+        energy = animalObject.getEnergy();
         animalObject.move(dummyGameObjectsSet);
+
         assertEquals(energy - 2, animalObject.getEnergy());
     }
 
@@ -91,17 +103,104 @@ public class AnimalObjectTest {
     public void moveTestDecreaseEnergyPoisonedAnotherPosition() {
         doReturn(new Vector2D(0, 0)).when(animalObject).chooseRandomNeighbourPosition();
         doReturn(2).when(animalObject).getPoisonedEnergyConsumption();
+        int energy;
+
         animalObject.becomePoisoned();
         animalObject.increaseEnergy(5);
-        int energy = animalObject.getEnergy();
+        energy = animalObject.getEnergy();
         animalObject.move(dummyGameObjectsSet);
 
         verify(animalObject).decreaseEnergy(MOVE_ENERGY_CONSUMPTION + POISONED_ENERGY_CONSUMPTION);
         assertEquals(energy - MOVE_ENERGY_CONSUMPTION - POISONED_ENERGY_CONSUMPTION, animalObject.getEnergy());
     }
 
+    @Test
+    public void eatTestNoRulesLifeFormActionCheck() {
+        LifeForm lifeForm = mock(LifeForm.class);
+
+        assertDoesNotThrow(() -> animalObject.eat(lifeForm));
+        verify(animalObject).increaseEnergy(lifeForm.getEnergy());
+        verify(lifeForm).die();
+    }
+
+    @Test
+    public void eatTestRulesLifeFormActionCheckPass() {
+        LifeForm lifeForm = mock(LifeForm.class);
+        when(animalObject.getEatRules(lifeForm)).thenReturn(() -> {});
+
+        assertDoesNotThrow(() -> animalObject.eat(lifeForm));
+        verify(animalObject).increaseEnergy(lifeForm.getEnergy());
+        verify(lifeForm).die();
+    }
+
+    @Test
+    public void eatTestEatPoisonedLifeForm() {
+        LifeForm lifeForm = mock(LifeForm.class);
+        when(lifeForm.isPoisonous()).thenReturn(true);
+
+        assertDoesNotThrow(() -> animalObject.eat(lifeForm));
+        verify(animalObject).increaseEnergy(lifeForm.getEnergy());
+        verify(animalObject).becomePoisoned();
+        verify(lifeForm).die();
+    }
+
+    @Test
+    public void reproduceTestMaleWithFemalePartner() {
+        LifeForm partner = mock(LifeForm.class);
+        doReturn(new Vector2D(0, 0)).when(animalObject).chooseRandomNeighbourPosition();
+        animalObject.fertilityThreshold = 9;
+        when(partner.getGender()).thenReturn("F");
+
+        assertThrows(LifeFormException.class, () -> animalObject.reproduce(partner));
+    }
+
+    @Test
+    public void reproduceTestFemaleWithMalePartner() {
+        LifeForm partner = mock(LifeForm.class);
+        doReturn(new Vector2D(0, 0)).when(animalObject).chooseRandomNeighbourPosition();
+        animalObject.fertilityThreshold = 9;
+        when(partner.getGender()).thenReturn("M");
+
+        assertDoesNotThrow(() -> assertEquals(animalObject.getClass(), animalObject.reproduce(partner).getClass()));
+        assertEquals(0, animalObject.getFertilityThreshold());
+    }
+
+    @Test
+    public void reproduceTestFemaleWithLowFertilityThreshold() {
+        LifeForm partner = mock(LifeForm.class);
+        doReturn(new Vector2D(0, 0)).when(animalObject).chooseRandomNeighbourPosition();
+        animalObject.fertilityThreshold = 0;
+        when(partner.getGender()).thenReturn("M");
+
+        assertThrows(LifeFormException.class, () -> animalObject.reproduce(partner));
+    }
+
     //==================================================================================================================
     // Negative tests
     //==================================================================================================================
 
+    @Test
+    public void moveTestGameObjectSetNullInvalid() {
+        assertThrows(NullPointerException.class, () -> animalObject.move(null));
+    }
+
+    @Test
+    public void eatTestLifeFormNull() {
+        assertThrows(NullPointerException.class, () -> animalObject.eat(null));
+    }
+
+    @Test
+    public void eatTestRulesLifeFormActionCheckFail() {
+        LifeForm lifeForm = mock(LifeForm.class);
+        when(animalObject.getEatRules(lifeForm)).thenReturn(() -> {throw new LifeFormException("");});
+
+        assertThrows(LifeFormException.class ,() -> animalObject.eat(lifeForm));
+        verify(animalObject, never()).increaseEnergy(lifeForm.getEnergy());
+        verify(lifeForm, never()).die();
+    }
+
+    @Test
+    public void reproduceTestLifeFormNull() {
+        assertThrows(NullPointerException.class, () -> animalObject.reproduce(null));
+    }
 }
