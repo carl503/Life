@@ -3,7 +3,6 @@ package ch.zhaw.pm2.life.view;
 import ch.zhaw.pm2.life.model.lifeform.LifeForm;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
@@ -19,6 +18,8 @@ import java.util.Set;
 
 public class StatisticView extends Stage {
 
+    public static final int MIN_WIDTH = 800;
+    public static final int MIN_HEIGHT = 600;
     private Collection<LifeForm> startCount = Collections.emptySet();
     private Collection<LifeForm> survivorCount = Collections.emptySet();
     private Collection<LifeForm> deathCount = Collections.emptySet();
@@ -27,8 +28,9 @@ public class StatisticView extends Stage {
 
     public void initChart(Stage parentStage, Set<String> species) {
         setTitle("Gesamtstatistik");
-        setScene(new Scene(new Group(getChart(species))));
-        setResizable(false);
+        setScene(new Scene(getChart(species), MIN_WIDTH, MIN_HEIGHT));
+        setMinWidth(MIN_WIDTH);
+        setMinHeight(MIN_HEIGHT);
         setAlwaysOnTop(true);
         initOwner(parentStage);
     }
