@@ -52,7 +52,7 @@ public abstract class LifeForm extends GameObject {
      * Kills the life form by setting.
      */
     public void die() {
-        logger.log(Level.FINE, "{0} died", getClass().getSimpleName());
+        logger.log(Level.FINE, "{0} died", getName());
         isDead = true;
     }
 
@@ -60,7 +60,7 @@ public abstract class LifeForm extends GameObject {
      * Poison this life form.
      */
     public void becomePoisoned() {
-        logger.log(Level.FINE, "{0} got poisoned", getClass().getSimpleName());
+        logger.log(Level.FINE, "{0} got poisoned", getName());
         isPoisoned = true;
         nextPoisonedEnergyConsumption = (int) (energy * POISON_ENERGY_CONSUMPTION_START_FACTOR);
     }
@@ -72,7 +72,7 @@ public abstract class LifeForm extends GameObject {
     public int getPoisonedEnergyConsumption() {
         int energyConsumption = nextPoisonedEnergyConsumption;
         if ((energyConsumption - 1) == -1) {
-            logger.log(Level.FINE, "{0} is not poisoned anymore", getClass().getSimpleName());
+            logger.log(Level.FINE, "{0} is not poisoned anymore", getName());
             isPoisoned = false;
         }
         nextPoisonedEnergyConsumption--;

@@ -57,14 +57,14 @@ public abstract class AnimalObject extends LifeForm {
             int poisonedEnergyConsumption = getPoisonedEnergyConsumption();
             consumeEnergy += poisonedEnergyConsumption;
             logger.log(Level.FINE, "{1} decreased energy (poisoned) by {0}", new Object[] {
-                    poisonedEnergyConsumption, getClass().getSimpleName()
+                    poisonedEnergyConsumption, getName()
             });
         }
         if (!previousPosition.equals(position)) {
             int moveEnergyConsumption = 1;
             consumeEnergy += moveEnergyConsumption;
             logger.log(Level.FINE, "{1} decreased energy (move) by {0}", new Object[] {
-                    moveEnergyConsumption, getClass().getSimpleName()
+                    moveEnergyConsumption, getName()
             });
         }
         fertilityThreshold++;
@@ -127,7 +127,7 @@ public abstract class AnimalObject extends LifeForm {
         }
 
         logger.log(Level.FINE, "{0} ate {1}", new Object[] {
-                getClass().getSimpleName(),
+                getName(),
                 lifeForm.getClass().getSimpleName()
         });
         increaseEnergy(lifeForm.getEnergy());

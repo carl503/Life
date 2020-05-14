@@ -156,7 +156,7 @@ public class Game {
         if (gameObject instanceof LifeForm && gameObject.getEnergy() < ENERGY_VALUE_DEAD) {
             LifeForm lifeForm = (LifeForm) gameObject;
             lifeForm.die();
-            return String.format("%s: died of exhaustion.%n", lifeForm.getClass().getSimpleName());
+            return String.format("%s: died of exhaustion.%n", gameObject.getName());
         }
         return message;
     }
@@ -193,11 +193,11 @@ public class Game {
                     try {
                         if (!(lifeForm.getGender().equals(animalObject.getGender())) && lifeForm.getClass().equals(animalObject.getClass())) {
                             newLifeForms.add(animalObject.reproduce(lifeForm));
-                            stringBuilder.append(animalObject.getClass().getSimpleName()).append(": We just reproduced with each other\n");
+                            stringBuilder.append(animalObject.getName()).append(": We just reproduced with each other\n");
                         } else {
                             animalObject.eat(lifeForm);
                             deadLifeForms.add(lifeForm);
-                            stringBuilder.append(animalObject.getClass().getSimpleName())
+                            stringBuilder.append(animalObject.getName())
                                     .append(": Yummy food (")
                                     .append(lifeForm.getClass().getSimpleName())
                                     .append(")!\n");
