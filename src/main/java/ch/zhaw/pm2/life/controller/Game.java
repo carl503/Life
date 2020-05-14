@@ -10,11 +10,9 @@ import ch.zhaw.pm2.life.model.lifeform.animal.Carnivore;
 import ch.zhaw.pm2.life.model.lifeform.animal.Herbivore;
 import ch.zhaw.pm2.life.model.lifeform.plant.Plant;
 
-import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
-import java.util.Objects;
 import java.util.Random;
 import java.util.Set;
 import java.util.logging.Level;
@@ -62,7 +60,7 @@ public class Game {
      */
     public Game(Board board, Map<GameObject, Integer> gameObjects) {
         this.board = board;
-        addLifeForm(gameObjects);
+        addLifeForms(gameObjects);
     }
 
     private void validateNumOfGameObjects(int num, String type) {
@@ -73,7 +71,7 @@ public class Game {
         }
     }
 
-    private void addLifeForm(Map<GameObject, Integer> gameObjects) {
+    private void addLifeForms(Map<GameObject, Integer> gameObjects) {
         gameObjects.forEach((gameObject, amount) -> {
             for (int i = 0; i < amount; i++) {
                 try {
