@@ -74,6 +74,7 @@ public class SetupController {
             LifeWindowController controller = loader.getController();
             controller.setSetupController(this);
             controller.initGame();
+            controller.initEditMenu();
             controller.drawBoard();
             stage.show();
         } catch (IOException e) {
