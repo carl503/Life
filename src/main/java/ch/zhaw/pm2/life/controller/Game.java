@@ -42,7 +42,6 @@ public class Game {
     public static final int PLANT_RESPAWN_CHANCE = 2;
 
     private static final Logger logger = Logger.getLogger(Game.class.getName());
-    private static final int SCAN_RADIUS = 2;
 
     private final Set<LifeForm> startLifeForms = new HashSet<>();
     private final Set<LifeForm> bornLifeForms = new HashSet<>();
@@ -142,7 +141,7 @@ public class Game {
         for (GameObject gameObject : board.getGameObjects()) {
             if (gameObject instanceof AnimalObject) {
                 AnimalObject animalObject = (AnimalObject) gameObject;
-                animalObject.move(board.getNeighbourObjects(animalObject, SCAN_RADIUS));
+                animalObject.move(board.getNeighbourObjects(animalObject, animalObject.getScanRadius()));
             } else if (gameObject instanceof Plant) {
                 gameObject.decreaseEnergy(PLANT_ENERGY_CONSUMPTION);
             }
