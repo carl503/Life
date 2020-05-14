@@ -25,24 +25,25 @@ public class BoardView extends Canvas {
     private static final double ENERGY_SCALE_Y = 0.25;
 
     private final Board board;
-    private final int width;
-    private final int height;
-    private final Dimension2D fieldDimension;
+    private double width;
+    private double height;
+    private Dimension2D fieldDimension;
 
     /**
-     * Default constructor.
-     * @param width  The width in pixel.
-     * @param height The height in pixel.
-     * @param board  The board containing the game objects {@see Board}.
-     * @throws NullPointerException if board is null.
+     * Creates the board view instance
+     * @param board from type {@link Board}
      */
-    public BoardView(int width, int height, Board board) {
+    public BoardView(Board board) {
+        this.board = Objects.requireNonNull(board, "Board cannot be null to display it.");
+    }
+
+    public void updateDimension(double width, double height) {
         this.width = width;
         this.height = height;
-        this.board = Objects.requireNonNull(board, "Board cannot be null to display it.");
         setHeight(height);
         setWidth(width);
         fieldDimension = new Dimension2D(width / (double) board.getColumns(), height / (double) board.getRows());
+        draw();
     }
 
     /**
@@ -58,11 +59,11 @@ public class BoardView extends Canvas {
         getGraphicsContext2D().setLineWidth(1);
         getGraphicsContext2D().setFill(Color.BLACK);
 
-        for (int column = 0; column <= width; column += fieldDimension.getWidth()) {
+        for (double column = 0; column <= width; column += fieldDimension.getWidth()) {
             getGraphicsContext2D().strokeLine(column, 0, column, height);
         }
 
-        for (int row = 0; row <= height; row += fieldDimension.getHeight()) {
+        for (double row = 0; row <= height; row += fieldDimension.getHeight()) {
             getGraphicsContext2D().strokeLine(0, row, width, row);
         }
     }
