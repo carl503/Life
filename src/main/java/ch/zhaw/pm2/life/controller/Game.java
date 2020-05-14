@@ -118,10 +118,13 @@ public class Game {
     }
 
     /**
-     * Stop the game.
+     * Stops the game.
      */
-    public void stop() {
+    public String stop() {
+        StringBuilder stringBuilder = new StringBuilder();
         ongoing = false;
+        stringBuilder.append("The simulation has stopped because the ending condition was met");
+        return stringBuilder.toString();
     }
 
     /**
@@ -146,7 +149,7 @@ public class Game {
             messageLog.append(move(positionMap));
             messageLog.append(interact(positionMap));
         } else {
-            stop();
+            messageLog.append(stop());
         }
         return messageLog.toString();
     }
