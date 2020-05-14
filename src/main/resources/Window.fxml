@@ -7,23 +7,19 @@
    <top>
       <MenuBar prefHeight="25.0" prefWidth="600.0" BorderPane.alignment="CENTER">
         <menus>
-          <Menu mnemonicParsing="false" text="File">
+          <Menu mnemonicParsing="false" text="Datei">
             <items>
               <MenuItem mnemonicParsing="false" text="Close" />
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="Edit">
-            <items>
-              <MenuItem mnemonicParsing="false" text="Delete" />
-            </items>
-          </Menu>
-            <Menu mnemonicParsing="false" text="View">
+          <Menu fx:id="editMenu" mnemonicParsing="false" text="Bearbeiten" />
+            <Menu mnemonicParsing="false" text="Ansicht">
                <items>
                   <CheckMenuItem fx:id="toggleMessageItem" mnemonicParsing="false" selected="true" text="Show Messages" />
                   <CheckMenuItem fx:id="toggleSidebarItem" mnemonicParsing="false" selected="true" text="Show Sidebar" />
                </items>
             </Menu>
-          <Menu mnemonicParsing="false" text="Help">
+          <Menu mnemonicParsing="false" text="Hilfe">
             <items>
               <MenuItem mnemonicParsing="false" text="About" />
             </items>
