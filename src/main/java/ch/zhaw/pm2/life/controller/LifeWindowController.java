@@ -1,6 +1,7 @@
 package ch.zhaw.pm2.life.controller;
 
 import ch.zhaw.pm2.life.model.Board;
+import ch.zhaw.pm2.life.model.GameObject;
 import ch.zhaw.pm2.life.view.BoardView;
 import ch.zhaw.pm2.life.view.StatisticView;
 import javafx.fxml.FXML;
@@ -10,6 +11,8 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Controller for the main window.
@@ -18,14 +21,11 @@ public class LifeWindowController {
 
     private static final int ROWS = 16;
     private static final int COLUMNS = 16;
-
+    private final StatisticView statisticView = new StatisticView();
     private BoardView boardView;
     private Game game;
     private SetupController setupController;
     private Board boardObject;
-
-    private StatisticView statisticView = new StatisticView();
-
     @FXML private Pane board;
     @FXML private TextArea messageField;
     @FXML private Button nextRoundButton;
@@ -85,7 +85,14 @@ public class LifeWindowController {
         statisticView.setDiedLifeForms(game.getDeadLifeForms());
         statisticView.setSurvivedLifeForms(game.getSurvivedLifeForms());
         statisticView.setSpawnLifeForms(game.getSpawnedLifeForms());
-        statisticView.initChart((Stage) board.getScene().getWindow());
+
+        Set<String> species = setupController.getGameObjects()
+                .keySet()
+                .stream()
+                .map(GameObject::getName)
+                .collect(Collectors.toSet());
+
+        statisticView.initChart((Stage) board.getScene().getWindow(), species);
         statisticView.show();
     }
 

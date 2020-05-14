@@ -80,6 +80,9 @@ public class Game {
                     go.setEnergy(gameObject.getEnergy());
                     go.setColor(gameObject.getColor());
                     board.addGameObject(go, calculatePosition());
+                    if(go instanceof LifeForm) {
+                        startLifeForms.add((LifeForm) go);
+                    }
                 } catch (Exception e) {
                     logger.log(Level.SEVERE, "Error while initializing the life form classes", e);
                     stop();

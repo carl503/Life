@@ -9,7 +9,6 @@ import javafx.scene.chart.BarChart;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.util.Collection;
@@ -26,8 +25,21 @@ public class StatisticView extends Stage {
     private Collection<LifeForm> birthCount = Collections.emptySet();
     private Collection<LifeForm> spawnCount = Collections.emptySet();
 
-    public void initChart(Stage parentStage) {
-        Set<String> species = Set.of("Carnivore", "Herbivore", "Plant");
+    public void initChart(Stage parentStage, Set<String> species) {
+        setTitle("Gesamtstatistik");
+        setScene(new Scene(new Group(getChart(species))));
+        setResizable(false);
+        setAlwaysOnTop(true);
+        initOwner(parentStage);
+    }
+
+    private BarChart<Number, String> getChart(Set<String> species) {
+        Map<String, Collection<LifeForm>> categoryMap = new HashMap<>();
+        categoryMap.put("Start", startCount);
+        categoryMap.put("Ueberlebende", survivorCount);
+        categoryMap.put("Geburten", birthCount);
+        categoryMap.put("Tode", deathCount);
+        categoryMap.put("Gespawned", spawnCount);
 
         NumberAxis xAxis = new NumberAxis();
         xAxis.setLabel("Anzahl");
@@ -36,30 +48,15 @@ public class StatisticView extends Stage {
         yAxis.setLabel("Spezien");
         yAxis.setCategories(FXCollections.observableArrayList(species));
 
-        Map<String, Collection<LifeForm>> categoryMap = new HashMap<>();
-        categoryMap.put("Start", startCount);
-        categoryMap.put("Ueberlebende", survivorCount);
-        categoryMap.put("Geburten", birthCount);
-        categoryMap.put("Tode", deathCount);
-        categoryMap.put("Gespawned", spawnCount);
-
         BarChart<Number, String> overallStatistic = new BarChart<>(xAxis, yAxis);
         categoryMap.forEach((category, collection) -> {
             XYChart.Series<Number, String> categorySerie = new XYChart.Series<>();
             categorySerie.setName(category);
-            species.forEach(s -> {
-                categorySerie.getData().addAll(loadData(s, collection));
-            });
+            species.forEach(s -> categorySerie.getData().addAll(loadData(s, collection)));
             overallStatistic.getData().add(categorySerie);
         });
         overallStatistic.autosize();
-
-        setTitle("Gesamtstatistik");
-        setScene(new Scene(new Group(overallStatistic)));
-        setResizable(false);
-        setAlwaysOnTop(true);
-        initOwner(parentStage);
-        initModality(Modality.WINDOW_MODAL);
+        return overallStatistic;
     }
 
     private Collection<XYChart.Data<Number, String>> loadData(String species, Collection<LifeForm> collection) {
