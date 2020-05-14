@@ -63,13 +63,13 @@ public abstract class GameObject {
 
     /**
      * Decrease the energy by a certain value.
-     * @param consumedEnergy reducing energy by this amount.
+     * @param energy reducing energy by this amount.
      */
-    public void decreaseEnergy(int consumedEnergy) {
+    public void decreaseEnergy(int energy) {
         if (energy < 0) {
             throw new IllegalArgumentException("Energy cannot decrease with a negative value.");
         }
-        energy -= consumedEnergy;
+        this.energy -= energy;
     }
 
     /**
