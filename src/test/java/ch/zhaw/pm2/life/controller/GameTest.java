@@ -91,7 +91,7 @@ public class GameTest {
     }
 
     @Test
-    public void testNextMoveEat() throws LifeFormException {
+    public void testNextMoveEatHerbivoreAndPlant() throws LifeFormException {
 
         // setup
         Vector2D zeroPosition = new Vector2D(0,0);
@@ -346,7 +346,6 @@ public class GameTest {
         assertEquals(0, board.getOccupiedPositions().size());
         dummyGameObjectsSet.remove(carnivore);
         assertEquals(0, board.getGameObjects().size());
-
     }
 
     //==================================================================================================================
