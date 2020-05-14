@@ -104,10 +104,8 @@ public class Game {
      * Stops the game.
      */
     public String stop() {
-        StringBuilder stringBuilder = new StringBuilder();
         ongoing = false;
-        stringBuilder.append("The simulation has stopped because the ending condition was met");
-        return stringBuilder.toString();
+        return "The simulation has stopped because the ending condition was met";
     }
 
     /**
