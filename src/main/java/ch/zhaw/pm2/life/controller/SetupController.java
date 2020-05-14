@@ -21,8 +21,8 @@ public class SetupController {
 
     @FXML private Pane rootPane;
     @FXML private Spinner<Integer> plantCount;
-    @FXML private Spinner<Integer> meatEaterCount;
-    @FXML private Spinner<Integer> plantEaterCount;
+    @FXML private Spinner<Integer> carnivoreCount;
+    @FXML private Spinner<Integer> herbivoreCount;
 
     /**
      * Shows the simulation window and starts the simulation itself.
@@ -55,19 +55,19 @@ public class SetupController {
     }
 
     /**
-     * Returns the amount of meat eaters the user has chosen to start with.
+     * Returns the amount of carnivores the user has chosen to start with.
      * @return {@link Integer}
      */
-    public int getMeatEaterCount() {
-        return meatEaterCount.getValue();
+    public int getCarnivoreCount() {
+        return carnivoreCount.getValue();
     }
 
     /**
-     * Returns the amount of plant eaters the user has chosen to start with.
+     * Returns the amount of herbivores the user has chosen to start with.
      * @return {@link Integer}
      */
-    public int getPlantEaterCount() {
-        return plantEaterCount.getValue();
+    public int getHerbivoreCount() {
+        return herbivoreCount.getValue();
     }
 
 }

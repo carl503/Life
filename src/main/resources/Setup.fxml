@@ -28,12 +28,12 @@
                   <SpinnerValueFactory.IntegerSpinnerValueFactory min="0" max="10"/>
                </valueFactory>
             </Spinner>
-            <Spinner fx:id="meatEaterCount">
+            <Spinner fx:id="carnivoreCount">
                <valueFactory>
                   <SpinnerValueFactory.IntegerSpinnerValueFactory min="0" max="10"/>
                </valueFactory>
             </Spinner>
-            <Spinner fx:id="plantEaterCount">
+            <Spinner fx:id="herbivoreCount">
                <valueFactory>
                   <SpinnerValueFactory.IntegerSpinnerValueFactory min="0" max="10"/>
                </valueFactory>

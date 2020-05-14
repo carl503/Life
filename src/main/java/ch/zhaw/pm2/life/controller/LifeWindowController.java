@@ -88,7 +88,7 @@ public class LifeWindowController {
         if (boardObject != null) {
             try {
                 game = new Game(boardObject, setupController.getPlantCount(),
-                                setupController.getMeatEaterCount(), setupController.getPlantEaterCount());
+                                setupController.getCarnivoreCount(), setupController.getHerbivoreCount());
                 game.init();
             } catch (Exception e) {
                 messageField.appendText(e.getMessage() + "\n");

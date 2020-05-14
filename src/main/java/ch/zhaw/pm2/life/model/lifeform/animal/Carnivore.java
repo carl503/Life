@@ -5,46 +5,37 @@ import ch.zhaw.pm2.life.model.GameObject;
 import ch.zhaw.pm2.life.model.Vector2D;
 import ch.zhaw.pm2.life.model.lifeform.LifeForm;
 import ch.zhaw.pm2.life.model.lifeform.LifeFormActionCheck;
-import ch.zhaw.pm2.life.model.lifeform.plant.PlantObject;
 
 import java.util.Objects;
 import java.util.Set;
 
 /**
- * First Version of a {@link PlantEater} animal.
+ * First Version of a {@link Carnivore} animal.
  * @author pedernin
  */
-public class PlantEater extends AnimalObject {
+public class Carnivore extends AnimalObject {
 
     private static final int REPRODUCTION_MINIMUM = 9;
 
     /**
      * Default constructor.
      */
-    public PlantEater() {
-        this.color = "lightseagreen";
+    public Carnivore() {
+        this.color = "red";
     }
 
     @Override
-    protected Vector2D getNearestNeighbour(Set<GameObject> neighbours) {
-        int min = Integer.MAX_VALUE;
-        Vector2D neighbourPos = null;
-
-        for (GameObject neighbour : neighbours) {
-            int distance = Vector2D.dot(this.getPosition(), neighbour.getPosition());
-            if (neighbour instanceof PlantObject && distance < min) {
-                min = distance;
-                neighbourPos = neighbour.getPosition();
-            }
-        }
-        return neighbourPos;
+    protected Vector2D getNearestNeighbour(Set<GameObject> gameObjects) {
+        return chooseRandomNeighbourPosition();
     }
 
     @Override
     protected LifeFormActionCheck getEatRules(LifeForm lifeForm) {
         return () -> {
-            if (lifeForm.getFoodType() == FoodType.MEAT) {
-                throw new LifeFormException("Cannot eat this meat, I am vegetarian.");
+            if (lifeForm.getFoodType() == FoodType.PLANT) {
+                throw new LifeFormException("Cannot eat this plant. Do I look like a vegetarian?!");
+            } else if (lifeForm instanceof Carnivore && lifeForm.getEnergy() > this.getEnergy()) {
+                throw new LifeFormException("Cannot eat this carnivore. He is stronger than I.");
             }
         };
     }
@@ -58,9 +49,9 @@ public class PlantEater extends AnimalObject {
             throw new LifeFormException("Cannot reproduce because partner is not fertile yet");
         }
         resetFertilityThreshold(); // sets own counter to zero (only on females)
-        PlantEater plantEaterChild = new PlantEater();
-        plantEaterChild.setPosition(this.chooseRandomNeighbourPosition());
-        return plantEaterChild;
+        Carnivore carnivoreChild = new Carnivore();
+        carnivoreChild.setPosition(this.chooseRandomNeighbourPosition());
+        return carnivoreChild;
     }
 
 }

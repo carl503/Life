@@ -88,11 +88,11 @@ public class ConfigParser {
         Type type = Type.getType(getConfigValue(lifeForm, Options.TYPE.name()));
         if (type != null) {
             switch (type) {
-                case PLANT_EATER:
-                    clazz = Class.forName(Type.PLANT_EATER.value);
+                case HERBIVORE:
+                    clazz = Class.forName(Type.HERBIVORE.value);
                     break;
-                case MEAT_EATER:
-                    clazz = Class.forName(Type.MEAT_EATER.value);
+                case CARNIVORE:
+                    clazz = Class.forName(Type.CARNIVORE.value);
                     break;
                 case PLANT:
                     clazz = Class.forName(Type.PLANT.value);
@@ -128,8 +128,8 @@ public class ConfigParser {
     }
 
     private enum Type {
-        MEAT_EATER(LIFE_FORM_PACKAGE + ".animal.MeatEater"),
-        PLANT_EATER(LIFE_FORM_PACKAGE + ".animal.PlantEater"),
+        CARNIVORE(LIFE_FORM_PACKAGE + ".animal.Carnivore"),
+        HERBIVORE(LIFE_FORM_PACKAGE + ".animal.Herbivore"),
         PLANT(LIFE_FORM_PACKAGE + ".plant.FirstPlant");
 
         private final String value;

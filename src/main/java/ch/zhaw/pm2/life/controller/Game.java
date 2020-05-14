@@ -6,8 +6,8 @@ import ch.zhaw.pm2.life.model.GameObject;
 import ch.zhaw.pm2.life.model.Vector2D;
 import ch.zhaw.pm2.life.model.lifeform.LifeForm;
 import ch.zhaw.pm2.life.model.lifeform.animal.AnimalObject;
-import ch.zhaw.pm2.life.model.lifeform.animal.MeatEater;
-import ch.zhaw.pm2.life.model.lifeform.animal.PlantEater;
+import ch.zhaw.pm2.life.model.lifeform.animal.Carnivore;
+import ch.zhaw.pm2.life.model.lifeform.animal.Herbivore;
 import ch.zhaw.pm2.life.model.lifeform.plant.FirstPlant;
 import ch.zhaw.pm2.life.model.lifeform.plant.PlantObject;
 
@@ -50,29 +50,30 @@ public class Game {
     private final Random random = new Random();
     private final Board board;
     private final int plantCount;
-    private final int meatEaterCount;
-    private final int plantEaterCount;
+    private final int carnivoreCount;
+    private final int herbivoreCount;
 
     private boolean ongoing = true;
 
     /**
      * Default constructor.
-     * @param board           Stores all game objects.
-     * @param plantCount      Initial amount of plants.
-     * @param meatEaterCount  Initial amount of meat eaters.
-     * @param plantEaterCount Initial amount of plant eaters.
-     * @throws NullPointerException when the board is null
-     * @throws IllegalArgumentException when the plant, meat- or plant-eater count is negative or the sum of all counts is higher than the number of fields on the board
+     * @param board          Stores all game objects.
+     * @param plantCount     Initial amount of plants.
+     * @param carnivoreCount Initial amount of carnivores.
+     * @param herbivoreCount Initial amount of herbivores.
+     * @throws NullPointerException     when the board is null
+     * @throws IllegalArgumentException when the plant, herbivore or carnivore count is negative or
+     *                                  the sum of all counts is higher than the number of fields on the board
      */
-    public Game(Board board, int plantCount, int meatEaterCount, int plantEaterCount) {
+    public Game(Board board, int plantCount, int carnivoreCount, int herbivoreCount) {
         this.board = Objects.requireNonNull(board, "Board cannot be null to create the game.");
         validateNumOfGameObjects(plantCount, "plants");
-        validateNumOfGameObjects(meatEaterCount, "meat eaters");
-        validateNumOfGameObjects(plantEaterCount, "plant eaters");
-        validateNumOfGameObjects(plantCount + meatEaterCount + plantEaterCount, "game objects");
+        validateNumOfGameObjects(carnivoreCount, "carnivores");
+        validateNumOfGameObjects(herbivoreCount, "herbivores");
+        validateNumOfGameObjects(plantCount + carnivoreCount + herbivoreCount, "game objects");
         this.plantCount = plantCount;
-        this.meatEaterCount = meatEaterCount;
-        this.plantEaterCount = plantEaterCount;
+        this.carnivoreCount = carnivoreCount;
+        this.herbivoreCount = herbivoreCount;
     }
 
     private void validateNumOfGameObjects(int num, String type) {
@@ -89,8 +90,8 @@ public class Game {
     public void init() {
         try {
             addLifeForm(FirstPlant.class, plantCount);
-            addLifeForm(MeatEater.class, meatEaterCount);
-            addLifeForm(PlantEater.class, plantEaterCount);
+            addLifeForm(Carnivore.class, carnivoreCount);
+            addLifeForm(Herbivore.class, herbivoreCount);
         } catch (LifeFormException e) {
             logger.log(Level.SEVERE, "Error while initializing the life form classes", e);
             stop();
@@ -135,7 +136,7 @@ public class Game {
     /**
      * Performs the next move.
      * It moves every {@link AnimalObject} and then trys to eat.
-     * If then there are no more {@link MeatEater} or {@link PlantEater} then the simulation stops.
+     * If then there are no more {@link Carnivore} or {@link Herbivore} then the simulation stops.
      * @return message log of every move and eat call.
      */
     public String nextMove() {

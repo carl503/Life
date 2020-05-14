@@ -5,21 +5,20 @@ import ch.zhaw.pm2.life.model.Board;
 import ch.zhaw.pm2.life.model.GameObject;
 import ch.zhaw.pm2.life.model.Vector2D;
 import ch.zhaw.pm2.life.model.lifeform.animal.AnimalObject;
-import ch.zhaw.pm2.life.model.lifeform.animal.MeatEater;
-import ch.zhaw.pm2.life.model.lifeform.animal.PlantEater;
+import ch.zhaw.pm2.life.model.lifeform.animal.Carnivore;
+import ch.zhaw.pm2.life.model.lifeform.animal.Herbivore;
 import ch.zhaw.pm2.life.model.lifeform.plant.PlantObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
-import static org.hamcrest.MatcherAssert.assertThat;
-import static org.hamcrest.Matchers.*;
-
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
+import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -169,37 +168,37 @@ public class GameTest {
         Set<GameObject> dummyGameObjectsSet = new HashSet<>();
         Set<Vector2D> dummyPositionsSet = new HashSet<>();
 
-        PlantEater plantEaterChild = mock(PlantEater.class);
-        PlantEater plantEaterMale = mock(PlantEater.class);
-        PlantEater plantEaterFemale = mock(PlantEater.class);
+        Herbivore herbivoreChild = mock(Herbivore.class);
+        Herbivore herbivoreMale = mock(Herbivore.class);
+        Herbivore herbivoreFemale = mock(Herbivore.class);
 
-        // plantEaterChild Mock
-        when(plantEaterChild.getEnergy()).thenReturn(10);
-        when(plantEaterChild.getGender()).thenReturn("F");
-        when(plantEaterChild.getPosition()).thenReturn(new Vector2D(1,1));
+        // herbivoreChild Mock
+        when(herbivoreChild.getEnergy()).thenReturn(10);
+        when(herbivoreChild.getGender()).thenReturn("F");
+        when(herbivoreChild.getPosition()).thenReturn(new Vector2D(1, 1));
 
-        // plantEaterMale Mock
-        when(plantEaterMale.getEnergy()).thenReturn(10);
-        when(plantEaterMale.getFertilityThreshold()).thenReturn(10);
-        when(plantEaterMale.getGender()).thenReturn("M");
-        when(plantEaterMale.reproduce(plantEaterFemale)).thenThrow(new LifeFormException("Cannot give birth because im male"));
-        when(plantEaterMale.getPosition()).thenReturn(zeroPosition);
+        // herbivoreMale Mock
+        when(herbivoreMale.getEnergy()).thenReturn(10);
+        when(herbivoreMale.getFertilityThreshold()).thenReturn(10);
+        when(herbivoreMale.getGender()).thenReturn("M");
+        when(herbivoreMale.reproduce(herbivoreFemale)).thenThrow(new LifeFormException("Cannot give birth because im male"));
+        when(herbivoreMale.getPosition()).thenReturn(zeroPosition);
 
-        dummyGameObjectsSet.add(plantEaterMale);
-        dummyPositionsSet.add(plantEaterMale.getPosition());
+        dummyGameObjectsSet.add(herbivoreMale);
+        dummyPositionsSet.add(herbivoreMale.getPosition());
 
-        // plantEaterFemale Mock
-        when(plantEaterFemale.getEnergy()).thenReturn(10);
-        when(plantEaterFemale.getFertilityThreshold()).thenReturn(10);
-        when(plantEaterFemale.getGender()).thenReturn("F");
-        when(plantEaterFemale.reproduce(plantEaterMale)).thenReturn(plantEaterChild);
-        when(plantEaterFemale.getPosition()).thenReturn(zeroPosition);
+        // herbivoreFemale Mock
+        when(herbivoreFemale.getEnergy()).thenReturn(10);
+        when(herbivoreFemale.getFertilityThreshold()).thenReturn(10);
+        when(herbivoreFemale.getGender()).thenReturn("F");
+        when(herbivoreFemale.reproduce(herbivoreMale)).thenReturn(herbivoreChild);
+        when(herbivoreFemale.getPosition()).thenReturn(zeroPosition);
 
-        dummyGameObjectsSet.add(plantEaterFemale);
-        dummyPositionsSet.add(plantEaterFemale.getPosition());
+        dummyGameObjectsSet.add(herbivoreFemale);
+        dummyPositionsSet.add(herbivoreFemale.getPosition());
 
-        dummyGameObjectsSet.add(plantEaterChild);
-        dummyPositionsSet.add(plantEaterChild.getPosition());
+        dummyGameObjectsSet.add(herbivoreChild);
+        dummyPositionsSet.add(herbivoreChild.getPosition());
 
         //board mock
         when(board.getGameObjects()).thenReturn(dummyGameObjectsSet);
@@ -212,17 +211,17 @@ public class GameTest {
         game.nextMove();
 
         // verifies and assertions
-        verify(plantEaterMale, times(0)).eat(plantEaterFemale);
-        verify(plantEaterMale, times(1)).reproduce(plantEaterFemale);
-        verify(plantEaterFemale, times(1)).reproduce(plantEaterMale);
-        verify(plantEaterMale, times(1)).move(anySet());
-        verify(plantEaterFemale, times(1)).move(anySet());
+        verify(herbivoreMale, times(0)).eat(herbivoreFemale);
+        verify(herbivoreMale, times(1)).reproduce(herbivoreFemale);
+        verify(herbivoreFemale, times(1)).reproduce(herbivoreMale);
+        verify(herbivoreMale, times(1)).move(anySet());
+        verify(herbivoreFemale, times(1)).move(anySet());
 
-        assertThat(game.nextMove(), anyOf(is(plantEaterFemale.getClass().getSimpleName() + ": We just reproduced with each other\nCannot give birth because im male\r\n"),
-                                          is("Cannot give birth because im male\r\n" + plantEaterFemale.getClass().getSimpleName() + ": We just reproduced with each other\n")));
-        dummyGameObjectsSet.add(plantEaterChild);
+        assertThat(game.nextMove(), anyOf(is(herbivoreFemale.getClass().getSimpleName() + ": We just reproduced with each other\nCannot give birth because im male\r\n"),
+                                          is("Cannot give birth because im male\r\n" + herbivoreFemale.getClass().getSimpleName() + ": We just reproduced with each other\n")));
+        dummyGameObjectsSet.add(herbivoreChild);
         assertEquals(3, board.getGameObjects().size());
-        dummyPositionsSet.add(plantEaterChild.getPosition());
+        dummyPositionsSet.add(herbivoreChild.getPosition());
         assertEquals(2, board.getOccupiedPositions().size());
     }
 
@@ -279,13 +278,13 @@ public class GameTest {
         Set<Vector2D> dummyPositionsSet = new HashSet<>();
 
         // animalObjectOne Mock
-        MeatEater meatEater = mock(MeatEater.class);
-        when(meatEater.getEnergy()).thenReturn(-1);
-        when(meatEater.getGender()).thenReturn("F");
-        when(meatEater.getPosition()).thenReturn(zeroPosition);
+        Carnivore carnivore = mock(Carnivore.class);
+        when(carnivore.getEnergy()).thenReturn(-1);
+        when(carnivore.getGender()).thenReturn("F");
+        when(carnivore.getPosition()).thenReturn(zeroPosition);
 
-        dummyGameObjectsSet.add(meatEater);
-        dummyPositionsSet.add(meatEater.getPosition());
+        dummyGameObjectsSet.add(carnivore);
+        dummyPositionsSet.add(carnivore.getPosition());
 
         //board mock
         when(board.getGameObjects()).thenReturn(dummyGameObjectsSet);
@@ -297,11 +296,11 @@ public class GameTest {
         game.nextMove();
 
         // verifies and assertions
-        verify(meatEater, times(1)).move(anySet());
-        assertEquals(meatEater.getClass().getSimpleName() + ": died of exhaustion.\r\n", game.nextMove());
-        dummyPositionsSet.remove(meatEater.getPosition());
+        verify(carnivore, times(1)).move(anySet());
+        assertEquals(carnivore.getClass().getSimpleName() + ": died of exhaustion.\r\n", game.nextMove());
+        dummyPositionsSet.remove(carnivore.getPosition());
         assertEquals(0, board.getOccupiedPositions().size());
-        dummyGameObjectsSet.remove(meatEater);
+        dummyGameObjectsSet.remove(carnivore);
         assertEquals(0, board.getGameObjects().size());
 
     }
@@ -325,13 +324,13 @@ public class GameTest {
     @Test
     public void testInvalidConstructorNumMeatEaterLessThanMinimum() {
         Exception thrown = assertThrows(IllegalArgumentException.class, () -> new Game(board, NUM_OF_PLANTS, -1, NUM_OF_PLANT_EATERS));
-        assertEquals("Number of meat eaters is less than the minimal value.", thrown.getMessage());
+        assertEquals("Number of carnivores is less than the minimal value.", thrown.getMessage());
     }
 
     @Test
     public void testInvalidConstructorNumPlantEaterLessThanMinimum() {
         Exception thrown = assertThrows(IllegalArgumentException.class, () -> new Game(board, NUM_OF_PLANTS, NUM_OF_MEAT_EATERS, -1));
-        assertEquals("Number of plant eaters is less than the minimal value.", thrown.getMessage());
+        assertEquals("Number of herbivores is less than the minimal value.", thrown.getMessage());
     }
 
     @Test
@@ -349,7 +348,7 @@ public class GameTest {
         when(board.getRows()).thenReturn(dimension);
         when(board.getColumns()).thenReturn(dimension);
         Exception thrown = assertThrows(IllegalArgumentException.class, () -> new Game(board, 0, NUMBER_OF_GAME_OBJECTS, 0));
-        assertEquals("Number of meat eaters exceed the number of available field.", thrown.getMessage());
+        assertEquals("Number of carnivores exceed the number of available field.", thrown.getMessage());
     }
 
     @Test
@@ -358,7 +357,7 @@ public class GameTest {
         when(board.getRows()).thenReturn(dimension);
         when(board.getColumns()).thenReturn(dimension);
         Exception thrown = assertThrows(IllegalArgumentException.class, () -> new Game(board, 0, 0, NUMBER_OF_GAME_OBJECTS));
-        assertEquals("Number of plant eaters exceed the number of available field.", thrown.getMessage());
+        assertEquals("Number of herbivores exceed the number of available field.", thrown.getMessage());
     }
 
     @Test

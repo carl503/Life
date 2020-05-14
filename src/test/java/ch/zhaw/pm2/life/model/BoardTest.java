@@ -2,8 +2,8 @@ package ch.zhaw.pm2.life.model;
 
 import ch.zhaw.pm2.life.model.lifeform.LifeForm;
 import ch.zhaw.pm2.life.model.lifeform.animal.AnimalObject;
-import ch.zhaw.pm2.life.model.lifeform.animal.MeatEater;
-import ch.zhaw.pm2.life.model.lifeform.animal.PlantEater;
+import ch.zhaw.pm2.life.model.lifeform.animal.Carnivore;
+import ch.zhaw.pm2.life.model.lifeform.animal.Herbivore;
 import ch.zhaw.pm2.life.model.lifeform.plant.PlantObject;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -84,12 +84,12 @@ public class BoardTest {
     @Test
     public void testCleanBoard() {
         // prepare
-        LifeForm firstLifeForm = mock(MeatEater.class);
+        LifeForm firstLifeForm = mock(Carnivore.class);
         when(firstLifeForm.getPosition()).thenReturn(new Vector2D(0, 0));
         when(firstLifeForm.isDead()).thenReturn(true);
         board.addGameObject(firstLifeForm, firstLifeForm.getPosition());
 
-        LifeForm secondLifeForm = mock(PlantEater.class);
+        LifeForm secondLifeForm = mock(Herbivore.class);
         when(secondLifeForm.getPosition()).thenReturn(new Vector2D(0, 1));
         when(secondLifeForm.isDead()).thenReturn(false);
         board.addGameObject(secondLifeForm, secondLifeForm.getPosition());
@@ -125,7 +125,7 @@ public class BoardTest {
     public void testContainsNotInstanceOfAnimalObject() {
         AnimalObject animalObject = mock(AnimalObject.class);
 
-        AnimalObject meatEater = mock(MeatEater.class);
+        AnimalObject meatEater = mock(Carnivore.class);
         when(meatEater.getPosition()).thenReturn(new Vector2D(0, 1));
         board.addGameObject(meatEater, meatEater.getPosition());
 
@@ -180,7 +180,7 @@ public class BoardTest {
 
     @Test
     public void testContainsNotInstanceOfAnimalObjectNull() {
-        board.addGameObject(mock(MeatEater.class), new Vector2D(0, 0));
+        board.addGameObject(mock(Carnivore.class), new Vector2D(0, 0));
         boolean containsNull = board.containsNotInstanceOfAnimalObject(null);
         assertFalse(containsNull);
     }
