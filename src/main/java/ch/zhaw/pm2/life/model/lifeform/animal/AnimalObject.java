@@ -33,6 +33,8 @@ public abstract class AnimalObject extends LifeForm {
      */
     protected int fertilityThreshold;
 
+    private int scanRadius = 1;
+
     /**
      * Default constructor.
      */
@@ -150,6 +152,15 @@ public abstract class AnimalObject extends LifeForm {
      */
     public int getFertilityThreshold() {
         return fertilityThreshold;
+    }
+
+
+    public void setScanRadius(int scanRadius) {
+        this.scanRadius = scanRadius;
+    }
+
+    public int getScanRadius() {
+        return scanRadius;
     }
 
     /**
