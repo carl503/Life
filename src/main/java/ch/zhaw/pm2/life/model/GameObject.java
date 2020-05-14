@@ -55,6 +55,9 @@ public abstract class GameObject {
      * @param energy increasing energy by this amount.
      */
     public void increaseEnergy(int energy) {
+        if (energy < 0) {
+            throw new IllegalArgumentException("Energy cannot increase with a negative value.");
+        }
         this.energy += energy;
     }
 
@@ -63,6 +66,9 @@ public abstract class GameObject {
      * @param consumedEnergy reducing energy by this amount.
      */
     public void decreaseEnergy(int consumedEnergy) {
+        if (energy < 0) {
+            throw new IllegalArgumentException("Energy cannot decrease with a negative value.");
+        }
         energy -= consumedEnergy;
     }
 
