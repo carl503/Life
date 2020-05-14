@@ -139,7 +139,7 @@ public abstract class AnimalObject extends LifeForm {
 
     /**
      * Returns the rules to be checked on before an animal can eat.
-     * @param lifeForm The {@link LifeForm} this animal wants to eat.
+     * @param lifeForm the {@link LifeForm} this animal wants to eat.
      * @return rules to check before eating the {@link LifeForm}.
      */
     protected abstract LifeFormActionCheck getEatRules(LifeForm lifeForm);
@@ -161,7 +161,8 @@ public abstract class AnimalObject extends LifeForm {
 
     /**
      * Is called when the animal reproduces.
-     * @throws LifeFormException    could not reproduce with the life form
+     * @param partner the {@link LifeForm} this animal try to reproduce with.
+     * @throws LifeFormException    could not reproduce with the life form.
      * @throws NullPointerException the provided life form wanted to reproduce with is null.
      * @return animalObjectChild depending on which Object called the method.
      */
