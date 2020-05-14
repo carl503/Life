@@ -13,6 +13,7 @@ import ch.zhaw.pm2.life.model.lifeform.plant.Plant;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Objects;
 import java.util.Random;
 import java.util.Set;
 import java.util.logging.Level;
@@ -59,7 +60,7 @@ public class Game {
      *                                  the sum of all counts is higher than the number of fields on the board
      */
     public Game(Board board, Map<GameObject, Integer> gameObjects) {
-        this.board = board;
+        this.board = Objects.requireNonNull(board, "Board cannot be null to create the game.");
         addLifeForms(gameObjects);
     }
 
@@ -205,7 +206,7 @@ public class Game {
                             deadLifeForms.add(lifeForm);
                             stringBuilder.append(animalObject.getName())
                                     .append(": Yummy food (")
-                                    .append(lifeForm.getClass().getSimpleName())
+                                    .append(lifeForm.getName())
                                     .append(")!\n");
                         }
                     } catch (LifeFormException | NullPointerException e) {

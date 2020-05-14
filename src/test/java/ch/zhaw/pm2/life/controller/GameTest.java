@@ -13,7 +13,9 @@ import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 
+import java.util.HashMap;
 import java.util.HashSet;
+import java.util.Map;
 import java.util.Random;
 import java.util.Set;
 
@@ -28,12 +30,13 @@ public class GameTest {
     private static final int NUM_OF_COLUMNS = 3;
 
     private static final int NUM_OF_PLANTS = 1;
-    private static final int NUM_OF_MEAT_EATERS = 2;
-    private static final int NUM_OF_PLANT_EATERS = 1;
+    private static final int NUM_OF_CARNIVORES = 2;
+    private static final int NUM_OF_HERBIVORES = 1;
 
-    private static final int NUMBER_OF_GAME_OBJECTS = NUM_OF_MEAT_EATERS + NUM_OF_PLANT_EATERS + NUM_OF_PLANTS;
+    private static final int NUMBER_OF_GAME_OBJECTS = NUM_OF_CARNIVORES + NUM_OF_HERBIVORES + NUM_OF_PLANTS;
 
     @Mock private Board board;
+
     private final Random random = new Random();
     private Game game;
 
@@ -42,15 +45,23 @@ public class GameTest {
         MockitoAnnotations.initMocks(this);
         when(board.getRows()).thenReturn(NUM_OF_ROWS);
         when(board.getColumns()).thenReturn(NUM_OF_COLUMNS);
-        game = new Game(board, NUM_OF_PLANTS, NUM_OF_MEAT_EATERS, NUM_OF_PLANT_EATERS);
     }
 
     //==================================================================================================================
     // Positive tests
     //==================================================================================================================
 
+    private Map<GameObject, Integer> getInitMap(int numOfPlants, int numOfCarnivores, int numOfHerbivores) {
+        Map<GameObject, Integer> initMap = new HashMap<>();
+        initMap.put(mock(Plant.class), numOfPlants);
+        initMap.put(mock(Carnivore.class), numOfCarnivores);
+        initMap.put(mock(Herbivore.class), numOfHerbivores);
+        return initMap;
+    }
+
     @Test
-    public void testInit() {
+    public void testConstructorInit() {
+        // prepare
         Set<GameObject> dummyGameObjectsSet = new HashSet<>();
         Set<Vector2D> dummyPositionsSet = new HashSet<>();
 
@@ -69,30 +80,29 @@ public class GameTest {
             return new Vector2D(x, y);
         });
 
-        game.init();
+        // execute
+        game = new Game(board, getInitMap(NUM_OF_PLANTS, NUM_OF_CARNIVORES, NUM_OF_HERBIVORES));
 
+        // assert
         assertEquals(NUMBER_OF_GAME_OBJECTS, board.getGameObjects().size());
         assertEquals(NUMBER_OF_GAME_OBJECTS, board.getOccupiedPositions().size());
     }
 
     @Test
     public void testIsOngoing() {
-        game = new Game(board,0, 0, 0);
-        game.init();
+        game = new Game(board, getInitMap(0, 0, 0));
         assertTrue(game.isOngoing());
     }
 
     @Test
     public void testStop() {
-        game = new Game(board,0, 0, 0);
-        game.init();
+        game = new Game(board, getInitMap(0, 0, 0));
         game.stop();
         assertFalse(game.isOngoing());
     }
 
     @Test
     public void testNextMoveEatHerbivoreAndPlant() throws LifeFormException {
-
         // setup
         Vector2D zeroPosition = new Vector2D(0,0);
         Set<GameObject> dummyGameObjectsSet = new HashSet<>();
@@ -121,15 +131,16 @@ public class GameTest {
         when(board.getOccupiedPositions()).thenReturn(dummyPositionsSet);
         when(board.noAnimalExtinct()).thenReturn(true);
 
-        game = new Game(board,1, 0, 1);
-        game.init();
+        game = new Game(board, getInitMap(1, 0, 1));
+
+        // execute
         game.nextMove();
 
         // verifies and assertions
         verify(animalObject, times(1)).eat(plant);
         verify(animalObject, times(1)).move(anySet());
 
-        assertEquals(animalObject.getClass().getSimpleName() + ": Yummy food (" + plant.getClass().getSimpleName() + ")!\n", game.nextMove());
+        assertEquals(animalObject.getName() + ": Yummy food (" + plant.getName() + ")!\n", game.nextMove());
         dummyGameObjectsSet.remove(plant);
         assertEquals(1, board.getGameObjects().size());
         assertEquals(1, board.getOccupiedPositions().size());
@@ -190,15 +201,16 @@ public class GameTest {
         when(board.getOccupiedPositions()).thenReturn(dummyPositionsSet);
         when(board.noAnimalExtinct()).thenReturn(true);
 
-        game = new Game(board,1, 0, 1);
-        game.init();
+        game = new Game(board, getInitMap(1, 0, 1));
+
+        // execute
         game.nextMove();
 
         // verifies and assertions
         verify(carnivoreTwo, times(1)).eat(carnivoreOne);
         verify(carnivoreTwo, times(1)).move(anySet());
 
-        assertEquals(carnivoreOne.getClass().getSimpleName() + ": Yummy food (" + carnivoreTwo.getClass().getSimpleName() + ")!\n", game.nextMove());
+        assertEquals(carnivoreOne.getName() + ": Yummy food (" + carnivoreTwo.getName() + ")!\n", game.nextMove());
         dummyGameObjectsSet.remove(carnivoreTwo);
         assertEquals(1, board.getGameObjects().size());
         assertEquals(1, board.getOccupiedPositions().size());
@@ -249,8 +261,9 @@ public class GameTest {
         when(board.getOccupiedPositions()).thenReturn(dummyPositionsSet);
         when(board.noAnimalExtinct()).thenReturn(true);
 
-        game = new Game(board,0, 0, 2);
-        game.init();
+        game = new Game(board, getInitMap(0, 0, 2));
+
+        // execute
         game.nextMove();
 
         // verifies and assertions
@@ -260,8 +273,8 @@ public class GameTest {
         verify(herbivoreMale, times(1)).move(anySet());
         verify(herbivoreFemale, times(1)).move(anySet());
 
-        assertThat(game.nextMove(), anyOf(is(herbivoreFemale.getClass().getSimpleName() + ": We just reproduced with each other\nCannot give birth because im male\r\n"),
-                                          is("Cannot give birth because im male\r\n" + herbivoreFemale.getClass().getSimpleName() + ": We just reproduced with each other\n")));
+        assertThat(game.nextMove(), anyOf(is(herbivoreFemale.getName() + ": We just reproduced with each other\nCannot give birth because im male\r\n"),
+                                          is("Cannot give birth because im male\r\n" + herbivoreFemale.getName() + ": We just reproduced with each other\n")));
         dummyGameObjectsSet.add(herbivoreChild);
         assertEquals(3, board.getGameObjects().size());
         dummyPositionsSet.add(herbivoreChild.getPosition());
@@ -299,8 +312,9 @@ public class GameTest {
         when(board.getOccupiedPositions()).thenReturn(dummyPositionsSet);
         when(board.noAnimalExtinct()).thenReturn(true);
 
-        game = new Game(board,0, 0, 2);
-        game.init();
+        game = new Game(board, getInitMap(0, 0, 2));
+
+        // execute
         game.nextMove();
 
         // verifies and assertions
@@ -333,8 +347,10 @@ public class GameTest {
         when(board.getOccupiedPositions()).thenReturn(dummyPositionsSet);
         when(board.noAnimalExtinct()).thenReturn(false);
 
-        game = new Game(board,0, 1, 0);
-        game.init();
+
+        game = new Game(board, getInitMap(0, 1, 0));
+
+        // execute
         game.nextMove();
 
         // verifies and assertions
@@ -368,13 +384,15 @@ public class GameTest {
         when(board.getOccupiedPositions()).thenReturn(dummyPositionsSet);
         when(board.noAnimalExtinct()).thenReturn(true);
 
-        game = new Game(board,0, 1, 0);
-        game.init();
+
+        game = new Game(board, getInitMap(0, 1, 0));
+
+        // execute
         game.nextMove();
 
         // verifies and assertions
         verify(carnivore, times(1)).move(anySet());
-        assertEquals(carnivore.getClass().getSimpleName() + ": died of exhaustion.\r\n", game.nextMove());
+        assertEquals(carnivore.getName() + ": died of exhaustion.\r\n", game.nextMove());
         dummyPositionsSet.remove(carnivore.getPosition());
         assertEquals(0, board.getOccupiedPositions().size());
         dummyGameObjectsSet.remove(carnivore);
@@ -387,25 +405,29 @@ public class GameTest {
 
     @Test
     public void testInvalidConstructorBoardNull() {
-        Exception thrown = assertThrows(NullPointerException.class, () -> new Game(null, NUM_OF_PLANTS, NUM_OF_MEAT_EATERS, NUM_OF_PLANT_EATERS));
+        Map<GameObject, Integer> initMap = getInitMap(NUM_OF_PLANTS, NUM_OF_CARNIVORES, NUM_OF_HERBIVORES);
+        Exception thrown = assertThrows(NullPointerException.class, () -> new Game(null, initMap));
         assertEquals("Board cannot be null to create the game.", thrown.getMessage());
     }
 
     @Test
     public void testInvalidConstructorNumPlantsLessThanMinimum() {
-        Exception thrown = assertThrows(IllegalArgumentException.class, () -> new Game(board, -1, NUM_OF_MEAT_EATERS, NUM_OF_PLANT_EATERS));
+        Map<GameObject, Integer> initMap = getInitMap(-1, NUM_OF_CARNIVORES, NUM_OF_HERBIVORES);
+        Exception thrown = assertThrows(IllegalArgumentException.class, () -> new Game(board, initMap));
         assertEquals("Number of plants is less than the minimal value.", thrown.getMessage());
     }
 
     @Test
     public void testInvalidConstructorNumMeatEaterLessThanMinimum() {
-        Exception thrown = assertThrows(IllegalArgumentException.class, () -> new Game(board, NUM_OF_PLANTS, -1, NUM_OF_PLANT_EATERS));
+        Map<GameObject, Integer> initMap = getInitMap(NUM_OF_PLANTS, -1, NUM_OF_HERBIVORES);
+        Exception thrown = assertThrows(IllegalArgumentException.class, () -> new Game(board, initMap));
         assertEquals("Number of carnivores is less than the minimal value.", thrown.getMessage());
     }
 
     @Test
     public void testInvalidConstructorNumPlantEaterLessThanMinimum() {
-        Exception thrown = assertThrows(IllegalArgumentException.class, () -> new Game(board, NUM_OF_PLANTS, NUM_OF_MEAT_EATERS, -1));
+        Map<GameObject, Integer> initMap = getInitMap(NUM_OF_PLANTS, NUM_OF_CARNIVORES, -1);
+        Exception thrown = assertThrows(IllegalArgumentException.class, () -> new Game(board, initMap));
         assertEquals("Number of herbivores is less than the minimal value.", thrown.getMessage());
     }
 
@@ -414,7 +436,9 @@ public class GameTest {
         int dimension = (int) Math.sqrt(NUMBER_OF_GAME_OBJECTS) - 1;
         when(board.getRows()).thenReturn(dimension);
         when(board.getColumns()).thenReturn(dimension);
-        Exception thrown = assertThrows(IllegalArgumentException.class, () -> new Game(board, NUMBER_OF_GAME_OBJECTS, 0, 0));
+
+        Map<GameObject, Integer> initMap = getInitMap(NUMBER_OF_GAME_OBJECTS, 0, 0);
+        Exception thrown = assertThrows(IllegalArgumentException.class, () -> new Game(board, initMap));
         assertEquals("Number of plants exceed the number of available field.", thrown.getMessage());
     }
 
@@ -423,7 +447,9 @@ public class GameTest {
         int dimension = (int) Math.sqrt(NUMBER_OF_GAME_OBJECTS) - 1;
         when(board.getRows()).thenReturn(dimension);
         when(board.getColumns()).thenReturn(dimension);
-        Exception thrown = assertThrows(IllegalArgumentException.class, () -> new Game(board, 0, NUMBER_OF_GAME_OBJECTS, 0));
+
+        Map<GameObject, Integer> initMap = getInitMap(0, NUMBER_OF_GAME_OBJECTS, 0);
+        Exception thrown = assertThrows(IllegalArgumentException.class, () -> new Game(board, initMap));
         assertEquals("Number of carnivores exceed the number of available field.", thrown.getMessage());
     }
 
@@ -432,7 +458,9 @@ public class GameTest {
         int dimension = (int) Math.sqrt(NUMBER_OF_GAME_OBJECTS) - 1;
         when(board.getRows()).thenReturn(dimension);
         when(board.getColumns()).thenReturn(dimension);
-        Exception thrown = assertThrows(IllegalArgumentException.class, () -> new Game(board, 0, 0, NUMBER_OF_GAME_OBJECTS));
+
+        Map<GameObject, Integer> initMap = getInitMap(0, 0, NUMBER_OF_GAME_OBJECTS);
+        Exception thrown = assertThrows(IllegalArgumentException.class, () -> new Game(board, initMap));
         assertEquals("Number of herbivores exceed the number of available field.", thrown.getMessage());
     }
 
@@ -441,7 +469,9 @@ public class GameTest {
         int dimension = (int) Math.sqrt(NUMBER_OF_GAME_OBJECTS);
         when(board.getRows()).thenReturn(dimension);
         when(board.getColumns()).thenReturn(dimension);
-        Exception thrown = assertThrows(IllegalArgumentException.class, () -> new Game(board, NUM_OF_PLANTS + 1, NUM_OF_MEAT_EATERS, NUM_OF_PLANT_EATERS));
+
+        Map<GameObject, Integer> initMap = getInitMap(NUM_OF_PLANTS + 1, NUM_OF_CARNIVORES, NUM_OF_HERBIVORES);
+        Exception thrown = assertThrows(IllegalArgumentException.class, () -> new Game(board, initMap));
         assertEquals("Number of game objects exceed the number of available field.", thrown.getMessage());
     }
 
