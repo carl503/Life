@@ -2,7 +2,6 @@ package ch.zhaw.pm2.life.model.lifeform;
 
 import ch.zhaw.pm2.life.model.GameObject;
 
-import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
