@@ -16,8 +16,6 @@ public abstract class LifeForm extends GameObject {
     private static final double POISON_ENERGY_CONSUMPTION_START_FACTOR = 0.3;
     private static final int POISONOUS_PROBABILITY = 3;
 
-    private final Random random = new Random();
-
     /**
      * Flag to indicate the living state.
      */
@@ -44,9 +42,9 @@ public abstract class LifeForm extends GameObject {
      * Default constructor.
      */
     public LifeForm() {
-        int genderValue = random.nextInt(10);
+        int genderValue = getRandom().nextInt(10);
         isMale = genderValue > 4;
-        int poisonValue = random.nextInt(10);
+        int poisonValue = getRandom().nextInt(10);
         isPoisonous = poisonValue < POISONOUS_PROBABILITY;
     }
 
