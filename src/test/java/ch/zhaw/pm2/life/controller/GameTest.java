@@ -221,6 +221,9 @@ public class GameTest {
         when(herbivoreChild.getGender()).thenReturn("F");
         when(herbivoreChild.getPosition()).thenReturn(new Vector2D(1, 1));
 
+        dummyGameObjectsSet.add(herbivoreChild);
+        dummyPositionsSet.add(herbivoreChild.getPosition());
+
         // herbivoreMale Mock
         when(herbivoreMale.getEnergy()).thenReturn(10);
         when(herbivoreMale.getFertilityThreshold()).thenReturn(10);
@@ -241,14 +244,10 @@ public class GameTest {
         dummyGameObjectsSet.add(herbivoreFemale);
         dummyPositionsSet.add(herbivoreFemale.getPosition());
 
-        dummyGameObjectsSet.add(herbivoreChild);
-        dummyPositionsSet.add(herbivoreChild.getPosition());
-
         //board mock
         when(board.getGameObjects()).thenReturn(dummyGameObjectsSet);
         when(board.getOccupiedPositions()).thenReturn(dummyPositionsSet);
         when(board.noAnimalExtinct()).thenReturn(true);
-
 
         game = new Game(board,0, 0, 2);
         game.init();
