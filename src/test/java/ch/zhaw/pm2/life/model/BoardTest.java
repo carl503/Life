@@ -73,6 +73,9 @@ public class BoardTest {
 
         // execute + assert
         board.addGameObject(thirdGameObject, thirdGameObject.getPosition());
+        verify(firstGameObject, times(3)).getPosition();
+        verify(secondGameObject, times(2)).getPosition();
+        verify(thirdGameObject, times(2)).getPosition();
         assertEquals(3, board.getGameObjects().size());
         assertEquals(2, board.getOccupiedPositions().size());
         assertTrue(gameObjects.containsAll(board.getGameObjects()));
@@ -113,6 +116,12 @@ public class BoardTest {
         positions.remove(firstLifeForm.getPosition());
 
         // check
+        verify(firstLifeForm, times(1)).isDead();
+        verify(secondLifeForm, times(1)).isDead();
+        verify(thirdLifeForm, times(1)).isDead();
+        verify(firstLifeForm, times(3)).getPosition();
+        verify(secondLifeForm, times(3)).getPosition();
+        verify(thirdLifeForm, times(3)).getPosition();
         assertEquals(2, board.getGameObjects().size());
         assertEquals(1, board.getOccupiedPositions().size()); // second and third on same position
         assertTrue(gameObjects.containsAll(board.getGameObjects()));
