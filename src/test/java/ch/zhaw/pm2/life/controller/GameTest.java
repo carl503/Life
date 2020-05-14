@@ -34,6 +34,10 @@ public class GameTest {
     private static final int NUM_OF_HERBIVORES = 1;
 
     private static final int NUMBER_OF_GAME_OBJECTS = NUM_OF_CARNIVORES + NUM_OF_HERBIVORES + NUM_OF_PLANTS;
+    public static final String PLANT = "plant";
+    public static final String CARNIVORE = "carnivore";
+    public static final String HERBIVORE = "herbivore";
+    public static final String ANIMAL = "animal";
 
     @Mock private Board board;
 
@@ -52,10 +56,18 @@ public class GameTest {
     //==================================================================================================================
 
     private Map<GameObject, Integer> getInitMap(int numOfPlants, int numOfCarnivores, int numOfHerbivores) {
+        GameObject plant = mock(Plant.class);
+        GameObject carnivore = mock(Carnivore.class);
+        GameObject herbivore = mock(Herbivore.class);
+
+        when(plant.getName()).thenReturn(PLANT);
+        when(carnivore.getName()).thenReturn(CARNIVORE);
+        when(herbivore.getName()).thenReturn(HERBIVORE);
+
         Map<GameObject, Integer> initMap = new HashMap<>();
-        initMap.put(mock(Plant.class), numOfPlants);
-        initMap.put(mock(Carnivore.class), numOfCarnivores);
-        initMap.put(mock(Herbivore.class), numOfHerbivores);
+        initMap.put(plant, numOfPlants);
+        initMap.put(carnivore, numOfCarnivores);
+        initMap.put(herbivore, numOfHerbivores);
         return initMap;
     }
 
@@ -110,6 +122,7 @@ public class GameTest {
 
         // plant Mock
         Plant plant = mock(Plant.class);
+        when(plant.getName()).thenReturn(PLANT);
         when(plant.getEnergy()).thenReturn(10);
         when(plant.getGender()).thenReturn("N");
         when(plant.getPosition()).thenReturn(zeroPosition);
@@ -119,6 +132,7 @@ public class GameTest {
 
         // animalObject Mock
         AnimalObject animalObject = mock(AnimalObject.class);
+        when(animalObject.getName()).thenReturn(CARNIVORE);
         when(animalObject.getEnergy()).thenReturn(10);
         when(animalObject.getGender()).thenReturn("F");
         when(animalObject.getPosition()).thenReturn(zeroPosition);
@@ -180,6 +194,7 @@ public class GameTest {
 
         // carnivoreOne Mock
         Carnivore carnivoreOne = mock(Carnivore.class);
+        when(carnivoreOne.getName()).thenReturn(CARNIVORE);
         when(carnivoreOne.getEnergy()).thenReturn(10);
         when(carnivoreOne.getGender()).thenReturn("M");
         when(carnivoreOne.getPosition()).thenReturn(zeroPosition);
@@ -189,6 +204,7 @@ public class GameTest {
 
         // carnivoreTwo Mock
         Carnivore carnivoreTwo = mock(Carnivore.class);
+        when(carnivoreTwo.getName()).thenReturn(CARNIVORE);
         when(carnivoreTwo.getEnergy()).thenReturn(8);
         when(carnivoreTwo.getGender()).thenReturn("M");
         when(carnivoreTwo.getPosition()).thenReturn(zeroPosition);
@@ -230,6 +246,7 @@ public class GameTest {
 
         // herbivoreChild Mock
         when(herbivoreChild.getEnergy()).thenReturn(10);
+        when(herbivoreChild.getName()).thenReturn(HERBIVORE);
         when(herbivoreChild.getGender()).thenReturn("F");
         when(herbivoreChild.getPosition()).thenReturn(new Vector2D(1, 1));
 
@@ -238,6 +255,7 @@ public class GameTest {
 
         // herbivoreMale Mock
         when(herbivoreMale.getEnergy()).thenReturn(10);
+        when(herbivoreMale.getName()).thenReturn(HERBIVORE);
         when(herbivoreMale.getFertilityThreshold()).thenReturn(10);
         when(herbivoreMale.getGender()).thenReturn("M");
         when(herbivoreMale.reproduce(herbivoreFemale)).thenThrow(new LifeFormException("Cannot give birth because im male"));
@@ -248,6 +266,7 @@ public class GameTest {
 
         // herbivoreFemale Mock
         when(herbivoreFemale.getEnergy()).thenReturn(10);
+        when(herbivoreFemale.getName()).thenReturn(HERBIVORE);
         when(herbivoreFemale.getFertilityThreshold()).thenReturn(10);
         when(herbivoreFemale.getGender()).thenReturn("F");
         when(herbivoreFemale.reproduce(herbivoreMale)).thenReturn(herbivoreChild);
@@ -291,6 +310,7 @@ public class GameTest {
 
         // animalObjectOne Mock
         AnimalObject animalObjectOne = mock(AnimalObject.class);
+        when(animalObjectOne.getName()).thenReturn(ANIMAL);
         when(animalObjectOne.getEnergy()).thenReturn(10);
         when(animalObjectOne.getGender()).thenReturn("F");
         when(animalObjectOne.getPosition()).thenReturn(zeroPosition);
@@ -300,6 +320,7 @@ public class GameTest {
 
         // animalObjectTwo Mock
         AnimalObject animalObjectTwo = mock(AnimalObject.class);
+        when(animalObjectTwo.getName()).thenReturn(ANIMAL);
         when(animalObjectTwo.getEnergy()).thenReturn(10);
         when(animalObjectTwo.getGender()).thenReturn("F");
         when(animalObjectTwo.getPosition()).thenReturn(onePosition);
@@ -335,6 +356,7 @@ public class GameTest {
 
         // animalObjectOne Mock
         Carnivore carnivore = mock(Carnivore.class);
+        when(carnivore.getName()).thenReturn(CARNIVORE);
         when(carnivore.getEnergy()).thenReturn(10);
         when(carnivore.getGender()).thenReturn("F");
         when(carnivore.getPosition()).thenReturn(zeroPosition);
@@ -346,7 +368,6 @@ public class GameTest {
         when(board.getGameObjects()).thenReturn(dummyGameObjectsSet);
         when(board.getOccupiedPositions()).thenReturn(dummyPositionsSet);
         when(board.noAnimalExtinct()).thenReturn(false);
-
 
         game = new Game(board, getInitMap(0, 1, 0));
 
@@ -372,6 +393,7 @@ public class GameTest {
 
         // animalObjectOne Mock
         Carnivore carnivore = mock(Carnivore.class);
+        when(carnivore.getName()).thenReturn(CARNIVORE);
         when(carnivore.getEnergy()).thenReturn(-1);
         when(carnivore.getGender()).thenReturn("F");
         when(carnivore.getPosition()).thenReturn(zeroPosition);
@@ -414,21 +436,21 @@ public class GameTest {
     public void testInvalidConstructorNumPlantsLessThanMinimum() {
         Map<GameObject, Integer> initMap = getInitMap(-1, NUM_OF_CARNIVORES, NUM_OF_HERBIVORES);
         Exception thrown = assertThrows(IllegalArgumentException.class, () -> new Game(board, initMap));
-        assertEquals("Number of plants is less than the minimal value.", thrown.getMessage());
+        assertEquals("Number of plant is less than the minimal value.", thrown.getMessage());
     }
 
     @Test
     public void testInvalidConstructorNumMeatEaterLessThanMinimum() {
         Map<GameObject, Integer> initMap = getInitMap(NUM_OF_PLANTS, -1, NUM_OF_HERBIVORES);
         Exception thrown = assertThrows(IllegalArgumentException.class, () -> new Game(board, initMap));
-        assertEquals("Number of carnivores is less than the minimal value.", thrown.getMessage());
+        assertEquals("Number of carnivore is less than the minimal value.", thrown.getMessage());
     }
 
     @Test
     public void testInvalidConstructorNumPlantEaterLessThanMinimum() {
         Map<GameObject, Integer> initMap = getInitMap(NUM_OF_PLANTS, NUM_OF_CARNIVORES, -1);
         Exception thrown = assertThrows(IllegalArgumentException.class, () -> new Game(board, initMap));
-        assertEquals("Number of herbivores is less than the minimal value.", thrown.getMessage());
+        assertEquals("Number of herbivore is less than the minimal value.", thrown.getMessage());
     }
 
     @Test
@@ -439,7 +461,7 @@ public class GameTest {
 
         Map<GameObject, Integer> initMap = getInitMap(NUMBER_OF_GAME_OBJECTS, 0, 0);
         Exception thrown = assertThrows(IllegalArgumentException.class, () -> new Game(board, initMap));
-        assertEquals("Number of plants exceed the number of available field.", thrown.getMessage());
+        assertEquals("Number of plant exceed the number of available field.", thrown.getMessage());
     }
 
     @Test
@@ -450,7 +472,7 @@ public class GameTest {
 
         Map<GameObject, Integer> initMap = getInitMap(0, NUMBER_OF_GAME_OBJECTS, 0);
         Exception thrown = assertThrows(IllegalArgumentException.class, () -> new Game(board, initMap));
-        assertEquals("Number of carnivores exceed the number of available field.", thrown.getMessage());
+        assertEquals("Number of carnivore exceed the number of available field.", thrown.getMessage());
     }
 
     @Test
@@ -461,18 +483,7 @@ public class GameTest {
 
         Map<GameObject, Integer> initMap = getInitMap(0, 0, NUMBER_OF_GAME_OBJECTS);
         Exception thrown = assertThrows(IllegalArgumentException.class, () -> new Game(board, initMap));
-        assertEquals("Number of herbivores exceed the number of available field.", thrown.getMessage());
-    }
-
-    @Test
-    public void testInvalidNumGameObjectsMoreThanFields() {
-        int dimension = (int) Math.sqrt(NUMBER_OF_GAME_OBJECTS);
-        when(board.getRows()).thenReturn(dimension);
-        when(board.getColumns()).thenReturn(dimension);
-
-        Map<GameObject, Integer> initMap = getInitMap(NUM_OF_PLANTS + 1, NUM_OF_CARNIVORES, NUM_OF_HERBIVORES);
-        Exception thrown = assertThrows(IllegalArgumentException.class, () -> new Game(board, initMap));
-        assertEquals("Number of game objects exceed the number of available field.", thrown.getMessage());
+        assertEquals("Number of herbivore exceed the number of available field.", thrown.getMessage());
     }
 
 }

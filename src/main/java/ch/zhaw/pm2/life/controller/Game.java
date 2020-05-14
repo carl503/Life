@@ -74,6 +74,7 @@ public class Game {
 
     private void addLifeForms(Map<GameObject, Integer> gameObjects) {
         gameObjects.forEach((gameObject, amount) -> {
+            validateNumOfGameObjects(amount, gameObject.getName());
             for (int i = 0; i < amount; i++) {
                 try {
                     GameObject go = gameObject.getClass().getConstructor().newInstance();
