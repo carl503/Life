@@ -18,7 +18,7 @@ public class ScanRadiusDialog extends Dialog<Integer> {
         Label text = new Label();
         text.setText("Bitte waehlen Sie einen neuen Radius aus");
 
-        slider.setMin(1);
+        slider.setMin(0);
         slider.setMax(3);
         slider.setMinorTickCount(0);
         slider.setMajorTickUnit(1);
