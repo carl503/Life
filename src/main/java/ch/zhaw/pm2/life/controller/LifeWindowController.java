@@ -96,9 +96,7 @@ public class LifeWindowController {
     public void initGame() {
         if (boardObject != null) {
             try {
-                game = new Game(boardObject, setupController.getPlantCount(),
-                                setupController.getCarnivoreCount(), setupController.getHerbivoreCount());
-                game.init();
+                game = new Game(boardObject, setupController.getGameObjects());
             } catch (Exception e) {
                 messageField.appendText(e.getMessage() + "\n");
             }

@@ -48,31 +48,18 @@ public class Game {
     private final Set<GameObject> deadLifeForms = new HashSet<>();
     private final Random random = new Random();
     private final Board board;
-    private final int plantCount;
-    private final int carnivoreCount;
-    private final int herbivoreCount;
-
     private boolean ongoing = true;
 
     /**
      * Default constructor.
      * @param board          Stores all game objects.
-     * @param plantCount     Initial amount of plants.
-     * @param carnivoreCount Initial amount of carnivores.
-     * @param herbivoreCount Initial amount of herbivores.
      * @throws NullPointerException     when the board is null
      * @throws IllegalArgumentException when the plant, herbivore or carnivore count is negative or
      *                                  the sum of all counts is higher than the number of fields on the board
      */
-    public Game(Board board, int plantCount, int carnivoreCount, int herbivoreCount) {
-        this.board = Objects.requireNonNull(board, "Board cannot be null to create the game.");
-        validateNumOfGameObjects(plantCount, "plants");
-        validateNumOfGameObjects(carnivoreCount, "carnivores");
-        validateNumOfGameObjects(herbivoreCount, "herbivores");
-        validateNumOfGameObjects(plantCount + carnivoreCount + herbivoreCount, "game objects");
-        this.plantCount = plantCount;
-        this.carnivoreCount = carnivoreCount;
-        this.herbivoreCount = herbivoreCount;
+    public Game(Board board, Map<GameObject, Integer> gameObjects) {
+        this.board = board;
+        addLifeForm(gameObjects);
     }
 
     private void validateNumOfGameObjects(int num, String type) {
@@ -83,30 +70,21 @@ public class Game {
         }
     }
 
-    /**
-     * Initialize the game.
-     */
-    public void init() {
-        try {
-            addLifeForm(Plant.class, plantCount);
-            addLifeForm(Carnivore.class, carnivoreCount);
-            addLifeForm(Herbivore.class, herbivoreCount);
-        } catch (LifeFormException e) {
-            logger.log(Level.SEVERE, "Error while initializing the life form classes", e);
-            stop();
-        }
-    }
-
-    private void addLifeForm(Class<? extends LifeForm> lifeFormClass, int count) throws LifeFormException {
-        try {
-            for (int i = 0; i < count; i++) {
-                LifeForm lifeForm = lifeFormClass.getConstructor().newInstance();
-                board.addGameObject(lifeForm, calculatePosition());
+    private void addLifeForm(Map<GameObject, Integer> gameObjects) {
+        gameObjects.forEach((gameObject, amount) -> {
+            for (int i = 0; i < amount; i++) {
+                try {
+                    GameObject go = gameObject.getClass().getConstructor().newInstance();
+                    go.setName(gameObject.getName());
+                    go.setEnergy(gameObject.getEnergy());
+                    go.setColor(gameObject.getColor());
+                    board.addGameObject(go, calculatePosition());
+                } catch (Exception e) {
+                    logger.log(Level.SEVERE, "Error while initializing the life form classes", e);
+                    stop();
+                }
             }
-        } catch (NullPointerException | InstantiationException | InvocationTargetException | NoSuchMethodException
-                | IllegalAccessException e) {
-            throw new LifeFormException(e.getMessage(), e);
-        }
+        });
     }
 
     private Vector2D calculatePosition() {
