@@ -161,6 +161,50 @@ public class GameTest {
     }
 
     @Test
+    public void testNextMoveEatCarnivoreAndCarnivore() throws LifeFormException {
+        // setup
+        Vector2D zeroPosition = new Vector2D(0,0);
+        Set<GameObject> dummyGameObjectsSet = new HashSet<>();
+        Set<Vector2D> dummyPositionsSet = new HashSet<>();
+
+        // carnivoreOne Mock
+        Carnivore carnivoreOne = mock(Carnivore.class);
+        when(carnivoreOne.getEnergy()).thenReturn(10);
+        when(carnivoreOne.getGender()).thenReturn("M");
+        when(carnivoreOne.getPosition()).thenReturn(zeroPosition);
+
+        dummyGameObjectsSet.add(carnivoreOne);
+        dummyPositionsSet.add(carnivoreOne.getPosition());
+
+        // carnivoreTwo Mock
+        Carnivore carnivoreTwo = mock(Carnivore.class);
+        when(carnivoreTwo.getEnergy()).thenReturn(8);
+        when(carnivoreTwo.getGender()).thenReturn("M");
+        when(carnivoreTwo.getPosition()).thenReturn(zeroPosition);
+
+        dummyGameObjectsSet.add(carnivoreTwo);
+        dummyPositionsSet.add(carnivoreTwo.getPosition());
+
+        // Sets and game init
+        when(board.getGameObjects()).thenReturn(dummyGameObjectsSet);
+        when(board.getOccupiedPositions()).thenReturn(dummyPositionsSet);
+        when(board.noAnimalExtinct()).thenReturn(true);
+
+        game = new Game(board,1, 0, 1);
+        game.init();
+        game.nextMove();
+
+        // verifies and assertions
+        verify(carnivoreTwo, times(1)).eat(carnivoreOne);
+        verify(carnivoreTwo, times(1)).move(anySet());
+
+        assertEquals(carnivoreOne.getClass().getSimpleName() + ": Yummy food (" + carnivoreTwo.getClass().getSimpleName() + ")!\n", game.nextMove());
+        dummyGameObjectsSet.remove(carnivoreTwo);
+        assertEquals(1, board.getGameObjects().size());
+        assertEquals(1, board.getOccupiedPositions().size());
+    }
+
+    @Test
     public void testNextMoveReproduce() throws LifeFormException {
         // setup
         Vector2D zeroPosition = new Vector2D(0,0);
