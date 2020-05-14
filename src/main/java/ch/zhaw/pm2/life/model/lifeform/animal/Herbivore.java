@@ -5,7 +5,7 @@ import ch.zhaw.pm2.life.model.GameObject;
 import ch.zhaw.pm2.life.model.Vector2D;
 import ch.zhaw.pm2.life.model.lifeform.LifeForm;
 import ch.zhaw.pm2.life.model.lifeform.LifeFormActionCheck;
-import ch.zhaw.pm2.life.model.lifeform.plant.PlantObject;
+import ch.zhaw.pm2.life.model.lifeform.plant.Plant;
 
 import java.util.Objects;
 import java.util.Set;
@@ -32,7 +32,7 @@ public class Herbivore extends AnimalObject {
 
         for (GameObject neighbour : neighbours) {
             int distance = Vector2D.dot(this.getPosition(), neighbour.getPosition());
-            if (neighbour instanceof PlantObject && distance < min) {
+            if (neighbour instanceof Plant && distance < min) {
                 min = distance;
                 neighbourPos = neighbour.getPosition();
             }

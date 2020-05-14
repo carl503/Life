@@ -4,12 +4,12 @@ import ch.zhaw.pm2.life.model.lifeform.LifeForm;
 import ch.zhaw.pm2.life.model.lifeform.animal.AnimalObject;
 
 /**
- * Abstract class of a plant.
+ * Class of a plant.
  */
-public abstract class PlantObject extends LifeForm {
+public class Plant extends LifeForm {
 
     /**
-     * A {@link PlantObject} has per default an energy level of {@link PlantObject#PLANT_ENERGY_FACTOR}
+     * A {@link Plant} has per default an energy level of {@link Plant#PLANT_ENERGY_FACTOR}
      * times default energy level of an {@link AnimalObject}.
      */
     protected static final int PLANT_ENERGY_FACTOR = 2;
@@ -17,8 +17,9 @@ public abstract class PlantObject extends LifeForm {
     /**
      * Default constructor.
      */
-    public PlantObject() {
+    public Plant() {
         energy = AnimalObject.INIT_ENERGY_ANIMALS * PLANT_ENERGY_FACTOR;
+        color = "green";
     }
 
     @Override
@@ -26,4 +27,8 @@ public abstract class PlantObject extends LifeForm {
         return FoodType.PLANT;
     }
 
+    @Override
+    public String getGender() {
+        return "N";
+    }
 }

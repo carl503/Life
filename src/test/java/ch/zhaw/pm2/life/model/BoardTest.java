@@ -4,7 +4,7 @@ import ch.zhaw.pm2.life.model.lifeform.LifeForm;
 import ch.zhaw.pm2.life.model.lifeform.animal.AnimalObject;
 import ch.zhaw.pm2.life.model.lifeform.animal.Carnivore;
 import ch.zhaw.pm2.life.model.lifeform.animal.Herbivore;
-import ch.zhaw.pm2.life.model.lifeform.plant.PlantObject;
+import ch.zhaw.pm2.life.model.lifeform.plant.Plant;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -94,7 +94,7 @@ public class BoardTest {
         when(secondLifeForm.isDead()).thenReturn(false);
         board.addGameObject(secondLifeForm, secondLifeForm.getPosition());
 
-        LifeForm thirdLifeForm = mock(PlantObject.class);
+        LifeForm thirdLifeForm = mock(Plant.class);
         when(thirdLifeForm.getPosition()).thenReturn(new Vector2D(0, 1));
         when(thirdLifeForm.isDead()).thenReturn(false);
         board.addGameObject(thirdLifeForm, thirdLifeForm.getPosition());

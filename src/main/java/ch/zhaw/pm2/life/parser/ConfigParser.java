@@ -130,7 +130,7 @@ public class ConfigParser {
     private enum Type {
         CARNIVORE(LIFE_FORM_PACKAGE + ".animal.Carnivore"),
         HERBIVORE(LIFE_FORM_PACKAGE + ".animal.Herbivore"),
-        PLANT(LIFE_FORM_PACKAGE + ".plant.FirstPlant");
+        PLANT(LIFE_FORM_PACKAGE + ".plant.Plant");
 
         private final String value;
 

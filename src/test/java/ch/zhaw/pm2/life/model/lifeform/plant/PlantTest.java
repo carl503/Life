@@ -2,7 +2,7 @@ package ch.zhaw.pm2.life.model.lifeform.plant;
 
 import org.junit.jupiter.api.BeforeEach;
 
-public class PlantObjectTest {
+public class PlantTest {
 
 
     @BeforeEach

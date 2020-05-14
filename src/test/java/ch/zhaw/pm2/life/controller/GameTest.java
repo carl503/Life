@@ -7,7 +7,7 @@ import ch.zhaw.pm2.life.model.Vector2D;
 import ch.zhaw.pm2.life.model.lifeform.animal.AnimalObject;
 import ch.zhaw.pm2.life.model.lifeform.animal.Carnivore;
 import ch.zhaw.pm2.life.model.lifeform.animal.Herbivore;
-import ch.zhaw.pm2.life.model.lifeform.plant.PlantObject;
+import ch.zhaw.pm2.life.model.lifeform.plant.Plant;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -98,14 +98,14 @@ public class GameTest {
         Set<GameObject> dummyGameObjectsSet = new HashSet<>();
         Set<Vector2D> dummyPositionsSet = new HashSet<>();
 
-        // plantObject Mock
-        PlantObject plantObject = mock(PlantObject.class);
-        when(plantObject.getEnergy()).thenReturn(10);
-        when(plantObject.getGender()).thenReturn("N");
-        when(plantObject.getPosition()).thenReturn(zeroPosition);
+        // plant Mock
+        Plant plant = mock(Plant.class);
+        when(plant.getEnergy()).thenReturn(10);
+        when(plant.getGender()).thenReturn("N");
+        when(plant.getPosition()).thenReturn(zeroPosition);
 
-        dummyGameObjectsSet.add(plantObject);
-        dummyPositionsSet.add(plantObject.getPosition());
+        dummyGameObjectsSet.add(plant);
+        dummyPositionsSet.add(plant.getPosition());
 
         // animalObject Mock
         AnimalObject animalObject = mock(AnimalObject.class);
@@ -126,11 +126,11 @@ public class GameTest {
         game.nextMove();
 
         // verifies and assertions
-        verify(animalObject, times(1)).eat(plantObject);
+        verify(animalObject, times(1)).eat(plant);
         verify(animalObject, times(1)).move(anySet());
 
-        assertEquals( animalObject.getClass().getSimpleName() + ": Yummy food (" + plantObject.getClass().getSimpleName() + ")!\n", game.nextMove());
-        dummyGameObjectsSet.remove(plantObject);
+        assertEquals(animalObject.getClass().getSimpleName() + ": Yummy food (" + plant.getClass().getSimpleName() + ")!\n", game.nextMove());
+        dummyGameObjectsSet.remove(plant);
         assertEquals(1, board.getGameObjects().size());
         assertEquals(1, board.getOccupiedPositions().size());
 

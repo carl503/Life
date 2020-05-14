@@ -8,8 +8,7 @@ import ch.zhaw.pm2.life.model.lifeform.LifeForm;
 import ch.zhaw.pm2.life.model.lifeform.animal.AnimalObject;
 import ch.zhaw.pm2.life.model.lifeform.animal.Carnivore;
 import ch.zhaw.pm2.life.model.lifeform.animal.Herbivore;
-import ch.zhaw.pm2.life.model.lifeform.plant.FirstPlant;
-import ch.zhaw.pm2.life.model.lifeform.plant.PlantObject;
+import ch.zhaw.pm2.life.model.lifeform.plant.Plant;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
@@ -89,7 +88,7 @@ public class Game {
      */
     public void init() {
         try {
-            addLifeForm(FirstPlant.class, plantCount);
+            addLifeForm(Plant.class, plantCount);
             addLifeForm(Carnivore.class, carnivoreCount);
             addLifeForm(Herbivore.class, herbivoreCount);
         } catch (LifeFormException e) {
@@ -159,7 +158,7 @@ public class Game {
             if (gameObject instanceof AnimalObject) {
                 AnimalObject animalObject = (AnimalObject) gameObject;
                 animalObject.move(board.getNeighbourObjects(animalObject, SCAN_RADIUS));
-            } else if (gameObject instanceof PlantObject) {
+            } else if (gameObject instanceof Plant) {
                 gameObject.decreaseEnergy(PLANT_ENERGY_CONSUMPTION);
             }
             stringBuilder.append(dieOfExhaustion(gameObject));
@@ -233,7 +232,7 @@ public class Game {
     private void spawnPlantRandomlyOnMap() {
         int spawnChance = random.nextInt(11);
         if (spawnChance < PLANT_RESPAWN_CHANCE) {
-            board.addGameObject(new FirstPlant(), calculatePosition());
+            board.addGameObject(new Plant(), calculatePosition());
         }
     }
 
