@@ -131,15 +131,16 @@ public class BoardTest {
     }
 
     @Test
-    public void testContainsNotInstanceOfAnimalObject() {
+    public void testAreAllSpeciesAlive() {
         AnimalObject animalObject = mock(AnimalObject.class);
 
         AnimalObject meatEater = mock(Carnivore.class);
         when(meatEater.getPosition()).thenReturn(new Vector2D(0, 1));
         board.addGameObject(meatEater, meatEater.getPosition());
 
-        assertFalse(board.containsNotInstanceOfAnimalObject(meatEater.getClass()));
-        assertTrue(board.containsNotInstanceOfAnimalObject(animalObject.getClass()));
+        assertTrue(board.areAllSpeciesAlive());
+    }
+
     }
 
     //==================================================================================================================
@@ -188,10 +189,17 @@ public class BoardTest {
     }
 
     @Test
-    public void testContainsNotInstanceOfAnimalObjectNull() {
-        board.addGameObject(mock(Carnivore.class), new Vector2D(0, 0));
-        boolean containsNull = board.containsNotInstanceOfAnimalObject(null);
-        assertFalse(containsNull);
+    public void testAreAllSpeciesAliveInvalid() {
+        Herbivore herbivore = mock(Herbivore.class);
+        Carnivore carnivore = mock(Carnivore.class);
+        when(carnivore.getPosition()).thenReturn(new Vector2D(0, 1));
+        when(herbivore.getPosition()).thenReturn(new Vector2D(0, 2));
+        when(carnivore.isDead()).thenReturn(true);
+        board.addGameObject(carnivore, carnivore.getPosition());
+        board.addGameObject(herbivore, herbivore.getPosition());
+        carnivore.die();
+        board.cleanBoard();
+        assertFalse(board.areAllSpeciesAlive());
     }
 
     @Test
