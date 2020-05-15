@@ -144,7 +144,7 @@ public class GameTest {
 
         when(board.getGameObjects()).thenReturn(dummyGameObjectsSet);
         when(board.getOccupiedPositions()).thenReturn(dummyPositionsSet);
-        when(board.areAllSpeciesAlive()).thenReturn(true);
+        when(board.isSpeciesAlive(null)).thenReturn(true);
 
         game = new Game(board, getGameProperties(1, 0, 1));
 
@@ -192,7 +192,7 @@ public class GameTest {
         // Sets and game init
         when(board.getGameObjects()).thenReturn(dummyGameObjectsSet);
         when(board.getOccupiedPositions()).thenReturn(dummyPositionsSet);
-        when(board.areAllSpeciesAlive()).thenReturn(true);
+        when(board.isSpeciesAlive(null)).thenReturn(true);
 
         game = new Game(board, getGameProperties(1, 0, 1));
 
@@ -261,7 +261,7 @@ public class GameTest {
         //board mock
         when(board.getGameObjects()).thenReturn(dummyGameObjectsSet);
         when(board.getOccupiedPositions()).thenReturn(dummyPositionsSet);
-        when(board.areAllSpeciesAlive()).thenReturn(true);
+        when(board.isSpeciesAlive(null)).thenReturn(true);
 
         game = new Game(board, getGameProperties(0, 0, 2));
 
@@ -314,7 +314,7 @@ public class GameTest {
         //board mock
         when(board.getGameObjects()).thenReturn(dummyGameObjectsSet);
         when(board.getOccupiedPositions()).thenReturn(dummyPositionsSet);
-        when(board.areAllSpeciesAlive()).thenReturn(true);
+        when(board.isSpeciesAlive(null)).thenReturn(true);
 
         game = new Game(board, getGameProperties(0, 0, 2));
 
@@ -350,7 +350,7 @@ public class GameTest {
         //board mock
         when(board.getGameObjects()).thenReturn(dummyGameObjectsSet);
         when(board.getOccupiedPositions()).thenReturn(dummyPositionsSet);
-        when(board.areAllSpeciesAlive()).thenReturn(false);
+        when(board.isSpeciesAlive(null)).thenReturn(false);
 
         game = new Game(board, getGameProperties(0, 1, 0));
 
@@ -387,7 +387,7 @@ public class GameTest {
         //board mock
         when(board.getGameObjects()).thenReturn(dummyGameObjectsSet);
         when(board.getOccupiedPositions()).thenReturn(dummyPositionsSet);
-        when(board.areAllSpeciesAlive()).thenReturn(true);
+        when(board.isSpeciesAlive(null)).thenReturn(true);
 
 
         game = new Game(board, getGameProperties(0, 1, 0));
