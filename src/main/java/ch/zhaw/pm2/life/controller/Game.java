@@ -246,22 +246,42 @@ public class Game {
         }
     }
 
+    /**
+     * Returns the set of startLifeForms.
+     * @return {@link Set<LifeForm>}
+     */
     public Set<LifeForm> getStartLifeForms() {
         return startLifeForms;
     }
 
+    /**
+     * Returns the set of bornLifeForms.
+     * @return {@link Set<LifeForm>}
+     */
     public Set<LifeForm> getBornLifeForms() {
         return bornLifeForms;
     }
 
+    /**
+     * Returns the set of deadLifeForms.
+     * @return {@link Set<LifeForm>}
+     */
     public Set<LifeForm> getDeadLifeForms() {
         return deadLifeForms;
     }
 
+    /**
+     * Returns all Lifeforms that are alive.
+     * @return {@link Set<LifeForm>}
+     */
     public Set<LifeForm> getSurvivedLifeForms() {
         return board.getLifeForms();
     }
 
+    /**
+     * Returns all Lifeforms that spawned.
+     * @return {@link Set<LifeForm>}
+     */
     public Set<LifeForm> getSpawnedLifeForms() {
         return spawnedLifeForms;
     }
