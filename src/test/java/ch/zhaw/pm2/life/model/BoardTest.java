@@ -2,9 +2,9 @@ package ch.zhaw.pm2.life.model;
 
 import ch.zhaw.pm2.life.model.lifeform.LifeForm;
 import ch.zhaw.pm2.life.model.lifeform.animal.AnimalObject;
-import ch.zhaw.pm2.life.model.lifeform.animal.MeatEater;
-import ch.zhaw.pm2.life.model.lifeform.animal.PlantEater;
-import ch.zhaw.pm2.life.model.lifeform.plant.PlantObject;
+import ch.zhaw.pm2.life.model.lifeform.animal.Carnivore;
+import ch.zhaw.pm2.life.model.lifeform.animal.Herbivore;
+import ch.zhaw.pm2.life.model.lifeform.plant.Plant;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -13,12 +13,17 @@ import org.mockito.MockitoAnnotations;
 import java.util.HashSet;
 import java.util.Set;
 
+import static org.hamcrest.MatcherAssert.*;
+import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class BoardTest {
 
     private static final int BOARD_SIZE = 3;
+    private static final String ILLEGAL_POSITION_MESSAGE = "The position %s of the provided game object does not exist on the board.";
+    private static final String WOLF = "Wolf";
+    private static final String SCHAF = "Schaf";
 
     private Board board;
 
@@ -31,8 +36,6 @@ public class BoardTest {
         MockitoAnnotations.initMocks(this);
         board = new Board(BOARD_SIZE, BOARD_SIZE);
     }
-
-    // TODO:  add positive and negative tests for missing non-private methods (getRandomPosition, getNeighbourObjects, ...)
 
     //==================================================================================================================
     // Positive tests
@@ -56,45 +59,50 @@ public class BoardTest {
         positions.add(thirdGameObject.getPosition());
 
         // execute + assert
-        board.addGameObject(firstGameObject);
-        board.addGameObject(secondGameObject);
+        board.addGameObject(firstGameObject, firstGameObject.getPosition());
+        board.addGameObject(secondGameObject, secondGameObject.getPosition());
         assertEquals(2, board.getGameObjects().size());
         assertEquals(2, board.getOccupiedPositions().size());
         assertTrue(gameObjects.containsAll(board.getGameObjects()));
         assertTrue(positions.containsAll(board.getOccupiedPositions()));
 
         // execute + assert
-        board.addGameObject(firstGameObject);
+        board.addGameObject(firstGameObject, firstGameObject.getPosition());
         assertEquals(2, board.getGameObjects().size());
         assertEquals(2, board.getOccupiedPositions().size());
         assertTrue(gameObjects.containsAll(board.getGameObjects()));
         assertTrue(positions.containsAll(board.getOccupiedPositions()));
 
         // execute + assert
-        board.addGameObject(thirdGameObject);
+        board.addGameObject(thirdGameObject, thirdGameObject.getPosition());
+        verify(firstGameObject, times(3)).getPosition();
+        verify(secondGameObject, times(2)).getPosition();
+        verify(thirdGameObject, times(2)).getPosition();
         assertEquals(3, board.getGameObjects().size());
         assertEquals(2, board.getOccupiedPositions().size());
         assertTrue(gameObjects.containsAll(board.getGameObjects()));
         assertTrue(positions.containsAll(board.getOccupiedPositions()));
+        assertTrue(board.getGameObjects().containsAll(gameObjects));
+        assertTrue(board.getOccupiedPositions().containsAll(positions));
     }
 
     @Test
-    public void testCleanBoard() {
+    public void testRemoveDeadLifeForms() {
         // prepare
-        LifeForm firstLifeForm = mock(MeatEater.class);
+        LifeForm firstLifeForm = mock(Carnivore.class);
         when(firstLifeForm.getPosition()).thenReturn(new Vector2D(0, 0));
         when(firstLifeForm.isDead()).thenReturn(true);
-        board.addGameObject(firstLifeForm);
+        board.addGameObject(firstLifeForm, firstLifeForm.getPosition());
 
-        LifeForm secondLifeForm = mock(PlantEater.class);
+        LifeForm secondLifeForm = mock(Herbivore.class);
         when(secondLifeForm.getPosition()).thenReturn(new Vector2D(0, 1));
         when(secondLifeForm.isDead()).thenReturn(false);
-        board.addGameObject(secondLifeForm);
+        board.addGameObject(secondLifeForm, secondLifeForm.getPosition());
 
-        LifeForm thirdLifeForm = mock(PlantObject.class);
+        LifeForm thirdLifeForm = mock(Plant.class);
         when(thirdLifeForm.getPosition()).thenReturn(new Vector2D(0, 1));
         when(thirdLifeForm.isDead()).thenReturn(false);
-        board.addGameObject(thirdLifeForm);
+        board.addGameObject(thirdLifeForm, thirdLifeForm.getPosition());
 
         Set<GameObject> gameObjects = new HashSet<>();
         gameObjects.add(secondLifeForm);
@@ -105,27 +113,108 @@ public class BoardTest {
         positions.add(thirdLifeForm.getPosition());
 
         // execute
-        board.cleanBoard();
+        board.removeDeadLifeForms();
         gameObjects.remove(firstLifeForm);
         positions.remove(firstLifeForm.getPosition());
 
         // check
+        verify(firstLifeForm, times(1)).isDead();
+        verify(secondLifeForm, times(1)).isDead();
+        verify(thirdLifeForm, times(1)).isDead();
+        verify(firstLifeForm, times(3)).getPosition();
+        verify(secondLifeForm, times(3)).getPosition();
+        verify(thirdLifeForm, times(3)).getPosition();
         assertEquals(2, board.getGameObjects().size());
         assertEquals(1, board.getOccupiedPositions().size()); // second and third on same position
         assertTrue(gameObjects.containsAll(board.getGameObjects()));
         assertTrue(positions.containsAll(board.getOccupiedPositions()));
+        assertTrue(board.getGameObjects().containsAll(gameObjects));
+        assertTrue(board.getOccupiedPositions().containsAll(positions));
     }
 
     @Test
-    public void testContainsNotInstanceOfAnimalObject() {
-        AnimalObject animalObject = mock(AnimalObject.class);
+    public void testIsSpeciesAlive() {
+        AnimalObject carnivore = mock(Carnivore.class);
+        AnimalObject herbivore = mock(Herbivore.class);
 
-        AnimalObject meatEater = mock(MeatEater.class);
-        when(meatEater.getPosition()).thenReturn(new Vector2D(0, 1));
-        board.addGameObject(meatEater);
+        when(herbivore.getName()).thenReturn(SCHAF);
+        when(herbivore.getPosition()).thenReturn(new Vector2D(0, 0));
+        when(herbivore.isDead()).thenReturn(false);
 
-        assertFalse(board.containsNotInstanceOfAnimalObject(meatEater.getClass()));
-        assertTrue(board.containsNotInstanceOfAnimalObject(animalObject.getClass()));
+        when(carnivore.getName()).thenReturn(WOLF);
+        when(carnivore.getPosition()).thenReturn(new Vector2D(0, 1));
+        when(carnivore.isDead()).thenReturn(true);
+
+        board.addGameObject(carnivore, carnivore.getPosition());
+        board.addGameObject(herbivore, herbivore.getPosition());
+
+        assertTrue(board.isSpeciesAlive(WOLF));
+        assertTrue(board.isSpeciesAlive(SCHAF));
+        board.removeDeadLifeForms();
+        assertFalse(board.isSpeciesAlive(WOLF));
+        assertTrue(board.isSpeciesAlive(SCHAF));
+        when(herbivore.isDead()).thenReturn(true);
+        board.removeDeadLifeForms();
+        assertFalse(board.isSpeciesAlive(WOLF));
+        assertFalse(board.isSpeciesAlive(SCHAF));
+    }
+
+    @Test
+    public void testGetRandomValueValid() {
+        assertThat(board.getRandomPosition().getX(), anyOf(is(0), is(1), is(2)));
+        assertThat(board.getRandomPosition().getY(), anyOf(is(0), is(1), is(2)));
+    }
+
+    @Test
+    public void testGetAllGameObjects() {
+        //setup
+        Vector2D zeroPosition = new Vector2D(0, 0);
+        Vector2D zeroPositionNeighbour = new Vector2D(1, 1);
+        when(firstGameObject.getPosition()).thenReturn(zeroPosition);
+        when(secondGameObject.getPosition()).thenReturn(zeroPosition);
+        when(thirdGameObject.getPosition()).thenReturn(zeroPositionNeighbour);
+
+        board.addGameObject(firstGameObject, zeroPosition);
+        board.addGameObject(secondGameObject, zeroPosition);
+        board.addGameObject(thirdGameObject, zeroPositionNeighbour);
+
+        Set<GameObject> expectedSet = new HashSet<>();
+        expectedSet.add(firstGameObject);
+        expectedSet.add(secondGameObject);
+
+        Set<GameObject> result = board.getAllGameObjects(zeroPosition);
+
+        //assertions and verifies
+        assertEquals(expectedSet.size(), result.size());
+        assertTrue(expectedSet.containsAll(result));
+    }
+
+    @Test
+    public void testGetNeighbourObjects() {
+        //prepare
+        int radius = 1;
+        Vector2D zeroPositionNeighbour = new Vector2D(1, 1);
+        Vector2D zeroPosition = new Vector2D(0, 0);
+        when(firstGameObject.getPosition()).thenReturn(zeroPosition);
+        when(secondGameObject.getPosition()).thenReturn(zeroPosition);
+        when(thirdGameObject.getPosition()).thenReturn(zeroPositionNeighbour);
+
+        board.addGameObject(firstGameObject, firstGameObject.getPosition());
+        board.addGameObject(secondGameObject, secondGameObject.getPosition());
+        board.addGameObject(thirdGameObject, thirdGameObject.getPosition());
+
+        Set<GameObject> expectedSet = new HashSet<>();
+        expectedSet.add(firstGameObject);
+        expectedSet.add(secondGameObject);
+
+        //assertions
+        Set<GameObject> result = board.getNeighbourObjects(thirdGameObject, radius);
+        assertEquals(2, result.size());
+        assertTrue(expectedSet.containsAll(result));
+
+        board.getGameObjects().clear();
+        board.addGameObject(thirdGameObject, thirdGameObject.getPosition());
+        assertEquals(0, board.getNeighbourObjects(thirdGameObject, radius).size());
     }
 
     //==================================================================================================================
@@ -133,33 +222,78 @@ public class BoardTest {
     //==================================================================================================================
 
     @Test
+    public void testGetNeighbourObjectsNull() {
+        Set<GameObject> expectedSet = new HashSet<>();
+        assertEquals(expectedSet, board.getNeighbourObjects(null, 1));
+    }
+
+    @Test
+    public void testGetNeighbourObjectsRadiusZero() {
+        Set<GameObject> expectedSet = new HashSet<>();
+        assertEquals(expectedSet, board.getNeighbourObjects(firstGameObject, 0));
+    }
+
+    @Test
+    public void testGetNeighbourObjectsRadiusNegative() {
+        Set<GameObject> expectedSet = new HashSet<>();
+        assertEquals(expectedSet, board.getNeighbourObjects(firstGameObject, -1));
+    }
+
+    @Test
+    public void testGetRandomValueInvalid() {
+        assertThat(board.getRandomPosition().getX(), anyOf(is(not(-1)), is(not(4)), is(not(2.5))));
+        assertThat(board.getRandomPosition().getY(), anyOf(is(not(-0)), is(not(0.0)), is(not(3.0))));
+    }
+
+    @Test
     public void testAddGameObjectNull() {
-        NullPointerException thrown = assertThrows(NullPointerException.class, () -> board.addGameObject(null));
+        Exception thrown = assertThrows(NullPointerException.class, () -> board.addGameObject(null, new Vector2D(0, 0)));
         assertEquals("Game object cannot be null to add it on the board.", thrown.getMessage());
     }
 
-    // TODO: add negtive test for addGameObject with invalid positions (maybe reuse code from this commit? f10b6f7d2cd422d4089ffa21bee0ead454b39ce5)
+    @Test
+    public void testAddGameObjectInvalidPositionNull() {
+        Exception thrown = assertThrows(NullPointerException.class, () -> board.addGameObject(firstGameObject, null));
+        assertEquals("The position cannot be null to add the game object on the board.", thrown.getMessage());
+    }
 
     @Test
-    public void testContainsNotInstanceOfAnimalObjectNull() {
-        firstGameObject = mock(MeatEater.class);
-        when(firstGameObject.getPosition()).thenReturn(new Vector2D(0, 0));
-        board.addGameObject(firstGameObject);
+    public void testAddGameObjectInvalidPositionRowNegative() {
+        Vector2D position = new Vector2D(0, -1);
+        Exception thrown = assertThrows(IllegalArgumentException.class, () -> board.addGameObject(firstGameObject, position));
+        assertEquals(String.format(ILLEGAL_POSITION_MESSAGE, position), thrown.getMessage());
+    }
 
-        boolean containsNull = board.containsNotInstanceOfAnimalObject(null);
+    @Test
+    public void testAddGameObjectInvalidPositionColumnNegative() {
+        Vector2D position = new Vector2D(-1, 0);
+        Exception thrown = assertThrows(IllegalArgumentException.class, () -> board.addGameObject(firstGameObject, position));
+        assertEquals(String.format(ILLEGAL_POSITION_MESSAGE, position), thrown.getMessage());
+    }
 
-        assertFalse(containsNull);
+    @Test
+    public void testAddGameObjectInvalidPositionBiggerThanNumberOfRows() {
+        Vector2D position = new Vector2D(0, board.getRows());
+        Exception thrown = assertThrows(IllegalArgumentException.class, () -> board.addGameObject(firstGameObject, position));
+        assertEquals(String.format(ILLEGAL_POSITION_MESSAGE, position), thrown.getMessage());
+    }
+
+    @Test
+    public void testAddGameObjectInvalidPositionBiggerThanNumberOfColumns() {
+        Vector2D position = new Vector2D(board.getColumns(), 0);
+        Exception thrown = assertThrows(IllegalArgumentException.class, () -> board.addGameObject(firstGameObject, position));
+        assertEquals(String.format(ILLEGAL_POSITION_MESSAGE, position), thrown.getMessage());
     }
 
     @Test
     public void testInvalidConstructorRowLowerThanMinValue() {
-        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> board = new Board(Board.MIN_ROWS - 1, Board.MIN_COLUMNS));
+        Exception thrown = assertThrows(IllegalArgumentException.class, () -> board = new Board(Board.MIN_ROWS - 1, Board.MIN_COLUMNS));
         assertEquals("The number of rows cannot be less than " + Board.MIN_ROWS, thrown.getMessage());
     }
 
     @Test
     public void testInvalidConstructorColumnsLowerThanMinValue() {
-        IllegalArgumentException thrown = assertThrows(IllegalArgumentException.class, () -> board = new Board(Board.MIN_ROWS, Board.MIN_COLUMNS - 1));
+        Exception thrown = assertThrows(IllegalArgumentException.class, () -> board = new Board(Board.MIN_ROWS, Board.MIN_COLUMNS - 1));
         assertEquals("The number of columns cannot be less than " + Board.MIN_COLUMNS, thrown.getMessage());
     }
 

@@ -7,59 +7,64 @@ import ch.zhaw.pm2.life.model.lifeform.LifeForm;
 import ch.zhaw.pm2.life.model.lifeform.LifeFormActionCheck;
 
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
  * Abstract class of an animal.
+ * Contains all the methods and values that {@link Carnivore} and {@link Herbivore} share.
+ * Contains the default constants for reproduction, energy, fertilityThreshold and scanRadius.
  */
 public abstract class AnimalObject extends LifeForm {
 
-    /**
-     * Default energy level of an {@link AnimalObject}.
-     */
-    public static final int INIT_ENERGY_ANIMALS = 10;
+    private static final int REPRODUCTION_MINIMUM = 9;
 
-    private static final Logger LOGGER = Logger.getLogger(AnimalObject.class.getCanonicalName());
-
+    private static final Logger logger = Logger.getLogger(AnimalObject.class.getCanonicalName());
     /**
      * Indicates the current fertility value for reproduction. Needs a specific value to be able to reproduce.
      */
     protected int fertilityThreshold;
+    private int scanRadius = 1;
 
     /**
      * Default constructor.
      */
     public AnimalObject() {
-        currentEnergy = INIT_ENERGY_ANIMALS;
         fertilityThreshold = 0;
     }
 
     /**
-     * Is called when the animal moves.
+     * Is called when an {@link AnimalObject} moves.
+     * The {@link AnimalObject} doesn't lose energy when it stays on the same position.
+     * The {@link AnimalObject} loses more energy per move if it's poisoned.
+     * @param neighbourObjs Set used to determine by the {@link AnimalObject} where to move.
      */
     public void move(Set<GameObject> neighbourObjs) {
-        LOGGER.log(Level.FINER, "Move {0}", getClass().getSimpleName());
+        logger.log(Level.FINER, "Move {0}", getName());
         Vector2D previousPosition = position;
-        if (neighbourObjs.isEmpty()) {
-            position = chooseRandomNeighbourPosition();
-        } else {
-            position = calculateNextPos(neighbourObjs);
-        }
+        position = neighbourObjs.isEmpty() ? chooseRandomNeighbourPosition() : calculateNextPos(neighbourObjs);
         int consumeEnergy = 0;
+
         if (isPoisoned) {
-            consumeEnergy = getPoisonedEnergyConsumption();
-            LOGGER.log(Level.FINE, "{1} decreased energy (poisoned) by {0}", new Object[] {
-                    consumeEnergy, getClass().getSimpleName()
+            int poisonedEnergyConsumption = getPoisonedEnergyConsumption();
+            consumeEnergy += poisonedEnergyConsumption;
+            logger.log(Level.FINE, "{1} decreased energy (poisoned) by {0}", new Object[] {
+                    poisonedEnergyConsumption, getName()
             });
         }
-        if (!previousPosition.equals(position)) {
-            consumeEnergy = 1;
-            LOGGER.log(Level.FINE, "{1} decreased energy (move) by {0}", new Object[] {
-                    consumeEnergy, getClass().getSimpleName()
-            });
+
+        int moveEnergyConsumption = 1;
+        if (previousPosition.equals(position)) {
+            moveEnergyConsumption = 0;
         }
+
+        consumeEnergy += moveEnergyConsumption;
+        logger.log(Level.FINE, "{1} decreased energy (move) by {0}", new Object[] {
+                moveEnergyConsumption, getName()
+        });
+
         fertilityThreshold++;
         decreaseEnergy(consumeEnergy);
     }
@@ -68,18 +73,18 @@ public abstract class AnimalObject extends LifeForm {
         Vector2D nextPosition;
         Vector2D neighbourPos = getNearestNeighbour(neighbourObjects);
 
-        if (neighbourPos != null) {
+        if (neighbourPos == null) {
+            nextPosition = chooseRandomNeighbourPosition();
+        } else {
             Vector2D distance = Vector2D.subtract(neighbourPos, this.getPosition());
             int absX = Math.abs(distance.getX());
             int absY = Math.abs(distance.getY());
 
             if ((absX == 0 || absX == 1) && (absY == 0 || absY == 1)) {
-                nextPosition = Vector2D.add(this.getPosition(), distance);
+                nextPosition = Vector2D.add(position, distance);
             } else {
                 nextPosition = nextPos(distance);
             }
-        } else {
-            nextPosition = chooseRandomNeighbourPosition();
         }
 
         return nextPosition;
@@ -96,7 +101,7 @@ public abstract class AnimalObject extends LifeForm {
                 dir = direction.getDirectionVector();
             }
         }
-        return Vector2D.add(this.getPosition(), dir);
+        return Vector2D.add(position, dir);
     }
 
     /**
@@ -107,31 +112,20 @@ public abstract class AnimalObject extends LifeForm {
     protected abstract Vector2D getNearestNeighbour(Set<GameObject> gameObjects);
 
     /**
-     * Is called when the animal eats meat.
-     * @param lifeForm {@link LifeForm}
+     * Is called when the {@link AnimalObject} eats another {@link LifeForm}.
+     * @param lifeForm {@link LifeForm} that will be eaten.
      * @throws LifeFormException    when could not eat the provided life form.
      * @throws NullPointerException When the provided life form wanted to eat is null.
      */
-    public abstract void eat(LifeForm lifeForm) throws LifeFormException;
-
-    /**
-     * Is called when the animal eats meat.
-     * @param lifeForm    {@link LifeForm}
-     * @param actionCheck {@link LifeFormActionCheck}
-     * @throws LifeFormException    could not eat the provided life form.
-     * @throws NullPointerException the provided life form wanted to eat is null.
-     */
-    protected void eat(LifeForm lifeForm, LifeFormActionCheck actionCheck) throws LifeFormException {
+    public void eat(LifeForm lifeForm) throws LifeFormException {
         Objects.requireNonNull(lifeForm, "Cannot eat null.");
-        if (actionCheck != null) {
-            actionCheck.check();
+        Optional<LifeFormActionCheck> eatRules = Optional.ofNullable(getEatRules(lifeForm));
+        if (eatRules.isPresent()) {
+            eatRules.get().check();
         }
 
-        LOGGER.log(Level.FINE, "{0} ate {1}", new Object[] {
-                getClass().getSimpleName(),
-                lifeForm.getClass().getSimpleName()
-        });
-        increaseEnergy(lifeForm.getCurrentEnergy());
+        logger.log(Level.FINE, "{0} ate {1}", new Object[] { getName(), lifeForm.getName() });
+        increaseEnergy(lifeForm.getEnergy());
         if (lifeForm.isPoisonous()) {
             becomePoisoned();
         }
@@ -139,7 +133,42 @@ public abstract class AnimalObject extends LifeForm {
     }
 
     /**
-     * Used to determine weather this life form can reproduce or not.
+     * Returns the rules to be checked on before an {@link AnimalObject} can eat.
+     * @param lifeForm the {@link LifeForm} this animal wants to eat.
+     * @return rules to check before eating the {@link LifeForm}.
+     */
+    protected abstract LifeFormActionCheck getEatRules(LifeForm lifeForm);
+
+    /**
+     * Is called when the animal reproduces.
+     * @param partner the {@link LifeForm} this animal try to reproduce with.
+     * @return animalObjectChild depending on which Object called the method.
+     * @throws LifeFormException    could not reproduce with the life form.
+     * @throws NullPointerException the provided life form wanted to reproduce with is null.
+     */
+    public AnimalObject reproduce(LifeForm partner) throws LifeFormException {
+        Objects.requireNonNull(partner, "Cannot be null.");
+        if (partner.getGender().equals("F")) {
+            throw new LifeFormException(String.format("%s: Kann keine Kinder gebaeren, weil ich ein Maennchen bin.", getName()));
+        } else if (fertilityThreshold < REPRODUCTION_MINIMUM) {
+            throw new LifeFormException(String.format("%s: Kann nicht paaren, weil mein Partner noch nicht fruchtbar ist.", getName()));
+        }
+        resetFertilityThreshold(); // sets own counter to zero (only on females)
+        AnimalObject animalObjectChild = createChild();
+        animalObjectChild.setPosition(this.chooseRandomNeighbourPosition());
+        return animalObjectChild;
+    }
+
+    private AnimalObject createChild() throws LifeFormException {
+        try {
+            return getClass().getConstructor().newInstance();
+        } catch (ReflectiveOperationException e) {
+            throw new LifeFormException("Es gab Komplikationen bei der Geburt.", e);
+        }
+    }
+
+    /**
+     * Used to determine whether this {@link LifeForm} can reproduce or not.
      * @return reproduction counter as int.
      */
     public int getFertilityThreshold() {
@@ -147,18 +176,24 @@ public abstract class AnimalObject extends LifeForm {
     }
 
     /**
-     * Resets the fertility threshold.
+     * Returns he Scan Radius.
+     * @return scanRadius as int.
      */
-    public void resetFertilityThreshold() {
-        this.fertilityThreshold = 0;
+    public int getScanRadius() {
+        return scanRadius;
     }
 
     /**
-     * Is called when the animal reproduces.
-     * @throws LifeFormException    could not reproduce with the life form
-     * @throws NullPointerException the provided life form wanted to reproduce with is null.
+     * Sets the Scan Radius.
+     * @param scanRadius Scan Radius that is set.
      */
-    public abstract AnimalObject reproduce(LifeForm lifeForm) throws LifeFormException;
+    public void setScanRadius(int scanRadius) {
+        this.scanRadius = scanRadius;
+    }
+
+    private void resetFertilityThreshold() {
+        this.fertilityThreshold = 0;
+    }
 
     @Override
     public FoodType getFoodType() {

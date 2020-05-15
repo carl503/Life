@@ -1,5 +1,6 @@
 package ch.zhaw.pm2.life.view;
 
+import ch.zhaw.pm2.life.controller.SetupController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -13,12 +14,11 @@ import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 /**
- * Main class.
- * @author lubojcar
+ * This class is the main class of the application.
  */
 public class App extends Application {
 
-    private static final Logger LOGGER = Logger.getLogger(App.class.getName());
+    private static final Logger logger = Logger.getLogger(App.class.getName());
 
     /**
      * Default constructor.
@@ -27,7 +27,7 @@ public class App extends Application {
         try (InputStream config = App.class.getClassLoader().getResourceAsStream("log.properties")) {
             LogManager.getLogManager().readConfiguration(config);
         } catch (IOException e) {
-            LOGGER.log(Level.CONFIG, "No log.properties", e);
+            logger.log(Level.CONFIG, "No log.properties", e);
         }
     }
 
@@ -36,21 +36,25 @@ public class App extends Application {
      * @param args Array of {@link String}.
      */
     public static void main(String[] args) {
-        LOGGER.info("Starting the application");
+        logger.info("Starting the application");
         launch(args);
-        LOGGER.info("Closing the application");
+        logger.info("Closing the application");
     }
 
     @Override
     public void start(Stage primaryStage) {
         try {
             URL fxmlSetUp = getClass().getClassLoader().getResource("Setup.fxml");
-            Scene scene = new Scene(new FXMLLoader(fxmlSetUp).load());
+            FXMLLoader loader = new FXMLLoader(fxmlSetUp);
+            Scene scene = new Scene(loader.load());
+            SetupController controller = loader.getController();
+            controller.setHostServices(getHostServices());
             primaryStage.setTitle("Setup");
             primaryStage.setScene(scene);
             primaryStage.show();
+
         } catch (IOException e) {
-            LOGGER.log(Level.SEVERE, "Unable to load the fxml file", e);
+            logger.log(Level.SEVERE, "Unable to load the fxml file", e);
         }
     }
 

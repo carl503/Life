@@ -4,7 +4,6 @@ import ch.zhaw.pm2.life.exception.LifeFormException;
 
 /**
  * This functional interface should validate a life form before the action is performed.
- * @author meletlea
  */
 @FunctionalInterface
 public interface LifeFormActionCheck {
