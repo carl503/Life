@@ -95,12 +95,18 @@ public class LifeWindowController {
         }
     }
 
+    /**
+     * Changes the window in to a fullscreen mode
+     */
     @FXML
     public void toggleFullscreen() {
         fullscreen = !fullscreen;
         ((Stage) root.getScene().getWindow()).setFullScreen(fullscreen);
     }
 
+    /**
+     * Allows to hide the message log at the bottom of the window
+     */
     @FXML
     public void toggleTextField() {
         boolean status = messageField.isVisible();
@@ -113,6 +119,9 @@ public class LifeWindowController {
         }
     }
 
+    /**
+     * Shows an popup with a link to the manual
+     */
     @FXML
     public void showManual() {
         Alert dialog = new Alert(Alert.AlertType.INFORMATION);
@@ -123,6 +132,9 @@ public class LifeWindowController {
         dialog.showAndWait();
     }
 
+    /**
+     * Allows to create a new species
+     */
     @FXML
     public void createNewSpecies() {
         SpawnSpeciesDialog dialog = new SpawnSpeciesDialog("Neue Spezies erstellen");
@@ -211,6 +223,10 @@ public class LifeWindowController {
         }
     }
 
+    /**
+     * Generates the edit menu depending on the
+     * {@link GameObject}'s read from the config file
+     */
     public void initEditMenu() {
         setupController.getGameObjects().forEach((gameObject, amount) -> {
             if (amount > 0) {
