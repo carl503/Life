@@ -132,10 +132,10 @@ public class LifeWindowController {
     public void initGame() {
         if (boardObject == null) {
             return;
-                gameProperties = new GameProperties(setupController.getGameObjects());
         }
         try {
-            game = new Game(boardObject, setupController.getGameObjects());
+            gameProperties = new GameProperties(setupController.getGameObjects());
+            game = new Game(boardObject, gameProperties);
         } catch (Exception e) {
             messageField.appendText(e.getMessage() + "\n");
         }
