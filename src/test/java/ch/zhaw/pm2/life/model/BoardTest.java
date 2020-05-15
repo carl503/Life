@@ -156,7 +156,7 @@ public class BoardTest {
     //==================================================================================================================
 
     @Test
-    public void testGetRandomValueInValid() {
+    public void testGetRandomValueInvalid() {
         assertThat(board.getRandomPosition().getX(), anyOf(is(not(-1)), is(not(4)), is(not(2.5))));
         assertThat(board.getRandomPosition().getY(), anyOf(is(not(-0)), is(not(0.0)), is(not(3.0))));
     }
