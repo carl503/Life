@@ -165,14 +165,27 @@ public class BoardTest {
     }
 
     @Test
-    public void testGetAnyGameObjects() {
+    public void testGetAllGameObjects() {
         //setup
         Vector2D zeroPosition = new Vector2D(0,0);
+        Vector2D zeroPositionNeighbour = new Vector2D(1,1);
         when(firstGameObject.getPosition()).thenReturn(zeroPosition);
+        when(secondGameObject.getPosition()).thenReturn(zeroPosition);
+        when(thirdGameObject.getPosition()).thenReturn(zeroPositionNeighbour);
+
         board.addGameObject(firstGameObject, zeroPosition);
+        board.addGameObject(secondGameObject, zeroPosition);
+        board.addGameObject(thirdGameObject, zeroPositionNeighbour);
+
+        Set<GameObject> expectedSet = new HashSet<>();
+        expectedSet.add(firstGameObject);
+        expectedSet.add(secondGameObject);
+
+        Set<GameObject> result = board.getAllGameObjects(zeroPosition);
 
         //assertions and verifies
-        assertEquals(firstGameObject, board.getAnyGameObject(zeroPosition));
+        assertEquals(expectedSet.size(), result.size());
+        assertTrue(expectedSet.containsAll(result));
     }
     //==================================================================================================================
     // Negative tests
