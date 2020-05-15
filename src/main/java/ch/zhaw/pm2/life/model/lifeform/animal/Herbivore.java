@@ -28,7 +28,7 @@ public class Herbivore extends AnimalObject {
         Vector2D neighbourPos = null;
 
         for (GameObject neighbour : neighbours) {
-            int distance = Vector2D.dot(this.getPosition(), neighbour.getPosition());
+            int distance = Vector2D.dot(position, neighbour.getPosition());
             if (neighbour instanceof Plant && distance < min) {
                 min = distance;
                 neighbourPos = neighbour.getPosition();

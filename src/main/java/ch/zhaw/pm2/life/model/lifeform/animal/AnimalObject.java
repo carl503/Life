@@ -71,12 +71,12 @@ public abstract class AnimalObject extends LifeForm {
         Vector2D neighbourPos = getNearestNeighbour(neighbourObjects);
 
         if (neighbourPos != null) {
-            Vector2D distance = Vector2D.subtract(neighbourPos, this.getPosition());
+            Vector2D distance = Vector2D.subtract(neighbourPos, position);
             int absX = Math.abs(distance.getX());
             int absY = Math.abs(distance.getY());
 
             if ((absX == 0 || absX == 1) && (absY == 0 || absY == 1)) {
-                nextPosition = Vector2D.add(this.getPosition(), distance);
+                nextPosition = Vector2D.add(position, distance);
             } else {
                 nextPosition = nextPos(distance);
             }
@@ -98,7 +98,7 @@ public abstract class AnimalObject extends LifeForm {
                 dir = direction.getDirectionVector();
             }
         }
-        return Vector2D.add(this.getPosition(), dir);
+        return Vector2D.add(position, dir);
     }
 
     /**
