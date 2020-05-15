@@ -85,7 +85,7 @@ public class BoardTest {
     }
 
     @Test
-    public void testCleanBoard() {
+    public void testRemoveDeadLifeForms() {
         // prepare
         LifeForm firstLifeForm = mock(Carnivore.class);
         when(firstLifeForm.getPosition()).thenReturn(new Vector2D(0, 0));
