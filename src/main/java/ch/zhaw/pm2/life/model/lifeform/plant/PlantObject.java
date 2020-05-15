@@ -4,8 +4,7 @@ import ch.zhaw.pm2.life.model.lifeform.LifeForm;
 import ch.zhaw.pm2.life.model.lifeform.animal.AnimalObject;
 
 /**
- * PlantObject extends GameObject
- * PlantObjects handles all features and methods that Future Plants will have in common
+ * Abstract class of a plant.
  */
 public abstract class PlantObject extends LifeForm {
 
@@ -19,7 +18,6 @@ public abstract class PlantObject extends LifeForm {
      * Default constructor.
      */
     public PlantObject() {
-        super();
         currentEnergy = AnimalObject.INIT_ENERGY_ANIMALS * PLANT_ENERGY_FACTOR;
     }
 
@@ -27,4 +25,5 @@ public abstract class PlantObject extends LifeForm {
     public FoodType getFoodType() {
         return FoodType.PLANT;
     }
+
 }

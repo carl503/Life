@@ -7,12 +7,25 @@ import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
 import javafx.scene.layout.VBox;
 
+import java.util.Objects;
+
+/**
+ * Controller for the main window.
+ */
 public class LifeWindowController {
+
+    /**
+     * Number of rows on the board.
+     */
+    public static final int ROWS = 16;
+
+    /**
+     * Number of columns on the board.
+     */
+    public static final int COLUMNS = 16;
 
     private final int width = 800;
     private final int height = 800;
-    public static final int ROWS = 16;
-    public static final int COLUMNS = 16;
 
     private BoardView boardView;
     private Game game;
@@ -24,39 +37,59 @@ public class LifeWindowController {
     @FXML private Button nextRoundButton;
     @FXML private Button stopSimButton;
 
-    @FXML public void initialize() {
-        boardObject = new Board(ROWS, COLUMNS);
-        boardView = new BoardView(width, height, boardObject);
-        this.board.getChildren().add(boardView);
+    /**
+     * Initializes everything after the JavaFX components are injected,
+     */
+    @FXML
+    public void initialize() {
+        try {
+            boardObject = new Board(ROWS, COLUMNS);
+            boardView = new BoardView(width, height, boardObject);
+            this.board.getChildren().add(0, boardView);
+        } catch (NullPointerException | IllegalArgumentException e) {
+            messageField.appendText(e.getMessage());
+        }
     }
 
-    @FXML public void nextRound() {
-        if (game.isOngoing()) {
-            messageField.appendText(game.nextMove());
-            boardView.draw();
-        } else {
+    @FXML
+    private void nextRound() {
+        messageField.appendText(game.nextMove());
+        boardView.draw();
+        if (!game.isOngoing()) {
             nextRoundButton.setDisable(true);
             stopSimButton.setDisable(true);
         }
     }
 
-    @FXML public void stopSimulation() {
+    @FXML
+    private void stopSimulation() {
         game.stop();
         nextRoundButton.setDisable(true);
         stopSimButton.setDisable(true);
     }
 
+    /**
+     * Draws the board.
+     */
     public void drawBoard() {
         boardView.draw();
     }
 
+    /**
+     * Sets a reference of the {@link SetupController}.
+     * @param setupController {@link SetupController}
+     */
     public void setSetupController(SetupController setupController) {
-        this.setupController = setupController;
+        this.setupController = Objects.requireNonNull(setupController, "The setup controller cannot be null.");
     }
 
+    /**
+     * Initializes the game.
+     */
     public void initGame() {
         game = new Game(boardObject, setupController.getPlantCount(),
-                setupController.getMeatEaterCount(), setupController.getPlantEaterCount());
+                        setupController.getMeatEaterCount(), setupController.getPlantEaterCount());
         game.init();
     }
+
 }
