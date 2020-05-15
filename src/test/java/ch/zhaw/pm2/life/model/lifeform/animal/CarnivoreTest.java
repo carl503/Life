@@ -96,9 +96,10 @@ public class CarnivoreTest {
     public void getEatRulesEatMeatLowEnergy() {
         LifeFormActionCheck lifeFormActionCheck = carnivore.getEatRules(carnivore2);
         carnivore.setEnergy(0);
+        when(animalObject.getName()).thenReturn("Carnivore");
 
         Exception exception = assertThrows(LifeFormException.class, lifeFormActionCheck::check);
-        assertEquals("Kann dieses Tier nicht fressen, weil es staerker ist als ich.", exception.getMessage());
+        assertEquals(animalObject.getName() + ": Kann dieses Tier nicht fressen, weil es staerker ist als ich.", exception.getMessage());
     }
 
     @Test
@@ -124,9 +125,10 @@ public class CarnivoreTest {
     public void getEatRulesEatPlant() {
         LifeFormActionCheck lifeFormActionCheck = carnivore.getEatRules(lifeForm);
         when(lifeForm.getFoodType()).thenReturn(LifeForm.FoodType.PLANT);
+        when(animalObject.getName()).thenReturn("Carnivore");
 
         Exception exception = assertThrows(LifeFormException.class, lifeFormActionCheck::check);
-        assertEquals("Ich fresse leider keine Pflanzen.", exception.getMessage());
+        assertEquals(animalObject.getName() + ": Ich fresse leider keine Pflanzen.", exception.getMessage());
     }
 
 
