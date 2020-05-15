@@ -187,6 +187,35 @@ public class BoardTest {
         assertEquals(expectedSet.size(), result.size());
         assertTrue(expectedSet.containsAll(result));
     }
+
+    @Test
+    public void testGetNeighbourObjects() {
+        //prepare
+        int radius = 1;
+        Vector2D zeroPositionNeighbour = new Vector2D(1,1);
+        Vector2D zeroPosition = new Vector2D(0, 0);
+        when(firstGameObject.getPosition()).thenReturn(zeroPosition);
+        when(secondGameObject.getPosition()).thenReturn(zeroPosition);
+        when(thirdGameObject.getPosition()).thenReturn(zeroPositionNeighbour);
+
+        board.addGameObject(firstGameObject, firstGameObject.getPosition());
+        board.addGameObject(secondGameObject, secondGameObject.getPosition());
+        board.addGameObject(thirdGameObject, thirdGameObject.getPosition());
+
+        Set<GameObject> expectedSet = new HashSet<>();
+        expectedSet.add(firstGameObject);
+        expectedSet.add(secondGameObject);
+
+        //assertions
+        Set<GameObject> result = board.getNeighbourObjects(thirdGameObject, radius);
+        assertEquals(2, result.size());
+        assertTrue(expectedSet.containsAll(result));
+
+        board.getGameObjects().clear();
+        board.addGameObject(thirdGameObject, thirdGameObject.getPosition());
+        assertEquals(0, board.getNeighbourObjects(thirdGameObject, radius).size());
+    }
+
     //==================================================================================================================
     // Negative tests
     //==================================================================================================================
