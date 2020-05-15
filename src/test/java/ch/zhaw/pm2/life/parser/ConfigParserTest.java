@@ -70,6 +70,121 @@ public class ConfigParserTest {
         assertThrows(NumberFormatException.class, parser::parseObjects);
     }
 
+    @Test
+    public void testInvalidMissingPropertyNumber() {
+        ConfigParser parser = assertDoesNotThrow(ConfigParser::getInstance);
+        parser.setConfigProperties(loadInvalidMissingPropertyNumber());
+        assertThrows(NullPointerException.class, parser::parseObjects);
+    }
+
+    @Test
+    public void testInvalidMissingPropertyString() {
+        ConfigParser parser = assertDoesNotThrow(ConfigParser::getInstance);
+        parser.setConfigProperties(loadInvalidMissingPropertyString());
+        assertThrows(NullPointerException.class, parser::parseObjects);
+    }
+
+    @Test
+    public void testInvalidWrongColorHexFive() {
+        ConfigParser parser = assertDoesNotThrow(ConfigParser::getInstance);
+        parser.setConfigProperties(loadInvalidWrongColorHexFive());
+        Exception thrown = assertThrows(LifeException.class, parser::parseObjects);
+        assertEquals("Could not parse the config file", thrown.getMessage());
+    }
+
+    @Test
+    public void testInvalidWrongColorHexFour() {
+        ConfigParser parser = assertDoesNotThrow(ConfigParser::getInstance);
+        parser.setConfigProperties(loadInvalidWrongColorHexFour());
+        Exception thrown = assertThrows(LifeException.class, parser::parseObjects);
+        assertEquals("Could not parse the config file", thrown.getMessage());
+    }
+
+    @Test
+    public void testInvalidWrongColorHexTwo() {
+        ConfigParser parser = assertDoesNotThrow(ConfigParser::getInstance);
+        parser.setConfigProperties(loadInvalidWrongColorHexTwo());
+        Exception thrown = assertThrows(LifeException.class, parser::parseObjects);
+        assertEquals("Could not parse the config file", thrown.getMessage());
+    }
+
+    @Test
+    public void testInvalidWrongColorHexSeven() {
+        ConfigParser parser = assertDoesNotThrow(ConfigParser::getInstance);
+        parser.setConfigProperties(loadInvalidWrongColorHexSeven());
+        Exception thrown = assertThrows(LifeException.class, parser::parseObjects);
+        assertEquals("Could not parse the config file", thrown.getMessage());
+    }
+
+    @Test
+    public void testInvalidWrongColorHexUnsupportedChar() {
+        ConfigParser parser = assertDoesNotThrow(ConfigParser::getInstance);
+        parser.setConfigProperties(loadInvalidWrongColorHexUnsupportedChar());
+        Exception thrown = assertThrows(LifeException.class, parser::parseObjects);
+        assertEquals("Could not parse the config file", thrown.getMessage());
+    }
+
+    private Properties loadInvalidWrongColorHexUnsupportedChar() {
+        Properties config = new Properties();
+        config.put("wolf.type", "carnivore");
+        config.put("wolf.name", "Wolf");
+        config.put("wolf.energy", 7);
+        config.put("wolf.color", "#00X");
+        return config;
+    }
+
+    private Properties loadInvalidWrongColorHexSeven() {
+        Properties config = new Properties();
+        config.put("wolf.type", "carnivore");
+        config.put("wolf.name", "Wolf");
+        config.put("wolf.energy", 7);
+        config.put("wolf.color", "#D3Abdg4");
+        return config;
+    }
+
+    private Properties loadInvalidWrongColorHexTwo() {
+        Properties config = new Properties();
+        config.put("wolf.type", "carnivore");
+        config.put("wolf.name", "Wolf");
+        config.put("wolf.energy", 7);
+        config.put("wolf.color", "#D3");
+        return config;
+    }
+
+    private Properties loadInvalidWrongColorHexFour() {
+        Properties config = new Properties();
+        config.put("wolf.type", "carnivore");
+        config.put("wolf.name", "Wolf");
+        config.put("wolf.energy", 7);
+        config.put("wolf.color", "#D3D3");
+        return config;
+    }
+
+    private Properties loadInvalidWrongColorHexFive() {
+        Properties config = new Properties();
+        config.put("wolf.type", "carnivore");
+        config.put("wolf.name", "Wolf");
+        config.put("wolf.energy", 7);
+        config.put("wolf.color", "#D3D3D");
+        return config;
+    }
+
+    private Properties loadInvalidMissingPropertyString() {
+        Properties config = new Properties();
+        config.put("wolf.type", "carnivore");
+        config.put("wolf.energy", 7);
+        config.put("wolf.color", "#D3D3D3");
+        return config;
+    }
+
+    private Properties loadInvalidMissingPropertyNumber() {
+        Properties config = new Properties();
+        config.put("wolf.type", "carnivore");
+        config.put("wolf.name", "Wolf");
+        config.put("wolf.color", "#D3D3D3");
+        return config;
+    }
+
     private Properties loadInvalidNumberValue() {
         Properties config = new Properties();
         config.put("wolf.type", "carnivore");

@@ -69,14 +69,17 @@ public class ConfigParser {
                 String color = getConfigValue(lifeForm, Options.COLOR.name());
                 String name = getConfigValue(lifeForm, Options.NAME.name());
 
-                // TODO: validate color with this patterns: #FFF, #AABBCC (Hex-Values) or valid css color names like green, lightseagreen, etc.
+                // Valid color formats (Hex) #000 to #FFF or #000000 to #FFFFFF
+                if(color.matches("#([A-Fa-f0-9]{3}){1,2}")) {
+                    GameObject gameObject = (GameObject) clazz.getConstructor().newInstance();
+                    gameObject.setColor(color);
+                    gameObject.setEnergy(energy);
+                    gameObject.setName(name);
 
-                GameObject gameObject = (GameObject) clazz.getConstructor().newInstance();
-                gameObject.setColor(color);
-                gameObject.setEnergy(energy);
-                gameObject.setName(name);
-
-                parsedObjects.add(gameObject);
+                    parsedObjects.add(gameObject);
+                } else {
+                    throw new LifeException("Could not parse the config file");
+                }
             }
         } catch (ReflectiveOperationException e) {
             throw new LifeException(e);
