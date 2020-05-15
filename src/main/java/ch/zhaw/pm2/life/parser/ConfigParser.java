@@ -17,6 +17,10 @@ import java.util.List;
 import java.util.Properties;
 import java.util.Set;
 
+/**
+ * Parses the config file for the simulation
+ * and provides all found {@link GameObject}
+ */
 public class ConfigParser {
 
     private static final String CONFIG_PATH = "config";
@@ -42,6 +46,12 @@ public class ConfigParser {
         }
     }
 
+    /**
+     * Returns the instance of the {@link ConfigParser}
+     * @return ConfigParser reference
+     * @throws LifeException if the config file could not be copied
+     * or i^f the URISyntax is wrong.
+     */
     public static ConfigParser getInstance() throws LifeException {
         if (instance == null) {
             instance = new ConfigParser();
@@ -49,6 +59,12 @@ public class ConfigParser {
         return instance;
     }
 
+    /**
+     * Parses the game objects out of a config file.
+     * @return a {@link List<GameObject>}
+     * containing the parsed game objects
+     * @throws LifeException if the provided class was not found
+     */
     public List<GameObject> parseObjects() throws LifeException {
         List<GameObject> parsedObjects = new ArrayList<>();
 
@@ -88,6 +104,10 @@ public class ConfigParser {
         return parsedObjects;
     }
 
+    /**
+     * Sets the config field of type {@link Properties}
+     * @param config of type {@link Properties}
+     */
     public void setConfigProperties(Properties config) {
         this.config = (Properties) config.clone();
     }
@@ -147,6 +167,11 @@ public class ConfigParser {
             value = v;
         }
 
+        /**
+         * Takes a string and searches for the matching enum
+         * @param val name of the class
+         * @return Type
+         */
         public static Type getType(String val) {
             for (Type type : Type.values()) {
                 String[] values = type.value.split(DELIMITER_REGEX);
