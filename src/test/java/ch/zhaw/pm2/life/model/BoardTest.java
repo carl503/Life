@@ -22,8 +22,8 @@ public class BoardTest {
 
     private static final int BOARD_SIZE = 3;
     private static final String ILLEGAL_POSITION_MESSAGE = "The position %s of the provided game object does not exist on the board.";
-    public static final String WOLF = "Wolf";
-    public static final String SCHAF = "Schaf";
+    private static final String WOLF = "Wolf";
+    private static final String SCHAF = "Schaf";
 
     private Board board;
 

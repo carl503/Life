@@ -18,7 +18,7 @@ import static org.mockito.Mockito.*;
 
 public class CarnivoreTest {
 
-    public static final String CARNIVORE = "Carnivore";
+    private static final String CARNIVORE = "Carnivore";
     private Carnivore carnivore;
     private Carnivore carnivore2;
     private Set<GameObject> dummyNeighbourSet;

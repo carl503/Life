@@ -20,8 +20,8 @@ public class AnimalObjectTest {
     private static final int MOVE_ENERGY_CONSUMPTION = 1;
     private static final int POISONED_ENERGY_CONSUMPTION = 2;
     private static final int ACTUAL_REPRODUCTION_MINIMUM = 9;
-    public static final String MALE = "M";
-    public static final String FEMALE = "F";
+    private static final String MALE = "M";
+    private static final String FEMALE = "F";
     private Set<GameObject> dummyGameObjectsSet;
 
     @Spy private AnimalObject animalObject;
