@@ -86,7 +86,9 @@ public class ConfigParser {
     private Class<?> getGameObjectClass(String lifeForm) throws ClassNotFoundException {
         Class<?> clazz = null;
         Type type = Type.getType(getConfigValue(lifeForm, Options.TYPE.name()));
-        if (type != null) {
+        if (type == null) {
+            return null;
+        } else {
             switch (type) {
                 case HERBIVORE:
                     clazz = Class.forName(Type.HERBIVORE.value);
