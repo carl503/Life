@@ -27,7 +27,7 @@ public class ConfigParser {
     private static final URL templateFile = ConfigParser.class.getClassLoader()
             .getResource(CONFIG_PATH + File.separator + FILE_NAME);
     private static final File configFile = new File(CONFIG_PATH + File.separator + FILE_NAME);
-    private static final Properties config = new Properties();
+    private Properties config = new Properties();
 
     private static ConfigParser instance = null;
 
@@ -69,6 +69,8 @@ public class ConfigParser {
                 String color = getConfigValue(lifeForm, Options.COLOR.name());
                 String name = getConfigValue(lifeForm, Options.NAME.name());
 
+                // TODO: validate color with this patterns: #FFF, #AABBCC (Hex-Values) or valid css color names like green, lightseagreen, etc.
+
                 GameObject gameObject = (GameObject) clazz.getConstructor().newInstance();
                 gameObject.setColor(color);
                 gameObject.setEnergy(energy);
@@ -81,6 +83,10 @@ public class ConfigParser {
         }
 
         return parsedObjects;
+    }
+
+    public void setConfigProperties(Properties config) {
+        this.config = (Properties) config.clone();
     }
 
     private Class<?> getGameObjectClass(String lifeForm) throws ClassNotFoundException {
