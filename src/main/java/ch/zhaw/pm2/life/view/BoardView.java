@@ -78,7 +78,9 @@ public class BoardView extends Canvas {
             double scaling = gameObject.getSize() * GAME_OBJECT_SIZE_SCALING;
             double translateFactor = (1 - scaling) * HALF;
 
-            double translatedX = fieldPosX + fieldDimension.getWidth() * translateFactor;
+            double fieldDimensionDiff = fieldDimension.getWidth() - fieldDimension.getHeight();
+
+            double translatedX = fieldPosX + (fieldDimension.getWidth() + fieldDimensionDiff) * translateFactor;
             double translatedY = fieldPosY + fieldDimension.getHeight() * translateFactor;
 
             drawGameObject(gameObject, scaling, translatedX, translatedY);
@@ -91,7 +93,7 @@ public class BoardView extends Canvas {
 
     private void drawGameObject(GameObject gameObject, double scaling, double translatedX, double translatedY) {
         getGraphicsContext2D().setFill(Color.valueOf(gameObject.getColor()));
-        getGraphicsContext2D().fillOval(translatedX, translatedY, fieldDimension.getWidth() * scaling, fieldDimension.getHeight() * scaling);
+        getGraphicsContext2D().fillOval(translatedX, translatedY, fieldDimension.getHeight() * scaling, fieldDimension.getHeight() * scaling);
     }
 
     private void drawGender(GameObject gameObject, double translatedX, double translatedY) {
