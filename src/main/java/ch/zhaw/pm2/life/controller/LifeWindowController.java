@@ -267,7 +267,7 @@ public class LifeWindowController {
         changeEnergy.setText("Energie aendern");
         changeEnergy.setOnAction(event -> {
 
-            TextInputDialog dialog = new TextInputDialog("5");
+            TextInputDialog dialog = new TextInputDialog(String.valueOf(gameObject.getEnergy()));
             dialog.setTitle("Neuer Energiewert");
             dialog.getEditor().setTextFormatter(ValidationUtil.getEnergyFormatter());
             Optional<String> response = dialog.showAndWait();
@@ -277,6 +277,9 @@ public class LifeWindowController {
                     .forEach(go -> {
                         if (energy.matches("\\d+")) {
                             go.setEnergy(Integer.parseInt(energy));
+                            messageField.appendText(String.format(
+                                    "Energie von %s wurde auf %s gesetzt", go.getName(), go.getEnergy()));
+                            boardView.draw();
                         }
                     }));
         });
