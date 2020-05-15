@@ -5,6 +5,7 @@ import ch.zhaw.pm2.life.model.Board;
 import ch.zhaw.pm2.life.model.GameObject;
 import ch.zhaw.pm2.life.model.GameProperties;
 import ch.zhaw.pm2.life.model.lifeform.animal.AnimalObject;
+import ch.zhaw.pm2.life.util.ValidationUtil;
 import ch.zhaw.pm2.life.view.BoardView;
 import ch.zhaw.pm2.life.view.StatisticView;
 import javafx.event.EventHandler;
@@ -239,43 +240,45 @@ public class LifeWindowController {
     }
 
     private MenuItem changeName(GameObject gameObject) {
-        MenuItem changeName = new MenuItem();
-        changeName.setText("Name aendern");
-        changeName.setOnAction(event -> {
-            ChangeNameDialog changeNameDialog = new ChangeNameDialog();
-            changeNameDialog.showAndWait();
+        MenuItem nameItem = new MenuItem();
+        nameItem.setText("Name aendern");
+        nameItem.setOnAction(event -> {
 
-            boardObject.getGameObjects().forEach(gameObject1 -> {
-                if (gameObject1.getName().equals(gameObject.getName())) {
-                    String newName = changeNameDialog.getEditor().getText();
-                    gameObject1.setName(newName);
-                    editMenu.getItems().forEach(menuItem -> {
-                        if (menuItem.getText().equals(gameObject.getName())) {
-                            menuItem.setText(newName);
-                        }
-                    });
-                }
-            });
+            TextInputDialog dialog = new TextInputDialog(gameObject.getName());
+            dialog.setTitle("Neuer Name");
+            dialog.getEditor().setTextFormatter(ValidationUtil.getNameFormatter());
+            Optional<String> response = dialog.showAndWait();
+
+            response.ifPresent(name -> boardObject.getGameObjects().stream()
+                    .filter(go -> go.getName().equals(gameObject.getName()))
+                    .forEach(go -> editMenu.getItems().stream()
+                            .filter(menuItem -> menuItem.getText().equals(gameObject.getName()))
+                            .forEach(menuItem -> {
+                                menuItem.setText(name);
+                                gameObject.setName(name);
+                                go.setName(name);
+                            })));
         });
-        return changeName;
+        return nameItem;
     }
 
     private MenuItem changeEnergy(GameObject gameObject) {
         MenuItem changeEnergy = new MenuItem();
         changeEnergy.setText("Energie aendern");
         changeEnergy.setOnAction(event -> {
-            ChangeEnergyDialog changeEnergyDialog = new ChangeEnergyDialog();
-            changeEnergyDialog.showAndWait();
-            String energyString = changeEnergyDialog.getEditor().getText();
-            if (energyString.isBlank()) {
-                return;
-            }
-            int energy = Integer.parseInt(energyString);
-            boardObject.getGameObjects().forEach(gameObject1 -> {
-                if(gameObject1.equals(gameObject)) {
-                    gameObject1.setEnergy(energy);
-                }
-            });
+
+            TextInputDialog dialog = new TextInputDialog("5");
+            dialog.setTitle("Neuer Energiewert");
+            dialog.getEditor().setTextFormatter(ValidationUtil.getEnergyFormatter());
+            Optional<String> response = dialog.showAndWait();
+
+            response.ifPresent(energy -> boardObject.getGameObjects().stream()
+                    .filter(go -> go.getName().equals(gameObject.getName()))
+                    .forEach(go -> {
+                        if (energy.matches("\\d+")) {
+                            go.setEnergy(Integer.parseInt(energy));
+                        }
+                    }));
         });
         return changeEnergy;
     }
