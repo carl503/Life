@@ -124,7 +124,7 @@ public class Board {
     public Set<GameObject> getAllGameObjects(Vector2D pos) {
         Set<GameObject> found = new HashSet<>();
 
-        if (isVectorOnBoard(pos)) {
+        if (isNeighbourPositionOnBoard(pos)) {
             gameObjects.stream()
                     .filter(gameObject -> gameObject.getPosition().equals(pos))
                     .forEach(found::add);
@@ -150,7 +150,7 @@ public class Board {
         for (int i = 0; i <= diameter; i++) {
             for (int j = 0; j <= diameter; j++) {
                 Vector2D next = new Vector2D(topLeftCorner.getX() + j, topLeftCorner.getY() + i);
-                if (isVectorOnBoard(next)) {
+                if (isNeighbourPositionOnBoard(next)) {
                     Set<GameObject> found = getAllGameObjects(next);
                     if (found.size() > 0) {
                         found.remove(gameObject);
