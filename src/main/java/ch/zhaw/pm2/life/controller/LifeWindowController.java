@@ -140,14 +140,15 @@ public class LifeWindowController {
         SpawnSpeciesDialog dialog = new SpawnSpeciesDialog("Neue Spezies erstellen");
         Optional<Set<GameObject>> response = dialog.showAndWait();
 
-        response.ifPresent(gameObjects -> gameObjects.forEach(gameObject ->
-            boardObject.addGameObject(gameObject, boardObject.getRandomPosition())
-        ));
-
-        if (response.isPresent()) {
-            boardObject.getGameObjects().addAll(response.get());
-            boardView.draw();
-        }
+        response.ifPresent(gameObjects -> gameObjects.forEach(gameObject -> {
+            Optional<GameObject> duplicate = boardObject.getGameObjects().stream()
+                    .filter(go -> go.getName().equalsIgnoreCase(gameObject.getName())).findAny();
+            if (duplicate.isEmpty()) {
+                boardObject.addGameObject(gameObject, boardObject.getRandomPosition());
+                messageField.appendText(String.format("%s wurde zur Simulation hinzugefuegt.", gameObject.getName()));
+                boardView.draw();
+            }
+        }));
 
     }
 
@@ -315,6 +316,9 @@ public class LifeWindowController {
                     .forEach(go -> editMenu.getItems().stream()
                             .filter(menuItem -> menuItem.getText().equals(gameObject.getName()))
                             .forEach(menuItem -> {
+                                if (name.isBlank()) {
+                                    return;
+                                }
                                 menuItem.setText(name);
                                 messageField.appendText(String.format(
                                         "Name von %s wurde auf %s geaendert", gameObject.getName(), name));
