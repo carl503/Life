@@ -55,25 +55,29 @@ public class LifeWindowController {
 
     @FXML
     private void nextRound() {
-        if (game != null) {
+        if (game == null) {
+            return;
+        }
+
+        if (game.isOngoing()) {
             messageField.appendText(game.nextMove());
             boardView.draw();
-            if (!game.isOngoing()) {
-                nextRoundButton.setDisable(true);
-                stopSimButton.setDisable(true);
-                showStatistics();
-            }
+        } else {
+            nextRoundButton.setDisable(true);
+            stopSimButton.setDisable(true);
+            showStatistics();
         }
     }
 
     @FXML
     private void stopSimulation() {
-        if (game != null) {
-            game.stop();
-            nextRoundButton.setDisable(true);
-            stopSimButton.setDisable(true);
-            showStatistics();
+        if (game == null) {
+            return;
         }
+        game.stop();
+        nextRoundButton.setDisable(true);
+        stopSimButton.setDisable(true);
+        showStatistics();
     }
 
     @FXML
@@ -106,9 +110,10 @@ public class LifeWindowController {
      * Draws the board.
      */
     public void drawBoard() {
-        if (game != null) {
-            boardView.draw();
+        if (game == null) {
+            return;
         }
+        boardView.draw();
     }
 
     /**
@@ -123,12 +128,13 @@ public class LifeWindowController {
      * Initializes the game.
      */
     public void initGame() {
-        if (boardObject != null) {
-            try {
-                game = new Game(boardObject, setupController.getGameObjects());
-            } catch (Exception e) {
-                messageField.appendText(e.getMessage() + "\n");
-            }
+        if (boardObject == null) {
+            return;
+        }
+        try {
+            game = new Game(boardObject, setupController.getGameObjects());
+        } catch (Exception e) {
+            messageField.appendText(e.getMessage() + "\n");
         }
     }
 
