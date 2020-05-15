@@ -1,9 +1,6 @@
 package ch.zhaw.pm2.life.controller;
 
-import ch.zhaw.pm2.life.controller.dialogs.ChangeEnergyDialog;
-import ch.zhaw.pm2.life.controller.dialogs.ChangeNameDialog;
-import ch.zhaw.pm2.life.controller.dialogs.ColorPickerDialog;
-import ch.zhaw.pm2.life.controller.dialogs.ScanRadiusDialog;
+import ch.zhaw.pm2.life.controller.dialogs.*;
 import ch.zhaw.pm2.life.model.Board;
 import ch.zhaw.pm2.life.model.GameObject;
 import ch.zhaw.pm2.life.model.GameProperties;
@@ -170,6 +167,7 @@ public class LifeWindowController {
         try {
             gameProperties = new GameProperties(setupController.getGameObjects());
             game = new Game(boardObject, gameProperties);
+            game.setSpeciesToWatch(setupController.getStopCondition());
         } catch (Exception e) {
             messageField.appendText(e.getMessage() + "\n");
         }
@@ -189,10 +187,21 @@ public class LifeWindowController {
                     AnimalObject animalObject = (AnimalObject) gameObject;
                     lifeform.getItems().add(changeScanRadius(animalObject));
                 }
-
                 editMenu.getItems().add(lifeform);
+
             }
         });
+        editMenu.getItems().add(changeStopCondition());
+    }
+
+    private MenuItem changeStopCondition() {
+        MenuItem item = new MenuItem("Stoppbedingung aendern");
+        item.setOnAction(event -> {
+            StopConditionDialog dialog = new StopConditionDialog(boardObject.getGameObjects());
+            Optional<String> response = dialog.showAndWait();
+            response.ifPresent(s -> game.setSpeciesToWatch(s));
+        });
+        return item;
     }
 
     private MenuItem changeScanRadius(AnimalObject animalObject) {
