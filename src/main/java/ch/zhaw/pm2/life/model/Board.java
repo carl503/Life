@@ -144,7 +144,7 @@ public class Board {
         int diameter = 2 * radius;
         if (gameObject == null || diameter == 0) { return neighbours; }
 
-        Vector2D topLeftCorner = Vector2D.add(gameObject.position,
+        Vector2D topLeftCorner = Vector2D.add(gameObject.getPosition(),
                                               Vector2D.multiply(radius, Direction.UP_LEFT.getDirectionVector()));
 
         for (int i = 0; i <= diameter; i++) {
@@ -163,7 +163,7 @@ public class Board {
         return neighbours;
     }
 
-    private boolean isVectorOnBoard(Vector2D vector) {
+    private boolean isNeighbourPositionOnBoard(Vector2D vector) {
         return (Vector2D.isPositive(vector) && vector.getY() < columns && vector.getX() < rows);
     }
 
