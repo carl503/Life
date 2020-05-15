@@ -11,7 +11,9 @@ import javafx.scene.layout.GridPane;
 import java.util.HashSet;
 import java.util.Set;
 
-
+/**
+ * Allows the user to create new additional species
+ */
 public class SpawnSpeciesDialog extends LifeDialog<Set<GameObject>> {
 
     private final TextField name = new TextField();
@@ -24,6 +26,10 @@ public class SpawnSpeciesDialog extends LifeDialog<Set<GameObject>> {
         CARNIVORE, HERBIVORE, PLANT
     }
 
+    /**
+     * Creates the spawn species dialog
+     * @param title title for the dialog
+     */
     public SpawnSpeciesDialog(String title) {
         super(title);
         setUp();

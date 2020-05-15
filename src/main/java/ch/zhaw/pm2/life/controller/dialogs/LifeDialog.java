@@ -6,10 +6,18 @@ import javafx.scene.control.ButtonType;
 import javafx.scene.control.Dialog;
 import javafx.scene.layout.GridPane;
 
+/**
+ * Template class to create custom dialogs in a grid pane
+ * @param <T> Object type that the dialog returns
+ */
 public abstract class LifeDialog<T> extends Dialog<T> {
 
     private final GridPane grid = new GridPane();
 
+    /**
+     * Creates the {@link LifeDialog} instance
+     * @param title dialog title
+     */
     public LifeDialog(String title) {
         this.setTitle(title);
         setUpGrid();
@@ -19,6 +27,10 @@ public abstract class LifeDialog<T> extends Dialog<T> {
     protected abstract void setUp();
     protected abstract T returnValue();
 
+    /**
+     * Returns the {@link GridPane}
+     * @return grid
+     */
     public GridPane getGrid() {
         return grid;
     }

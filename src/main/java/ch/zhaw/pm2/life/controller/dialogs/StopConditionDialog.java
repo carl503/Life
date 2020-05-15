@@ -8,10 +8,16 @@ import javafx.scene.layout.GridPane;
 import java.util.HashSet;
 import java.util.Set;
 
+/**
+ * Allows the user to change the stop condition
+ */
 public class StopConditionDialog extends LifeDialog<String> {
     private final ComboBox<String> choice = new ComboBox<>();
-    Set<GameObject> gameObjects = new HashSet<>();
+    private final Set<GameObject> gameObjects = new HashSet<>();
 
+    /**
+     * Creates the stop condition dialog
+     */
     public StopConditionDialog() {
         super("Neue Stoppbedingung");
         setUp();
@@ -31,6 +37,10 @@ public class StopConditionDialog extends LifeDialog<String> {
         return choice.getValue();
     }
 
+    /**
+     * Take a set of {@link GameObject} to add them to the combo box
+     * @param gameObjects {@link GameObject} to add
+     */
     public void setUpComboBox(Set<GameObject> gameObjects) {
         gameObjects.stream()
                 .filter(AnimalObject.class::isInstance)

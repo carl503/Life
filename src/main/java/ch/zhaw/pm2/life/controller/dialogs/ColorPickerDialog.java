@@ -4,10 +4,16 @@ package ch.zhaw.pm2.life.controller.dialogs;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 
+/**
+ * Allows the user to change the color of a {@link ch.zhaw.pm2.life.model.GameObject}
+ */
 public class ColorPickerDialog extends LifeDialog<String> {
 
     private final ColorPicker colorPicker = new ColorPicker();
 
+    /**
+     * Creates a color picker dialog instance
+     */
     public ColorPickerDialog() {
         super("Neue Farbe");
         setUp();
