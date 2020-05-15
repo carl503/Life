@@ -1,4 +1,12 @@
 # Life Simulation
 Life - eine Simulation der natürlichen Selektion
 
-Current build status: ![Build Status](http://ncpl-projekt2.westeurope.cloudapp.azure.com:8080/buildStatus/icon?job=Life&build=last)
+## Life ausprobieren
+
+Um Life auszuprobieren, klonen Sie das Programm und öffnen Sie dieses mittels gradle run.
+Falls das Programm eine Fehlermeldung bezüglich fehlender Konfigurationsdateien wirft, beenden Sie das Programm
+und starten Sie dieses mittels gradle run erneut.
+
+## Mehr info
+
+Für genauere Details wie Life funktioniert, sehen Sie bitte im Wiki nach.
