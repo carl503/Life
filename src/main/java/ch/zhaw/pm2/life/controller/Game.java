@@ -229,7 +229,7 @@ public class Game {
     private void spawnPlantRandomlyOnMap() throws LifeFormException {
         try {
             int spawnChance = random.nextInt(11);
-            if (spawnChance < PLANT_RESPAWN_CHANCE) {
+            if (spawnChance < PLANT_RESPAWN_CHANCE && startPlants.size() > 0) {
                 int randomPlantIndex = random.nextInt(startPlants.size());
                 Plant originalPlant = startPlants.get(randomPlantIndex);
 
