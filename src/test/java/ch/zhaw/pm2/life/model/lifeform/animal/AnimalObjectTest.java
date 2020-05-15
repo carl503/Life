@@ -22,6 +22,7 @@ public class AnimalObjectTest {
     private static final int ACTUAL_REPRODUCTION_MINIMUM = 9;
     private static final String MALE = "M";
     private static final String FEMALE = "F";
+    public static final String HERBIVORE = "Herbivore";
     private Set<GameObject> dummyGameObjectsSet;
 
     @Spy private AnimalObject animalObject;
@@ -156,7 +157,7 @@ public class AnimalObjectTest {
         LifeForm partner = mock(LifeForm.class);
         doReturn(new Vector2D(0, 0)).when(animalObject).chooseRandomNeighbourPosition();
         animalObject.fertilityThreshold = ACTUAL_REPRODUCTION_MINIMUM;
-        when(animalObject.getName()).thenReturn("Herbivore");
+        when(animalObject.getName()).thenReturn(HERBIVORE);
         when(partner.getGender()).thenReturn(FEMALE);
 
         Exception exception = assertThrows(LifeFormException.class, () -> animalObject.reproduce(partner));
@@ -178,7 +179,7 @@ public class AnimalObjectTest {
     public void reproduceTestFemaleWithLowFertilityThreshold() {
         LifeForm partner = mock(LifeForm.class);
         doReturn(new Vector2D(0, 0)).when(animalObject).chooseRandomNeighbourPosition();
-        when(animalObject.getName()).thenReturn("Herbivore");
+        when(animalObject.getName()).thenReturn(HERBIVORE);
         animalObject.fertilityThreshold = 0;
         when(partner.getGender()).thenReturn(MALE);
 
