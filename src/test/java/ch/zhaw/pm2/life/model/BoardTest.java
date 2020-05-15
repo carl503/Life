@@ -111,7 +111,7 @@ public class BoardTest {
         positions.add(thirdLifeForm.getPosition());
 
         // execute
-        board.cleanBoard();
+        board.removeDeadLifeForms();
         gameObjects.remove(firstLifeForm);
         positions.remove(firstLifeForm.getPosition());
 
@@ -148,11 +148,11 @@ public class BoardTest {
 
         assertTrue(board.isSpeciesAlive("Wolf"));
         assertTrue(board.isSpeciesAlive("Schaf"));
-        board.cleanBoard();
+        board.removeDeadLifeForms();
         assertFalse(board.isSpeciesAlive("Wolf"));
         assertTrue(board.isSpeciesAlive("Schaf"));
         when(herbivore.isDead()).thenReturn(true);
-        board.cleanBoard();
+        board.removeDeadLifeForms();
         assertFalse(board.isSpeciesAlive("Wolf"));
         assertFalse(board.isSpeciesAlive("Schaf"));
     }

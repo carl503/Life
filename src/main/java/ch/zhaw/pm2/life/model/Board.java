@@ -90,7 +90,7 @@ public class Board {
     /**
      * Remove all dead {@link LifeForm} from the board.
      */
-    public void cleanBoard() {
+    public void removeDeadLifeForms() {
         Set<LifeForm> deadLifeForms = getLifeForms().stream()
                                                     .filter(LifeForm::isDead)
                                                     .collect(Collectors.toSet());

@@ -160,7 +160,7 @@ public class Game {
             positionMap.putIfAbsent(gameObject.getPosition(), new HashSet<>());
             positionMap.get(gameObject.getPosition()).add(gameObject);
         }
-        board.cleanBoard();
+        board.removeDeadLifeForms();
 
         return stringBuilder.toString();
     }
@@ -190,7 +190,7 @@ public class Game {
                     set.removeAll(deadLifeForms);
                 });
 
-        board.cleanBoard();
+        board.removeDeadLifeForms();
         newLifeForms.forEach(lifeForm -> board.addGameObject(lifeForm, lifeForm.getPosition()));
         bornLifeForms.addAll(newLifeForms);
 
