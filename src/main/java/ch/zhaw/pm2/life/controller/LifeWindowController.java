@@ -126,10 +126,21 @@ public class LifeWindowController {
 
     private EventHandler<KeyEvent> keyHandler() {
         return event -> {
-            if (event.getCode() == KeyCode.F11) {
-                toggleFullscreen();
-            } else if (event.getCode() == KeyCode.ESCAPE) {
-                fullscreen = false;
+            switch (event.getCode()) {
+                case F11:
+                    toggleFullscreen();
+                    break;
+
+                case ESCAPE:
+                    fullscreen = false;
+                    break;
+
+                case F1:
+                    showManual();
+                    break;
+
+                default:
+                    break;
             }
         };
     }
