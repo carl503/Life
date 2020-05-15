@@ -26,6 +26,8 @@ import java.util.logging.Logger;
 public class SetupController {
 
     private static final Logger logger = Logger.getLogger(SetupController.class.getName());
+    public static final int HEIGHT_BOXING = 50;
+    public static final int WIDTH_BOXING = 20;
 
     @FXML private Pane rootPane;
     @FXML private GridPane pane;
@@ -66,10 +68,13 @@ public class SetupController {
     public void startSimulation() {
         try {
             URL fxmlPath = getClass().getClassLoader().getResource("Window.fxml");
-            FXMLLoader loader = new FXMLLoader(fxmlPath);
             Stage stage = (Stage) rootPane.getScene().getWindow();
-            stage.setScene(new Scene(loader.load()));
+            FXMLLoader loader = new FXMLLoader(fxmlPath);
+            Pane mainWindowRootPane = loader.load();
+            stage.setScene(new Scene(mainWindowRootPane));
             stage.setTitle("Life - Simulation");
+            stage.setMinHeight(mainWindowRootPane.getMinHeight() + HEIGHT_BOXING);
+            stage.setMinWidth(mainWindowRootPane.getMinWidth() + WIDTH_BOXING);
 
             LifeWindowController controller = loader.getController();
             controller.setSetupController(this);
