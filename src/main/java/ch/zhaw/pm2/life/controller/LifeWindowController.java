@@ -201,7 +201,10 @@ public class LifeWindowController {
             StopConditionDialog dialog = new StopConditionDialog();
             dialog.setUpComboBox(boardObject.getGameObjects());
             Optional<String> response = dialog.showAndWait();
-            response.ifPresent(s -> game.setSpeciesToWatch(s));
+            response.ifPresent(species -> {
+                messageField.appendText(String.format("Simulation beendet, sobald nur noch %s lebt", species));
+                game.setSpeciesToWatch(species);
+            });
         });
         return item;
     }
