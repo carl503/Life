@@ -152,9 +152,10 @@ public class Board {
                 Vector2D next = new Vector2D(topLeftCorner.getX() + j, topLeftCorner.getY() + i);
                 if (isVectorOnBoard(next)) {
                     GameObject neighbour = getAnyGameObject(next);
-                    if (neighbour != null && !neighbour.equals(gameObject)) {
-                        neighbours.add(neighbour);
+                    if (neighbour == null || neighbour.equals(gameObject)) {
+                        continue;
                     }
+                    neighbours.add(neighbour);
                 }
             }
         }
