@@ -75,7 +75,7 @@ public class LifeWindowController {
         }
 
         if (game.isOngoing()) {
-            messageField.appendText(game.nextMove());
+            messageField.appendText(game.nextMove() + "\n");
             boardView.draw();
         } else {
             nextRoundButton.setDisable(true);
@@ -157,7 +157,7 @@ public class LifeWindowController {
                     .findAny();
             if (duplicate.isEmpty()) {
                 boardObject.addGameObject(gameObject, boardObject.getRandomPosition());
-                messageField.appendText(String.format("%s wurde zur Simulation hinzugefuegt.", gameObject.getName()));
+                messageField.appendText(String.format("%s wurde zur Simulation hinzugefuegt.%n", gameObject.getName()));
                 boardView.draw();
             }
         }));
@@ -268,7 +268,7 @@ public class LifeWindowController {
             dialog.setUpComboBox(boardObject.getGameObjects());
             Optional<String> response = dialog.showAndWait();
             response.ifPresent(species -> {
-                messageField.appendText(String.format("Simulation beendet, sobald nur noch %s lebt", species));
+                messageField.appendText(String.format("Simulation beendet, sobald nur noch %s lebt%n", species));
                 game.setSpeciesToWatch(species);
             });
         });
@@ -286,7 +286,7 @@ public class LifeWindowController {
                     .map(AnimalObject.class::cast)
                     .forEach(ao -> {
                         if (ao.getName().equals(animalObject.getName())) {
-                            messageField.appendText(String.format("Sichtweite von %s wurde von %s auf %s geaendert",
+                            messageField.appendText(String.format("Sichtweite von %s wurde von %s auf %s geaendert%n",
                                                                   ao.getName(), ao.getScanRadius(), radius));
                             ao.setScanRadius(radius);
                         }
@@ -303,7 +303,7 @@ public class LifeWindowController {
             Optional<String> response = dialog.showAndWait();
             response.ifPresent(color -> boardObject.getGameObjects().forEach(go -> {
                 if (go.getName().equals(gameObject.getName())) {
-                    messageField.appendText(String.format("Farbe von %s von %s auf %s geaendert",
+                    messageField.appendText(String.format("Farbe von %s von %s auf %s geaendert%n",
                                                           go.getName(), go.getColor(), color));
                     go.setColor(color);
                     boardView.draw();
@@ -333,7 +333,7 @@ public class LifeWindowController {
                                 }
                                 menuItem.setText(name);
                                 messageField.appendText(String.format(
-                                        "Name von %s wurde auf %s geaendert", gameObject.getName(), name));
+                                        "Name von %s wurde auf %s geaendert%n", gameObject.getName(), name));
                                 gameObject.setName(name);
                                 go.setName(name);
 
@@ -359,7 +359,7 @@ public class LifeWindowController {
                             go.setEnergy(Integer.parseInt(energy));
                             gameProperties.getEnergyProperty(go.getName()).set(Integer.parseInt(energy));
                             messageField.appendText(String.format(
-                                    "Energie von %s wurde auf %s gesetzt", go.getName(), go.getEnergy()));
+                                    "Energie von %s wurde auf %s gesetzt%n", go.getName(), go.getEnergy()));
                             boardView.draw();
                         }
                     }));
