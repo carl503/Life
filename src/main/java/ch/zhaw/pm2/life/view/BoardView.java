@@ -14,7 +14,7 @@ import java.util.Objects;
 /**
  * This class displays the board and all the {@link GameObject} that are alive including their attributes.
  * The board has an overlay of lines that are drawn to improve the understanding of the coordinate system
- * and the movements done by the {@link AnimalObject}
+ * and the movements done by the {@link AnimalObject}.
  */
 public class BoardView extends Canvas {
 
@@ -32,8 +32,8 @@ public class BoardView extends Canvas {
     private Dimension2D fieldDimension;
 
     /**
-     * Creates the board view instance
-     * @param board from type {@link Board}
+     * Creates the board view instance.
+     * @param board from type {@link Board}.
      */
     public BoardView(Board board) {
         this.board = Objects.requireNonNull(board, "Board cannot be null to display it.");
@@ -41,8 +41,8 @@ public class BoardView extends Canvas {
 
     /**
      * Updates the dimension if the newHeight and newWidth values of updateSize() are valid.
-     * @param width  as double for the width of the dimension
-     * @param height as double for the height of the dimension
+     * @param width  as double for the width of the dimension.
+     * @param height as double for the height of the dimension.
      */
     public void updateDimension(double width, double height) {
         this.width = width;

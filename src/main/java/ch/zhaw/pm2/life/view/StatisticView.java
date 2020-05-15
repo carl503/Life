@@ -19,7 +19,7 @@ import java.util.Set;
 
 /**
  * This class displays the statistics of all the {@link GameObject} at the end of the simulation.
- * It displays for each {@link GameObject} the amount of
+ * It displays for each {@link GameObject} the amount of:
  * <ul>
  *  <li>at start</li>
  *  <li>births</li>
@@ -38,6 +38,11 @@ public class StatisticView extends Stage {
     private Collection<LifeForm> birthCount = Collections.emptySet();
     private Collection<LifeForm> spawnCount = Collections.emptySet();
 
+    /**
+     * Initialize the statistics view.
+     * @param parentStage the parent {@link Stage}
+     * @param species the species displayed in the statstics.
+     */
     public void initChart(Stage parentStage, Set<String> species) {
         setTitle("Gesamtstatistik");
         setScene(new Scene(getChart(species), MIN_WIDTH, MIN_HEIGHT));

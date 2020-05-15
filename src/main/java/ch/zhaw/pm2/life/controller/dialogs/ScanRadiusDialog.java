@@ -1,18 +1,19 @@
 package ch.zhaw.pm2.life.controller.dialogs;
 
+import ch.zhaw.pm2.life.model.GameObject;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.layout.GridPane;
 
 /**
- * Allows the user to change the scan radius of a {@link ch.zhaw.pm2.life.model.GameObject}
+ * Allows the user to change the scan radius of a {@link GameObject}.
  */
 public class ScanRadiusDialog extends LifeDialog<Integer> {
 
     private final Slider slider = new Slider();
 
     /**
-     * Creates a scan radius dialog
+     * Creates a scan radius dialog.
      */
     public ScanRadiusDialog() {
         super("Neuer Suchradius");
@@ -37,7 +38,7 @@ public class ScanRadiusDialog extends LifeDialog<Integer> {
         grid.add(text, 0, 0);
         grid.add(slider, 0, 1);
 
-        this.getDialogPane().setContent(grid);
+        getDialogPane().setContent(grid);
     }
 
     @Override

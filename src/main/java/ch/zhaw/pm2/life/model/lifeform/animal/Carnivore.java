@@ -18,7 +18,6 @@ public class Carnivore extends AnimalObject {
      * Default constructor.
      */
     public Carnivore() {
-        setName("Carnivore");
         setScanRadius(0);
     }
 

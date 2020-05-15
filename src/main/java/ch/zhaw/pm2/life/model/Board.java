@@ -30,7 +30,6 @@ public class Board {
     private final Random random = new Random();
     private final Set<GameObject> gameObjects = new HashSet<>();
     private final Set<Vector2D> occupiedPositions = new HashSet<>();
-    private final Set<String> animalForms = new HashSet<>();
     private final int rows;
     private final int columns;
 
@@ -71,15 +70,12 @@ public class Board {
         gameObject.setRows(rows);
 
         gameObjects.add(gameObject);
-        if (gameObject instanceof AnimalObject) {
-            animalForms.add(gameObject.getClass().getSimpleName());
-        }
         occupiedPositions.add(position);
     }
 
     /**
-     * Returns a random but valid position on the board as {@link Vector2D}
-     * @return a position as {@link Vector2D}
+     * Returns a random but valid position on the board as {@link Vector2D}.
+     * @return a position as {@link Vector2D}.
      */
     public Vector2D getRandomPosition() {
         int xPos = random.nextInt(columns);
@@ -121,8 +117,8 @@ public class Board {
     }
 
     /**
-     * Returns all {@link GameObject} of a position
-     * @param pos Position on the field
+     * Returns all {@link GameObject} of a position.
+     * @param pos Position on the field as {@link Vector2D}.
      * @return Set<GameObject> of all the {@link GameObject} of a position.
      */
     public Set<GameObject> getAllGameObjects(Vector2D pos) {
@@ -141,9 +137,9 @@ public class Board {
      * Searches and returns all neighbours of a {@link GameObject} with radius "radius".
      * The Methods scans all the fields in the radius and adds whatever {@link GameObject} there is
      * and adds it to the set of neighbours.
-     * @param gameObject {@link GameObject} where the neighbours should be searched
-     * @param radius     radius to search from {@link GameObject}
-     * @return Set<GameObject> of neighbours
+     * @param gameObject {@link GameObject} where the neighbours should be searched.
+     * @param radius     radius to search from {@link GameObject}.
+     * @return Set<GameObject> of neighbours.
      */
     public Set<GameObject> getNeighbourObjects(GameObject gameObject, int radius) {
         Set<GameObject> neighbours = new HashSet<>();
@@ -177,8 +173,8 @@ public class Board {
 
     /**
      * Checks if a species still has members that are alive. It filters them by name.
-     * @param species name of the species
-     * @return true if species is still alive, else false
+     * @param species name of the species as {@link String}.
+     * @return true if species is still alive, else false.
      */
     public boolean isSpeciesAlive(String species) {
         return gameObjects.stream()
@@ -213,8 +209,8 @@ public class Board {
     }
 
     /**
-     * Returns a set of occupied positions
-     * @return set of position objects
+     * Returns a set of occupied positions.
+     * @return set of position objects.
      */
     public Set<Vector2D> getOccupiedPositions() {
         return occupiedPositions;

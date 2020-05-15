@@ -17,7 +17,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 /**
- * Allows the user to create new additional species
+ * Allows the user to create new additional species.
  */
 public class SpawnSpeciesDialog extends LifeDialog<Set<GameObject>> {
 
@@ -28,8 +28,8 @@ public class SpawnSpeciesDialog extends LifeDialog<Set<GameObject>> {
     private final ComboBox<Type> type = new ComboBox<>();
 
     /**
-     * Creates the spawn species dialog
-     * @param title title for the dialog
+     * Creates the spawn species dialog.
+     * @param title title for the dialog.
      */
     public SpawnSpeciesDialog(String title) {
         super(title);
@@ -47,35 +47,19 @@ public class SpawnSpeciesDialog extends LifeDialog<Set<GameObject>> {
         type.getItems().addAll(Type.CARNIVORE, Type.HERBIVORE, Type.PLANT);
         type.getSelectionModel().selectFirst();
 
-        this.getDialogPane().setContent(grid);
-
+        getDialogPane().setContent(grid);
     }
 
     @Override
     protected Set<GameObject> returnValue() {
         Set<GameObject> gameObjects = new HashSet<>();
 
+        if (name.getText().isBlank() || energy.getText().isBlank()) {
+            return gameObjects;
+        }
+
         for (int i = 0; i < amount.getValue(); i++) {
-            GameObject gameObject;
-            switch (type.getValue()) {
-                case PLANT:
-                    gameObject = new Plant();
-                    break;
-
-                case CARNIVORE:
-                    gameObject = new Carnivore();
-                    break;
-
-                case HERBIVORE:
-                    gameObject = new Herbivore();
-                    break;
-
-                default:
-                    throw new IllegalStateException("Unexpected value: " + type.getValue());
-            }
-            if (name.getText().isBlank() || energy.getText().isBlank()) {
-                return gameObjects;
-            }
+            GameObject gameObject = getGameObject();
             gameObject.setName(name.getText());
             gameObject.setColor(color.getValue().toString());
             gameObject.setEnergy(Integer.parseInt(energy.getText()));
@@ -83,6 +67,27 @@ public class SpawnSpeciesDialog extends LifeDialog<Set<GameObject>> {
         }
 
         return gameObjects;
+    }
+
+    private GameObject getGameObject() {
+        GameObject gameObject;
+        switch (type.getValue()) {
+            case PLANT:
+                gameObject = new Plant();
+                break;
+
+            case CARNIVORE:
+                gameObject = new Carnivore();
+                break;
+
+            case HERBIVORE:
+                gameObject = new Herbivore();
+                break;
+
+            default:
+                throw new IllegalStateException("Unexpected value: " + type.getValue());
+        }
+        return gameObject;
     }
 
     private void setUpGrid(GridPane grid) {

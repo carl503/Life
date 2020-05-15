@@ -19,9 +19,6 @@ import java.util.logging.Logger;
  */
 public abstract class AnimalObject extends LifeForm {
 
-    /**
-     * Default reproduction minimum value of an {@link AnimalObject}.
-     */
     private static final int REPRODUCTION_MINIMUM = 9;
 
     private static final Logger logger = Logger.getLogger(AnimalObject.class.getCanonicalName());
@@ -45,7 +42,7 @@ public abstract class AnimalObject extends LifeForm {
      * @param neighbourObjs Set used to determine by the {@link AnimalObject} where to move.
      */
     public void move(Set<GameObject> neighbourObjs) {
-        logger.log(Level.FINER, "Move {0}", getClass().getSimpleName());
+        logger.log(Level.FINER, "Move {0}", getName());
         Vector2D previousPosition = position;
         position = neighbourObjs.isEmpty() ? chooseRandomNeighbourPosition() : calculateNextPos(neighbourObjs);
         int consumeEnergy = 0;
@@ -116,7 +113,7 @@ public abstract class AnimalObject extends LifeForm {
 
     /**
      * Is called when the {@link AnimalObject} eats another {@link LifeForm}.
-     * @param lifeForm {@link LifeForm}
+     * @param lifeForm {@link LifeForm} that will be eaten.
      * @throws LifeFormException    when could not eat the provided life form.
      * @throws NullPointerException When the provided life form wanted to eat is null.
      */
@@ -127,10 +124,7 @@ public abstract class AnimalObject extends LifeForm {
             eatRules.get().check();
         }
 
-        logger.log(Level.FINE, "{0} ate {1}", new Object[] {
-                getName(),
-                lifeForm.getName()
-        });
+        logger.log(Level.FINE, "{0} ate {1}", new Object[] { getName(), lifeForm.getName() });
         increaseEnergy(lifeForm.getEnergy());
         if (lifeForm.isPoisonous()) {
             becomePoisoned();
@@ -197,9 +191,6 @@ public abstract class AnimalObject extends LifeForm {
         this.scanRadius = scanRadius;
     }
 
-    /**
-     * Resets the fertility threshold.
-     */
     private void resetFertilityThreshold() {
         this.fertilityThreshold = 0;
     }

@@ -19,7 +19,7 @@ import java.util.Set;
 
 /**
  * Parses the config file for the simulation
- * and provides all found {@link GameObject}
+ * and provides all found {@link GameObject}.
  */
 public class ConfigParser {
 
@@ -46,10 +46,10 @@ public class ConfigParser {
     }
 
     /**
-     * Returns the instance of the {@link ConfigParser}
-     * @return ConfigParser reference
+     * Returns the instance of the {@link ConfigParser}.
+     * @return ConfigParser reference.
      * @throws LifeException if the config file could not be copied
-     *                       or i^f the URISyntax is wrong.
+     *                       or if the URISyntax is wrong.
      */
     public static ConfigParser getInstance() throws LifeException {
         if (instance == null) {
@@ -60,9 +60,8 @@ public class ConfigParser {
 
     /**
      * Parses the game objects out of a config file.
-     * @return a {@link List<GameObject>}
-     * containing the parsed game objects
-     * @throws LifeException if the provided class was not found
+     * @return a {@link List<GameObject>} containing the parsed game objects.
+     * @throws LifeException if the provided class was not found.
      */
     public List<GameObject> parseObjects() throws LifeException {
         List<GameObject> parsedObjects = new ArrayList<>();
@@ -104,8 +103,8 @@ public class ConfigParser {
     }
 
     /**
-     * Sets the config field of type {@link Properties}
-     * @param config of type {@link Properties}
+     * Sets the config field of type {@link Properties}.
+     * @param config of type {@link Properties}.
      */
     public void setConfigProperties(Properties config) {
         this.config = (Properties) config.clone();

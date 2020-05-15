@@ -1,6 +1,9 @@
 package ch.zhaw.pm2.life.controller;
 
-import ch.zhaw.pm2.life.controller.dialogs.*;
+import ch.zhaw.pm2.life.controller.dialogs.ColorPickerDialog;
+import ch.zhaw.pm2.life.controller.dialogs.ScanRadiusDialog;
+import ch.zhaw.pm2.life.controller.dialogs.SpawnSpeciesDialog;
+import ch.zhaw.pm2.life.controller.dialogs.StopConditionDialog;
 import ch.zhaw.pm2.life.model.Board;
 import ch.zhaw.pm2.life.model.GameObject;
 import ch.zhaw.pm2.life.model.GameProperties;
@@ -10,7 +13,13 @@ import ch.zhaw.pm2.life.view.BoardView;
 import ch.zhaw.pm2.life.view.StatisticView;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.scene.control.*;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.TextArea;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -43,7 +52,7 @@ public class LifeWindowController {
     @FXML private Menu editMenu;
 
     /**
-     * Initializes everything after the JavaFX components are injected,
+     * Initializes everything after the JavaFX components are injected.
      */
     @FXML
     public void initialize() {
@@ -96,7 +105,7 @@ public class LifeWindowController {
     }
 
     /**
-     * Changes the window in to a fullscreen mode
+     * Changes the window in to a fullscreen mode.
      */
     @FXML
     public void toggleFullscreen() {
@@ -105,7 +114,7 @@ public class LifeWindowController {
     }
 
     /**
-     * Allows to hide the message log at the bottom of the window
+     * Allows to hide the message log at the bottom of the window.
      */
     @FXML
     public void toggleTextField() {
@@ -120,7 +129,7 @@ public class LifeWindowController {
     }
 
     /**
-     * Shows an popup with a link to the manual
+     * Shows an popup with a link to the manual.
      */
     @FXML
     public void showManual() {
@@ -135,7 +144,7 @@ public class LifeWindowController {
     }
 
     /**
-     * Allows to create a new species
+     * Allows to create a new species.
      */
     @FXML
     public void createNewSpecies() {
@@ -144,7 +153,8 @@ public class LifeWindowController {
 
         response.ifPresent(gameObjects -> gameObjects.forEach(gameObject -> {
             Optional<GameObject> duplicate = boardObject.getGameObjects().stream()
-                    .filter(go -> go.getName().equalsIgnoreCase(gameObject.getName())).findAny();
+                    .filter(go -> go.getName().equalsIgnoreCase(gameObject.getName()))
+                    .findAny();
             if (duplicate.isEmpty()) {
                 boardObject.addGameObject(gameObject, boardObject.getRandomPosition());
                 messageField.appendText(String.format("%s wurde zur Simulation hinzugefuegt.", gameObject.getName()));
@@ -227,8 +237,8 @@ public class LifeWindowController {
     }
 
     /**
-     * Generates the edit menu depending on the
-     * {@link GameObject}'s read from the config file
+     * Generates the edit menu depending on the.
+     * {@link GameObject}'s read from the config file.
      */
     public void initEditMenu() {
         setupController.getGameObjects().forEach((gameObject, amount) -> {
@@ -277,7 +287,7 @@ public class LifeWindowController {
                     .forEach(ao -> {
                         if (ao.getName().equals(animalObject.getName())) {
                             messageField.appendText(String.format("Sichtweite von %s wurde von %s auf %s geaendert",
-                                    ao.getName(), ao.getScanRadius(), radius));
+                                                                  ao.getName(), ao.getScanRadius(), radius));
                             ao.setScanRadius(radius);
                         }
                     }));
@@ -294,7 +304,7 @@ public class LifeWindowController {
             response.ifPresent(color -> boardObject.getGameObjects().forEach(go -> {
                 if (go.getName().equals(gameObject.getName())) {
                     messageField.appendText(String.format("Farbe von %s von %s auf %s geaendert",
-                            go.getName(), go.getColor(), color));
+                                                          go.getName(), go.getColor(), color));
                     go.setColor(color);
                     boardView.draw();
                 }
@@ -326,6 +336,7 @@ public class LifeWindowController {
                                         "Name von %s wurde auf %s geaendert", gameObject.getName(), name));
                                 gameObject.setName(name);
                                 go.setName(name);
+
                             })));
         });
         return nameItem;
@@ -346,6 +357,7 @@ public class LifeWindowController {
                     .forEach(go -> {
                         if (energy.matches("\\d+")) {
                             go.setEnergy(Integer.parseInt(energy));
+                            gameProperties.getEnergyProperty(go.getName()).set(Integer.parseInt(energy));
                             messageField.appendText(String.format(
                                     "Energie von %s wurde auf %s gesetzt", go.getName(), go.getEnergy()));
                             boardView.draw();

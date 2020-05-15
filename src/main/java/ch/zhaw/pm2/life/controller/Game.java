@@ -19,6 +19,7 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
 import java.util.Set;
+import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -26,7 +27,7 @@ import static java.util.function.Predicate.*;
 
 /**
  * This controller class handles the core logic around each move of the game.
- * It is handles collisions between two or more {@link GameObject} and their interactions of they collide.
+ * It is handles collisions between two or more {@link GameObject} and their interactions if they collide.
  * It is responsible for the addition of new {@link LifeForm} after birth and for the removal of dead {@link LifeForm} after death.
  * It also handles the random respawn of new {@link Plant} on the board.
  */
@@ -71,8 +72,10 @@ public class Game {
     }
 
     private void addLifeForms() {
+        AtomicInteger createdLifeFormsCounter = new AtomicInteger();
         gameProperties.getInitGameObjects().forEach((gameObject, amount) -> {
             validateNumOfGameObjects(amount, gameObject.getName());
+            validateNumOfGameObjects(amount + createdLifeFormsCounter.get(), "game objects");
             for (int i = 0; i < amount; i++) {
                 try {
                     GameObject go = gameObject.getClass().getConstructor().newInstance();
@@ -80,6 +83,7 @@ public class Game {
                     go.setEnergy(gameObject.getEnergy());
                     go.setColor(gameObject.getColor());
                     board.addGameObject(go, calculatePosition());
+                    createdLifeFormsCounter.getAndIncrement();
                     if (go instanceof LifeForm) {
                         startLifeForms.add((LifeForm) go);
                     }
@@ -112,7 +116,7 @@ public class Game {
 
     /**
      * Returns true if the game is ongoing otherwise false.
-     * @return boolean
+     * @return boolean true if the game is ongoing.
      */
     public boolean isOngoing() {
         return ongoing;
@@ -201,22 +205,23 @@ public class Game {
                 .filter(LifeForm.class::isInstance)
                 .map(LifeForm.class::cast)
                 .forEach(lifeForm -> {
-
                     try {
-                        if (!(lifeForm.getGender().equals(animalObject.getGender())) && lifeForm.getClass().equals(animalObject.getClass())) {
-                            AnimalObject child = animalObject.reproduce(lifeForm);
-                            child.setName(animalObject.getName());
-                            child.setColor(animalObject.getColor());
-                            child.setEnergy(gameProperties.getEnergyProperty(animalObject.getName()).getValue());
-                            newLifeForms.add(child);
-                            stringBuilder.append(animalObject.getName()).append(": Wir haben uns soeben gepaart\n");
-                        } else if (animalObject.isAlive() && lifeForm.isAlive()) {
-                            animalObject.eat(lifeForm);
-                            deadLifeForms.add(lifeForm);
-                            stringBuilder.append(animalObject.getName())
-                                    .append(": Das war lecker (")
-                                    .append(lifeForm.getName())
-                                    .append(")!\n");
+                        if (animalObject.isAlive() && lifeForm.isAlive()) {
+                            if (!(lifeForm.getGender().equals(animalObject.getGender())) && lifeForm.getClass().equals(animalObject.getClass())) {
+                                AnimalObject child = animalObject.reproduce(lifeForm);
+                                child.setName(animalObject.getName());
+                                child.setColor(animalObject.getColor());
+                                child.setEnergy(gameProperties.getEnergyProperty(animalObject.getName()).getValue());
+                                newLifeForms.add(child);
+                                stringBuilder.append(animalObject.getName()).append(": Wir haben uns soeben gepaart\n");
+                            } else {
+                                animalObject.eat(lifeForm);
+                                deadLifeForms.add(lifeForm);
+                                stringBuilder.append(animalObject.getName())
+                                        .append(": Das war lecker (")
+                                        .append(lifeForm.getName())
+                                        .append(")!\n");
+                            }
                         }
                     } catch (LifeFormException | NullPointerException e) {
                         stringBuilder.append(String.format("%s%n", e.getMessage()));

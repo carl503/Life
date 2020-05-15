@@ -15,13 +15,6 @@ import java.util.Set;
  */
 public class Herbivore extends AnimalObject {
 
-    /**
-     * Default constructor.
-     */
-    public Herbivore() {
-        setName("Herbivore");
-    }
-
     @Override
     protected Vector2D getNearestNeighbour(Set<GameObject> neighbours) {
         int min = Integer.MAX_VALUE;

@@ -22,6 +22,8 @@ public class BoardTest {
 
     private static final int BOARD_SIZE = 3;
     private static final String ILLEGAL_POSITION_MESSAGE = "The position %s of the provided game object does not exist on the board.";
+    public static final String WOLF = "Wolf";
+    public static final String SCHAF = "Schaf";
 
     private Board board;
 
@@ -135,26 +137,26 @@ public class BoardTest {
         AnimalObject carnivore = mock(Carnivore.class);
         AnimalObject herbivore = mock(Herbivore.class);
 
-        when(herbivore.getName()).thenReturn("Schaf");
+        when(herbivore.getName()).thenReturn(SCHAF);
         when(herbivore.getPosition()).thenReturn(new Vector2D(0, 0));
         when(herbivore.isDead()).thenReturn(false);
 
-        when(carnivore.getName()).thenReturn("Wolf");
+        when(carnivore.getName()).thenReturn(WOLF);
         when(carnivore.getPosition()).thenReturn(new Vector2D(0, 1));
         when(carnivore.isDead()).thenReturn(true);
 
         board.addGameObject(carnivore, carnivore.getPosition());
         board.addGameObject(herbivore, herbivore.getPosition());
 
-        assertTrue(board.isSpeciesAlive("Wolf"));
-        assertTrue(board.isSpeciesAlive("Schaf"));
+        assertTrue(board.isSpeciesAlive(WOLF));
+        assertTrue(board.isSpeciesAlive(SCHAF));
         board.removeDeadLifeForms();
-        assertFalse(board.isSpeciesAlive("Wolf"));
-        assertTrue(board.isSpeciesAlive("Schaf"));
+        assertFalse(board.isSpeciesAlive(WOLF));
+        assertTrue(board.isSpeciesAlive(SCHAF));
         when(herbivore.isDead()).thenReturn(true);
         board.removeDeadLifeForms();
-        assertFalse(board.isSpeciesAlive("Wolf"));
-        assertFalse(board.isSpeciesAlive("Schaf"));
+        assertFalse(board.isSpeciesAlive(WOLF));
+        assertFalse(board.isSpeciesAlive(SCHAF));
     }
 
     @Test

@@ -30,13 +30,10 @@ import java.util.logging.Logger;
 public class SetupController {
 
     /**
-     * Defines the minimum height of the setup window
+     * Defines the minimum height of the setup window.
      */
     public static final int HEIGHT_BOXING = 50;
-    /**
-     * Defines the minimum width of the setup window
-     */
-    public static final int WIDTH_BOXING = 20;
+    private static final int WIDTH_BOXING = 20;
     private static final Logger logger = Logger.getLogger(SetupController.class.getName());
     private final ComboBox<String> comboBox = new ComboBox<>();
     private final HashMap<GameObject, Spinner<Integer>> gameObjectMap = new HashMap<>();
@@ -108,9 +105,8 @@ public class SetupController {
     }
 
     /**
-     * Returns a map of all {@link GameObject}
-     * and the amount that should be spawned
-     * @return map of game objects
+     * Returns a map of all {@link GameObject} and the amount that should be spawned.
+     * @return map of game objects.
      */
     public Map<GameObject, Integer> getGameObjects() {
         Map<GameObject, Integer> gameObjects = new HashMap<>();
@@ -119,9 +115,8 @@ public class SetupController {
     }
 
     /**
-     * Returns the species name
-     * that should be monitored to stop the simulation
-     * @return String species name
+     * Returns the species name that should be monitored to stop the simulation.
+     * @return String species name.
      */
     public String getStopCondition() {
         return comboBox.getValue();

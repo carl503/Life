@@ -20,25 +20,11 @@ public abstract class GameObject {
      * The current position of this {@link GameObject}.
      */
     protected Vector2D position;
-    /**
-     * The size used to scale this object in the visualization.
-     * Valid values: 3-10
-     */
-    protected int size;
-    private Random random;
+    private Random random = new Random();
     private String name;
     private String color;
     private int rows;
     private int columns;
-
-    /**
-     * Default constructor.
-     */
-
-    public GameObject() {
-        size = BASIC_SIZE;
-        random = new Random();
-    }
 
     /**
      * Increases the energy by a certain value.
@@ -105,7 +91,7 @@ public abstract class GameObject {
      * @return size as int.
      */
     public int getSize() {
-        return size;
+        return BASIC_SIZE;
     }
 
     /**
@@ -128,7 +114,7 @@ public abstract class GameObject {
 
     /**
      * Sets the number of rows on the board.
-     * @param rows as int
+     * @param rows as int.
      */
     public void setRows(int rows) {
         this.rows = rows;
@@ -136,23 +122,23 @@ public abstract class GameObject {
 
     /**
      * Sets the number of columns on the board.
-     * @param columns as int
+     * @param columns as int.
      */
     public void setColumns(int columns) {
         this.columns = columns;
     }
 
     /**
-     * Returns the random object
-     * @return Random
+     * Returns the random object.
+     * @return Random.
      */
     public Random getRandom() {
         return random;
     }
 
     /**
-     * Sets the random object
-     * @param random {@link Random}
+     * Sets the random object.
+     * @param random {@link Random}.
      */
     public void setRandom(Random random) {
         this.random = random;
@@ -175,16 +161,16 @@ public abstract class GameObject {
     }
 
     /**
-     * Returns the name of an object
-     * @return the name as {@link String}
+     * Returns the name of an object.
+     * @return the name as {@link String}.
      */
     public String getName() {
         return name;
     }
 
     /**
-     * Sets the name of a game object
-     * @param name the name as {@link GameObject}
+     * Sets the name of a game object.
+     * @param name the name as {@link GameObject}.
      */
     public void setName(String name) {
         this.name = name;
@@ -211,7 +197,7 @@ public abstract class GameObject {
         }
 
         /**
-         * Returns the directionVector
+         * Returns the directionVector.
          * @return directionVector as {@link Vector2D}
          */
         public Vector2D getDirectionVector() {

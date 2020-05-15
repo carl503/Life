@@ -18,6 +18,7 @@ import static org.mockito.Mockito.*;
 
 public class CarnivoreTest {
 
+    public static final String CARNIVORE = "Carnivore";
     private Carnivore carnivore;
     private Carnivore carnivore2;
     private Set<GameObject> dummyNeighbourSet;
@@ -94,9 +95,10 @@ public class CarnivoreTest {
     @Test
     public void getEatRulesEatMeatLowEnergy() {
         LifeFormActionCheck lifeFormActionCheck = carnivore.getEatRules(carnivore2);
+        carnivore.setName(CARNIVORE);
         carnivore.setEnergy(0);
         carnivore2.setEnergy(5);
-        when(animalObject.getName()).thenReturn("Carnivore");
+        when(animalObject.getName()).thenReturn(CARNIVORE);
 
         Exception exception = assertThrows(LifeFormException.class, lifeFormActionCheck::check);
         assertEquals(animalObject.getName() + ": Kann dieses Tier nicht fressen, weil es staerker ist als ich.", exception.getMessage());
@@ -124,8 +126,9 @@ public class CarnivoreTest {
     @Test
     public void getEatRulesEatPlant() {
         LifeFormActionCheck lifeFormActionCheck = carnivore.getEatRules(lifeForm);
+        carnivore.setName(CARNIVORE);
         when(lifeForm.getFoodType()).thenReturn(LifeForm.FoodType.PLANT);
-        when(animalObject.getName()).thenReturn("Carnivore");
+        when(animalObject.getName()).thenReturn(CARNIVORE);
 
         Exception exception = assertThrows(LifeFormException.class, lifeFormActionCheck::check);
         assertEquals(animalObject.getName() + ": Ich fresse leider keine Pflanzen.", exception.getMessage());

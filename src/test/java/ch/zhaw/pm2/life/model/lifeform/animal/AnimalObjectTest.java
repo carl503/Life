@@ -20,6 +20,8 @@ public class AnimalObjectTest {
     private static final int MOVE_ENERGY_CONSUMPTION = 1;
     private static final int POISONED_ENERGY_CONSUMPTION = 2;
     private static final int ACTUAL_REPRODUCTION_MINIMUM = 9;
+    public static final String MALE = "M";
+    public static final String FEMALE = "F";
     private Set<GameObject> dummyGameObjectsSet;
 
     @Spy private AnimalObject animalObject;
@@ -155,7 +157,7 @@ public class AnimalObjectTest {
         doReturn(new Vector2D(0, 0)).when(animalObject).chooseRandomNeighbourPosition();
         animalObject.fertilityThreshold = ACTUAL_REPRODUCTION_MINIMUM;
         when(animalObject.getName()).thenReturn("Herbivore");
-        when(partner.getGender()).thenReturn("F");
+        when(partner.getGender()).thenReturn(FEMALE);
 
         Exception exception = assertThrows(LifeFormException.class, () -> animalObject.reproduce(partner));
         assertEquals(animalObject.getName() + ": Kann keine Kinder gebaeren, weil ich ein Maennchen bin.", exception.getMessage());
@@ -166,7 +168,7 @@ public class AnimalObjectTest {
         LifeForm partner = mock(LifeForm.class);
         doReturn(new Vector2D(0, 0)).when(animalObject).chooseRandomNeighbourPosition();
         animalObject.fertilityThreshold = ACTUAL_REPRODUCTION_MINIMUM;
-        when(partner.getGender()).thenReturn("M");
+        when(partner.getGender()).thenReturn(MALE);
 
         assertDoesNotThrow(() -> assertEquals(animalObject.getClass(), animalObject.reproduce(partner).getClass()));
         assertEquals(0, animalObject.fertilityThreshold);
@@ -178,7 +180,7 @@ public class AnimalObjectTest {
         doReturn(new Vector2D(0, 0)).when(animalObject).chooseRandomNeighbourPosition();
         when(animalObject.getName()).thenReturn("Herbivore");
         animalObject.fertilityThreshold = 0;
-        when(partner.getGender()).thenReturn("M");
+        when(partner.getGender()).thenReturn(MALE);
 
         Exception exception = assertThrows(LifeFormException.class, () -> animalObject.reproduce(partner));
         assertEquals(animalObject.getName() + ": Kann nicht paaren, weil mein Partner noch nicht fruchtbar ist.", exception.getMessage());

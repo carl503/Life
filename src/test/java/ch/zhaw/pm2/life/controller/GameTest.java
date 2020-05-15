@@ -35,10 +35,12 @@ public class GameTest {
     private static final int NUM_OF_HERBIVORES = 1;
 
     private static final int NUMBER_OF_GAME_OBJECTS = NUM_OF_CARNIVORES + NUM_OF_HERBIVORES + NUM_OF_PLANTS;
-    private static final String PLANT = "plant";
-    private static final String CARNIVORE = "carnivore";
-    private static final String HERBIVORE = "herbivore";
-    private static final String ANIMAL = "animal";
+    public static final String PLANT = "plant";
+    public static final String CARNIVORE = "carnivore";
+    public static final String HERBIVORE = "herbivore";
+    public static final String ANIMAL = "animal";
+    public static final String MALE = "M";
+    public static final String FEMALE = "F";
 
     @Mock private Board board;
 
@@ -136,7 +138,7 @@ public class GameTest {
         AnimalObject animalObject = mock(AnimalObject.class);
         when(animalObject.getName()).thenReturn(CARNIVORE);
         when(animalObject.getEnergy()).thenReturn(10);
-        when(animalObject.getGender()).thenReturn("F");
+        when(animalObject.getGender()).thenReturn(FEMALE);
         when(animalObject.getPosition()).thenReturn(zeroPosition);
         when(animalObject.isAlive()).thenReturn(true);
 
@@ -174,7 +176,7 @@ public class GameTest {
         Carnivore carnivoreOne = mock(Carnivore.class);
         when(carnivoreOne.getName()).thenReturn(CARNIVORE);
         when(carnivoreOne.getEnergy()).thenReturn(10);
-        when(carnivoreOne.getGender()).thenReturn("M");
+        when(carnivoreOne.getGender()).thenReturn(MALE);
         when(carnivoreOne.getPosition()).thenReturn(zeroPosition);
         when(carnivoreOne.isAlive()).thenReturn(true);
 
@@ -185,7 +187,7 @@ public class GameTest {
         Carnivore carnivoreTwo = mock(Carnivore.class);
         when(carnivoreTwo.getName()).thenReturn(CARNIVORE);
         when(carnivoreTwo.getEnergy()).thenReturn(8);
-        when(carnivoreTwo.getGender()).thenReturn("M");
+        when(carnivoreTwo.getGender()).thenReturn(MALE);
         when(carnivoreTwo.getPosition()).thenReturn(zeroPosition);
         when(carnivoreTwo.isAlive()).thenReturn(true);
         doThrow(new LifeFormException("Kann dieses Tier nicht fressen, weil es staerker ist als ich.")).when(carnivoreTwo).eat(carnivoreOne);
@@ -234,7 +236,7 @@ public class GameTest {
         // herbivoreChild Mock
         when(herbivoreChild.getEnergy()).thenReturn(10);
         when(herbivoreChild.getName()).thenReturn(HERBIVORE);
-        when(herbivoreChild.getGender()).thenReturn("F");
+        when(herbivoreChild.getGender()).thenReturn(FEMALE);
         when(herbivoreChild.getPosition()).thenReturn(new Vector2D(1, 1));
 
         dummyGameObjectsSet.add(herbivoreChild);
@@ -244,9 +246,10 @@ public class GameTest {
         when(herbivoreMale.getEnergy()).thenReturn(10);
         when(herbivoreMale.getName()).thenReturn(HERBIVORE);
         when(herbivoreMale.getFertilityThreshold()).thenReturn(10);
-        when(herbivoreMale.getGender()).thenReturn("M");
+        when(herbivoreMale.getGender()).thenReturn(MALE);
         when(herbivoreMale.reproduce(herbivoreFemale)).thenThrow(new LifeFormException("Kann keine Kinder gebaeren, weil ich ein Maennchen bin."));
         when(herbivoreMale.getPosition()).thenReturn(zeroPosition);
+        when(herbivoreMale.isAlive()).thenReturn(true);
 
         dummyGameObjectsSet.add(herbivoreMale);
         dummyPositionsSet.add(herbivoreMale.getPosition());
@@ -255,9 +258,10 @@ public class GameTest {
         when(herbivoreFemale.getEnergy()).thenReturn(10);
         when(herbivoreFemale.getName()).thenReturn(HERBIVORE);
         when(herbivoreFemale.getFertilityThreshold()).thenReturn(10);
-        when(herbivoreFemale.getGender()).thenReturn("F");
+        when(herbivoreFemale.getGender()).thenReturn(FEMALE);
         when(herbivoreFemale.reproduce(herbivoreMale)).thenReturn(herbivoreChild);
         when(herbivoreFemale.getPosition()).thenReturn(zeroPosition);
+        when(herbivoreFemale.isAlive()).thenReturn(true);
 
         dummyGameObjectsSet.add(herbivoreFemale);
         dummyPositionsSet.add(herbivoreFemale.getPosition());
@@ -299,7 +303,7 @@ public class GameTest {
         AnimalObject animalObjectOne = mock(AnimalObject.class);
         when(animalObjectOne.getName()).thenReturn(ANIMAL);
         when(animalObjectOne.getEnergy()).thenReturn(10);
-        when(animalObjectOne.getGender()).thenReturn("F");
+        when(animalObjectOne.getGender()).thenReturn(FEMALE);
         when(animalObjectOne.getPosition()).thenReturn(zeroPosition);
 
         dummyGameObjectsSet.add(animalObjectOne);
@@ -309,7 +313,7 @@ public class GameTest {
         AnimalObject animalObjectTwo = mock(AnimalObject.class);
         when(animalObjectTwo.getName()).thenReturn(ANIMAL);
         when(animalObjectTwo.getEnergy()).thenReturn(10);
-        when(animalObjectTwo.getGender()).thenReturn("F");
+        when(animalObjectTwo.getGender()).thenReturn(FEMALE);
         when(animalObjectTwo.getPosition()).thenReturn(onePosition);
 
         dummyGameObjectsSet.add(animalObjectTwo);
@@ -345,7 +349,7 @@ public class GameTest {
         Carnivore carnivore = mock(Carnivore.class);
         when(carnivore.getName()).thenReturn(CARNIVORE);
         when(carnivore.getEnergy()).thenReturn(10);
-        when(carnivore.getGender()).thenReturn("F");
+        when(carnivore.getGender()).thenReturn(FEMALE);
         when(carnivore.getPosition()).thenReturn(zeroPosition);
 
         dummyGameObjectsSet.add(carnivore);
@@ -382,7 +386,7 @@ public class GameTest {
         Carnivore carnivore = mock(Carnivore.class);
         when(carnivore.getName()).thenReturn(CARNIVORE);
         when(carnivore.getEnergy()).thenReturn(-1);
-        when(carnivore.getGender()).thenReturn("F");
+        when(carnivore.getGender()).thenReturn(FEMALE);
         when(carnivore.getPosition()).thenReturn(zeroPosition);
 
         dummyGameObjectsSet.add(carnivore);

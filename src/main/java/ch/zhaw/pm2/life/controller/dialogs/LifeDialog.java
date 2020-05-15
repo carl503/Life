@@ -7,30 +7,37 @@ import javafx.scene.control.Dialog;
 import javafx.scene.layout.GridPane;
 
 /**
- * Template class to create custom dialogs in a grid pane
- * @param <T> Object type that the dialog returns
+ * Template class to create custom dialogs in a grid pane.
+ * @param <T> Object type that the dialog returns.
  */
 public abstract class LifeDialog<T> extends Dialog<T> {
 
     private final GridPane grid = new GridPane();
 
     /**
-     * Creates the {@link LifeDialog} instance
-     * @param title dialog title
+     * Creates the {@link LifeDialog} instance.
+     * @param title dialog title.
      */
     public LifeDialog(String title) {
-        this.setTitle(title);
+        setTitle(title);
         setUpGrid();
         setUpButtons();
     }
 
+    /**
+     * General setup for dialogs.
+     */
     protected abstract void setUp();
 
+    /**
+     * Return the value which the user provides us
+     * @return <T> Object type that the dialog returns.
+     */
     protected abstract T returnValue();
 
     /**
-     * Returns the {@link GridPane}
-     * @return grid
+     * Returns the {@link GridPane}.
+     * @return grid.
      */
     public GridPane getGrid() {
         return grid;
@@ -40,9 +47,9 @@ public abstract class LifeDialog<T> extends Dialog<T> {
         ButtonType confirm = new ButtonType("Bestaetigen", ButtonBar.ButtonData.OK_DONE);
         ButtonType cancel = new ButtonType("Abbrechen", ButtonBar.ButtonData.CANCEL_CLOSE);
 
-        this.getDialogPane().getButtonTypes().addAll(confirm, cancel);
+        getDialogPane().getButtonTypes().addAll(confirm, cancel);
 
-        this.setResultConverter(param -> {
+        setResultConverter(param -> {
             if (param == confirm) {
                 return returnValue();
             }
