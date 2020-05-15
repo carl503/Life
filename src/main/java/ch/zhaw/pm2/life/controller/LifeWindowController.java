@@ -44,7 +44,6 @@ public class LifeWindowController {
     @FXML private Button nextRoundButton;
     @FXML private Button stopSimButton;
     @FXML private Menu editMenu;
-    @FXML private MenuItem fullscreenItem;
 
     /**
      * Initializes everything after the JavaFX components are injected,
