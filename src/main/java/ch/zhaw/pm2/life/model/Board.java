@@ -178,7 +178,8 @@ public class Board {
         return gameObjects.stream()
                 .filter(AnimalObject.class::isInstance)
                 .map(AnimalObject.class::cast)
-                .anyMatch(animalObject -> animalObject.getName().equals(species));
+                .map(AnimalObject::getName)
+                .anyMatch(species::equals);
     }
 
     /**
