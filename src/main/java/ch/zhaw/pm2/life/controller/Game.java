@@ -104,7 +104,7 @@ public class Game {
      */
     public String stop() {
         ongoing = false;
-        return "The simulation has stopped because the ending condition was met";
+        return "Die Simulation wurde beendet, weil die Endbedingung erfuellt wurde.";
     }
 
     /**
@@ -117,7 +117,7 @@ public class Game {
 
     /**
      * Performs the next move.
-     * It moves every {@link AnimalObject} and then trys to eat.
+     * It moves every {@link AnimalObject} and then tries to eat.
      * If then there are no more {@link Carnivore} or {@link Herbivore} then the simulation stops.
      * @return message log of every move and eat call.
      */
@@ -171,7 +171,7 @@ public class Game {
             LifeForm lifeForm = (LifeForm) gameObject;
             lifeForm.die();
             deadLifeForms.add(lifeForm);
-            return String.format("%s: died of exhaustion.%n", gameObject.getName());
+            return String.format("%s: ist vor Ermuedung gestorben.%n", gameObject.getName());
         }
         return message;
     }
@@ -209,12 +209,12 @@ public class Game {
                     try {
                         if (!(lifeForm.getGender().equals(animalObject.getGender())) && lifeForm.getClass().equals(animalObject.getClass())) {
                             newLifeForms.add(animalObject.reproduce(lifeForm));
-                            stringBuilder.append(animalObject.getName()).append(": We just reproduced with each other\n");
+                            stringBuilder.append(animalObject.getName()).append(": Wir haben uns soeben gepaart\n");
                         } else {
                             animalObject.eat(lifeForm);
                             deadLifeForms.add(lifeForm);
                             stringBuilder.append(animalObject.getName())
-                                    .append(": Yummy food (")
+                                    .append(": Das war lecker (")
                                     .append(lifeForm.getName())
                                     .append(")!\n");
                         }
