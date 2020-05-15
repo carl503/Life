@@ -7,7 +7,8 @@ import javafx.scene.control.TextFormatter;
  */
 public class ValidationUtil {
 
-    private ValidationUtil() {}
+    private ValidationUtil() {
+    }
 
     /**
      * Returns a {@link TextFormatter}

@@ -14,6 +14,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class GameObjectTest {
+
     private static final int BOARD_SIZE = 3;
 
     @Spy private GameObject gameObject;
@@ -245,4 +246,5 @@ public class GameObjectTest {
         Exception exception = assertThrows(IllegalArgumentException.class, () -> gameObject.decreaseEnergy(-10));
         assertEquals("Energy cannot decrease with a negative value.", exception.getMessage());
     }
+
 }

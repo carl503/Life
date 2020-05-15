@@ -31,9 +31,8 @@ public class ConfigParser {
     private static final URL templateFile = ConfigParser.class.getClassLoader()
             .getResource(CONFIG_PATH + File.separator + FILE_NAME);
     private static final File configFile = new File(CONFIG_PATH + File.separator + FILE_NAME);
-    private Properties config = new Properties();
-
     private static ConfigParser instance = null;
+    private Properties config = new Properties();
 
     private ConfigParser() throws LifeException {
         try {
@@ -50,7 +49,7 @@ public class ConfigParser {
      * Returns the instance of the {@link ConfigParser}
      * @return ConfigParser reference
      * @throws LifeException if the config file could not be copied
-     * or i^f the URISyntax is wrong.
+     *                       or i^f the URISyntax is wrong.
      */
     public static ConfigParser getInstance() throws LifeException {
         if (instance == null) {
@@ -86,7 +85,7 @@ public class ConfigParser {
                 String name = getConfigValue(lifeForm, Options.NAME.name());
 
                 // Valid color formats (Hex) #000 to #FFF or #000000 to #FFFFFF
-                if(color.matches("#([A-Fa-f0-9]{3}){1,2}")) {
+                if (color.matches("#([A-Fa-f0-9]{3}){1,2}")) {
                     GameObject gameObject = (GameObject) clazz.getConstructor().newInstance();
                     gameObject.setColor(color);
                     gameObject.setEnergy(energy);
@@ -144,7 +143,7 @@ public class ConfigParser {
         File configFile = new File(configFolder + File.separator + FILE_NAME);
         if (Files.notExists(configFolder.toPath())) {
             Files.createDirectory(configFolder.toPath());
-        } else if (Files.notExists(configFile.toPath())){
+        } else if (Files.notExists(configFile.toPath())) {
             Files.copy(Path.of(templateFile.toURI()), configFile.toPath());
         }
     }

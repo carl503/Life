@@ -5,7 +5,12 @@ import ch.zhaw.pm2.life.model.lifeform.animal.Carnivore;
 import ch.zhaw.pm2.life.model.lifeform.animal.Herbivore;
 import ch.zhaw.pm2.life.model.lifeform.plant.Plant;
 import ch.zhaw.pm2.life.util.ValidationUtil;
-import javafx.scene.control.*;
+import javafx.scene.control.ColorPicker;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 
 import java.util.HashSet;
@@ -21,10 +26,6 @@ public class SpawnSpeciesDialog extends LifeDialog<Set<GameObject>> {
     private final Spinner<Integer> amount = new Spinner<>();
     private final ColorPicker color = new ColorPicker();
     private final ComboBox<Type> type = new ComboBox<>();
-
-    private enum Type {
-        CARNIVORE, HERBIVORE, PLANT
-    }
 
     /**
      * Creates the spawn species dialog
@@ -97,4 +98,9 @@ public class SpawnSpeciesDialog extends LifeDialog<Set<GameObject>> {
         grid.add(color, 1, 3);
         grid.add(type, 1, 4);
     }
+
+    private enum Type {
+        CARNIVORE, HERBIVORE, PLANT
+    }
+
 }

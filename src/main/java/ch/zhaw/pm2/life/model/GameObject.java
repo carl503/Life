@@ -12,27 +12,24 @@ import java.util.Random;
 public abstract class GameObject {
 
     private static final int BASIC_SIZE = 5;
-    private Random random;
-    private String name;
-    private String color;
-    private int rows;
-    private int columns;
-
     /**
      * The current energy of this {@link GameObject}.
      */
     protected int energy;
-
     /**
      * The current position of this {@link GameObject}.
      */
     protected Vector2D position;
-
     /**
      * The size used to scale this object in the visualization.
      * Valid values: 3-10
      */
     protected int size;
+    private Random random;
+    private String name;
+    private String color;
+    private int rows;
+    private int columns;
 
     /**
      * Default constructor.

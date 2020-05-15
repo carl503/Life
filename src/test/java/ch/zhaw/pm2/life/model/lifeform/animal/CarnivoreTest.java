@@ -14,10 +14,10 @@ import java.util.HashSet;
 import java.util.Set;
 
 import static org.junit.jupiter.api.Assertions.*;
-import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.mockito.Mockito.*;
 
 public class CarnivoreTest {
+
     private Carnivore carnivore;
     private Carnivore carnivore2;
     private Set<GameObject> dummyNeighbourSet;
@@ -35,7 +35,6 @@ public class CarnivoreTest {
 
         carnivore.setPosition(new Vector2D(1, 1));
     }
-
 
     //==================================================================================================================
     // Positive tests
@@ -132,7 +131,6 @@ public class CarnivoreTest {
         assertEquals(animalObject.getName() + ": Ich fresse leider keine Pflanzen.", exception.getMessage());
     }
 
-
     //==================================================================================================================
     // Negative tests
     //==================================================================================================================
@@ -163,4 +161,5 @@ public class CarnivoreTest {
         LifeFormActionCheck lifeFormActionCheck = carnivore.getEatRules(lifeForm);
         assertDoesNotThrow(lifeFormActionCheck::check);
     }
+
 }

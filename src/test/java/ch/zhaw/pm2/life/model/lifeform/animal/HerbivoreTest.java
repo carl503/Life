@@ -18,6 +18,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class HerbivoreTest {
+
     private Herbivore herbivore;
     private Set<GameObject> dummyNeighbourSet;
     private Plant plant;
@@ -34,7 +35,6 @@ public class HerbivoreTest {
 
         herbivore.setPosition(new Vector2D(1, 1));
     }
-
 
     //==================================================================================================================
     // Positive tests
@@ -114,7 +114,6 @@ public class HerbivoreTest {
         assertEquals(herbivore.getName() + ": Ich fresse leider kein Fleisch.", exception.getMessage());
     }
 
-
     //==================================================================================================================
     // Negative tests
     //==================================================================================================================
@@ -145,4 +144,5 @@ public class HerbivoreTest {
         LifeFormActionCheck lifeFormActionCheck = herbivore.getEatRules(lifeForm);
         assertDoesNotThrow(lifeFormActionCheck::check);
     }
+
 }

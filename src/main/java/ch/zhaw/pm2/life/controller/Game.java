@@ -51,7 +51,7 @@ public class Game {
 
     /**
      * Default constructor.
-     * @param board          Stores all {@link GameObject}
+     * @param board Stores all {@link GameObject}
      * @throws NullPointerException     when the board is null
      * @throws IllegalArgumentException when the {@link Plant}, {@link Herbivore} or {@link Carnivore} count is negative or
      *                                  the sum of all counts is higher than the number of fields on the board
@@ -80,10 +80,10 @@ public class Game {
                     go.setEnergy(gameObject.getEnergy());
                     go.setColor(gameObject.getColor());
                     board.addGameObject(go, calculatePosition());
-                    if(go instanceof LifeForm) {
+                    if (go instanceof LifeForm) {
                         startLifeForms.add((LifeForm) go);
                     }
-                    if(go instanceof Plant) {
+                    if (go instanceof Plant) {
                         startPlants.add((Plant) go);
                     }
                 } catch (Exception e) {
@@ -210,7 +210,7 @@ public class Game {
                             child.setEnergy(gameProperties.getEnergyProperty(animalObject.getName()).getValue());
                             newLifeForms.add(child);
                             stringBuilder.append(animalObject.getName()).append(": Wir haben uns soeben gepaart\n");
-                        } else if(animalObject.isAlive() && lifeForm.isAlive()){
+                        } else if (animalObject.isAlive() && lifeForm.isAlive()) {
                             animalObject.eat(lifeForm);
                             deadLifeForms.add(lifeForm);
                             stringBuilder.append(animalObject.getName())

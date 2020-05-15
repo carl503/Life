@@ -157,7 +157,6 @@ public class BoardTest {
         assertFalse(board.isSpeciesAlive("Schaf"));
     }
 
-
     @Test
     public void testGetRandomValueValid() {
         assertThat(board.getRandomPosition().getX(), anyOf(is(0), is(1), is(2)));
@@ -167,8 +166,8 @@ public class BoardTest {
     @Test
     public void testGetAllGameObjects() {
         //setup
-        Vector2D zeroPosition = new Vector2D(0,0);
-        Vector2D zeroPositionNeighbour = new Vector2D(1,1);
+        Vector2D zeroPosition = new Vector2D(0, 0);
+        Vector2D zeroPositionNeighbour = new Vector2D(1, 1);
         when(firstGameObject.getPosition()).thenReturn(zeroPosition);
         when(secondGameObject.getPosition()).thenReturn(zeroPosition);
         when(thirdGameObject.getPosition()).thenReturn(zeroPositionNeighbour);
@@ -192,7 +191,7 @@ public class BoardTest {
     public void testGetNeighbourObjects() {
         //prepare
         int radius = 1;
-        Vector2D zeroPositionNeighbour = new Vector2D(1,1);
+        Vector2D zeroPositionNeighbour = new Vector2D(1, 1);
         Vector2D zeroPosition = new Vector2D(0, 0);
         when(firstGameObject.getPosition()).thenReturn(zeroPosition);
         when(secondGameObject.getPosition()).thenReturn(zeroPosition);
@@ -249,7 +248,6 @@ public class BoardTest {
         Exception thrown = assertThrows(NullPointerException.class, () -> board.addGameObject(null, new Vector2D(0, 0)));
         assertEquals("Game object cannot be null to add it on the board.", thrown.getMessage());
     }
-
 
     @Test
     public void testAddGameObjectInvalidPositionNull() {

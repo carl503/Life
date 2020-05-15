@@ -1,7 +1,7 @@
 package ch.zhaw.pm2.life.controller.dialogs;
 
-
-import javafx.scene.control.*;
+import javafx.scene.control.ColorPicker;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
 /**
@@ -32,4 +32,5 @@ public class ColorPickerDialog extends LifeDialog<String> {
     protected String returnValue() {
         return colorPicker.getValue().toString();
     }
+
 }

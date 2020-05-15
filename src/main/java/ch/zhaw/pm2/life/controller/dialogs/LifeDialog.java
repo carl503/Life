@@ -25,6 +25,7 @@ public abstract class LifeDialog<T> extends Dialog<T> {
     }
 
     protected abstract void setUp();
+
     protected abstract T returnValue();
 
     /**
@@ -54,4 +55,5 @@ public abstract class LifeDialog<T> extends Dialog<T> {
         grid.setVgap(10);
         grid.setPadding(new Insets(20, 150, 10, 10));
     }
+
 }

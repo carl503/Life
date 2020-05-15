@@ -2,7 +2,8 @@ package ch.zhaw.pm2.life.controller.dialogs;
 
 import ch.zhaw.pm2.life.model.GameObject;
 import ch.zhaw.pm2.life.model.lifeform.animal.AnimalObject;
-import javafx.scene.control.*;
+import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
 import java.util.HashSet;
@@ -12,6 +13,7 @@ import java.util.Set;
  * Allows the user to change the stop condition
  */
 public class StopConditionDialog extends LifeDialog<String> {
+
     private final ComboBox<String> choice = new ComboBox<>();
     private final Set<GameObject> gameObjects = new HashSet<>();
 
@@ -48,4 +50,5 @@ public class StopConditionDialog extends LifeDialog<String> {
                 .forEach(animalObject -> choice.getItems().add(animalObject.getName()));
         choice.getSelectionModel().selectFirst();
     }
+
 }

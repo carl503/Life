@@ -1,12 +1,14 @@
 package ch.zhaw.pm2.life.controller.dialogs;
 
-import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.layout.GridPane;
 
 /**
  * Allows the user to change the scan radius of a {@link ch.zhaw.pm2.life.model.GameObject}
  */
 public class ScanRadiusDialog extends LifeDialog<Integer> {
+
     private final Slider slider = new Slider();
 
     /**
@@ -42,4 +44,5 @@ public class ScanRadiusDialog extends LifeDialog<Integer> {
     protected Integer returnValue() {
         return (int) slider.getValue();
     }
+
 }

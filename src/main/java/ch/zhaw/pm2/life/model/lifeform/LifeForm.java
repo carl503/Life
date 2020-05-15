@@ -15,18 +15,16 @@ public abstract class LifeForm extends GameObject {
     private static final Logger logger = Logger.getLogger(LifeForm.class.getCanonicalName());
 
     private final boolean isMale;
-    private boolean isDead;
-    private int nextPoisonedEnergyConsumption;
-
     /**
      * Flag if this life form is poisoned.
      */
     protected boolean isPoisoned;
-
     /**
      * Flag if this life form is poisonous.
      */
     protected boolean isPoisonous;
+    private boolean isDead;
+    private int nextPoisonedEnergyConsumption;
 
     /**
      * Default constructor.

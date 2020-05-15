@@ -41,7 +41,7 @@ public class BoardView extends Canvas {
 
     /**
      * Updates the dimension if the newHeight and newWidth values of updateSize() are valid.
-     * @param width as double for the width of the dimension
+     * @param width  as double for the width of the dimension
      * @param height as double for the height of the dimension
      */
     public void updateDimension(double width, double height) {

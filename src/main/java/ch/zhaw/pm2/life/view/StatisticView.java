@@ -20,13 +20,13 @@ import java.util.Set;
 /**
  * This class displays the statistics of all the {@link GameObject} at the end of the simulation.
  * It displays for each {@link GameObject} the amount of
- *  <ul>
- *   <li>at start</li>
- *   <li>births</li>
- *   <li>spawned</li>
- *   <li>deaths</li>
- *   <li>survivors</li>
- *  </ul>
+ * <ul>
+ *  <li>at start</li>
+ *  <li>births</li>
+ *  <li>spawned</li>
+ *  <li>deaths</li>
+ *  <li>survivors</li>
+ * </ul>
  */
 public class StatisticView extends Stage {
 
@@ -81,9 +81,9 @@ public class StatisticView extends Stage {
 
     private long countByName(String name, Collection<LifeForm> collection) {
         return collection.stream()
-                        .map(LifeForm::getName)
-                        .filter(n -> n.equals(name))
-                        .count();
+                .map(LifeForm::getName)
+                .filter(n -> n.equals(name))
+                .count();
     }
 
     /**

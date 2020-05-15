@@ -55,7 +55,7 @@ public class Board {
      * Adds a {@link GameObject} to the set of GameObjects on the board and it's position to the set of
      * occupiedPositions which is later used to handle collisions and interactions.
      * @param gameObject {@link GameObject}
-     * @param position {@link Vector2D}
+     * @param position   {@link Vector2D}
      * @throws NullPointerException when the {@link GameObject} is null.
      */
     public void addGameObject(GameObject gameObject, Vector2D position) {
@@ -92,8 +92,8 @@ public class Board {
      */
     public void removeDeadLifeForms() {
         Set<LifeForm> deadLifeForms = getLifeForms().stream()
-                                                    .filter(LifeForm::isDead)
-                                                    .collect(Collectors.toSet());
+                .filter(LifeForm::isDead)
+                .collect(Collectors.toSet());
         gameObjects.removeAll(deadLifeForms);
         occupiedPositions.removeAll(getFreedPositions(deadLifeForms));
     }

@@ -25,13 +25,11 @@ public abstract class AnimalObject extends LifeForm {
     private static final int REPRODUCTION_MINIMUM = 9;
 
     private static final Logger logger = Logger.getLogger(AnimalObject.class.getCanonicalName());
-
-    private int scanRadius = 1;
-
     /**
      * Indicates the current fertility value for reproduction. Needs a specific value to be able to reproduce.
      */
     protected int fertilityThreshold;
+    private int scanRadius = 1;
 
     /**
      * Default constructor.
@@ -150,9 +148,9 @@ public abstract class AnimalObject extends LifeForm {
     /**
      * Is called when the animal reproduces.
      * @param partner the {@link LifeForm} this animal try to reproduce with.
+     * @return animalObjectChild depending on which Object called the method.
      * @throws LifeFormException    could not reproduce with the life form.
      * @throws NullPointerException the provided life form wanted to reproduce with is null.
-     * @return animalObjectChild depending on which Object called the method.
      */
     public AnimalObject reproduce(LifeForm partner) throws LifeFormException {
         Objects.requireNonNull(partner, "Cannot be null.");

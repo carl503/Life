@@ -1,6 +1,5 @@
 package ch.zhaw.pm2.life.model.lifeform;
 
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.MockitoAnnotations;
@@ -11,11 +10,10 @@ import static org.hamcrest.Matchers.*;
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
-
 public class LifeFormTest {
-    
+
     @Spy private LifeForm lifeform;
-    
+
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.initMocks(this);
@@ -50,7 +48,7 @@ public class LifeFormTest {
         lifeform.becomePoisoned();
         assertTrue(lifeform.isPoisoned());
         // remove poison
-        for(int i = 0; i < 10; i++) {
+        for (int i = 0; i < 10; i++) {
             lifeform.getPoisonedEnergyConsumption();
         }
         assertFalse(lifeform.isPoisoned());

@@ -16,6 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
 public class AnimalObjectTest {
+
     private static final int MOVE_ENERGY_CONSUMPTION = 1;
     private static final int POISONED_ENERGY_CONSUMPTION = 2;
     private static final int ACTUAL_REPRODUCTION_MINIMUM = 9;
@@ -129,7 +130,8 @@ public class AnimalObjectTest {
     @Test
     public void eatTestRulesLifeFormActionCheckPass() {
         LifeForm lifeForm = mock(LifeForm.class);
-        when(animalObject.getEatRules(lifeForm)).thenReturn(() -> {});
+        when(animalObject.getEatRules(lifeForm)).thenReturn(() -> {
+        });
 
         assertDoesNotThrow(() -> animalObject.eat(lifeForm));
         verify(animalObject).increaseEnergy(lifeForm.getEnergy());
@@ -200,9 +202,11 @@ public class AnimalObjectTest {
     @Test
     public void eatTestRulesLifeFormActionCheckFail() {
         LifeForm lifeForm = mock(LifeForm.class);
-        when(animalObject.getEatRules(lifeForm)).thenReturn(() -> {throw new LifeFormException("Exception");});
+        when(animalObject.getEatRules(lifeForm)).thenReturn(() -> {
+            throw new LifeFormException("Exception");
+        });
 
-        Exception exception = assertThrows(LifeFormException.class ,() -> animalObject.eat(lifeForm));
+        Exception exception = assertThrows(LifeFormException.class, () -> animalObject.eat(lifeForm));
         assertEquals("Exception", exception.getMessage());
         verify(animalObject, never()).increaseEnergy(lifeForm.getEnergy());
         verify(lifeForm, never()).die();
@@ -213,4 +217,5 @@ public class AnimalObjectTest {
         Exception exception = assertThrows(NullPointerException.class, () -> animalObject.reproduce(null));
         assertEquals("Cannot be null.", exception.getMessage());
     }
+
 }

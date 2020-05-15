@@ -18,12 +18,13 @@ public class Plant extends LifeForm {
     }
 
     @Override
+    public String getGender() {
+        return "N";
+    }
+
+    @Override
     public FoodType getFoodType() {
         return FoodType.PLANT;
     }
 
-    @Override
-    public String getGender() {
-        return "N";
-    }
 }

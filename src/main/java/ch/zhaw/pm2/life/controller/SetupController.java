@@ -11,7 +11,8 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
-import javafx.scene.layout.*;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -27,7 +28,6 @@ import java.util.logging.Logger;
  */
 public class SetupController {
 
-    private static final Logger logger = Logger.getLogger(SetupController.class.getName());
     /**
      * Defines the minimum height of the setup window
      */
@@ -36,12 +36,11 @@ public class SetupController {
      * Defines the minimum width of the setup window
      */
     public static final int WIDTH_BOXING = 20;
-
-    @FXML private Pane rootPane;
-    @FXML private GridPane pane;
-
+    private static final Logger logger = Logger.getLogger(SetupController.class.getName());
     private final ComboBox<String> comboBox = new ComboBox<>();
     private final HashMap<GameObject, Spinner<Integer>> gameObjectMap = new HashMap<>();
+    @FXML private Pane rootPane;
+    @FXML private GridPane pane;
 
     /**
      * Initializes the set up controller with {@link GameObject}
@@ -124,4 +123,5 @@ public class SetupController {
     public String getStopCondition() {
         return comboBox.getValue();
     }
+
 }
