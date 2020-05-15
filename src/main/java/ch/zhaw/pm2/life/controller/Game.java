@@ -25,7 +25,10 @@ import java.util.logging.Logger;
 import static java.util.function.Predicate.*;
 
 /**
- * This controller class handles the logic of the game.
+ * This controller class handles the core logic around each move of the game.
+ * It is handles collisions between two or more {@link GameObject} and their interactions of they collide.
+ * It is responsible for the addition of new {@link LifeForm} after birth and for the removal of dead {@link LifeForm} after death.
+ * It also handles the random respawn of new {@link Plant} on the board.
  */
 public class Game {
 
@@ -48,9 +51,9 @@ public class Game {
 
     /**
      * Default constructor.
-     * @param board          Stores all game objects.
+     * @param board          Stores all {@link GameObject}
      * @throws NullPointerException     when the board is null
-     * @throws IllegalArgumentException when the plant, herbivore or carnivore count is negative or
+     * @throws IllegalArgumentException when the {@link Plant}, {@link Herbivore} or {@link Carnivore} count is negative or
      *                                  the sum of all counts is higher than the number of fields on the board
      */
     public Game(Board board, GameProperties gameProperties) {
@@ -100,7 +103,7 @@ public class Game {
     }
 
     /**
-     * Stops the game.
+     * Stops the game and sets ongoing to flag.
      */
     public String stop() {
         ongoing = false;
@@ -116,10 +119,11 @@ public class Game {
     }
 
     /**
-     * Performs the next move.
-     * It moves every {@link AnimalObject} and then tries to eat.
-     * If then there are no more {@link Carnivore} or {@link Herbivore} then the simulation stops.
-     * @return message log of every move and eat call.
+     * Performs the next move for every {@link GameObject} on the board.
+     * Next move can be performed as long as the species that the user decided at the beginning of the simulation
+     * is still alive and the ongoing flag is set to true. Otherwise the simulation stops.
+     * Every time a next move is done there is a chance that a {@link Plant} is spawned randomly on the map.
+     * @return message log of every move and interact call or the message log of stop if game stops.
      */
     public String nextMove() {
         StringBuilder messageLog = new StringBuilder();
@@ -136,14 +140,6 @@ public class Game {
             messageLog.append(stop());
         }
         return messageLog.toString();
-    }
-
-    /**
-     * Sets the stop condition for an animal species
-     * @param species name of the species
-     */
-    public void setSpeciesToWatch(String species) {
-        speciesToWatch = species;
     }
 
     private String move(Map<Vector2D, Set<GameObject>> positionMap) {
@@ -244,6 +240,14 @@ public class Game {
         } catch (ReflectiveOperationException e) {
             throw new LifeFormException("Could not spawn new plant.");
         }
+    }
+
+    /**
+     * Sets the stop condition for an animal species
+     * @param species name of the species
+     */
+    public void setSpeciesToWatch(String species) {
+        speciesToWatch = species;
     }
 
     /**
