@@ -9,6 +9,7 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.internal.matchers.Null;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -134,13 +135,14 @@ public class BoardTest {
 
     @Test
     public void testAreAllSpeciesAlive() {
-        AnimalObject animalObject = mock(AnimalObject.class);
-
-        AnimalObject meatEater = mock(Carnivore.class);
-        when(meatEater.getPosition()).thenReturn(new Vector2D(0, 1));
-        board.addGameObject(meatEater, meatEater.getPosition());
-
+        AnimalObject carnivore = mock(Carnivore.class);
+        when(carnivore.getPosition()).thenReturn(new Vector2D(0, 1));
+        when(carnivore.isDead()).thenReturn(true);
+        board.addGameObject(carnivore, carnivore.getPosition());
         assertTrue(board.areAllSpeciesAlive());
+        carnivore.die();
+        board.cleanBoard();
+        assertFalse(board.areAllSpeciesAlive());
     }
 
     @Test
@@ -198,20 +200,6 @@ public class BoardTest {
         Vector2D position = new Vector2D(board.getColumns(), 0);
         Exception thrown = assertThrows(IllegalArgumentException.class, () -> board.addGameObject(firstGameObject, position));
         assertEquals(String.format(ILLEGAL_POSITION_MESSAGE, position), thrown.getMessage());
-    }
-
-    @Test
-    public void testAreAllSpeciesAliveInvalid() {
-        Herbivore herbivore = mock(Herbivore.class);
-        Carnivore carnivore = mock(Carnivore.class);
-        when(carnivore.getPosition()).thenReturn(new Vector2D(0, 1));
-        when(herbivore.getPosition()).thenReturn(new Vector2D(0, 2));
-        when(carnivore.isDead()).thenReturn(true);
-        board.addGameObject(carnivore, carnivore.getPosition());
-        board.addGameObject(herbivore, herbivore.getPosition());
-        carnivore.die();
-        board.cleanBoard();
-        assertFalse(board.areAllSpeciesAlive());
     }
 
     @Test
