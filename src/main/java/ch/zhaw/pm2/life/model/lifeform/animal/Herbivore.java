@@ -41,7 +41,7 @@ public class Herbivore extends AnimalObject {
     protected LifeFormActionCheck getEatRules(LifeForm lifeForm) {
         return () -> {
             if (lifeForm.getFoodType() == FoodType.MEAT) {
-                throw new LifeFormException("Cannot eat this meat, I am vegetarian.");
+                throw new LifeFormException(String.format("%s: Ich fresse leider kein Fleisch.", getName()));
             }
         };
     }

@@ -163,9 +163,9 @@ public abstract class AnimalObject extends LifeForm {
     public AnimalObject reproduce(LifeForm partner) throws LifeFormException {
         Objects.requireNonNull(partner, "Cannot be null.");
         if (partner.getGender().equals("F")) {
-            throw new LifeFormException("Cannot give birth because im male");
+            throw new LifeFormException(String.format("%s: Kann keine Kinder gebaeren, weil ich ein Maennchen bin.", getName()));
         } else if (fertilityThreshold < REPRODUCTION_MINIMUM) {
-            throw new LifeFormException("Cannot reproduce because partner is not fertile yet");
+            throw new LifeFormException(String.format("%s: Kann nicht paaren, weil mein Partner noch nicht fruchtbar ist.", getName()));
         }
         resetFertilityThreshold(); // sets own counter to zero (only on females)
         AnimalObject animalObjectChild = createChild();
@@ -177,7 +177,7 @@ public abstract class AnimalObject extends LifeForm {
         try {
             return getClass().getConstructor().newInstance();
         } catch (ReflectiveOperationException e) {
-            throw new LifeFormException("There were complications at birth", e);
+            throw new LifeFormException("Es gab Komplikationen bei der Geburt.", e);
         }
     }
 

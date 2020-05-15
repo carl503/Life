@@ -40,9 +40,9 @@ public class Carnivore extends AnimalObject {
     protected LifeFormActionCheck getEatRules(LifeForm lifeForm) {
         return () -> {
             if (lifeForm.getFoodType() == FoodType.PLANT) {
-                throw new LifeFormException("Cannot eat this plant. Do I look like a vegetarian?!");
+                throw new LifeFormException(String.format("%s: Ich fresse leider keine Pflanzen.", getName()));
             } else if (lifeForm instanceof Carnivore && lifeForm.getEnergy() > this.getEnergy()) {
-                throw new LifeFormException("Cannot eat this carnivore. He is stronger than I.");
+                throw new LifeFormException(String.format("%s: Kann dieses Tier nicht fressen, weil es staerker ist als ich.", getName()));
             }
         };
     }
