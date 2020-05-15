@@ -7,6 +7,7 @@ import ch.zhaw.pm2.life.model.lifeform.LifeForm;
 import ch.zhaw.pm2.life.model.lifeform.LifeFormActionCheck;
 
 import java.util.Objects;
+import java.util.Optional;
 import java.util.Set;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,7 +30,7 @@ public abstract class AnimalObject extends LifeForm {
      * Indicates the current fertility value for reproduction. Needs a specific value to be able to reproduce.
      */
     protected int fertilityThreshold;
-    
+
     private int scanRadius = 1;
 
     /**
@@ -46,12 +47,9 @@ public abstract class AnimalObject extends LifeForm {
     public void move(Set<GameObject> neighbourObjs) {
         logger.log(Level.FINER, "Move {0}", getClass().getSimpleName());
         Vector2D previousPosition = position;
-        if (neighbourObjs.isEmpty()) {
-            position = chooseRandomNeighbourPosition();
-        } else {
-            position = calculateNextPos(neighbourObjs);
-        }
+        position = neighbourObjs.isEmpty() ? chooseRandomNeighbourPosition() : calculateNextPos(neighbourObjs);
         int consumeEnergy = 0;
+
         if (isPoisoned) {
             int poisonedEnergyConsumption = getPoisonedEnergyConsumption();
             consumeEnergy += poisonedEnergyConsumption;
@@ -59,13 +57,17 @@ public abstract class AnimalObject extends LifeForm {
                     poisonedEnergyConsumption, getName()
             });
         }
-        if (!previousPosition.equals(position)) {
-            int moveEnergyConsumption = 1;
-            consumeEnergy += moveEnergyConsumption;
-            logger.log(Level.FINE, "{1} decreased energy (move) by {0}", new Object[] {
-                    moveEnergyConsumption, getName()
-            });
+
+        int moveEnergyConsumption = 1;
+        if (previousPosition.equals(position)) {
+            moveEnergyConsumption = 0;
         }
+
+        consumeEnergy += moveEnergyConsumption;
+        logger.log(Level.FINE, "{1} decreased energy (move) by {0}", new Object[] {
+                moveEnergyConsumption, getName()
+        });
+
         fertilityThreshold++;
         decreaseEnergy(consumeEnergy);
     }
@@ -74,8 +76,10 @@ public abstract class AnimalObject extends LifeForm {
         Vector2D nextPosition;
         Vector2D neighbourPos = getNearestNeighbour(neighbourObjects);
 
-        if (neighbourPos != null) {
-            Vector2D distance = Vector2D.subtract(neighbourPos, position);
+        if (neighbourPos == null) {
+            nextPosition = chooseRandomNeighbourPosition();
+        } else {
+            Vector2D distance = Vector2D.subtract(neighbourPos, this.getPosition());
             int absX = Math.abs(distance.getX());
             int absY = Math.abs(distance.getY());
 
@@ -84,8 +88,6 @@ public abstract class AnimalObject extends LifeForm {
             } else {
                 nextPosition = nextPos(distance);
             }
-        } else {
-            nextPosition = chooseRandomNeighbourPosition();
         }
 
         return nextPosition;
@@ -120,9 +122,9 @@ public abstract class AnimalObject extends LifeForm {
      */
     public void eat(LifeForm lifeForm) throws LifeFormException {
         Objects.requireNonNull(lifeForm, "Cannot eat null.");
-        LifeFormActionCheck eatRules = getEatRules(lifeForm);
-        if (eatRules != null) {
-            eatRules.check();
+        Optional<LifeFormActionCheck> eatRules = Optional.ofNullable(getEatRules(lifeForm));
+        if (eatRules.isPresent()) {
+            eatRules.get().check();
         }
 
         logger.log(Level.FINE, "{0} ate {1}", new Object[] {
