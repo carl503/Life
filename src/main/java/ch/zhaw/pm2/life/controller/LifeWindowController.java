@@ -212,12 +212,14 @@ public class LifeWindowController {
         radiusItem.setOnAction(event -> {
             ScanRadiusDialog dialog = new ScanRadiusDialog();
             Optional<Integer> response = dialog.showAndWait();
-            response.ifPresent(responseValue -> boardObject.getGameObjects().stream()
+            response.ifPresent(radius -> boardObject.getGameObjects().stream()
                     .filter(AnimalObject.class::isInstance)
                     .map(AnimalObject.class::cast)
                     .forEach(ao -> {
                         if (ao.getName().equals(animalObject.getName())) {
-                            ao.setScanRadius(response.get());
+                            messageField.appendText(String.format("Sichtweite von %s wurde von %s auf %s geaendert",
+                                    ao.getName(), ao.getScanRadius(), radius));
+                            ao.setScanRadius(radius);
                         }
                     }));
         });
