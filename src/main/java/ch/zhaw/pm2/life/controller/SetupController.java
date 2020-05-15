@@ -4,6 +4,7 @@ import ch.zhaw.pm2.life.exception.LifeException;
 import ch.zhaw.pm2.life.model.GameObject;
 import ch.zhaw.pm2.life.model.lifeform.animal.AnimalObject;
 import ch.zhaw.pm2.life.parser.ConfigParser;
+import javafx.application.HostServices;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -41,6 +42,8 @@ public class SetupController {
     private final HashMap<GameObject, Spinner<Integer>> gameObjectMap = new HashMap<>();
     @FXML private Pane rootPane;
     @FXML private GridPane pane;
+
+    private HostServices hostServices;
 
     /**
      * Initializes the set up controller with {@link GameObject}
@@ -124,4 +127,19 @@ public class SetupController {
         return comboBox.getValue();
     }
 
+    /**
+     * Sets the host services
+     * @param hostServices {@link HostServices}
+     */
+    public void setHostServices(HostServices hostServices) {
+        this.hostServices = hostServices;
+    }
+
+    /**
+     * Returns the host services
+     * @return HostServices
+     */
+    public HostServices getHostServices() {
+        return hostServices;
+    }
 }

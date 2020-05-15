@@ -124,11 +124,13 @@ public class LifeWindowController {
      */
     @FXML
     public void showManual() {
+        String link = "https://github.zhaw.ch/PM2-IT19bWIN-benf-runm/gruppe01-ncpl-projekt2-life/wiki";
         Alert dialog = new Alert(Alert.AlertType.INFORMATION);
         dialog.setTitle("Hilfe");
         dialog.setHeaderText("Die Anleitung zur Simulation finden Sie unter");
-        dialog.getDialogPane().setContent(
-                new Hyperlink("https://github.zhaw.ch/PM2-IT19bWIN-benf-runm/gruppe01-ncpl-projekt2-life/wiki"));
+        Hyperlink hyperlink = new Hyperlink(link);
+        dialog.getDialogPane().setContent(hyperlink);
+        hyperlink.setOnAction(event -> setupController.getHostServices().showDocument(link));
         dialog.showAndWait();
     }
 

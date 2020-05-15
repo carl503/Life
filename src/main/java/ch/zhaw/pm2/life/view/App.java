@@ -1,5 +1,6 @@
 package ch.zhaw.pm2.life.view;
 
+import ch.zhaw.pm2.life.controller.SetupController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -44,10 +45,14 @@ public class App extends Application {
     public void start(Stage primaryStage) {
         try {
             URL fxmlSetUp = getClass().getClassLoader().getResource("Setup.fxml");
-            Scene scene = new Scene(new FXMLLoader(fxmlSetUp).load());
+            FXMLLoader loader = new FXMLLoader(fxmlSetUp);
+            Scene scene = new Scene(loader.load());
+            SetupController controller = loader.getController();
+            controller.setHostServices(getHostServices());
             primaryStage.setTitle("Setup");
             primaryStage.setScene(scene);
             primaryStage.show();
+
         } catch (IOException e) {
             logger.log(Level.SEVERE, "Unable to load the fxml file", e);
         }
