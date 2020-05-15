@@ -268,9 +268,9 @@ public class LifeWindowController {
     }
 
     private MenuItem changeEnergy(GameObject gameObject) {
-        MenuItem changeEnergy = new MenuItem();
-        changeEnergy.setText("Energie aendern");
-        changeEnergy.setOnAction(event -> {
+        MenuItem energyItem = new MenuItem();
+        energyItem.setText("Energie aendern");
+        energyItem.setOnAction(event -> {
 
             TextInputDialog dialog = new TextInputDialog(String.valueOf(gameObject.getEnergy()));
             dialog.setTitle("Neuer Energiewert");
@@ -288,7 +288,7 @@ public class LifeWindowController {
                         }
                     }));
         });
-        return changeEnergy;
+        return energyItem;
     }
 
 }
