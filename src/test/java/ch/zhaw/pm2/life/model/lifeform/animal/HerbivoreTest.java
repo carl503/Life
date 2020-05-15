@@ -102,7 +102,7 @@ public class HerbivoreTest {
         LifeFormActionCheck lifeFormActionCheck = herbivore.getEatRules(herbivore);
 
         Exception exception = assertThrows(LifeFormException.class, lifeFormActionCheck::check);
-        assertEquals("Ich fresse leider kein Fleisch.", exception.getMessage());
+        assertEquals(herbivore.getName() + ": Ich fresse leider kein Fleisch.", exception.getMessage());
     }
 
     @Test
@@ -111,7 +111,7 @@ public class HerbivoreTest {
         LifeFormActionCheck lifeFormActionCheck = herbivore.getEatRules(lifeForm);
 
         Exception exception = assertThrows(LifeFormException.class, lifeFormActionCheck::check);
-        assertEquals("Ich fresse leider kein Fleisch.", exception.getMessage());
+        assertEquals(herbivore.getName() + ": Ich fresse leider kein Fleisch.", exception.getMessage());
     }
 
 
