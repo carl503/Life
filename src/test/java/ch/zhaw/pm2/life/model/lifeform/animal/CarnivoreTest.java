@@ -96,6 +96,7 @@ public class CarnivoreTest {
     public void getEatRulesEatMeatLowEnergy() {
         LifeFormActionCheck lifeFormActionCheck = carnivore.getEatRules(carnivore2);
         carnivore.setEnergy(0);
+        carnivore2.setEnergy(5);
         when(animalObject.getName()).thenReturn("Carnivore");
 
         Exception exception = assertThrows(LifeFormException.class, lifeFormActionCheck::check);

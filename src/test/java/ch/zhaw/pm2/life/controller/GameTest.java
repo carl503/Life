@@ -127,6 +127,7 @@ public class GameTest {
         when(plant.getEnergy()).thenReturn(10);
         when(plant.getGender()).thenReturn("N");
         when(plant.getPosition()).thenReturn(zeroPosition);
+        when(plant.isAlive()).thenReturn(true);
 
         dummyGameObjectsSet.add(plant);
         dummyPositionsSet.add(plant.getPosition());
@@ -137,6 +138,7 @@ public class GameTest {
         when(animalObject.getEnergy()).thenReturn(10);
         when(animalObject.getGender()).thenReturn("F");
         when(animalObject.getPosition()).thenReturn(zeroPosition);
+        when(animalObject.isAlive()).thenReturn(true);
 
         // Sets and game init
         dummyGameObjectsSet.add(animalObject);
@@ -174,6 +176,7 @@ public class GameTest {
         when(carnivoreOne.getEnergy()).thenReturn(10);
         when(carnivoreOne.getGender()).thenReturn("M");
         when(carnivoreOne.getPosition()).thenReturn(zeroPosition);
+        when(carnivoreOne.isAlive()).thenReturn(true);
 
         dummyGameObjectsSet.add(carnivoreOne);
         dummyPositionsSet.add(carnivoreOne.getPosition());
@@ -184,6 +187,7 @@ public class GameTest {
         when(carnivoreTwo.getEnergy()).thenReturn(8);
         when(carnivoreTwo.getGender()).thenReturn("M");
         when(carnivoreTwo.getPosition()).thenReturn(zeroPosition);
+        when(carnivoreTwo.isAlive()).thenReturn(true);
         doThrow(new LifeFormException("Kann dieses Tier nicht fressen, weil es staerker ist als ich.")).when(carnivoreTwo).eat(carnivoreOne);
 
         dummyGameObjectsSet.add(carnivoreTwo);
