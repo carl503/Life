@@ -242,7 +242,7 @@ public class Game {
                 spawnedLifeForms.add(plant);
             }
         } catch (ReflectiveOperationException e) {
-            throw new LifeFormException("Could not spawn new plant.");
+            throw new LifeFormException("Es konnten keine neuen Pflanzen gespawnt werden.");
         }
     }
 
