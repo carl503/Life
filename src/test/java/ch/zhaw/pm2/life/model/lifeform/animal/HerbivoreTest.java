@@ -141,9 +141,8 @@ public class HerbivoreTest {
     }
 
     @Test
-    public void getEatRulesEatPlantEatLifeForm() {
+    public void getEatRulesHerbivoreEatLifeForm() {
         LifeFormActionCheck lifeFormActionCheck = herbivore.getEatRules(lifeForm);
-
         assertDoesNotThrow(lifeFormActionCheck::check);
     }
 }
