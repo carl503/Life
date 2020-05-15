@@ -1,5 +1,6 @@
 package ch.zhaw.pm2.life.parser;
 
+import ch.zhaw.pm2.life.exception.LifeException;
 import ch.zhaw.pm2.life.model.GameObject;
 import ch.zhaw.pm2.life.model.lifeform.LifeForm;
 import ch.zhaw.pm2.life.model.lifeform.animal.Carnivore;
@@ -39,9 +40,74 @@ public class ConfigParserTest {
         }
     }
 
+    @Test
+    public void testInvalidType() {
+        ConfigParser parser = assertDoesNotThrow(ConfigParser::getInstance);
+        parser.setConfigProperties(loadInvalidType());
+        Exception thrown = assertThrows(LifeException.class, parser::parseObjects);
+        assertEquals("Could not parse the config file", thrown.getMessage());
+    }
+
+    @Test
+    public void testInvalidConfigKey() {
+        ConfigParser parser = assertDoesNotThrow(ConfigParser::getInstance);
+        parser.setConfigProperties(loadInvalidConfigKey());
+        assertThrows(NullPointerException.class, parser::parseObjects);
+    }
+
+    @Test
+    public void testInvalidTextValue() {
+        ConfigParser parser = assertDoesNotThrow(ConfigParser::getInstance);
+        parser.setConfigProperties(loadInvalidTextValue());
+        Exception thrown = assertThrows(LifeException.class, parser::parseObjects);
+        assertEquals("Could not parse the config file", thrown.getMessage());
+    }
+
+    @Test
+    public void testInvalidNumberValue() {
+        ConfigParser parser = assertDoesNotThrow(ConfigParser::getInstance);
+        parser.setConfigProperties(loadInvalidNumberValue());
+        assertThrows(NumberFormatException.class, parser::parseObjects);
+    }
+
+    private Properties loadInvalidNumberValue() {
+        Properties config = new Properties();
+        config.put("wolf.type", "carnivore");
+        config.put("wolf.name", "Wolf");
+        config.put("wolf.energy", "a");
+        config.put("wolf.color", "#D3D3D3");
+        return config;
+    }
+
+    private Properties loadInvalidTextValue() {
+        Properties config = new Properties();
+        config.put("wolf.type", "\"carnivore\"");
+        config.put("wolf.name", "Wolf");
+        config.put("wolf.energy", 7);
+        config.put("wolf.color", "#D3D3D3");
+        return config;
+    }
+
+    private Properties loadInvalidConfigKey() {
+        Properties config = new Properties();
+        config.put("wolf.hello.world", "carnivore");
+        config.put("wolf.name", "Wolf");
+        config.put("wolf.energy", 7);
+        config.put("wolf.color", "#D3D3D3");
+        return config;
+    }
+
+    private Properties loadInvalidType() {
+        Properties config = new Properties();
+        config.put("wolf.type", "test");
+        config.put("wolf.name", "Wolf");
+        config.put("wolf.energy", 7);
+        config.put("wolf.color", "#D3D3D3");
+        return config;
+    }
+
     private Properties loadValidConfig() {
         Properties config = new Properties();
-
         config.put("wolf.type", "carnivore");
         config.put("wolf.name", "Wolf");
         config.put("wolf.energy", 7);
