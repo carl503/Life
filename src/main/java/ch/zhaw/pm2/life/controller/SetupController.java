@@ -40,8 +40,8 @@ public class SetupController {
     @FXML private Pane rootPane;
     @FXML private GridPane pane;
 
-    private HashMap<GameObject, Spinner<Integer>> gameObjectMap = new HashMap<>();
     private final ComboBox<String> comboBox = new ComboBox<>();
+    private final HashMap<GameObject, Spinner<Integer>> gameObjectMap = new HashMap<>();
 
     /**
      * Initializes the set up controller with {@link GameObject}
