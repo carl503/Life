@@ -54,7 +54,7 @@ public class LifeWindowController {
             board.getChildren().add(boardView);
             board.widthProperty().addListener(observable -> updateSize());
             board.heightProperty().addListener(observable -> updateSize());
-            root.addEventHandler(KeyEvent.KEY_PRESSED, fullscreenEvent());
+            root.addEventHandler(KeyEvent.KEY_PRESSED, keyHandler());
         } catch (Exception e) {
             messageField.appendText(e.getMessage() + "\n");
         }
@@ -124,7 +124,7 @@ public class LifeWindowController {
         dialog.showAndWait();
     }
 
-    private EventHandler<KeyEvent> fullscreenEvent() {
+    private EventHandler<KeyEvent> keyHandler() {
         return event -> {
             if (event.getCode() == KeyCode.F11) {
                 toggleFullscreen();
