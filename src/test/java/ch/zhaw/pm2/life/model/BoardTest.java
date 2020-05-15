@@ -129,18 +129,34 @@ public class BoardTest {
         assertTrue(board.getGameObjects().containsAll(gameObjects));
         assertTrue(board.getOccupiedPositions().containsAll(positions));
     }
-
+    
     @Test
-    public void testAreAllSpeciesAlive() {
+    public void testIsSpeciesAlive() {
         AnimalObject carnivore = mock(Carnivore.class);
+        AnimalObject herbivore = mock(Herbivore.class);
+
+        when(herbivore.getName()).thenReturn("Schaf");
+        when(herbivore.getPosition()).thenReturn(new Vector2D(0, 0));
+        when(herbivore.isDead()).thenReturn(false);
+
+        when(carnivore.getName()).thenReturn("Wolf");
         when(carnivore.getPosition()).thenReturn(new Vector2D(0, 1));
         when(carnivore.isDead()).thenReturn(true);
+
         board.addGameObject(carnivore, carnivore.getPosition());
-        assertTrue(board.areAllSpeciesAlive());
-        carnivore.die();
+        board.addGameObject(herbivore, herbivore.getPosition());
+
+        assertTrue(board.isSpeciesAlive("Wolf"));
+        assertTrue(board.isSpeciesAlive("Schaf"));
         board.cleanBoard();
-        assertFalse(board.areAllSpeciesAlive());
+        assertFalse(board.isSpeciesAlive("Wolf"));
+        assertTrue(board.isSpeciesAlive("Schaf"));
+        when(herbivore.isDead()).thenReturn(true);
+        board.cleanBoard();
+        assertFalse(board.isSpeciesAlive("Wolf"));
+        assertFalse(board.isSpeciesAlive("Schaf"));
     }
+
 
     @Test
     public void testGetRandomValueValid() {
