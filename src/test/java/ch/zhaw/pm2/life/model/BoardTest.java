@@ -129,7 +129,7 @@ public class BoardTest {
         assertTrue(board.getGameObjects().containsAll(gameObjects));
         assertTrue(board.getOccupiedPositions().containsAll(positions));
     }
-    
+
     @Test
     public void testIsSpeciesAlive() {
         AnimalObject carnivore = mock(Carnivore.class);
@@ -219,6 +219,24 @@ public class BoardTest {
     //==================================================================================================================
     // Negative tests
     //==================================================================================================================
+
+    @Test
+    public void testGetNeighbourObjectsNull() {
+        Set<GameObject> expectedSet = new HashSet<>();
+        assertEquals(expectedSet, board.getNeighbourObjects(null, 1));
+    }
+
+    @Test
+    public void testGetNeighbourObjectsRadiusZero() {
+        Set<GameObject> expectedSet = new HashSet<>();
+        assertEquals(expectedSet, board.getNeighbourObjects(firstGameObject, 0));
+    }
+
+    @Test
+    public void testGetNeighbourObjectsRadiusNegative() {
+        Set<GameObject> expectedSet = new HashSet<>();
+        assertEquals(expectedSet, board.getNeighbourObjects(firstGameObject, -1));
+    }
 
     @Test
     public void testGetRandomValueInvalid() {
