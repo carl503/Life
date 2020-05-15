@@ -155,7 +155,7 @@ public class AnimalObjectTest {
         when(partner.getGender()).thenReturn("F");
 
         Exception exception = assertThrows(LifeFormException.class, () -> animalObject.reproduce(partner));
-        assertEquals("Cannot give birth because im male", exception.getMessage());
+        assertEquals("Kann keine Kinder gebaeren, weil ich ein Maennchen bin.", exception.getMessage());
     }
 
     @Test
@@ -177,7 +177,7 @@ public class AnimalObjectTest {
         when(partner.getGender()).thenReturn("M");
 
         Exception exception = assertThrows(LifeFormException.class, () -> animalObject.reproduce(partner));
-        assertEquals("Cannot reproduce because partner is not fertile yet", exception.getMessage());
+        assertEquals("Kann nicht paaren, weil mein Partner noch nicht fruchtbar ist.", exception.getMessage());
     }
 
     //==================================================================================================================

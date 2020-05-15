@@ -155,7 +155,7 @@ public class GameTest {
         verify(animalObject, times(1)).eat(plant);
         verify(animalObject, times(1)).move(anySet());
 
-        assertEquals(animalObject.getName() + ": Yummy food (" + plant.getName() + ")!\n", messageLog);
+        assertEquals(animalObject.getName() + ": Das war lecker (" + plant.getName() + ")!\n", messageLog);
         dummyGameObjectsSet.remove(plant);
         assertEquals(1, board.getGameObjects().size());
         assertEquals(1, board.getOccupiedPositions().size());
@@ -184,7 +184,7 @@ public class GameTest {
         when(carnivoreTwo.getEnergy()).thenReturn(8);
         when(carnivoreTwo.getGender()).thenReturn("M");
         when(carnivoreTwo.getPosition()).thenReturn(zeroPosition);
-        doThrow(new LifeFormException("Cannot eat this carnivore. He is stronger than I.")).when(carnivoreTwo).eat(carnivoreOne);
+        doThrow(new LifeFormException("Kann dieses Tier nicht fressen, weil es staerker ist als ich.")).when(carnivoreTwo).eat(carnivoreOne);
 
         dummyGameObjectsSet.add(carnivoreTwo);
         dummyPositionsSet.add(carnivoreTwo.getPosition());
@@ -205,11 +205,11 @@ public class GameTest {
         verify(carnivoreTwo, times(1)).eat(carnivoreOne);
         verify(carnivoreTwo, times(1)).move(anySet());
 
-        String firstEatsSecondMessage = carnivoreOne.getName() + ": Yummy food (" + carnivoreTwo.getName() + ")!\n";
+        String firstEatsSecondMessage = carnivoreOne.getName() + ": Das war lecker (" + carnivoreTwo.getName() + ")!\n";
 
 
-        assertThat(messageLog, anyOf(is("Cannot eat this carnivore. He is stronger than I.\r\n" + firstEatsSecondMessage),
-                                     is(firstEatsSecondMessage + "Cannot eat this carnivore. He is stronger than I.\r\n")));
+        assertThat(messageLog, anyOf(is("Kann dieses Tier nicht fressen, weil es staerker ist als ich.\r\n" + firstEatsSecondMessage),
+                                     is(firstEatsSecondMessage + "Kann dieses Tier nicht fressen, weil es staerker ist als ich.\r\n")));
         dummyGameObjectsSet.remove(carnivoreTwo);
         assertEquals(1, board.getGameObjects().size());
         assertEquals(1, board.getOccupiedPositions().size());
@@ -241,7 +241,7 @@ public class GameTest {
         when(herbivoreMale.getName()).thenReturn(HERBIVORE);
         when(herbivoreMale.getFertilityThreshold()).thenReturn(10);
         when(herbivoreMale.getGender()).thenReturn("M");
-        when(herbivoreMale.reproduce(herbivoreFemale)).thenThrow(new LifeFormException("Cannot give birth because im male"));
+        when(herbivoreMale.reproduce(herbivoreFemale)).thenThrow(new LifeFormException("Kann keine Kinder gebaeren, weil ich ein Maennchen bin."));
         when(herbivoreMale.getPosition()).thenReturn(zeroPosition);
 
         dummyGameObjectsSet.add(herbivoreMale);
@@ -275,8 +275,8 @@ public class GameTest {
         verify(herbivoreMale, times(1)).move(anySet());
         verify(herbivoreFemale, times(1)).move(anySet());
 
-        assertThat(messageLog, anyOf(is(herbivoreFemale.getName() + ": We just reproduced with each other\nCannot give birth because im male\r\n"),
-                                          is("Cannot give birth because im male\r\n" + herbivoreFemale.getName() + ": We just reproduced with each other\n")));
+        assertThat(messageLog, anyOf(is(herbivoreFemale.getName() + ": Wir haben uns soeben gepaart\nKann keine Kinder gebaeren, weil ich ein Maennchen bin.\r\n"),
+                                          is("Kann keine Kinder gebaeren, weil ich ein Maennchen bin.\r\n" + herbivoreFemale.getName() + ": Wir haben uns soeben gepaart\n")));
         dummyGameObjectsSet.add(herbivoreChild);
         assertEquals(3, board.getGameObjects().size());
         dummyPositionsSet.add(herbivoreChild.getPosition());
@@ -358,7 +358,7 @@ public class GameTest {
         String messageLog = game.nextMove();
 
         // verifies and assertions
-        assertEquals( "The simulation has stopped because the ending condition was met", messageLog);
+        assertEquals( "Die Simulation wurde beendet, weil die Endbedingung erfuellt wurde.", messageLog);
         assertFalse(game.isOngoing());
         dummyPositionsSet.remove(carnivore.getPosition());
         assertEquals(0, board.getOccupiedPositions().size());
@@ -397,7 +397,7 @@ public class GameTest {
 
         // verifies and assertions
         verify(carnivore, times(1)).move(anySet());
-        assertEquals(carnivore.getName() + ": died of exhaustion.\r\n", messageLog);
+        assertEquals(carnivore.getName() + ": ist vor Ermuedung gestorben.\r\n", messageLog);
         dummyPositionsSet.remove(carnivore.getPosition());
         assertEquals(0, board.getOccupiedPositions().size());
         dummyGameObjectsSet.remove(carnivore);
