@@ -28,10 +28,7 @@ public abstract class GameObject {
      */
     protected Vector2D position;
 
-    /**
-     * The color of this game object.
-     */
-    protected String color;
+    private String color;
 
     /**
      * The size used to scale this object in the visualization.

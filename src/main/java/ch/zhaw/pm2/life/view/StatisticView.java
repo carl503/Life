@@ -18,8 +18,8 @@ import java.util.Set;
 
 public class StatisticView extends Stage {
 
-    public static final int MIN_WIDTH = 800;
-    public static final int MIN_HEIGHT = 600;
+    private static final int MIN_WIDTH = 800;
+    private static final int MIN_HEIGHT = 600;
     private Collection<LifeForm> startCount = Collections.emptySet();
     private Collection<LifeForm> survivorCount = Collections.emptySet();
     private Collection<LifeForm> deathCount = Collections.emptySet();

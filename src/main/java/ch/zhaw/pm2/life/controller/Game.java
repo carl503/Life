@@ -26,20 +26,9 @@ import static java.util.function.Predicate.*;
  */
 public class Game {
 
-    /**
-     * When a {@link GameObject} has no energy, it has this value.
-     */
-    public static final int ENERGY_VALUE_DEAD = 0;
-
-    /**
-     * When a next round is performed, the energy level of a plant drops by this amount.
-     */
-    public static final int PLANT_ENERGY_CONSUMPTION = 1;
-
-    /**
-     * Respawn chance from 0 to 10 (0% - 100%)
-     */
-    public static final int PLANT_RESPAWN_CHANCE = 2;
+    private static final int ENERGY_VALUE_DEAD = 0;
+    private static final int PLANT_ENERGY_CONSUMPTION = 1;
+    private static final int PLANT_RESPAWN_CHANCE = 2;
 
     private static final Logger logger = Logger.getLogger(Game.class.getName());
 

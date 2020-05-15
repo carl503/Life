@@ -17,7 +17,6 @@ public class Carnivore extends AnimalObject {
      * Default constructor.
      */
     public Carnivore() {
-        this.color = "red";
         setName("Carnivore");
         setScanRadius(0);
     }

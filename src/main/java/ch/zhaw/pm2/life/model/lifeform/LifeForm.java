@@ -16,24 +16,13 @@ public abstract class LifeForm extends GameObject {
     private static final int POISONOUS_PROBABILITY = 3;
 
     /**
-     * Flag to indicate the living state.
+     * Flag if this life form is poisoned.
      */
-    protected boolean isDead = false;
+    protected boolean isPoisoned;
 
-    /**
-     * Flag if this life form is poisonous.
-     */
-    protected boolean isPoisonous;
-
-    /**
-     * Flag if this life form is poisonous.
-     */
-    protected boolean isPoisoned = false;
-
-    /**
-     * Flag indicating if the gender is male or not.
-     */
-    protected boolean isMale;
+    private final boolean isPoisonous;
+    private final boolean isMale;
+    private boolean isDead;
 
     private int nextPoisonedEnergyConsumption;
 

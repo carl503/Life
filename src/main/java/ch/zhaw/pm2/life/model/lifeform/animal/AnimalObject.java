@@ -21,18 +21,11 @@ public abstract class AnimalObject extends LifeForm {
      */
     public static final int INIT_ENERGY_ANIMALS = 10;
 
-    /**
-     * Value needed to reproduce for {@link AnimalObject} must be bigger than REPRODUCTION_MINIMUM.
-     */
     private static final int REPRODUCTION_MINIMUM = 9;
 
     private static final Logger logger = Logger.getLogger(AnimalObject.class.getCanonicalName());
 
-    /**
-     * Indicates the current fertility value for reproduction. Needs a specific value to be able to reproduce.
-     */
-    protected int fertilityThreshold;
-
+    private int fertilityThreshold;
     private int scanRadius = 1;
 
     /**

@@ -19,7 +19,6 @@ public class Herbivore extends AnimalObject {
      * Default constructor.
      */
     public Herbivore() {
-        this.color = "lightseagreen";
         setName("Herbivore");
     }
 
