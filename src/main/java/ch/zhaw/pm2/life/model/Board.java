@@ -168,19 +168,15 @@ public class Board {
     }
 
     /**
-     * Returns if an animal form is extinct.
-     * @return true if no animal form is extinct otherwise false
+     * Checks if a species is alive
+     * @param species name of the species
+     * @return true if species is alive otherwise false
      */
-    public boolean areAllSpeciesAlive() {
-        Set<String> found = new HashSet<>();
-
-        for (GameObject gameObject : gameObjects) {
-            if (gameObject instanceof AnimalObject) {
-                found.add(gameObject.getClass().getSimpleName());
-            }
-        }
-
-        return found.containsAll(animalForms);
+    public boolean isSpeciesAlive(String species) {
+        return gameObjects.stream()
+                .filter(AnimalObject.class::isInstance)
+                .map(AnimalObject.class::cast)
+                .anyMatch(animalObject -> animalObject.getName().equals(species));
     }
 
     /**
