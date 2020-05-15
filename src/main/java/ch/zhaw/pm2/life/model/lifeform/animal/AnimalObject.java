@@ -131,7 +131,7 @@ public abstract class AnimalObject extends LifeForm {
 
         logger.log(Level.FINE, "{0} ate {1}", new Object[] {
                 getName(),
-                lifeForm.getClass().getSimpleName()
+                lifeForm.getName()
         });
         increaseEnergy(lifeForm.getEnergy());
         if (lifeForm.isPoisonous()) {
