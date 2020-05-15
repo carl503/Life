@@ -9,7 +9,6 @@ import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
-import org.mockito.internal.matchers.Null;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -35,8 +34,6 @@ public class BoardTest {
         MockitoAnnotations.initMocks(this);
         board = new Board(BOARD_SIZE, BOARD_SIZE);
     }
-
-    // TODO:  add positive and negative tests for missing non-private methods (getRandomPosition, getNeighbourObjects, ...)
 
     //==================================================================================================================
     // Positive tests
