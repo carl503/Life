@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>ch.zhaw.pm2.life.controller.dialogs.ColorPickerDialog</OriginalElement>
+  <nodes>
+    <node x="1876.0" y="2784.0">ch.zhaw.pm2.life.view.App</node>
+    <node x="398.0" y="2784.0">ch.zhaw.pm2.life.model.Board</node>
+    <node x="1100.0" y="2784.0">ch.zhaw.pm2.life.controller.SetupController</node>
+    <node x="237.0" y="2281.0">ch.zhaw.pm2.life.controller.dialogs.StopConditionDialog</node>
+    <node x="2401.0" y="2784.0">ch.zhaw.pm2.life.model.lifeform.LifeFormActionCheck</node>
+    <node x="714.0" y="2303.0">ch.zhaw.pm2.life.controller.dialogs.ColorPickerDialog</node>
+    <node x="414.25" y="1962.0">ch.zhaw.pm2.life.controller.dialogs.LifeDialog</node>
+    <node x="1518.0" y="2784.0">ch.zhaw.pm2.life.model.GameProperties</node>
+    <node x="0.0" y="2237.0">ch.zhaw.pm2.life.controller.dialogs.SpawnSpeciesDialog</node>
+    <node x="2995.75" y="0.0">ch.zhaw.pm2.life.controller.Game</node>
+    <node x="799.0" y="2784.0">ch.zhaw.pm2.life.model.Vector2D</node>
+    <node x="729.75" y="741.0">ch.zhaw.pm2.life.view.BoardView</node>
+    <node x="2068.0" y="2784.0">ch.zhaw.pm2.life.util.ValidationUtil</node>
+    <node x="2036.75" y="651.0">ch.zhaw.pm2.life.model.lifeform.LifeForm</node>
+    <node x="2328.25" y="1332.0">ch.zhaw.pm2.life.model.lifeform.LifeForm.FoodType</node>
+    <node x="528.0" y="2303.0">ch.zhaw.pm2.life.controller.dialogs.ScanRadiusDialog</node>
+    <node x="1783.25" y="1168.0">ch.zhaw.pm2.life.model.lifeform.animal.AnimalObject</node>
+    <node x="273.75" y="103.0">javafx.scene.control.Dialog</node>
+    <node x="1953.75" y="1706.0">ch.zhaw.pm2.life.model.lifeform.animal.Herbivore</node>
+    <node x="2415.75" y="695.0">ch.zhaw.pm2.life.model.GameObject.Direction</node>
+    <node x="2124.25" y="1364.0">ch.zhaw.pm2.life.model.lifeform.plant.Plant</node>
+    <node x="30.0" y="2578.0">ch.zhaw.pm2.life.controller.dialogs.SpawnSpeciesDialog.Type</node>
+    <node x="715.75" y="0.0">javafx.event.EventTarget</node>
+    <node x="0.0" y="3289.0">ch.zhaw.pm2.life.parser.ConfigParser.Options</node>
+    <node x="1612.75" y="1685.0">ch.zhaw.pm2.life.model.lifeform.animal.Carnivore</node>
+    <node x="194.0" y="3257.0">ch.zhaw.pm2.life.parser.ConfigParser.Type</node>
+    <node x="1119.75" y="806.0">ch.zhaw.pm2.life.view.StatisticView</node>
+    <node x="2668.75" y="0.0">ch.zhaw.pm2.life.controller.LifeWindowController</node>
+    <node x="56.25" y="2784.0">ch.zhaw.pm2.life.parser.ConfigParser</node>
+    <node x="2222.0" y="0.0">ch.zhaw.pm2.life.model.GameObject</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="ch.zhaw.pm2.life.model.lifeform.animal.Herbivore" target="ch.zhaw.pm2.life.model.lifeform.animal.AnimalObject">
+      <point x="0.0" y="-37.5" />
+      <point x="2114.25" y="1660.0" />
+      <point x="2024.0" y="1660.0" />
+      <point x="80.25" y="233.5" />
+    </edge>
+    <edge source="ch.zhaw.pm2.life.model.lifeform.LifeForm" target="ch.zhaw.pm2.life.model.GameObject">
+      <point x="0.0" y="-233.5" />
+      <point x="2216.25" y="626.0" />
+      <point x="2295.0" y="626.0" />
+      <point x="-73.0" y="300.5" />
+    </edge>
+    <edge source="ch.zhaw.pm2.life.model.GameObject.Direction" target="ch.zhaw.pm2.life.model.GameObject">
+      <point x="0.0" y="-189.5" />
+      <point x="2519.75" y="626.0" />
+      <point x="2441.0" y="626.0" />
+      <point x="73.0" y="300.5" />
+    </edge>
+    <edge source="ch.zhaw.pm2.life.view.BoardView" target="javafx.event.EventTarget">
+      <point x="0.0" y="-266.5" />
+      <point x="0.0" y="26.5" />
+    </edge>
+    <edge source="ch.zhaw.pm2.life.parser.ConfigParser.Options" target="ch.zhaw.pm2.life.parser.ConfigParser">
+      <point x="0.0" y="-91.5" />
+      <point x="87.0" y="3232.0" />
+      <point x="118.25" y="3232.0" />
+      <point x="-62.0" y="211.5" />
+    </edge>
+    <edge source="ch.zhaw.pm2.life.controller.dialogs.LifeDialog" target="javafx.scene.control.Dialog">
+      <point x="0.0" y="-112.5" />
+      <point x="0.0" y="904.5" />
+    </edge>
+    <edge source="javafx.scene.control.Dialog" target="javafx.event.EventTarget">
+      <point x="0.0" y="-904.5" />
+      <point x="491.75" y="78.0" />
+      <point x="782.0833333333334" y="78.0" />
+      <point x="-132.66666666666663" y="26.5" />
+    </edge>
+    <edge source="ch.zhaw.pm2.life.controller.dialogs.StopConditionDialog" target="ch.zhaw.pm2.life.controller.dialogs.LifeDialog">
+      <point x="0.0" y="-101.5" />
+      <point x="372.5" y="2217.0" />
+      <point x="472.375" y="2217.0" />
+      <point x="-19.375" y="112.5" />
+    </edge>
+    <edge source="ch.zhaw.pm2.life.controller.dialogs.SpawnSpeciesDialog.Type" target="ch.zhaw.pm2.life.controller.dialogs.SpawnSpeciesDialog">
+      <point x="0.0" y="-80.5" />
+      <point x="0.0" y="145.5" />
+    </edge>
+    <edge source="ch.zhaw.pm2.life.view.StatisticView" target="javafx.event.EventTarget">
+      <point x="0.0" y="-201.5" />
+      <point x="1343.75" y="78.0" />
+      <point x="1047.4166666666665" y="78.0" />
+      <point x="132.66666666666652" y="26.5" />
+    </edge>
+    <edge source="ch.zhaw.pm2.life.controller.dialogs.ScanRadiusDialog" target="ch.zhaw.pm2.life.controller.dialogs.LifeDialog">
+      <point x="0.0" y="-79.5" />
+      <point x="611.0" y="2217.0" />
+      <point x="511.125" y="2217.0" />
+      <point x="19.375" y="112.5" />
+    </edge>
+    <edge source="ch.zhaw.pm2.life.model.lifeform.plant.Plant" target="ch.zhaw.pm2.life.model.lifeform.LifeForm">
+      <point x="0.0" y="-37.5" />
+      <point x="0.0" y="233.5" />
+    </edge>
+    <edge source="ch.zhaw.pm2.life.model.lifeform.animal.Carnivore" target="ch.zhaw.pm2.life.model.lifeform.animal.AnimalObject">
+      <point x="0.0" y="-58.5" />
+      <point x="1773.25" y="1660.0" />
+      <point x="1863.5" y="1660.0" />
+      <point x="-80.25" y="233.5" />
+    </edge>
+    <edge source="ch.zhaw.pm2.life.parser.ConfigParser.Type" target="ch.zhaw.pm2.life.parser.ConfigParser">
+      <point x="0.0" y="-123.5" />
+      <point x="273.5" y="3232.0" />
+      <point x="242.25" y="3232.0" />
+      <point x="62.0" y="211.5" />
+    </edge>
+    <edge source="ch.zhaw.pm2.life.controller.dialogs.ColorPickerDialog" target="ch.zhaw.pm2.life.controller.dialogs.LifeDialog">
+      <point x="0.0" y="-79.5" />
+      <point x="800.5" y="2207.0" />
+      <point x="549.875" y="2207.0" />
+      <point x="58.125" y="112.5" />
+    </edge>
+    <edge source="ch.zhaw.pm2.life.model.lifeform.animal.AnimalObject" target="ch.zhaw.pm2.life.model.lifeform.LifeForm">
+      <point x="0.0" y="-233.5" />
+      <point x="1943.75" y="1143.0" />
+      <point x="2096.5833333333335" y="1143.0" />
+      <point x="-119.66666666666652" y="233.5" />
+    </edge>
+    <edge source="ch.zhaw.pm2.life.model.lifeform.LifeForm.FoodType" target="ch.zhaw.pm2.life.model.lifeform.LifeForm">
+      <point x="0.0" y="-69.5" />
+      <point x="2420.75" y="1143.0" />
+      <point x="2335.9166666666665" y="1143.0" />
+      <point x="119.66666666666652" y="233.5" />
+    </edge>
+    <edge source="ch.zhaw.pm2.life.controller.dialogs.SpawnSpeciesDialog" target="ch.zhaw.pm2.life.controller.dialogs.LifeDialog">
+      <point x="0.0" y="-145.5" />
+      <point x="108.5" y="2207.0" />
+      <point x="433.625" y="2207.0" />
+      <point x="-58.125" y="112.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.3538592508513053" x="1713.5" y="1752.0" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

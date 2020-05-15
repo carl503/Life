@@ -2,69 +2,55 @@ package ch.zhaw.pm2.life.model.lifeform;
 
 import ch.zhaw.pm2.life.model.GameObject;
 
-import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
  * All living forms have to inherit this class.
- * @author meletlea
  */
 public abstract class LifeForm extends GameObject {
 
-    private static final Logger LOGGER = Logger.getLogger(LifeForm.class.getCanonicalName());
-    private static final double POISON_ENERGY_CONSUMPTION_START_FACTOR = 0.3;
     private static final int POISONOUS_PROBABILITY = 3;
+    private static final double POISON_ENERGY_CONSUMPTION_START_FACTOR = 0.3;
+    private static final Logger logger = Logger.getLogger(LifeForm.class.getCanonicalName());
 
-    private final Random random = new Random();
-
+    private final boolean isMale;
     /**
-     * Flag to indicate the living state.
+     * Flag if this life form is poisoned.
      */
-    protected boolean isDead = false;
-
+    protected boolean isPoisoned;
     /**
      * Flag if this life form is poisonous.
      */
     protected boolean isPoisonous;
-
-    /**
-     * Flag if this life form is poisonous.
-     */
-    protected boolean isPoisoned = false;
-
-    /**
-     * Flag indicating if the gender is male or not.
-     */
-    protected boolean isMale;
-
+    private boolean isDead;
     private int nextPoisonedEnergyConsumption;
 
     /**
      * Default constructor.
      */
     public LifeForm() {
-        int genderValue = random.nextInt(10);
+        int genderValue = getRandom().nextInt(10);
         isMale = genderValue > 4;
-        int poisonValue = random.nextInt(10);
+        int poisonValue = getRandom().nextInt(10);
         isPoisonous = poisonValue < POISONOUS_PROBABILITY;
     }
 
     /**
-     * Kills the life form by setting.
+     * Kills the life form by setting the isDead boolean to true;
      */
     public void die() {
-        LOGGER.log(Level.FINE, "{0} died", getClass().getSimpleName());
+        logger.log(Level.FINE, "{0} died", getName());
         isDead = true;
     }
 
     /**
-     * Poison this life form.
+     * {@link LifeForm} that calls this methods becomes poisoned, thus losing more energy per move
      */
     public void becomePoisoned() {
-        LOGGER.log(Level.FINE, "{0} got poisoned", getClass().getSimpleName());
+        logger.log(Level.FINE, "{0} got poisoned", getName());
         isPoisoned = true;
-        nextPoisonedEnergyConsumption = (int) (currentEnergy * POISON_ENERGY_CONSUMPTION_START_FACTOR);
+        nextPoisonedEnergyConsumption = (int) (energy * POISON_ENERGY_CONSUMPTION_START_FACTOR);
     }
 
     /**
@@ -74,7 +60,7 @@ public abstract class LifeForm extends GameObject {
     public int getPoisonedEnergyConsumption() {
         int energyConsumption = nextPoisonedEnergyConsumption;
         if ((energyConsumption - 1) == -1) {
-            LOGGER.log(Level.FINE, "{0} is not poisoned anymore", getClass().getSimpleName());
+            logger.log(Level.FINE, "{0} is not poisoned anymore", getName());
             isPoisoned = false;
         }
         nextPoisonedEnergyConsumption--;
@@ -101,6 +87,14 @@ public abstract class LifeForm extends GameObject {
      */
     public boolean isDead() {
         return isDead;
+    }
+
+    /**
+     * Indicates if this life form is alive or dead.
+     * @return true if the object is alive.
+     */
+    public boolean isAlive() {
+        return !isDead;
     }
 
     /**

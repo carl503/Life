@@ -3,8 +3,8 @@ package ch.zhaw.pm2.life.model;
 import java.util.Objects;
 
 /**
- * Vector in a two dimensional room.
- * @author pedernin
+ * This class represents and handles the logic and calculations of regarding the position
+ * of {@link GameObject} on the board. Positions are handles as Vectors in a 2-dimensional plane.
  */
 public class Vector2D {
 
@@ -94,6 +94,15 @@ public class Vector2D {
      */
     public static boolean isPositive(Vector2D vector) {
         return vector.getX() >= 0 && vector.getY() >= 0;
+    }
+
+    /**
+     * Checks if the x or y value of the vector is negative.
+     * @param vector {@link Vector2D} to be checked.
+     * @return true if x or y is negative otherwise false.
+     */
+    public static boolean isNegative(Vector2D vector) {
+        return vector.getX() < 0 || vector.getY() < 0;
     }
 
     /**

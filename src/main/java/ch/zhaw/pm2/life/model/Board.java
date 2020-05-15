@@ -13,18 +13,17 @@ import static ch.zhaw.pm2.life.model.GameObject.*;
 import static java.util.function.Predicate.*;
 
 /**
- * This model class represents the board containing all the game objects.
- * @author lubojcar, meletlea
+ * This model class represents the board containing all the {@link GameObject}.
  */
 public class Board {
 
     /**
-     * Minimal number of rows.
+     * Minimum number of rows.
      */
     public static final int MIN_ROWS = 3;
 
     /**
-     * Minimal number of columns.
+     * Minimum number of columns.
      */
     public static final int MIN_COLUMNS = 3;
 
@@ -52,24 +51,31 @@ public class Board {
     }
 
     /**
-     * Adds a game object to the set.
+     * Adds a {@link GameObject} to the set of GameObjects on the board and it's position to the set of
+     * occupiedPositions which is later used to handle collisions and interactions.
      * @param gameObject {@link GameObject}
+     * @param position   {@link Vector2D}
      * @throws NullPointerException when the {@link GameObject} is null.
      */
-    public void addGameObject(GameObject gameObject) {
+    public void addGameObject(GameObject gameObject, Vector2D position) {
         Objects.requireNonNull(gameObject, "Game object cannot be null to add it on the board.");
-        // TODO: validate position (maybe reuse code from this commit? f10b6f7d2cd422d4089ffa21bee0ead454b39ce5)
+        Objects.requireNonNull(position, "The position cannot be null to add the game object on the board.");
+        if (Vector2D.isNegative(position) || position.getX() >= columns || position.getY() >= rows) {
+            String message = String.format("The position %s of the provided game object does not exist on the board.", position);
+            throw new IllegalArgumentException(message);
+        }
 
+        gameObject.setPosition(position);
         gameObject.setColumns(columns);
         gameObject.setRows(rows);
 
         gameObjects.add(gameObject);
-        occupiedPositions.add(gameObject.getPosition());
+        occupiedPositions.add(position);
     }
 
     /**
-     * Returns a random position on the board.
-     * @return a position as {@link Vector2D}
+     * Returns a random but valid position on the board as {@link Vector2D}.
+     * @return a position as {@link Vector2D}.
      */
     public Vector2D getRandomPosition() {
         int xPos = random.nextInt(columns);
@@ -78,12 +84,10 @@ public class Board {
     }
 
     /**
-     * Remove all dead life forms from the board.
+     * Remove all dead {@link LifeForm} from the board.
      */
-    public void cleanBoard() {
-        Set<LifeForm> deadLifeForms = gameObjects.stream()
-                .filter(LifeForm.class::isInstance)
-                .map(LifeForm.class::cast)
+    public void removeDeadLifeForms() {
+        Set<LifeForm> deadLifeForms = getLifeForms().stream()
                 .filter(LifeForm::isDead)
                 .collect(Collectors.toSet());
         gameObjects.removeAll(deadLifeForms);
@@ -97,48 +101,64 @@ public class Board {
 
         return deadLifeForms.stream()
                 .map(GameObject::getPosition)
-                .filter(not(currentOccupiedPositions::contains))
+                .filter(not(currentOccupiedPositions::contains)) // positions of dead life forms that were alone on that position
                 .collect(Collectors.toSet());
     }
 
     /**
-     * Returns any game object of a position
-     * @param pos Position on the field
-     * @return game object if found otherwise null
+     * Returns the {@link LifeForm} on the board.
+     * @return Set<LifeForm> on the board
      */
-    public GameObject getAnyGameObject(Vector2D pos) {
-        GameObject gameObject = null;
-        if (isVectorOnBoard(pos)) {
-            for (GameObject go : gameObjects) {
-                if (go.getPosition().equals(pos)) {
-                    gameObject = go;
-                }
-            }
-        }
-        return gameObject;
+    public Set<LifeForm> getLifeForms() {
+        return gameObjects.stream()
+                .filter(LifeForm.class::isInstance)
+                .map(LifeForm.class::cast)
+                .collect(Collectors.toSet());
     }
 
     /**
-     * Searches all neighbours of a game object with radius radius
-     * @param gameObject game object where the neighbours should be searched
-     * @param radius     radius to search from game object
-     * @return Set<GameObject> of neighbours
+     * Returns all {@link GameObject} of a position.
+     * @param pos Position on the field as {@link Vector2D}.
+     * @return Set<GameObject> of all the {@link GameObject} of a position.
+     */
+    public Set<GameObject> getAllGameObjects(Vector2D pos) {
+        Set<GameObject> found = new HashSet<>();
+
+        if (isNeighbourPositionOnBoard(pos)) {
+            gameObjects.stream()
+                    .filter(gameObject -> gameObject.getPosition().equals(pos))
+                    .forEach(found::add);
+        }
+
+        return found;
+    }
+
+    /**
+     * Searches and returns all neighbours of a {@link GameObject} with radius "radius".
+     * The Methods scans all the fields in the radius and adds whatever {@link GameObject} there is
+     * and adds it to the set of neighbours.
+     * @param gameObject {@link GameObject} where the neighbours should be searched.
+     * @param radius     radius to search from {@link GameObject}.
+     * @return Set<GameObject> of neighbours.
      */
     public Set<GameObject> getNeighbourObjects(GameObject gameObject, int radius) {
         Set<GameObject> neighbours = new HashSet<>();
         int diameter = 2 * radius;
-        if (gameObject == null) { return neighbours; }
+        if (gameObject == null || diameter <= 0) {
+            return neighbours;
+        }
 
-        Vector2D topLeftCorner = Vector2D.add(gameObject.position,
+        Vector2D topLeftCorner = Vector2D.add(gameObject.getPosition(),
                                               Vector2D.multiply(radius, Direction.UP_LEFT.getDirectionVector()));
 
         for (int i = 0; i <= diameter; i++) {
             for (int j = 0; j <= diameter; j++) {
                 Vector2D next = new Vector2D(topLeftCorner.getX() + j, topLeftCorner.getY() + i);
-                if (isVectorOnBoard(next)) {
-                    GameObject neighbour = getAnyGameObject(next);
-                    if (neighbour != null && !neighbour.equals(gameObject)) {
-                        neighbours.add(neighbour);
+                if (isNeighbourPositionOnBoard(next)) {
+                    Set<GameObject> found = getAllGameObjects(next);
+                    if (found.size() > 0) {
+                        found.remove(gameObject);
+                        neighbours.addAll(found);
                     }
                 }
             }
@@ -147,27 +167,21 @@ public class Board {
         return neighbours;
     }
 
-    private boolean isVectorOnBoard(Vector2D vector) {
+    private boolean isNeighbourPositionOnBoard(Vector2D vector) {
         return (Vector2D.isPositive(vector) && vector.getY() < columns && vector.getX() < rows);
     }
 
     /**
-     * Check if and instance of a specific animal object exists on the board.
-     * @param clazz {@link Class<? extends AnimalObject>} does an instance of this class exist?
-     * @return true if an instance of the provided class exists otherwise false
+     * Checks if a species still has members that are alive. It filters them by name.
+     * @param species name of the species as {@link String}.
+     * @return true if species is still alive, else false.
      */
-    public boolean containsNotInstanceOfAnimalObject(Class<? extends AnimalObject> clazz) {
-        if (clazz == null) {
-            return false;
-        }
-
-        Set<Class<? extends AnimalObject>> animalClassSet = gameObjects.stream()
+    public boolean isSpeciesAlive(String species) {
+        return gameObjects.stream()
                 .filter(AnimalObject.class::isInstance)
                 .map(AnimalObject.class::cast)
-                .map(AnimalObject::getClass)
-                .collect(Collectors.toSet());
-
-        return !animalClassSet.contains(clazz);
+                .map(AnimalObject::getName)
+                .anyMatch(species::equals);
     }
 
     /**
@@ -195,8 +209,8 @@ public class Board {
     }
 
     /**
-     * Returns a set of occupied positions
-     * @return set of position objects
+     * Returns a set of occupied positions.
+     * @return set of position objects.
      */
     public Set<Vector2D> getOccupiedPositions() {
         return occupiedPositions;

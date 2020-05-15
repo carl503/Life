@@ -1,7 +1,5 @@
 package ch.zhaw.pm2.life.model;
 
-import javafx.scene.paint.Color;
-
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -9,70 +7,45 @@ import java.util.Random;
 
 /**
  * This class is the superior object of every model that is part of the game.
- * It stores common attributes and behaviour of every other model.
- * @author pedernin
+ * It stores common attributes and behaviour of every other model that inherits from it.
  */
 public abstract class GameObject {
 
-    //private static final int MAX_SIZE = 10;
-
     private static final int BASIC_SIZE = 5;
-    private final Random random = new Random();
-
     /**
-     * The current energy of this game object.
+     * The current energy of this {@link GameObject}.
      */
-    protected int currentEnergy;
-
+    protected int energy;
     /**
-     * The current position of this game object.
+     * The current position of this {@link GameObject}.
      */
     protected Vector2D position;
-
-    /**
-     * The color of this game object.
-     */
-    protected Color objectColor;
-
-    /**
-     * The size used to scale this object in the visualization.
-     * Valid values: 3-10
-     */
-    protected int size;
-
+    private Random random = new Random();
+    private String name;
+    private String color;
     private int rows;
     private int columns;
 
     /**
-     * Default constructor.
-     */
-    public GameObject() {
-        //size = random.nextInt(MAX_SIZE - 2) + 3;
-        size = BASIC_SIZE;
-    }
-
-    /**
-     * Returns the energy of this {@link GameObject}.
-     * @return current energy as int.
-     */
-    public int getCurrentEnergy() {
-        return currentEnergy;
-    }
-
-    /**
-     * Increase the energy by a certain value.
+     * Increases the energy by a certain value.
      * @param energy increasing energy by this amount.
      */
     public void increaseEnergy(int energy) {
-        currentEnergy += energy;
+        if (energy < 0) {
+            throw new IllegalArgumentException("Energy cannot increase with a negative value.");
+        }
+        this.energy += energy;
     }
 
     /**
      * Decrease the energy by a certain value.
-     * @param consumedEnergy reducing energy by this amount.
+     * @param energy reducing energy by this amount.
      */
-    public void decreaseEnergy(int consumedEnergy) {
-        currentEnergy -= consumedEnergy;
+    public void decreaseEnergy(int energy) {
+        if (energy < 0) {
+            throw new IllegalArgumentException("Energy cannot decrease with a negative value.");
+        }
+        this.energy -= energy;
     }
 
     /**
@@ -99,10 +72,18 @@ public abstract class GameObject {
 
     /**
      * Returns the color of the {@link GameObject}.
-     * @return color as {@link Color}.
+     * @return color as {@link String}.
      */
-    public Color getColor() {
-        return objectColor;
+    public String getColor() {
+        return color;
+    }
+
+    /**
+     * Sets the color of this {@link GameObject}.
+     * @param color sets the color as {@link String};
+     */
+    public void setColor(String color) {
+        this.color = color;
     }
 
     /**
@@ -110,7 +91,7 @@ public abstract class GameObject {
      * @return size as int.
      */
     public int getSize() {
-        return size;
+        return BASIC_SIZE;
     }
 
     /**
@@ -133,7 +114,7 @@ public abstract class GameObject {
 
     /**
      * Sets the number of rows on the board.
-     * @param rows as int
+     * @param rows as int.
      */
     public void setRows(int rows) {
         this.rows = rows;
@@ -141,14 +122,62 @@ public abstract class GameObject {
 
     /**
      * Sets the number of columns on the board.
-     * @param columns as int
+     * @param columns as int.
      */
     public void setColumns(int columns) {
         this.columns = columns;
     }
 
     /**
-     * Enumeration of {@link Vector2D} pointing in any direction with length 1.
+     * Returns the random object.
+     * @return Random.
+     */
+    public Random getRandom() {
+        return random;
+    }
+
+    /**
+     * Sets the random object.
+     * @param random {@link Random}.
+     */
+    public void setRandom(Random random) {
+        this.random = random;
+    }
+
+    /**
+     * Returns the energy of this {@link GameObject}.
+     * @return current energy as int.
+     */
+    public int getEnergy() {
+        return energy;
+    }
+
+    /**
+     * Sets the energy of this {@link GameObject}.
+     * @param energy the energy as int.
+     */
+    public void setEnergy(int energy) {
+        this.energy = energy;
+    }
+
+    /**
+     * Returns the name of an object.
+     * @return the name as {@link String}.
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * Sets the name of a game object.
+     * @param name the name as {@link GameObject}.
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    /**
+     * Enumeration of {@link Vector2D} pointing in every direction with length 1.
      */
     public enum Direction {
         DOWN_LEFT(new Vector2D(-1, 1)),
@@ -167,6 +196,10 @@ public abstract class GameObject {
             directionVector = p;
         }
 
+        /**
+         * Returns the directionVector.
+         * @return directionVector as {@link Vector2D}
+         */
         public Vector2D getDirectionVector() {
             return directionVector;
         }
