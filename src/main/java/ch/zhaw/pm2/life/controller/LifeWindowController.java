@@ -104,6 +104,17 @@ public class LifeWindowController {
         ((Stage) root.getScene().getWindow()).setFullScreen(fullscreen);
     }
 
+    @FXML void toggleTextField() {
+        boolean status = messageField.isVisible();
+        if (status) {
+            messageField.setVisible(false);
+            messageField.setManaged(false);
+        } else {
+            messageField.setManaged(true);
+            messageField.setVisible(true);
+        }
+    }
+
     private EventHandler<KeyEvent> fullscreenEvent() {
         return event -> {
             if (event.getCode() == KeyCode.F11) {
