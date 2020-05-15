@@ -35,10 +35,10 @@ public class GameTest {
     private static final int NUM_OF_HERBIVORES = 1;
 
     private static final int NUMBER_OF_GAME_OBJECTS = NUM_OF_CARNIVORES + NUM_OF_HERBIVORES + NUM_OF_PLANTS;
-    public static final String PLANT = "plant";
-    public static final String CARNIVORE = "carnivore";
-    public static final String HERBIVORE = "herbivore";
-    public static final String ANIMAL = "animal";
+    private static final String PLANT = "plant";
+    private static final String CARNIVORE = "carnivore";
+    private static final String HERBIVORE = "herbivore";
+    private static final String ANIMAL = "animal";
 
     @Mock private Board board;
 
