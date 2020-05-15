@@ -204,9 +204,13 @@ public class Game {
 
                     try {
                         if (!(lifeForm.getGender().equals(animalObject.getGender())) && lifeForm.getClass().equals(animalObject.getClass())) {
-                            newLifeForms.add(animalObject.reproduce(lifeForm));
+                            AnimalObject child = animalObject.reproduce(lifeForm);
+                            child.setName(animalObject.getName());
+                            child.setColor(animalObject.getColor());
+                            child.setEnergy(gameProperties.getEnergyProperty(animalObject.getName()).getValue());
+                            newLifeForms.add(child);
                             stringBuilder.append(animalObject.getName()).append(": Wir haben uns soeben gepaart\n");
-                        } else {
+                        } else if(animalObject.isAlive() && lifeForm.isAlive()){
                             animalObject.eat(lifeForm);
                             deadLifeForms.add(lifeForm);
                             stringBuilder.append(animalObject.getName())

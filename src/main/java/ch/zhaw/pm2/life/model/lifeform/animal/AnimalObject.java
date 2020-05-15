@@ -20,11 +20,6 @@ import java.util.logging.Logger;
 public abstract class AnimalObject extends LifeForm {
 
     /**
-     * Default energy level of an {@link AnimalObject}.
-     */
-    public static final int INIT_ENERGY_ANIMALS = 10;
-
-    /**
      * Default reproduction minimum value of an {@link AnimalObject}.
      */
     private static final int REPRODUCTION_MINIMUM = 9;
@@ -42,7 +37,6 @@ public abstract class AnimalObject extends LifeForm {
      * Default constructor.
      */
     public AnimalObject() {
-        energy = INIT_ENERGY_ANIMALS;
         fertilityThreshold = 0;
     }
 

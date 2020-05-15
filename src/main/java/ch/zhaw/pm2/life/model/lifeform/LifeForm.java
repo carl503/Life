@@ -92,6 +92,14 @@ public abstract class LifeForm extends GameObject {
     }
 
     /**
+     * Indicates if this life form is alive or dead.
+     * @return true if the object is alive.
+     */
+    public boolean isAlive() {
+        return !isDead;
+    }
+
+    /**
      * Indicates if this life form is poisonous or not.
      * @return true if this life form is poisonous.
      */
