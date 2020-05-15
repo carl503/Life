@@ -86,22 +86,42 @@ public class StatisticView extends Stage {
                         .count();
     }
 
+    /**
+     * Sets the start count.
+     * @param startCount {@link Collection<LifeForm>}
+     */
     public void setStartLifeForms(Collection<LifeForm> startCount) {
         this.startCount = Collections.unmodifiableCollection(startCount);
     }
 
+    /**
+     * Sets the Lifeforms that survived.
+     * @param survivorCount {@link Collection<LifeForm>}
+     */
     public void setSurvivedLifeForms(Collection<LifeForm> survivorCount) {
         this.survivorCount = Collections.unmodifiableCollection(survivorCount);
     }
 
+    /**
+     * Sets the Lifeforms that died.
+     * @param deathCount {@link Collection<LifeForm>}
+     */
     public void setDiedLifeForms(Collection<LifeForm> deathCount) {
         this.deathCount = Collections.unmodifiableCollection(deathCount);
     }
 
+    /**
+     * Sets the Lifeforms that were born.
+     * @param birthCount {@link Collection<LifeForm>}
+     */
     public void setBornLifeForms(Collection<LifeForm> birthCount) {
         this.birthCount = Collections.unmodifiableCollection(birthCount);
     }
 
+    /**
+     * Sets the Lifeforms that spawned.
+     * @param spawnCount {@link Collection<LifeForm>}
+     */
     public void setSpawnLifeForms(Collection<LifeForm> spawnCount) {
         this.spawnCount = spawnCount;
     }
