@@ -44,6 +44,7 @@ public class Game {
     private final Board board;
     private final GameProperties gameProperties;
     private boolean ongoing = true;
+    private String speciesToWatch;
 
     /**
      * Default constructor.
@@ -122,7 +123,7 @@ public class Game {
      */
     public String nextMove() {
         StringBuilder messageLog = new StringBuilder();
-        if (ongoing && board.areAllSpeciesAlive()) {
+        if (ongoing && board.isSpeciesAlive(speciesToWatch)) {
             try {
                 spawnPlantRandomlyOnMap();
             } catch (LifeFormException e) {
@@ -135,6 +136,14 @@ public class Game {
             messageLog.append(stop());
         }
         return messageLog.toString();
+    }
+
+    /**
+     * Sets the stop condition for an animal species
+     * @param species name of the species
+     */
+    public void setSpeciesToWatch(String species) {
+        speciesToWatch = species;
     }
 
     private String move(Map<Vector2D, Set<GameObject>> positionMap) {
