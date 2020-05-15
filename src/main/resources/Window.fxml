@@ -3,9 +3,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane fx:id="root" minHeight="1000.0" minWidth="800.0" prefHeight="1000.0" prefWidth="800.0"  xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.zhaw.pm2.life.controller.LifeWindowController">
+<BorderPane fx:id="root" minHeight="1000.0" minWidth="800.0" prefHeight="1000.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="ch.zhaw.pm2.life.controller.LifeWindowController">
    <top>
-      <MenuBar prefHeight="25.0" prefWidth="800.0" minWidth="800.0" BorderPane.alignment="CENTER">
+      <MenuBar minWidth="800.0" prefHeight="25.0" prefWidth="800.0" BorderPane.alignment="CENTER">
         <menus>
           <Menu mnemonicParsing="false" text="Datei">
             <items>
@@ -23,16 +23,16 @@
             </Menu>
           <Menu mnemonicParsing="false" text="Hilfe">
             <items>
-              <MenuItem mnemonicParsing="false" text="About" />
+              <MenuItem mnemonicParsing="false" onAction="#showManual" text="Anleitung (F1)" />
             </items>
           </Menu>
         </menus>
       </MenuBar>
    </top>
    <bottom>
-      <VBox BorderPane.alignment="CENTER" minHeight="180.0" prefHeight="180">
+      <VBox minHeight="180.0" prefHeight="180" BorderPane.alignment="CENTER">
          <children>
-            <TextArea fx:id="messageField" editable="false" minHeight="140.0" maxHeight="140.0" prefWidth="400.0" />
+            <TextArea fx:id="messageField" editable="false" maxHeight="140.0" minHeight="140.0" prefWidth="400.0" />
             <ButtonBar buttonOrder="U+L_HE+FBIX_NCYOA_R" maxHeight="40.0" prefHeight="40.0" prefWidth="200.0">
               <buttons>
                 <Button fx:id="nextRoundButton" mnemonicParsing="false" onAction="#nextRound" text="Nächste Runde" />

@@ -102,7 +102,8 @@ public class LifeWindowController {
         ((Stage) root.getScene().getWindow()).setFullScreen(fullscreen);
     }
 
-    @FXML void toggleTextField() {
+    @FXML
+    public void toggleTextField() {
         boolean status = messageField.isVisible();
         if (status) {
             messageField.setVisible(false);
@@ -111,6 +112,16 @@ public class LifeWindowController {
             messageField.setManaged(true);
             messageField.setVisible(true);
         }
+    }
+
+    @FXML
+    public void showManual() {
+        Alert dialog = new Alert(Alert.AlertType.INFORMATION);
+        dialog.setTitle("Hilfe");
+        dialog.setHeaderText("Die Anleitung zur Simulation finden Sie unter");
+        dialog.getDialogPane().setContent(
+                new Hyperlink("https://github.zhaw.ch/PM2-IT19bWIN-benf-runm/gruppe01-ncpl-projekt2-life/wiki"));
+        dialog.showAndWait();
     }
 
     private EventHandler<KeyEvent> fullscreenEvent() {
