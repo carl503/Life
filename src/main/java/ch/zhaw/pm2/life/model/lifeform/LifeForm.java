@@ -20,7 +20,11 @@ public abstract class LifeForm extends GameObject {
      */
     protected boolean isPoisoned;
 
-    private final boolean isPoisonous;
+    /**
+     * Flag if this life form is poisonous.
+     */
+    protected boolean isPoisonous;
+
     private final boolean isMale;
     private boolean isDead;
 

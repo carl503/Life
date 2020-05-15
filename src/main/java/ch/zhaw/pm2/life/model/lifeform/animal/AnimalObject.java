@@ -25,7 +25,11 @@ public abstract class AnimalObject extends LifeForm {
 
     private static final Logger logger = Logger.getLogger(AnimalObject.class.getCanonicalName());
 
-    private int fertilityThreshold;
+    /**
+     * Indicates the current fertility value for reproduction. Needs a specific value to be able to reproduce.
+     */
+    protected int fertilityThreshold;
+    
     private int scanRadius = 1;
 
     /**
