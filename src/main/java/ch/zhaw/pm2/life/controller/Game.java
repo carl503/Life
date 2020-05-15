@@ -226,6 +226,7 @@ public class Game {
 
                 Plant plant = originalPlant.getClass().getConstructor().newInstance();
                 plant.setName(originalPlant.getName());
+                plant.setColor(originalPlant.getColor());
                 plant.setEnergy(gameProperties.getEnergyProperty(originalPlant.getName()).getValue());
 
                 board.addGameObject(plant, calculatePosition());
