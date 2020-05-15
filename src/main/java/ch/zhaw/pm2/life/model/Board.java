@@ -117,20 +117,20 @@ public class Board {
     }
 
     /**
-     * Returns any game object of a position
+     * Returns all game objects of a position
      * @param pos Position on the field
-     * @return game object if found otherwise null
+     * @return Set<GameObject>
      */
-    public GameObject getAnyGameObject(Vector2D pos) {
-        GameObject gameObject = null;
+    public Set<GameObject> getAllGameObjects(Vector2D pos) {
+        Set<GameObject> found = new HashSet<>();
+
         if (isVectorOnBoard(pos)) {
-            for (GameObject go : gameObjects) {
-                if (go.getPosition().equals(pos)) {
-                    gameObject = go;
-                }
-            }
+            gameObjects.stream()
+                    .filter(gameObject -> gameObject.getPosition().equals(pos))
+                    .forEach(found::add);
         }
-        return gameObject;
+
+        return found;
     }
 
     /**
@@ -151,11 +151,11 @@ public class Board {
             for (int j = 0; j <= diameter; j++) {
                 Vector2D next = new Vector2D(topLeftCorner.getX() + j, topLeftCorner.getY() + i);
                 if (isVectorOnBoard(next)) {
-                    GameObject neighbour = getAnyGameObject(next);
-                    if (neighbour == null || neighbour.equals(gameObject)) {
-                        continue;
+                    Set<GameObject> found = getAllGameObjects(next);
+                    if (found.size() > 0) {
+                        found.remove(gameObject);
+                        neighbours.addAll(found);
                     }
-                    neighbours.add(neighbour);
                 }
             }
         }
