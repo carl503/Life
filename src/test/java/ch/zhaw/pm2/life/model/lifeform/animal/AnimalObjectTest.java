@@ -6,7 +6,8 @@ import ch.zhaw.pm2.life.model.Vector2D;
 import ch.zhaw.pm2.life.model.lifeform.LifeForm;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+import org.mockito.Spy;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -17,14 +18,16 @@ import static org.mockito.Mockito.*;
 public class AnimalObjectTest {
     private static final int MOVE_ENERGY_CONSUMPTION = 1;
     private static final int POISONED_ENERGY_CONSUMPTION = 2;
-    private AnimalObject animalObject;
+    private static final int ACTUAL_REPRODUCTION_MINIMUM = 9;
     private Set<GameObject> dummyGameObjectsSet;
+
+    @Spy private AnimalObject animalObject;
 
     @BeforeEach
     public void setUp() {
-        animalObject = mock(AnimalObject.class, Mockito.CALLS_REAL_METHODS);
-        animalObject.setPosition(new Vector2D(1, 1));
+        MockitoAnnotations.initMocks(this);
 
+        animalObject.setPosition(new Vector2D(1, 1));
         dummyGameObjectsSet = new HashSet<>();
     }
 
@@ -44,7 +47,7 @@ public class AnimalObjectTest {
 
     @Test
     public void moveTestWithNeighbourObj() {
-        doReturn(new Vector2D(2, 2)).when(animalObject).getNearestNeighbour(dummyGameObjectsSet);
+        doReturn(new Vector2D(2, 2)).when(animalObject).getNearestNeighbour(anySet());
         GameObject neighbour = mock(GameObject.class, CALLS_REAL_METHODS);
 
         dummyGameObjectsSet.add(neighbour);
@@ -148,21 +151,22 @@ public class AnimalObjectTest {
     public void reproduceTestMaleWithFemalePartner() {
         LifeForm partner = mock(LifeForm.class);
         doReturn(new Vector2D(0, 0)).when(animalObject).chooseRandomNeighbourPosition();
-        animalObject.fertilityThreshold = 9;
+        animalObject.fertilityThreshold = ACTUAL_REPRODUCTION_MINIMUM;
         when(partner.getGender()).thenReturn("F");
 
-        assertThrows(LifeFormException.class, () -> animalObject.reproduce(partner));
+        Exception exception = assertThrows(LifeFormException.class, () -> animalObject.reproduce(partner));
+        assertEquals("Cannot give birth because im male", exception.getMessage());
     }
 
     @Test
     public void reproduceTestFemaleWithMalePartner() {
         LifeForm partner = mock(LifeForm.class);
         doReturn(new Vector2D(0, 0)).when(animalObject).chooseRandomNeighbourPosition();
-        animalObject.fertilityThreshold = 9;
+        animalObject.fertilityThreshold = ACTUAL_REPRODUCTION_MINIMUM;
         when(partner.getGender()).thenReturn("M");
 
         assertDoesNotThrow(() -> assertEquals(animalObject.getClass(), animalObject.reproduce(partner).getClass()));
-        assertEquals(0, animalObject.getFertilityThreshold());
+        assertEquals(0, animalObject.fertilityThreshold);
     }
 
     @Test
@@ -172,7 +176,8 @@ public class AnimalObjectTest {
         animalObject.fertilityThreshold = 0;
         when(partner.getGender()).thenReturn("M");
 
-        assertThrows(LifeFormException.class, () -> animalObject.reproduce(partner));
+        Exception exception = assertThrows(LifeFormException.class, () -> animalObject.reproduce(partner));
+        assertEquals("Cannot reproduce because partner is not fertile yet", exception.getMessage());
     }
 
     //==================================================================================================================
@@ -186,21 +191,24 @@ public class AnimalObjectTest {
 
     @Test
     public void eatTestLifeFormNull() {
-        assertThrows(NullPointerException.class, () -> animalObject.eat(null));
+        Exception exception = assertThrows(NullPointerException.class, () -> animalObject.eat(null));
+        assertEquals("Cannot eat null.", exception.getMessage());
     }
 
     @Test
     public void eatTestRulesLifeFormActionCheckFail() {
         LifeForm lifeForm = mock(LifeForm.class);
-        when(animalObject.getEatRules(lifeForm)).thenReturn(() -> {throw new LifeFormException("");});
+        when(animalObject.getEatRules(lifeForm)).thenReturn(() -> {throw new LifeFormException("Exception");});
 
-        assertThrows(LifeFormException.class ,() -> animalObject.eat(lifeForm));
+        Exception exception = assertThrows(LifeFormException.class ,() -> animalObject.eat(lifeForm));
+        assertEquals("Exception", exception.getMessage());
         verify(animalObject, never()).increaseEnergy(lifeForm.getEnergy());
         verify(lifeForm, never()).die();
     }
 
     @Test
     public void reproduceTestLifeFormNull() {
-        assertThrows(NullPointerException.class, () -> animalObject.reproduce(null));
+        Exception exception = assertThrows(NullPointerException.class, () -> animalObject.reproduce(null));
+        assertEquals("Cannot be null.", exception.getMessage());
     }
 }
