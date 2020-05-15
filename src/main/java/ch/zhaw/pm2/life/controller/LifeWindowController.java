@@ -6,6 +6,7 @@ import ch.zhaw.pm2.life.controller.dialogs.ColorPickerDialog;
 import ch.zhaw.pm2.life.controller.dialogs.ScanRadiusDialog;
 import ch.zhaw.pm2.life.model.Board;
 import ch.zhaw.pm2.life.model.GameObject;
+import ch.zhaw.pm2.life.model.GameProperties;
 import ch.zhaw.pm2.life.model.lifeform.animal.AnimalObject;
 import ch.zhaw.pm2.life.view.BoardView;
 import ch.zhaw.pm2.life.view.StatisticView;
@@ -30,6 +31,7 @@ public class LifeWindowController {
     private BoardView boardView;
     private Game game;
     private SetupController setupController;
+    private GameProperties gameProperties;
     private Board boardObject;
     @FXML private Pane board;
     @FXML private TextArea messageField;
@@ -130,6 +132,7 @@ public class LifeWindowController {
     public void initGame() {
         if (boardObject == null) {
             return;
+                gameProperties = new GameProperties(setupController.getGameObjects());
         }
         try {
             game = new Game(boardObject, setupController.getGameObjects());

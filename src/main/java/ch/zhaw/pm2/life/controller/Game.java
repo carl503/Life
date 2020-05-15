@@ -3,6 +3,7 @@ package ch.zhaw.pm2.life.controller;
 import ch.zhaw.pm2.life.exception.LifeFormException;
 import ch.zhaw.pm2.life.model.Board;
 import ch.zhaw.pm2.life.model.GameObject;
+import ch.zhaw.pm2.life.model.GameProperties;
 import ch.zhaw.pm2.life.model.Vector2D;
 import ch.zhaw.pm2.life.model.lifeform.LifeForm;
 import ch.zhaw.pm2.life.model.lifeform.animal.AnimalObject;
@@ -10,8 +11,10 @@ import ch.zhaw.pm2.life.model.lifeform.animal.Carnivore;
 import ch.zhaw.pm2.life.model.lifeform.animal.Herbivore;
 import ch.zhaw.pm2.life.model.lifeform.plant.Plant;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
@@ -32,12 +35,14 @@ public class Game {
 
     private static final Logger logger = Logger.getLogger(Game.class.getName());
 
+    private final List<Plant> startPlants = new ArrayList<>();
     private final Set<LifeForm> startLifeForms = new HashSet<>();
     private final Set<LifeForm> bornLifeForms = new HashSet<>();
     private final Set<LifeForm> deadLifeForms = new HashSet<>();
     private final Set<LifeForm> spawnedLifeForms = new HashSet<>();
     private final Random random = new Random();
     private final Board board;
+    private final GameProperties gameProperties;
     private boolean ongoing = true;
 
     /**
@@ -47,9 +52,10 @@ public class Game {
      * @throws IllegalArgumentException when the plant, herbivore or carnivore count is negative or
      *                                  the sum of all counts is higher than the number of fields on the board
      */
-    public Game(Board board, Map<GameObject, Integer> gameObjects) {
+    public Game(Board board, GameProperties gameProperties) {
         this.board = Objects.requireNonNull(board, "Board cannot be null to create the game.");
-        addLifeForms(gameObjects);
+        this.gameProperties = Objects.requireNonNull(gameProperties, "The game properties cannot be null.");
+        addLifeForms();
     }
 
     private void validateNumOfGameObjects(int num, String type) {
@@ -60,8 +66,8 @@ public class Game {
         }
     }
 
-    private void addLifeForms(Map<GameObject, Integer> gameObjects) {
-        gameObjects.forEach((gameObject, amount) -> {
+    private void addLifeForms() {
+        gameProperties.getInitGameObjects().forEach((gameObject, amount) -> {
             validateNumOfGameObjects(amount, gameObject.getName());
             for (int i = 0; i < amount; i++) {
                 try {
@@ -72,6 +78,9 @@ public class Game {
                     board.addGameObject(go, calculatePosition());
                     if(go instanceof LifeForm) {
                         startLifeForms.add((LifeForm) go);
+                    }
+                    if(go instanceof Plant) {
+                        startPlants.add((Plant) go);
                     }
                 } catch (Exception e) {
                     logger.log(Level.SEVERE, "Error while initializing the life form classes", e);
@@ -114,7 +123,11 @@ public class Game {
     public String nextMove() {
         StringBuilder messageLog = new StringBuilder();
         if (ongoing && board.areAllSpeciesAlive()) {
-            spawnPlantRandomlyOnMap();
+            try {
+                spawnPlantRandomlyOnMap();
+            } catch (LifeFormException e) {
+                messageLog.append(e.getMessage()).append("\n");
+            }
             Map<Vector2D, Set<GameObject>> positionMap = new HashMap<>();
             messageLog.append(move(positionMap));
             messageLog.append(interact(positionMap));
@@ -204,12 +217,22 @@ public class Game {
         return stringBuilder.toString();
     }
 
-    private void spawnPlantRandomlyOnMap() {
-        int spawnChance = random.nextInt(11);
-        if (spawnChance < PLANT_RESPAWN_CHANCE) {
-            Plant plant = new Plant();
-            board.addGameObject(plant, calculatePosition());
-            spawnedLifeForms.add(plant);
+    private void spawnPlantRandomlyOnMap() throws LifeFormException {
+        try {
+            int spawnChance = random.nextInt(11);
+            if (spawnChance < PLANT_RESPAWN_CHANCE) {
+                int randomPlantIndex = random.nextInt(startPlants.size());
+                Plant originalPlant = startPlants.get(randomPlantIndex);
+
+                Plant plant = originalPlant.getClass().getConstructor().newInstance();
+                plant.setName(originalPlant.getName());
+                plant.setEnergy(gameProperties.getEnergyProperty(originalPlant.getName()).getValue());
+
+                board.addGameObject(plant, calculatePosition());
+                spawnedLifeForms.add(plant);
+            }
+        } catch (ReflectiveOperationException e) {
+            throw new LifeFormException("Could not spawn new plant.");
         }
     }
 
