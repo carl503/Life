@@ -2,10 +2,12 @@ package ch.zhaw.pm2.life.controller;
 
 import ch.zhaw.pm2.life.exception.LifeException;
 import ch.zhaw.pm2.life.model.GameObject;
+import ch.zhaw.pm2.life.model.lifeform.animal.AnimalObject;
 import ch.zhaw.pm2.life.parser.ConfigParser;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Spinner;
 import javafx.scene.control.SpinnerValueFactory;
@@ -33,6 +35,7 @@ public class SetupController {
     @FXML private GridPane pane;
 
     private HashMap<GameObject, Spinner<Integer>> gameObjectMap = new HashMap<>();
+    private final ComboBox<String> comboBox = new ComboBox<>();
 
     @FXML
     public void initialize() {
@@ -51,10 +54,14 @@ public class SetupController {
                 pane.add(amount, 1, index);
                 index++;
                 pane.addRow(index);
+                if (gameObject instanceof AnimalObject) {
+                    comboBox.getItems().add(gameObject.getName());
+                }
             }
+            pane.add(new Label("Stoppen sobald nur noch"), 0, index);
+            pane.add(comboBox, 1, index);
             pane.setVgap(10);
             pane.setHgap(100);
-
 
         } catch (LifeException e) {
             logger.log(Level.SEVERE, "An error occured while parsing the config", e);
@@ -91,5 +98,9 @@ public class SetupController {
         Map<GameObject, Integer> gameObjects = new HashMap<>();
         gameObjectMap.forEach((gameObject, integerSpinner) -> gameObjects.put(gameObject, integerSpinner.getValue()));
         return gameObjects;
+    }
+
+    public String getStopCondition() {
+        return comboBox.getValue();
     }
 }
