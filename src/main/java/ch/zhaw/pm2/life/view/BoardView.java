@@ -12,8 +12,9 @@ import javafx.scene.paint.Color;
 import java.util.Objects;
 
 /**
- * This class displays the board.
- * @author lubojcar, meletlea
+ * This class displays the board and all the {@link GameObject} that are alive including their attributes.
+ * The board has an overlay of lines that are drawn to improve the understanding of the coordinate system
+ * and the movements done by the {@link AnimalObject}
  */
 public class BoardView extends Canvas {
 
@@ -23,6 +24,7 @@ public class BoardView extends Canvas {
     private static final double POISON_SCALE_Y = 0.6;
     private static final double ENERGY_SCALE_X = 0.55;
     private static final double ENERGY_SCALE_Y = 0.25;
+    private static final int FERTILITY_Y_POSITION = 35;
 
     private final Board board;
     private double width;
@@ -37,6 +39,11 @@ public class BoardView extends Canvas {
         this.board = Objects.requireNonNull(board, "Board cannot be null to display it.");
     }
 
+    /**
+     * Updates the dimension if the newHeight and newWidth values of updateSize() are valid.
+     * @param width as double for the width of the dimension
+     * @param height as double for the height of the dimension
+     */
     public void updateDimension(double width, double height) {
         this.width = width;
         this.height = height;
@@ -47,7 +54,8 @@ public class BoardView extends Canvas {
     }
 
     /**
-     * Draw the board on the canvas.
+     * Draws all {@link GameObject} including all its attributes and the grid lines
+     * representing the coordinate system on the {@link Board}.
      */
     public void draw() {
         getGraphicsContext2D().clearRect(0, 0, getWidth(), getHeight());
@@ -108,8 +116,7 @@ public class BoardView extends Canvas {
         if (gameObject instanceof AnimalObject) {
             getGraphicsContext2D().setStroke(Color.BLACK);
             AnimalObject animalObject = (AnimalObject) gameObject;
-            getGraphicsContext2D().strokeText(String.valueOf(animalObject.getFertilityThreshold()), translatedX + 35, translatedY);
-            //todo optimize position and remove magic number 35
+            getGraphicsContext2D().strokeText(String.valueOf(animalObject.getFertilityThreshold()), translatedX, translatedY + FERTILITY_Y_POSITION);
         }
     }
 

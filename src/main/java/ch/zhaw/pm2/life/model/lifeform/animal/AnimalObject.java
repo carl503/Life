@@ -14,6 +14,8 @@ import java.util.logging.Logger;
 
 /**
  * Abstract class of an animal.
+ * Contains all the methods and values that {@link Carnivore} and {@link Herbivore} share.
+ * Contains the default constants for reproduction, energy, fertilityThreshold and scanRadius.
  */
 public abstract class AnimalObject extends LifeForm {
 
@@ -22,16 +24,19 @@ public abstract class AnimalObject extends LifeForm {
      */
     public static final int INIT_ENERGY_ANIMALS = 10;
 
+    /**
+     * Default reproduction minimum value of an {@link AnimalObject}.
+     */
     private static final int REPRODUCTION_MINIMUM = 9;
 
     private static final Logger logger = Logger.getLogger(AnimalObject.class.getCanonicalName());
+
+    private int scanRadius = 1;
 
     /**
      * Indicates the current fertility value for reproduction. Needs a specific value to be able to reproduce.
      */
     protected int fertilityThreshold;
-
-    private int scanRadius = 1;
 
     /**
      * Default constructor.
@@ -42,7 +47,10 @@ public abstract class AnimalObject extends LifeForm {
     }
 
     /**
-     * Is called when the animal moves.
+     * Is called when an {@link AnimalObject} moves.
+     * The {@link AnimalObject} doesn't lose energy when it stays on the same position.
+     * The {@link AnimalObject} loses more energy per move if it's poisoned.
+     * @param neighbourObjs Set used to determine by the {@link AnimalObject} where to move.
      */
     public void move(Set<GameObject> neighbourObjs) {
         logger.log(Level.FINER, "Move {0}", getClass().getSimpleName());
@@ -115,7 +123,7 @@ public abstract class AnimalObject extends LifeForm {
     protected abstract Vector2D getNearestNeighbour(Set<GameObject> gameObjects);
 
     /**
-     * Is called when the animal eats meat.
+     * Is called when the {@link AnimalObject} eats another {@link LifeForm}.
      * @param lifeForm {@link LifeForm}
      * @throws LifeFormException    when could not eat the provided life form.
      * @throws NullPointerException When the provided life form wanted to eat is null.
@@ -139,7 +147,7 @@ public abstract class AnimalObject extends LifeForm {
     }
 
     /**
-     * Returns the rules to be checked on before an animal can eat.
+     * Returns the rules to be checked on before an {@link AnimalObject} can eat.
      * @param lifeForm the {@link LifeForm} this animal wants to eat.
      * @return rules to check before eating the {@link LifeForm}.
      */
@@ -174,17 +182,25 @@ public abstract class AnimalObject extends LifeForm {
     }
 
     /**
-     * Used to determine weather this life form can reproduce or not.
+     * Used to determine whether this {@link LifeForm} can reproduce or not.
      * @return reproduction counter as int.
      */
     public int getFertilityThreshold() {
         return fertilityThreshold;
     }
 
+    /**
+     * Returns he Scan Radius.
+     * @return scanRadius as int.
+     */
     public int getScanRadius() {
         return scanRadius;
     }
 
+    /**
+     * Sets the Scan Radius.
+     * @param scanRadius Scan Radius that is set.
+     */
     public void setScanRadius(int scanRadius) {
         this.scanRadius = scanRadius;
     }

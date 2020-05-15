@@ -1,5 +1,6 @@
 package ch.zhaw.pm2.life.view;
 
+import ch.zhaw.pm2.life.model.GameObject;
 import ch.zhaw.pm2.life.model.lifeform.LifeForm;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -16,6 +17,17 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
+/**
+ * This class displays the statistics of all the {@link GameObject} at the end of the simulation.
+ * It displays for each {@link GameObject} the amount of
+ *  <ul>
+ *   <li>at start</li>
+ *   <li>births</li>
+ *   <li>spawned</li>
+ *   <li>deaths</li>
+ *   <li>survivors</li>
+ *  </ul>
+ */
 public class StatisticView extends Stage {
 
     private static final int MIN_WIDTH = 800;

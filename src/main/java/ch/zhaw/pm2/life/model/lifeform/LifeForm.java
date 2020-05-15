@@ -7,13 +7,16 @@ import java.util.logging.Logger;
 
 /**
  * All living forms have to inherit this class.
- * @author meletlea
  */
 public abstract class LifeForm extends GameObject {
 
     private static final int POISONOUS_PROBABILITY = 3;
     private static final double POISON_ENERGY_CONSUMPTION_START_FACTOR = 0.3;
     private static final Logger logger = Logger.getLogger(LifeForm.class.getCanonicalName());
+
+    private final boolean isMale;
+    private boolean isDead;
+    private int nextPoisonedEnergyConsumption;
 
     /**
      * Flag if this life form is poisoned.
@@ -24,11 +27,6 @@ public abstract class LifeForm extends GameObject {
      * Flag if this life form is poisonous.
      */
     protected boolean isPoisonous;
-
-    private final boolean isMale;
-    private boolean isDead;
-
-    private int nextPoisonedEnergyConsumption;
 
     /**
      * Default constructor.
@@ -41,7 +39,7 @@ public abstract class LifeForm extends GameObject {
     }
 
     /**
-     * Kills the life form by setting.
+     * Kills the life form by setting the isDead boolean to true;
      */
     public void die() {
         logger.log(Level.FINE, "{0} died", getName());
@@ -49,7 +47,7 @@ public abstract class LifeForm extends GameObject {
     }
 
     /**
-     * Poison this life form.
+     * {@link LifeForm} that calls this methods becomes poisoned, thus losing more energy per move
      */
     public void becomePoisoned() {
         logger.log(Level.FINE, "{0} got poisoned", getName());

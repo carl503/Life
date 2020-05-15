@@ -13,8 +13,7 @@ import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 /**
- * Main class.
- * @author lubojcar
+ * This class is the main class of the application.
  */
 public class App extends Application {
 

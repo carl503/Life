@@ -13,18 +13,17 @@ import static ch.zhaw.pm2.life.model.GameObject.*;
 import static java.util.function.Predicate.*;
 
 /**
- * This model class represents the board containing all the game objects.
- * @author lubojcar, meletlea
+ * This model class represents the board containing all the {@link GameObject}.
  */
 public class Board {
 
     /**
-     * Minimal number of rows.
+     * Minimum number of rows.
      */
     public static final int MIN_ROWS = 3;
 
     /**
-     * Minimal number of columns.
+     * Minimum number of columns.
      */
     public static final int MIN_COLUMNS = 3;
 
@@ -53,7 +52,8 @@ public class Board {
     }
 
     /**
-     * Adds a game object to the set.
+     * Adds a {@link GameObject} to the set of GameObjects on the board and it's position to the set of
+     * occupiedPositions which is later used to handle collisions and interactions.
      * @param gameObject {@link GameObject}
      * @param position {@link Vector2D}
      * @throws NullPointerException when the {@link GameObject} is null.
@@ -78,7 +78,7 @@ public class Board {
     }
 
     /**
-     * Returns a random position on the board.
+     * Returns a random but valid position on the board as {@link Vector2D}
      * @return a position as {@link Vector2D}
      */
     public Vector2D getRandomPosition() {
@@ -88,7 +88,7 @@ public class Board {
     }
 
     /**
-     * Remove all dead life forms from the board.
+     * Remove all dead {@link LifeForm} from the board.
      */
     public void cleanBoard() {
         Set<LifeForm> deadLifeForms = getLifeForms().stream()
@@ -109,6 +109,10 @@ public class Board {
                 .collect(Collectors.toSet());
     }
 
+    /**
+     * Returns the {@link LifeForm} on the board.
+     * @return Set<LifeForm> on the board
+     */
     public Set<LifeForm> getLifeForms() {
         return gameObjects.stream()
                 .filter(LifeForm.class::isInstance)
@@ -117,9 +121,9 @@ public class Board {
     }
 
     /**
-     * Returns all game objects of a position
+     * Returns all {@link GameObject} of a position
      * @param pos Position on the field
-     * @return Set<GameObject>
+     * @return Set<GameObject> of all the {@link GameObject} of a position.
      */
     public Set<GameObject> getAllGameObjects(Vector2D pos) {
         Set<GameObject> found = new HashSet<>();
@@ -134,9 +138,11 @@ public class Board {
     }
 
     /**
-     * Searches all neighbours of a game object with radius radius
-     * @param gameObject game object where the neighbours should be searched
-     * @param radius     radius to search from game object
+     * Searches and returns all neighbours of a {@link GameObject} with radius "radius".
+     * The Methods scans all the fields in the radius and adds whatever {@link GameObject} there is
+     * and adds it to the set of neighbours.
+     * @param gameObject {@link GameObject} where the neighbours should be searched
+     * @param radius     radius to search from {@link GameObject}
      * @return Set<GameObject> of neighbours
      */
     public Set<GameObject> getNeighbourObjects(GameObject gameObject, int radius) {
@@ -170,9 +176,9 @@ public class Board {
     }
 
     /**
-     * Checks if a species is alive
+     * Checks if a species still has members that are alive. It filters them by name.
      * @param species name of the species
-     * @return true if species is alive otherwise false
+     * @return true if species is still alive, else false
      */
     public boolean isSpeciesAlive(String species) {
         return gameObjects.stream()

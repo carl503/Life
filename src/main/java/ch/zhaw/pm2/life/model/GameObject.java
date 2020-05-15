@@ -7,28 +7,26 @@ import java.util.Random;
 
 /**
  * This class is the superior object of every model that is part of the game.
- * It stores common attributes and behaviour of every other model.
- * @author pedernin
+ * It stores common attributes and behaviour of every other model that inherits from it.
  */
 public abstract class GameObject {
-
-    //private static final int MAX_SIZE = 10;
 
     private static final int BASIC_SIZE = 5;
     private Random random;
     private String name;
+    private String color;
+    private int rows;
+    private int columns;
 
     /**
-     * The current energy of this game object.
+     * The current energy of this {@link GameObject}.
      */
     protected int energy;
 
     /**
-     * The current position of this game object.
+     * The current position of this {@link GameObject}.
      */
     protected Vector2D position;
-
-    private String color;
 
     /**
      * The size used to scale this object in the visualization.
@@ -36,19 +34,17 @@ public abstract class GameObject {
      */
     protected int size;
 
-    private int rows;
-    private int columns;
-
     /**
      * Default constructor.
      */
+
     public GameObject() {
-        //size = random.nextInt(MAX_SIZE - 2) + 3;
         size = BASIC_SIZE;
         random = new Random();
     }
+
     /**
-     * Increase the energy by a certain value.
+     * Increases the energy by a certain value.
      * @param energy increasing energy by this amount.
      */
     public void increaseEnergy(int energy) {
@@ -183,7 +179,7 @@ public abstract class GameObject {
 
     /**
      * Returns the name of an object
-     * @return String
+     * @return the name as {@link String}
      */
     public String getName() {
         return name;
@@ -191,14 +187,14 @@ public abstract class GameObject {
 
     /**
      * Sets the name of a game object
-     * @param name name
+     * @param name the name as {@link GameObject}
      */
     public void setName(String name) {
         this.name = name;
     }
 
     /**
-     * Enumeration of {@link Vector2D} pointing in any direction with length 1.
+     * Enumeration of {@link Vector2D} pointing in every direction with length 1.
      */
     public enum Direction {
         DOWN_LEFT(new Vector2D(-1, 1)),
@@ -217,6 +213,10 @@ public abstract class GameObject {
             directionVector = p;
         }
 
+        /**
+         * Returns the directionVector
+         * @return directionVector as {@link Vector2D}
+         */
         public Vector2D getDirectionVector() {
             return directionVector;
         }

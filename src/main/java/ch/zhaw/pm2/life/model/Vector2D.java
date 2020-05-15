@@ -3,8 +3,8 @@ package ch.zhaw.pm2.life.model;
 import java.util.Objects;
 
 /**
- * Vector in a two dimensional room.
- * @author pedernin
+ * This class represents and handles the logic and calculations of regarding the position
+ * of {@link GameObject} on the board. Positions are handles as Vectors in a 2-dimensional plane.
  */
 public class Vector2D {
 

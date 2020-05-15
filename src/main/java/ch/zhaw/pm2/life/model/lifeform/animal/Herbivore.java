@@ -10,8 +10,8 @@ import ch.zhaw.pm2.life.model.lifeform.plant.Plant;
 import java.util.Set;
 
 /**
- * First Version of a {@link Herbivore} animal.
- * @author pedernin
+ * Carnivore extends {@link AnimalObject} and adds logic, necessary to eat and the determination
+ * of the nearest neighbour of the {@link Herbivore}.
  */
 public class Herbivore extends AnimalObject {
 
