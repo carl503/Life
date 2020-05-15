@@ -225,18 +225,21 @@ public class LifeWindowController {
     }
 
     private MenuItem changeColor(GameObject gameObject) {
-        MenuItem changeColor = new MenuItem();
-        changeColor.setText("Farbe aendern");
-        changeColor.setOnAction(event -> {
+        MenuItem colorItem = new MenuItem();
+        colorItem.setText("Farbe aendern");
+        colorItem.setOnAction(event -> {
             ColorPickerDialog dialog = new ColorPickerDialog();
             Optional<String> response = dialog.showAndWait();
-            response.ifPresent(responseValue -> boardObject.getGameObjects().forEach(go -> {
+            response.ifPresent(color -> boardObject.getGameObjects().forEach(go -> {
                 if (go.getName().equals(gameObject.getName())) {
-                    go.setColor(responseValue);
+                    messageField.appendText(String.format("Farbe von %s von %s auf %s geaendert",
+                            go.getName(), go.getColor(), color));
+                    go.setColor(color);
+                    boardView.draw();
                 }
             }));
         });
-        return changeColor;
+        return colorItem;
     }
 
     private MenuItem changeName(GameObject gameObject) {
