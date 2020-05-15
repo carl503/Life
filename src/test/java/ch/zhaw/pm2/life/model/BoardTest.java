@@ -151,6 +151,16 @@ public class BoardTest {
         assertThat(board.getRandomPosition().getY(), anyOf(is(0), is(1), is(2)));
     }
 
+    @Test
+    public void testGetAnyGameObjects() {
+        //setup
+        Vector2D zeroPosition = new Vector2D(0,0);
+        when(firstGameObject.getPosition()).thenReturn(zeroPosition);
+        board.addGameObject(firstGameObject, zeroPosition);
+
+        //assertions and verifies
+        assertEquals(firstGameObject, board.getAnyGameObject(zeroPosition));
+    }
     //==================================================================================================================
     // Negative tests
     //==================================================================================================================
