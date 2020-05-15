@@ -255,6 +255,8 @@ public class LifeWindowController {
                             .filter(menuItem -> menuItem.getText().equals(gameObject.getName()))
                             .forEach(menuItem -> {
                                 menuItem.setText(name);
+                                messageField.appendText(String.format(
+                                        "Name von %s wurde auf %s geaendert", gameObject.getName(), name));
                                 gameObject.setName(name);
                                 go.setName(name);
                             })));
