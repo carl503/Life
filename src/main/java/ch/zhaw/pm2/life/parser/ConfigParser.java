@@ -108,15 +108,13 @@ public class ConfigParser {
         return config.get(String.join(DELIMITER, lifeForm, property.toLowerCase())).toString();
     }
 
-    private void copyConfig() throws LifeException, IOException, URISyntaxException {
+    private void copyConfig() throws IOException, URISyntaxException {
         File configFolder = new File(CONFIG_PATH);
-
+        File configFile = new File(configFolder + File.separator + FILE_NAME);
         if (Files.notExists(configFolder.toPath())) {
             Files.createDirectory(configFolder.toPath());
-            Files.copy(Path.of(templateFile.toURI()),
-                       new File(configFolder + File.separator + FILE_NAME).toPath());
-        } else {
-            throw new LifeException("Could not create the config folder");
+        } else if (Files.notExists(configFile.toPath())){
+            Files.copy(Path.of(templateFile.toURI()), configFile.toPath());
         }
     }
 
