@@ -58,6 +58,7 @@ public class SetupController {
                     comboBox.getItems().add(gameObject.getName());
                 }
             }
+            comboBox.getSelectionModel().selectFirst();
             pane.add(new Label("Stoppen sobald nur noch"), 0, index);
             pane.add(comboBox, 1, index);
             pane.setVgap(10);

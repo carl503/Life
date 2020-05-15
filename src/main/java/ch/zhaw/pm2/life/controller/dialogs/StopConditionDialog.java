@@ -9,7 +9,7 @@ import java.util.HashSet;
 import java.util.Set;
 
 public class StopConditionDialog extends LifeDialog<String> {
-    private final ComboBox<String> lastStanding = new ComboBox<>();
+    private final ComboBox<String> choice = new ComboBox<>();
     Set<GameObject> gameObjects = new HashSet<>();
 
     public StopConditionDialog() {
@@ -22,19 +22,20 @@ public class StopConditionDialog extends LifeDialog<String> {
         GridPane grid = getGrid();
         setUpComboBox(gameObjects);
         grid.add(new Label("Beende die Simultion sobald X ausstirbt"), 0, 0);
-        grid.add(lastStanding, 1, 0);
+        grid.add(choice, 1, 0);
         this.getDialogPane().setContent(grid);
     }
 
     @Override
     protected String returnValue() {
-        return lastStanding.getValue();
+        return choice.getValue();
     }
 
     public void setUpComboBox(Set<GameObject> gameObjects) {
         gameObjects.stream()
                 .filter(AnimalObject.class::isInstance)
                 .map(AnimalObject.class::cast)
-                .forEach(animalObject -> lastStanding.getItems().add(animalObject.getName()));
+                .forEach(animalObject -> choice.getItems().add(animalObject.getName()));
+        choice.getSelectionModel().selectFirst();
     }
 }
