@@ -1,22 +1,18 @@
 package ch.zhaw.pm2.life.controller.dialogs;
 
-import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.GridPane;
 
-public class ScanRadiusDialog extends Dialog<Integer> {
-    private final GridPane grid = new GridPane();
+public class ScanRadiusDialog extends LifeDialog<Integer> {
     private final Slider slider = new Slider();
 
     public ScanRadiusDialog() {
-        setUpGrid();
-        setUpButtons();
+        super("Neuer Suchradius");
         setUp();
     }
 
     public void setUp() {
-        Label text = new Label();
-        text.setText("Bitte waehlen Sie einen neuen Radius aus");
+        Label text = new Label("Bitte waehlen Sie einen neuen Radius aus");
 
         slider.setMin(0);
         slider.setMax(3);
@@ -27,29 +23,16 @@ public class ScanRadiusDialog extends Dialog<Integer> {
         slider.setShowTickLabels(true);
         slider.setShowTickMarks(true);
 
+        GridPane grid = getGrid();
+
         grid.add(text, 0, 0);
         grid.add(slider, 0, 1);
 
         this.getDialogPane().setContent(grid);
     }
 
-    private void setUpGrid() {
-        grid.setHgap(10);
-        grid.setVgap(10);
-        grid.setPadding(new Insets(20, 150, 10, 10));
-    }
-
-    private void setUpButtons() {
-        ButtonType confirm = new ButtonType("Bestaetigen", ButtonBar.ButtonData.OK_DONE);
-        ButtonType cancel = new ButtonType("Abbrechen", ButtonBar.ButtonData.CANCEL_CLOSE);
-
-        this.getDialogPane().getButtonTypes().addAll(confirm, cancel);
-
-        this.setResultConverter(param -> {
-            if (param == confirm) {
-                return (int) slider.getValue();
-            }
-            return null;
-        });
+    @Override
+    protected Integer returnValue() {
+        return (int) slider.getValue();
     }
 }
