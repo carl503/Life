@@ -197,7 +197,8 @@ public class LifeWindowController {
     private MenuItem changeStopCondition() {
         MenuItem item = new MenuItem("Stoppbedingung aendern");
         item.setOnAction(event -> {
-            StopConditionDialog dialog = new StopConditionDialog(boardObject.getGameObjects());
+            StopConditionDialog dialog = new StopConditionDialog();
+            dialog.setUpComboBox(boardObject.getGameObjects());
             Optional<String> response = dialog.showAndWait();
             response.ifPresent(s -> game.setSpeciesToWatch(s));
         });
