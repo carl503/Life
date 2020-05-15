@@ -11,9 +11,9 @@ import java.util.logging.Logger;
  */
 public abstract class LifeForm extends GameObject {
 
-    private static final Logger logger = Logger.getLogger(LifeForm.class.getCanonicalName());
-    private static final double POISON_ENERGY_CONSUMPTION_START_FACTOR = 0.3;
     private static final int POISONOUS_PROBABILITY = 3;
+    private static final double POISON_ENERGY_CONSUMPTION_START_FACTOR = 0.3;
+    private static final Logger logger = Logger.getLogger(LifeForm.class.getCanonicalName());
 
     /**
      * Flag if this life form is poisoned.

@@ -140,30 +140,6 @@ public abstract class AnimalObject extends LifeForm {
     protected abstract LifeFormActionCheck getEatRules(LifeForm lifeForm);
 
     /**
-     * Used to determine weather this life form can reproduce or not.
-     * @return reproduction counter as int.
-     */
-    public int getFertilityThreshold() {
-        return fertilityThreshold;
-    }
-
-
-    public void setScanRadius(int scanRadius) {
-        this.scanRadius = scanRadius;
-    }
-
-    public int getScanRadius() {
-        return scanRadius;
-    }
-
-    /**
-     * Resets the fertility threshold.
-     */
-    private void resetFertilityThreshold() {
-        this.fertilityThreshold = 0;
-    }
-
-    /**
      * Is called when the animal reproduces.
      * @param partner the {@link LifeForm} this animal try to reproduce with.
      * @throws LifeFormException    could not reproduce with the life form.
@@ -189,6 +165,29 @@ public abstract class AnimalObject extends LifeForm {
         } catch (ReflectiveOperationException e) {
             throw new LifeFormException("There were complications at birth", e);
         }
+    }
+
+    /**
+     * Used to determine weather this life form can reproduce or not.
+     * @return reproduction counter as int.
+     */
+    public int getFertilityThreshold() {
+        return fertilityThreshold;
+    }
+
+    public int getScanRadius() {
+        return scanRadius;
+    }
+
+    public void setScanRadius(int scanRadius) {
+        this.scanRadius = scanRadius;
+    }
+
+    /**
+     * Resets the fertility threshold.
+     */
+    private void resetFertilityThreshold() {
+        this.fertilityThreshold = 0;
     }
 
     @Override
