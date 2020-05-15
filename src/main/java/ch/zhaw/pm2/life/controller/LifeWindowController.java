@@ -88,7 +88,7 @@ public class LifeWindowController {
     }
 
     @FXML
-    public void updateSize() {
+    private void updateSize() {
         double newWidth = board.getWidth();
         double newHeight = board.getHeight();
         if (newHeight > 0.0 && newWidth > 0.0) {
