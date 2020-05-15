@@ -1,30 +1,47 @@
 package ch.zhaw.pm2.life.model;
 
-import ch.zhaw.pm2.life.controller.LifeWindowController;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Random;
 
 /**
- * GameObject is an abstract superclass of AnimalObjects and PlantObjects
- * GameObjects handles the features and methods that PlantObjects and AnimalObjects have in common
+ * This class is the superior object of every model that is part of the game.
+ * It stores common attributes and behaviour of every other model.
+ * @author pedernin
  */
 public abstract class GameObject {
 
     //private static final int MAX_SIZE = 10;
 
-    protected int currentEnergy;
-    protected Position position;
-    protected Color objectColor;
-
     private static final int BASIC_SIZE = 5;
     private final Random random = new Random();
+
     /**
+     * The current energy of this game object.
+     */
+    protected int currentEnergy;
+
+    /**
+     * The current position of this game object.
+     */
+    protected Vector2D position;
+
+    /**
+     * The color of this game object.
+     */
+    protected Color objectColor;
+
+    /**
+     * The size used to scale this object in the visualization.
      * Valid values: 3-10
      */
     protected int size;
+
+    private int rows;
+    private int columns;
 
     /**
      * Default constructor.
@@ -32,49 +49,19 @@ public abstract class GameObject {
     public GameObject() {
         //size = random.nextInt(MAX_SIZE - 2) + 3;
         size = BASIC_SIZE;
-        calculateRandomPointOnField();
-    }
-
-    private enum Direction {
-        DOWN_LEFT(new Position(-1, 1)),
-        DOWN(new Position(0, 1)),
-        DOWN_RIGHT(new Position(1, 1)),
-        LEFT(new Position(-1, 0)),
-        NONE(new Position(0, 0)),
-        RIGHT(new Position(1, 0)),
-        UP_LEFT(new Position(-1, -1)),
-        UP(new Position(0, -1)),
-        UP_RIGHT(new Position(1, -1));
-
-        public final Position position;
-        Direction(final Position p) {
-            position = p;
-        }
     }
 
     /**
-     * Calculates a random Point in the field
-     */
-    public void calculateRandomPointOnField() {
-        // TODO: exclude already occupied fields
-        int xPos = random.nextInt(LifeWindowController.ROWS);
-        int yPos = random.nextInt(LifeWindowController.COLUMNS);
-        position = new Position(xPos, yPos);
-    }
-
-    /**
-     * Returns the energy of a GameObject
-     * @return energy - current energy as int
+     * Returns the energy of this {@link GameObject}.
+     * @return current energy as int.
      */
     public int getCurrentEnergy() {
         return currentEnergy;
     }
 
-    public abstract String toString(int currentEnergy);
-
     /**
      * Increase the energy by a certain value.
-     * @param energy
+     * @param energy increasing energy by this amount.
      */
     public void increaseEnergy(int energy) {
         currentEnergy += energy;
@@ -82,58 +69,107 @@ public abstract class GameObject {
 
     /**
      * Decrease the energy by a certain value.
-     * @param consumedEnergy
+     * @param consumedEnergy reducing energy by this amount.
      */
     public void decreaseEnergy(int consumedEnergy) {
         currentEnergy -= consumedEnergy;
     }
 
     /**
-     * Returns Position of the GameObject
-     * @return position
+     * Chooses 1 of the 8 fields around the {@link GameObject} or the current position.
      */
-    public Position getPosition(){
-        return position;
-    }
-
-    /**
-     * Chooses 1 of the 8 or less fields around the GameObject
-     * Is called when a plant reproduces itself next to its current Position
-     * Is called before a move is made by an animal
-     */
-    public Position chooseRandomNeighbourPosition() {
-        List<Position> neighbours = getNeighbourFields();
+    public Vector2D chooseRandomNeighbourPosition() {
+        List<Vector2D> neighbours = getNeighbourFields();
         int neighbourIndex = random.nextInt(neighbours.size());
         return neighbours.get(neighbourIndex);
     }
 
-
-    private List<Position> getNeighbourFields() {
-        List<Position> neighbours = new ArrayList<>();
-        for(Direction direction : Direction.values()) {
-            int neighbourX = position.getX() + direction.position.getX();
-            int neighbourY = position.getY() + direction.position.getY();
-            if(neighbourX >= 0 && neighbourX < LifeWindowController.COLUMNS
-                    && neighbourY >= 0 && neighbourY < LifeWindowController.ROWS) {
-                neighbours.add(new Position(neighbourX, neighbourY));
+    private List<Vector2D> getNeighbourFields() {
+        List<Vector2D> neighbours = new ArrayList<>();
+        for (Direction direction : Direction.values()) {
+            Vector2D neighbourPosition = Vector2D.add(position, direction.directionVector);
+            int neighbourX = neighbourPosition.getX();
+            int neighbourY = neighbourPosition.getY();
+            if (Vector2D.isPositive(neighbourPosition) && neighbourX < columns && neighbourY < rows) {
+                neighbours.add(neighbourPosition);
             }
         }
         return neighbours;
     }
 
     /**
-     * Returns the color of the GameObject
-     * @return objectColor
+     * Returns the color of the {@link GameObject}.
+     * @return color as {@link Color}.
      */
     public Color getColor() {
         return objectColor;
     }
 
     /**
-     * Returns the size of the GameObject
-     * @return size
+     * Returns the size of the {@link GameObject}.
+     * @return size as int.
      */
     public int getSize() {
         return size;
     }
+
+    /**
+     * Returns position of the {@link GameObject}.
+     * @return position as {@link Vector2D}.
+     */
+    public Vector2D getPosition() {
+        return position;
+    }
+
+    /**
+     * Sets the position of the {@link GameObject}.
+     * @param position position as {@link Vector2D}.
+     * @throws NullPointerException when the position is null.
+     */
+    public void setPosition(Vector2D position) {
+        Objects.requireNonNull(position, "The position of the game object cannot be null.");
+        this.position = position;
+    }
+
+    /**
+     * Sets the number of rows on the board.
+     * @param rows as int
+     */
+    public void setRows(int rows) {
+        this.rows = rows;
+    }
+
+    /**
+     * Sets the number of columns on the board.
+     * @param columns as int
+     */
+    public void setColumns(int columns) {
+        this.columns = columns;
+    }
+
+    /**
+     * Enumeration of {@link Vector2D} pointing in any direction with length 1.
+     */
+    public enum Direction {
+        DOWN_LEFT(new Vector2D(-1, 1)),
+        DOWN(new Vector2D(0, 1)),
+        DOWN_RIGHT(new Vector2D(1, 1)),
+        LEFT(new Vector2D(-1, 0)),
+        NONE(new Vector2D(0, 0)),
+        RIGHT(new Vector2D(1, 0)),
+        UP_LEFT(new Vector2D(-1, -1)),
+        UP(new Vector2D(0, -1)),
+        UP_RIGHT(new Vector2D(1, -1));
+
+        private final Vector2D directionVector;
+
+        Direction(final Vector2D p) {
+            directionVector = p;
+        }
+
+        public Vector2D getDirectionVector() {
+            return directionVector;
+        }
+    }
+
 }

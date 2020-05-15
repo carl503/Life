@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>ch.zhaw.pm2.life.controller.Game</OriginalElement>
+  <nodes>
+    <node x="1897.5" y="1874.0">ch.zhaw.pm2.life.exception.LifeException</node>
+    <node x="272.83333333333326" y="1196.0">ch.zhaw.pm2.life.model.lifeform.animal.AnimalObject</node>
+    <node x="0.0" y="1874.0">ch.zhaw.pm2.life.model.Board</node>
+    <node x="0.0" y="2494.0">ch.zhaw.pm2.life.view.App</node>
+    <node x="2237.0" y="1874.0">ch.zhaw.pm2.life.controller.SetupController</node>
+    <node x="1172.5" y="679.0">ch.zhaw.pm2.life.model.GameObject.Direction</node>
+    <node x="807.5" y="1344.5">ch.zhaw.pm2.life.model.lifeform.plant.PlantObject</node>
+    <node x="223.0" y="2494.0">ch.zhaw.pm2.life.model.lifeform.LifeFormActionCheck</node>
+    <node x="1879.0" y="2038.0">ch.zhaw.pm2.life.exception.LifeFormException</node>
+    <node x="1472.5" y="0.0">ch.zhaw.pm2.life.controller.Game</node>
+    <node x="1516.0" y="1874.0">ch.zhaw.pm2.life.model.Vector2D</node>
+    <node x="0.0" y="1659.0">ch.zhaw.pm2.life.model.lifeform.animal.MeatEater</node>
+    <node x="631.0" y="1874.0">ch.zhaw.pm2.life.view.BoardView</node>
+    <node x="840.0" y="1700.0">ch.zhaw.pm2.life.model.lifeform.plant.FirstPlant</node>
+    <node x="1143.0" y="1874.0">ch.zhaw.pm2.life.controller.LifeWindowController</node>
+    <node x="703.5" y="625.0">ch.zhaw.pm2.life.model.lifeform.LifeForm</node>
+    <node x="420.0" y="1659.0">ch.zhaw.pm2.life.model.lifeform.animal.PlantEater</node>
+    <node x="1068.5" y="1331.5">ch.zhaw.pm2.life.model.lifeform.LifeForm.FoodType</node>
+    <node x="932.5" y="0.0">ch.zhaw.pm2.life.model.GameObject</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="ch.zhaw.pm2.life.exception.LifeFormException" target="ch.zhaw.pm2.life.exception.LifeException">
+      <point x="0.0" y="-57.0" />
+      <point x="0.0" y="57.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.life.model.lifeform.LifeForm.FoodType" target="ch.zhaw.pm2.life.model.lifeform.LifeForm">
+      <point x="0.0" y="-71.0" />
+      <point x="1179.0" y="1171.0" />
+      <point x="1077.6666666666665" y="1171.0" />
+      <point x="149.66666666666652" y="260.5" />
+    </edge>
+    <edge source="ch.zhaw.pm2.life.model.lifeform.plant.PlantObject" target="ch.zhaw.pm2.life.model.lifeform.LifeForm">
+      <point x="0.0" y="-58.0" />
+      <point x="0.0" y="260.5" />
+    </edge>
+    <edge source="ch.zhaw.pm2.life.model.lifeform.plant.FirstPlant" target="ch.zhaw.pm2.life.model.lifeform.plant.PlantObject">
+      <point x="0.0" y="-44.0" />
+      <point x="0.0" y="58.0" />
+    </edge>
+    <edge source="ch.zhaw.pm2.life.model.lifeform.LifeForm" target="ch.zhaw.pm2.life.model.GameObject">
+      <point x="0.0" y="-260.5" />
+      <point x="928.0" y="600.0" />
+      <point x="1023.25" y="600.0" />
+      <point x="-90.75" y="287.5" />
+    </edge>
+    <edge source="ch.zhaw.pm2.life.model.GameObject.Direction" target="ch.zhaw.pm2.life.model.GameObject">
+      <point x="0.0" y="-206.5" />
+      <point x="1300.0" y="600.0" />
+      <point x="1204.75" y="600.0" />
+      <point x="90.75" y="287.5" />
+    </edge>
+    <edge source="ch.zhaw.pm2.life.model.lifeform.animal.PlantEater" target="ch.zhaw.pm2.life.model.lifeform.animal.AnimalObject">
+      <point x="0.0" y="-85.0" />
+      <point x="620.0" y="1634.0" />
+      <point x="572.8333333333333" y="1634.0" />
+      <point x="100.0" y="206.5" />
+    </edge>
+    <edge source="ch.zhaw.pm2.life.model.lifeform.animal.AnimalObject" target="ch.zhaw.pm2.life.model.lifeform.LifeForm">
+      <point x="0.0" y="-206.5" />
+      <point x="472.83333333333326" y="1171.0" />
+      <point x="778.3333333333334" y="1171.0" />
+      <point x="-149.66666666666663" y="260.5" />
+    </edge>
+    <edge source="ch.zhaw.pm2.life.model.lifeform.animal.MeatEater" target="ch.zhaw.pm2.life.model.lifeform.animal.AnimalObject">
+      <point x="0.0" y="-85.0" />
+      <point x="200.0" y="1634.0" />
+      <point x="372.83333333333326" y="1634.0" />
+      <point x="-100.0" y="206.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.3176514866390666" x="1260.5" y="1318.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
