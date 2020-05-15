@@ -10,8 +10,12 @@ import ch.zhaw.pm2.life.model.GameProperties;
 import ch.zhaw.pm2.life.model.lifeform.animal.AnimalObject;
 import ch.zhaw.pm2.life.view.BoardView;
 import ch.zhaw.pm2.life.view.StatisticView;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -33,11 +37,14 @@ public class LifeWindowController {
     private SetupController setupController;
     private GameProperties gameProperties;
     private Board boardObject;
+    private boolean fullscreen;
+    @FXML private BorderPane root;
     @FXML private Pane board;
     @FXML private TextArea messageField;
     @FXML private Button nextRoundButton;
     @FXML private Button stopSimButton;
     @FXML private Menu editMenu;
+    @FXML private MenuItem fullscreenItem;
 
     /**
      * Initializes everything after the JavaFX components are injected,
@@ -50,6 +57,7 @@ public class LifeWindowController {
             board.getChildren().add(boardView);
             board.widthProperty().addListener(observable -> updateSize());
             board.heightProperty().addListener(observable -> updateSize());
+            root.addEventHandler(KeyEvent.KEY_PRESSED, fullscreenEvent());
         } catch (Exception e) {
             messageField.appendText(e.getMessage() + "\n");
         }
@@ -89,6 +97,22 @@ public class LifeWindowController {
         if (newHeight > 0.0 && newWidth > 0.0) {
             boardView.updateDimension(newWidth, newHeight);
         }
+    }
+
+    @FXML
+    public void toggleFullscreen() {
+        fullscreen = !fullscreen;
+        ((Stage) root.getScene().getWindow()).setFullScreen(fullscreen);
+    }
+
+    private EventHandler<KeyEvent> fullscreenEvent() {
+        return event -> {
+            if (event.getCode() == KeyCode.F11) {
+                toggleFullscreen();
+            } else if (event.getCode() == KeyCode.ESCAPE) {
+                fullscreen = false;
+            }
+        };
     }
 
     private void showStatistics() {
