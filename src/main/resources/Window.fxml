@@ -16,7 +16,6 @@
             <Menu mnemonicParsing="false" text="Ansicht">
                <items>
                   <CheckMenuItem fx:id="toggleMessageItem" mnemonicParsing="false" onAction="#toggleTextField" selected="true" text="Zeige Nachrichten" />
-                  <CheckMenuItem fx:id="toggleSidebarItem" mnemonicParsing="false" selected="true" text="Zeige Sidebar" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem fx:id="fullscreenItem" mnemonicParsing="false" onAction="#toggleFullscreen" text="Vollbildmodus (F11)" />
                </items>
