@@ -9,7 +9,7 @@
         <menus>
           <Menu mnemonicParsing="false" text="Datei">
             <items>
-              <MenuItem mnemonicParsing="false" text="Close" />
+              <MenuItem mnemonicParsing="false" onAction="#createNewSpecies" text="Neue Spezies" />
             </items>
           </Menu>
           <Menu fx:id="editMenu" mnemonicParsing="false" text="Bearbeiten" />
