@@ -38,18 +38,7 @@ public class SpawnSpeciesDialog extends LifeDialog<Set<GameObject>> {
     @Override
     protected void setUp() {
         GridPane grid = getGrid();
-
-        grid.add(new Label("Name der Spezies"), 0, 0);
-        grid.add(new Label("Energie"), 0, 1);
-        grid.add(new Label("Anzahl"), 0, 2);
-        grid.add(new Label("Farbe"), 0, 3);
-        grid.add(new Label("Typ"), 0, 4);
-
-        grid.add(name, 1, 0);
-        grid.add(energy, 1, 1);
-        grid.add(amount, 1, 2);
-        grid.add(color, 1, 3);
-        grid.add(type, 1, 4);
+        setUpGrid(grid);
 
         name.setTextFormatter(ValidationUtil.getNameFormatter());
         energy.setTextFormatter(ValidationUtil.getEnergyFormatter());
@@ -81,19 +70,31 @@ public class SpawnSpeciesDialog extends LifeDialog<Set<GameObject>> {
                     break;
 
                 default:
-                    gameObject = null;
-                    break;
+                    throw new IllegalStateException("Unexpected value: " + type.getValue());
             }
-            if (gameObject == null) {
-                continue;
-            } else {
-                gameObject.setName(name.getText());
-                gameObject.setColor(color.getValue().toString());
-                gameObject.setEnergy(Integer.parseInt(energy.getText()));
-                gameObjects.add(gameObject);
+            if (name.getText().isBlank() || energy.getText().isBlank()) {
+                return gameObjects;
             }
+            gameObject.setName(name.getText());
+            gameObject.setColor(color.getValue().toString());
+            gameObject.setEnergy(Integer.parseInt(energy.getText()));
+            gameObjects.add(gameObject);
         }
 
         return gameObjects;
+    }
+
+    private void setUpGrid(GridPane grid) {
+        grid.add(new Label("Name der Spezies"), 0, 0);
+        grid.add(new Label("Energie"), 0, 1);
+        grid.add(new Label("Anzahl"), 0, 2);
+        grid.add(new Label("Farbe"), 0, 3);
+        grid.add(new Label("Typ"), 0, 4);
+
+        grid.add(name, 1, 0);
+        grid.add(energy, 1, 1);
+        grid.add(amount, 1, 2);
+        grid.add(color, 1, 3);
+        grid.add(type, 1, 4);
     }
 }
