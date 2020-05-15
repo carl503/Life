@@ -152,10 +152,11 @@ public class AnimalObjectTest {
         LifeForm partner = mock(LifeForm.class);
         doReturn(new Vector2D(0, 0)).when(animalObject).chooseRandomNeighbourPosition();
         animalObject.fertilityThreshold = ACTUAL_REPRODUCTION_MINIMUM;
+        when(animalObject.getName()).thenReturn("Herbivore");
         when(partner.getGender()).thenReturn("F");
 
         Exception exception = assertThrows(LifeFormException.class, () -> animalObject.reproduce(partner));
-        assertEquals("Kann keine Kinder gebaeren, weil ich ein Maennchen bin.", exception.getMessage());
+        assertEquals(animalObject.getName() + ": Kann keine Kinder gebaeren, weil ich ein Maennchen bin.", exception.getMessage());
     }
 
     @Test
@@ -173,11 +174,12 @@ public class AnimalObjectTest {
     public void reproduceTestFemaleWithLowFertilityThreshold() {
         LifeForm partner = mock(LifeForm.class);
         doReturn(new Vector2D(0, 0)).when(animalObject).chooseRandomNeighbourPosition();
+        when(animalObject.getName()).thenReturn("Herbivore");
         animalObject.fertilityThreshold = 0;
         when(partner.getGender()).thenReturn("M");
 
         Exception exception = assertThrows(LifeFormException.class, () -> animalObject.reproduce(partner));
-        assertEquals("Kann nicht paaren, weil mein Partner noch nicht fruchtbar ist.", exception.getMessage());
+        assertEquals(animalObject.getName() + ": Kann nicht paaren, weil mein Partner noch nicht fruchtbar ist.", exception.getMessage());
     }
 
     //==================================================================================================================
