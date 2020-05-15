@@ -24,7 +24,7 @@ public class ConfigParserTest {
     private static final String WOLF_NAME = "wolf.name";
     private static final String WOLF_ENERGY_KEY = "wolf.energy";
     private static final String WOLF_COLOR_KEY = "wolf.color";
-    private static final String HASE = "Hase";
+    private static final String RABBIT = "Hase";
     private static final String DANDELION = "Löwenzahn";
     private static final String RABBIT_COLOR = "#8AF1FE";
     private static final String DANDELION_COLOR = "#FAFE4B";
@@ -245,7 +245,7 @@ public class ConfigParserTest {
         config.put(WOLF_COLOR_KEY, WOLF_COLOR);
 
         config.put("rabbit.type", "herbivore");
-        config.put("rabbit.name", HASE);
+        config.put("rabbit.name", RABBIT);
         config.put("rabbit.energy", RABBIT_ENERGY);
         config.put("rabbit.color", RABBIT_COLOR);
 
@@ -267,7 +267,7 @@ public class ConfigParserTest {
         expected.add(bear);
 
         LifeForm rabbit = new Herbivore();
-        rabbit.setName(HASE);
+        rabbit.setName(RABBIT);
         rabbit.setEnergy(RABBIT_ENERGY);
         rabbit.setColor(RABBIT_COLOR);
         expected.add(rabbit);
